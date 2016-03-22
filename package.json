@@ -21,6 +21,7 @@
     "dustjs-helpers": "^1.7.3",
     "dustjs-linkedin": "^2.7.2",
     "jquery": "^2.2.2",
+    "lodash": "^4.6.1",
     "moment": "~2.11.2"
   },
   "devDependencies": {

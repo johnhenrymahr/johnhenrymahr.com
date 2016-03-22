@@ -1,3 +1,4 @@
 <div class="mainTpl">
-  John Henry Mahr Website
+  <h3>JHM Website</h3>
+  <p>{testProp}</p>
 </div>
