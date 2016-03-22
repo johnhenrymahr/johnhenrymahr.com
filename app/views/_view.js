@@ -7,7 +7,7 @@ module.exports = Backbone.View.extend({
   _getData: function () {
     var data = this.serializeModel()
     if (this.templateHelpers) {
-      _.extend(data, _.result(this, 'templateHelpers'))
+      _.merge(data, _.result(this, 'templateHelpers'))
     }
     return data
   },
