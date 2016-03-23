@@ -16,9 +16,17 @@ module.exports = Backbone.View.extend({
       this.template(this._getData(), function (err, html) {
         if (err === null) {
           this.$el.html(html)
+          if (_.has(this, 'onRender')) {
+            this.onRender()
+          }
           return this
         }
       }.bind(this))
     }
+  },
+  destroy: function () {
+    this.undelegateEvents()
+    this.$el.removeData().unbind()
+    return this.remove()
   }
 })

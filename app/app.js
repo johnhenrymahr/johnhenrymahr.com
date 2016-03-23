@@ -1,7 +1,6 @@
 var _ = require('lodash')
 var Backbone = require('backbone')
-
-module.exports = function () {
+var App = function () {
   this.vent = _.clone(Backbone.Events)
 
   this.onStart = function (handler, context) {
@@ -17,3 +16,5 @@ module.exports = function () {
 
   return this
 }
+
+module.exports = new App()

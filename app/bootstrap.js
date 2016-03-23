@@ -1,10 +1,8 @@
 var $ = require('jquery')
-var App = require('./app')
 var MainView = require('./views/mainView')
 var AppModel = require('./models/appModel')
-// less
-require('./less/main.less')
-var app = new App()
+var app = require('./app')
+
 app.model = new AppModel(jhmData)
 app.view = new MainView({
   el: '#app',
