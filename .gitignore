@@ -33,5 +33,8 @@ node_modules
 .node_repl_history
 
 #build files
-build
+build/bundle.js
+build/styles.css
+
+
 
