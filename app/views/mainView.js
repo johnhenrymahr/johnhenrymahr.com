@@ -3,8 +3,9 @@ var _ = require('lodash')
 var View = require('./_view')
 var app = require('../app')
 var template = require('../dust/mainTpl.dust')
-var mainView = View.extend({
-  _views: [],
+var views = []
+module.exports = View.extend({
+  _views: views,
   template: template,
   onRender: function () {
     _.each(this._views, function (view) {
@@ -14,5 +15,3 @@ var mainView = View.extend({
     })
   }
 })
-
-module.exports = mainView
