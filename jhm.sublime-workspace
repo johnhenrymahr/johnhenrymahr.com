@@ -1,0 +1,361 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"App",
+				"AppModel〔variable〕"
+			],
+			[
+				"tem",
+				"templateHelpers"
+			],
+			[
+				"ser",
+				"serializeModel"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"fun",
+				"function"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "pack",
+		"selected_items":
+		[
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"column",
+				"SublimeLinter: No Column Highlights Entire Line"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"dust",
+				"Set Syntax: Dust"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"sn",
+				"Snippet: Prototype"
+			],
+			[
+				"snipp",
+				"Snippet: if … else"
+			],
+			[
+				"side",
+				"View: Toggle Side Bar"
+			],
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"mark",
+				"Set Syntax: Markdown"
+			],
+			[
+				"synt ja",
+				"Set Syntax: JavaScript"
+			]
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 338.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Volumes/Production/_web/johnhenrymahr.com",
+		"/Volumes/Production/_web/johnhenrymahr.com/app"
+	],
+	"file_history":
+	[
+		"/Volumes/Production/_web/johnhenrymahr.com/karma.conf.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/jhm.sublime-project",
+		"/Volumes/Production/_web/johnhenrymahr.com/project",
+		"/Volumes/Production/_web/johnhenrymahr.com/jhm",
+		"/Users/johnmahr/jhm/app/tests/unit/views/mainViewSpec.js",
+		"/Users/johnmahr/jhm/package.json",
+		"/Users/johnmahr/jhm/karma.conf.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/test/views/mainViewSpec.js",
+		"/Users/johnmahr/.bash_profile",
+		"/Users/johnmahr/jhm/app/views/_view.js",
+		"/Users/johnmahr/Library/Application Support/Sublime Text 3/Packages/StandardFormat/README.md",
+		"/Users/johnmahr/Library/Application Support/Sublime Text 3/Packages/User/StandardFormat.sublime-settings",
+		"/Volumes/Production/_web/johnhenrymahr.com/.bash_profile",
+		"/Users/johnmahr/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/johnmahr/.bashrc",
+		"/Users/johnmahr/Library/Application Support/Sublime Text 3/Packages/StandardFormat/StandardFormat.sublime-settings",
+		"/Users/johnmahr/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/Users/johnmahr/jhm/app/views/mainView.js",
+		"/Users/johnmahr/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/bootstrap.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/webpack.config.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/views/_view.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/app.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/views/mainView.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/dust/mainTpl.dust",
+		"/Volumes/Production/_web/johnhenrymahr.com/build/index.html",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/models/appModel.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/package.json",
+		"/Volumes/Production/_web/johnhenrymahr.com/gulpfile.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/dust/test.dust",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/index.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/less/main.less",
+		"/Volumes/Production/_web/johnhenrymahr.com/data/test.json",
+		"/Volumes/Production/_web/johnhenrymahr.com/less/main.css",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/component.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/composer.phar",
+		"/Volumes/Production/_web/johnhenrymahr.com/npm",
+		"/Volumes/Production/_web/johnhenrymahr.com/i",
+		"/Volumes/Production/_web/johnhenrymahr.com/webpack-dev-server",
+		"/Volumes/Production/Explore/REACT/index.html",
+		"/Volumes/Production/Jobs/Brainstorm/app/config/session.php",
+		"/Volumes/Production/Jobs/Photon/public/rsc/js/vendor/requirejs/tests/simple-nohead.html",
+		"/Volumes/Production/Jobs/Photon/public/rsc/css/dashboard.css",
+		"/Volumes/Production/Jobs/Photon/public/rsc/css/login.css",
+		"/Volumes/Production/Jobs/Photon/public/.htaccess",
+		"/Volumes/Production/Jobs/Photon/public/node_modules/grunt-contrib-jshint/node_modules/jshint/src/style.js",
+		"/Volumes/Production/Jobs/Photon/public/rsc/js/vendor/requirejs/tests/simple-tests.js",
+		"/Volumes/Production/Jobs/Photon/public/node_modules/grunt/node_modules/.bin/cake",
+		"/Volumes/Production/Jobs/Brainstorm/public/js/app/app.js",
+		"/Volumes/Production/Jobs/Brainstorm/app/controllers/IdeaController.php",
+		"/Volumes/Production/Jobs/Brainstorm/app/controllers/HomeController.php",
+		"/Volumes/Production/Jobs/Brainstorm/app/controllers/BaseController.php",
+		"/Volumes/Production/Jobs/Brainstorm/app/config/compile.php",
+		"/Volumes/Production/Jobs/Brainstorm/app/config/cache.php",
+		"/Volumes/Production/Jobs/Brainstorm/public/js/app/ideasView.js",
+		"/Volumes/Production/Jobs/Brainstorm/public/js/app/ideaView.js",
+		"/Volumes/Production/Jobs/Brainstorm/app/config/view.php",
+		"/Volumes/Production/Jobs/Brainstorm/app/config/mail.php",
+		"/Volumes/Production/Jobs/Brainstorm/app/tests/TestCase.php",
+		"/Volumes/Production/Jobs/Brainstorm/app/database/seeds/DatabaseSeeder.php",
+		"/Volumes/Production/Jobs/Brainstorm/app/config/cube/database.php",
+		"/Volumes/Production/Jobs/Brainstorm/app/database/migrations/2013_12_17_232756_user_table.php",
+		"/Volumes/Production/Jobs/Brainstorm/app/config/database.php",
+		"/Volumes/Production/Jobs/Brainstorm/app/database/production.sqlite"
+	],
+	"find":
+	{
+		"height": 28.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"table",
+			"                    $",
+			"table",
+			"                    ",
+			"table",
+			"                    $",
+			"table",
+			"Sch",
+			"table",
+			"$table",
+			"table",
+			"                    $",
+			"table",
+			"debug",
+			"initialize"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "jhm.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"app",
+				"/Volumes/Production/_web/johnhenrymahr.com/app/bootstrap.js"
+			],
+			[
+				"app.js",
+				"/Volumes/Production/_web/johnhenrymahr.com/app/bootstrap.js"
+			],
+			[
+				"boot",
+				"/Volumes/Production/_web/johnhenrymahr.com/app/bootstrap.js"
+			],
+			[
+				".css",
+				"public/rsc/css/dashboard.css"
+			],
+			[
+				"style",
+				"public/node_modules/grunt-contrib-jshint/node_modules/jshint/src/style.js"
+			],
+			[
+				"contro",
+				"app/controllers/IdeaController.php"
+			],
+			[
+				"view.",
+				"app/ideasView.js"
+			],
+			[
+				"mai",
+				"app/config/mail.php"
+			],
+			[
+				"sess",
+				"app/config/session.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 345.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
