@@ -1,4 +1,6 @@
 var path = require('path')
+var parseArgs = require('minimist')
+const args = parseArgs(process.argv.slice(2))
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 
@@ -45,8 +47,11 @@ const common = {
 }
 
 // Default configuration
-if (TARGET === 'start' || !TARGET) {
-  var bootstrapData = require(PATHS.data + '/bootstrapData.json')
+if (TARGET === 'start' || TARGET === 'test' || !TARGET) {
+  var scenarios = require(PATHS.data + '/scenarios.json')
+  var scenarioKey = (args.s) ? args.s : 'default'
+  var bootstrapData = scenarios[scenarioKey]
+
   module.exports = merge(common, {
     devServer: {
       contentBase: PATHS.build,

@@ -1,0 +1,8 @@
+{
+  "default": {
+    "testProp": "this is a test property from Bootstrap data"
+  },
+  "test3": {
+    "testProp": "some alternative text"
+  }
+}
