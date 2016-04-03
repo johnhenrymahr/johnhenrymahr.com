@@ -94,7 +94,6 @@ module.exports = Backbone.View.extend({
    * @return {undefined}
    */
   attach: function (html, options) {
-    console.log('el', this.$el)
     this.$el.empty().append(html)
   },
   /**

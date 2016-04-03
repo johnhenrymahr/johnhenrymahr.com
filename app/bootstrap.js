@@ -5,12 +5,11 @@ var App = require('./app')
 
 App.model = new AppModel(jhmData)
 App.view = new MainView({
-  el: $('div:first'),
   model: App.model
 })
 
 App.onStart(function () {
-  this.view.render()
+  $('body').prepend(this.view.render().el)
 })
 
 $(function () {
