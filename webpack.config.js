@@ -25,6 +25,8 @@ const common = {
   },
   resolve: {
     root: path.resolve(__dirname),
+    modulesDirectories: ['node_modules', 'app'],
+    extensions: ['', '.js', '.dust'],
     alias: {
       dustjs: PATHS.modules + '/dustjs-linkedin',
       'dust.core': PATHS.modules + '/dustjs-linkedin'

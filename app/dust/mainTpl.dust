@@ -1,4 +1,2 @@
-<div class="mainTpl">
-  <h3>JHM Website</h3>
-  <p>{testProp}</p>
-</div>
+<h3>JHM Website</h3>
+<p>{testProp}</p>

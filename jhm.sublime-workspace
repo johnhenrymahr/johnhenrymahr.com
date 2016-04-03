@@ -4,16 +4,52 @@
 		"selected_items":
 		[
 			[
+				"ma",
+				"manifest"
+			],
+			[
+				"con",
+				"constructor	@constructor"
+			],
+			[
+				"_get",
+				"_getContainer"
+			],
+			[
+				"ser",
+				"serverRenderKey"
+			],
+			[
+				"sel",
+				"selector"
+			],
+			[
+				"att",
+				"attach"
+			],
+			[
+				"ren",
+				"renderDefaults"
+			],
+			[
+				"on",
+				"onAttach"
+			],
+			[
+				"sce",
+				"scenarioKey"
+			],
+			[
+				"sc",
+				"scenarios"
+			],
+			[
 				"App",
 				"AppModel〔variable〕"
 			],
 			[
 				"tem",
 				"templateHelpers"
-			],
-			[
-				"ser",
-				"serializeModel"
 			],
 			[
 				"fon",
@@ -35,10 +71,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
-		"last_filter": "pack",
+		"height": 127.0,
+		"last_filter": "javas",
 		"selected_items":
 		[
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			],
 			[
 				"pack",
 				"Package Control: Install Package"
@@ -84,10 +124,6 @@
 				"View: Toggle Side Bar"
 			],
 			[
-				"javas",
-				"Set Syntax: JavaScript"
-			],
-			[
 				"mark",
 				"Set Syntax: Markdown"
 			],
@@ -118,11 +154,27 @@
 	"expanded_folders":
 	[
 		"/Volumes/Production/_web/johnhenrymahr.com",
-		"/Volumes/Production/_web/johnhenrymahr.com/app"
+		"/Volumes/Production/_web/johnhenrymahr.com/app",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/dust",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/tests/unit",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/tests/unit/views",
+		"/Volumes/Production/_web/johnhenrymahr.com/data"
 	],
 	"file_history":
 	[
+		"/Volumes/Production/_web/johnhenrymahr.com/app/dust/mainTpl.dust",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/views/_view.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/bootstrap.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/webpack.config.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/data/viewManifest.json",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/views/mainView.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/views/titleView.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/views/_manifest.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/app/dust/titleTpl.dust",
+		"/Volumes/Production/_web/johnhenrymahr.com/build/index.html",
+		"/Volumes/Production/_web/johnhenrymahr.com/package.json",
 		"/Volumes/Production/_web/johnhenrymahr.com/karma.conf.js",
+		"/Volumes/Production/_web/johnhenrymahr.com/data/scenarios.json",
 		"/Volumes/Production/_web/johnhenrymahr.com/jhm.sublime-project",
 		"/Volumes/Production/_web/johnhenrymahr.com/project",
 		"/Volumes/Production/_web/johnhenrymahr.com/jhm",
@@ -141,15 +193,9 @@
 		"/Users/johnmahr/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
 		"/Users/johnmahr/jhm/app/views/mainView.js",
 		"/Users/johnmahr/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
-		"/Volumes/Production/_web/johnhenrymahr.com/app/bootstrap.js",
-		"/Volumes/Production/_web/johnhenrymahr.com/webpack.config.js",
-		"/Volumes/Production/_web/johnhenrymahr.com/app/views/_view.js",
 		"/Volumes/Production/_web/johnhenrymahr.com/app/app.js",
-		"/Volumes/Production/_web/johnhenrymahr.com/app/views/mainView.js",
 		"/Volumes/Production/_web/johnhenrymahr.com/dust/mainTpl.dust",
-		"/Volumes/Production/_web/johnhenrymahr.com/build/index.html",
 		"/Volumes/Production/_web/johnhenrymahr.com/app/models/appModel.js",
-		"/Volumes/Production/_web/johnhenrymahr.com/package.json",
 		"/Volumes/Production/_web/johnhenrymahr.com/gulpfile.js",
 		"/Volumes/Production/_web/johnhenrymahr.com/dust/test.dust",
 		"/Volumes/Production/_web/johnhenrymahr.com/app/index.js",

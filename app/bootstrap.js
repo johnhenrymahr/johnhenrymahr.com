@@ -1,18 +1,18 @@
 var $ = require('jquery')
 var MainView = require('./views/mainView')
 var AppModel = require('./models/appModel')
-var app = require('./app')
+var App = require('./app')
 
-app.model = new AppModel(jhmData)
-app.view = new MainView({
-  el: '#app',
-  model: app.model
+App.model = new AppModel(jhmData)
+App.view = new MainView({
+  el: $('div:first'),
+  model: App.model
 })
 
-app.onStart(function () {
+App.onStart(function () {
   this.view.render()
 })
 
 $(function () {
-  app.start()
+  App.start()
 })

@@ -1,0 +1,15 @@
+{
+  "template": "mainTpl.dust",
+  "attributes": {
+    "className": "mainClass"
+  },
+  "children": [
+      {
+          "id": "title",
+          "template": "titleTpl.dust",
+          "attributes": {
+            "className": "title"
+          }
+      }
+  ]
+}
