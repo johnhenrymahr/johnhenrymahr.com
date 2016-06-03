@@ -35,7 +35,6 @@
     "bootstrap": "^3.3.6",
     "dustjs-helpers": "^1.7.3",
     "dustjs-linkedin": "^2.7.2",
-    "jquery": "^2.2.2",
     "lodash": "^4.6.1",
     "moment": "~2.11.2"
   },
@@ -45,6 +44,7 @@
     "dust-loader-complete": "^1.4.0",
     "dustjs-linkedin": "^2.7.2",
     "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
     "gulp": "^3.9.1",
     "gulp-rsync": "0.0.5",
     "install": "^0.6.0",

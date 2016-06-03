@@ -23,6 +23,10 @@ const common = {
     path: PATHS.build,
     filename: 'bundle.js'
   },
+  externals: {
+    'jquery': 'jQuery',
+    '$': 'jQuery'
+  },
   resolve: {
     root: path.resolve(__dirname),
     modulesDirectories: ['node_modules', 'app'],
@@ -43,6 +47,34 @@ const common = {
         test: /\.dust$/,
         loader: 'dust-loader-complete',
         include: PATHS.app + '/dust'
+      },
+      {
+        test: /\.jpg$/,
+        loader: 'file'
+      },
+      {
+        test: /\.png$/,
+        loader: 'file'
+      },
+      {
+        test: /\.svg$/,
+        loader: 'file'
+      },
+      {
+        test: /\.eot$/,
+        loader: 'file'
+      },
+      {
+        test: /\.ttf$/,
+        loader: 'file'
+      },
+      {
+        test: /\.woff$/,
+        loader: 'file'
+      },
+      {
+        test: /\.woff2$/,
+        loader: 'file'
       }
     ]
   }
