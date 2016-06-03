@@ -7,15 +7,19 @@ var App = require('../app')
 var viewClass = {
   titleView: require('./titleView')
 }
+require('../less/main.less')
 
 function getViews () {
   var views = []
   if (manifest.children.length) {
     _.each(manifest.children, function (view) {
-      views.push(new viewClass[view.id + 'View'](
-        _.merge(view.attributes, {
-          model: App.model.getModel()
-        })))
+      var className = view.id + 'View'
+      if (_.has(viewClass, className)) {
+        views.push(new viewClass[view.id + 'View'](
+          _.merge(view.attributes || {}, {
+            model: App.model.getModel(view.id)
+          })))
+      }
     })
   }
   return views

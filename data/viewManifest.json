@@ -1,7 +1,8 @@
 {
   "template": "mainTpl.dust",
   "attributes": {
-    "className": "mainClass"
+    "className": "mainClass",
+    "tagName": "main"
   },
   "children": [
       {
