@@ -4,13 +4,20 @@
     "className": "mainClass",
     "tagName": "main"
   },
-  "children": [
-      {
-          "id": "title",
-          "template": "titleTpl.dust",
-          "attributes": {
-            "className": "title"
-          }
-      }
-  ]
+  "sections": [{
+    "container": {
+      "attributes": {
+        "className": "content"
+     }
+    },
+    "children": [
+        {
+            "id": "title",
+            "template": "titleTpl.dust",
+            "attributes": {
+              "className": "title"
+            }
+        }
+      ]
+    }]
 }
