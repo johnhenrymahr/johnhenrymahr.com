@@ -1,5 +1,5 @@
 var View = require('app/views/_baseView')
-var conf = require('app/utils/_manifest').get('title')
+var conf = require('app/utils/_manifest').get('splash')
 require('app/less/title.less')
 if (conf) {
   module.exports = View.extend({
