@@ -37,4 +37,8 @@ build/bundle.js
 build/styles.css
 
 
+#OSX metadata files
+.DS_Store
+
+
 
