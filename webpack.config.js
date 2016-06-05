@@ -33,11 +33,16 @@ const common = {
     extensions: ['', '.js', '.dust'],
     alias: {
       dustjs: PATHS.modules + '/dustjs-linkedin',
-      'dust.core': PATHS.modules + '/dustjs-linkedin'
+      'dust.core': PATHS.modules + '/dustjs-linkedin',
+      sinon: 'sinon/pkg/sinon'
     }
   },
   module: {
     loaders: [
+      {
+        test: /sinon\.js$/,
+        loader: 'imports?define=>false,require=>false'
+      },
       {
         test: /\.json$/,
         loader: 'json',
@@ -76,7 +81,8 @@ const common = {
         test: /\.woff2$/,
         loader: 'file'
       }
-    ]
+    ],
+    noParse: [/sinon/]
   }
 }
 

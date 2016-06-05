@@ -47,6 +47,7 @@
     "file-loader": "^0.8.5",
     "gulp": "^3.9.1",
     "gulp-rsync": "0.0.5",
+    "imports-loader": "^0.6.5",
     "install": "^0.6.0",
     "jquery": "^2.2.4",
     "json-loader": "^0.5.4",
