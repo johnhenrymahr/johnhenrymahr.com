@@ -1,5 +1,6 @@
 {
   "template": "mainTpl.dust",
+  "selector": "main.mainView",
   "attributes": {
     "className": "mainClass",
     "tagName": "main"
@@ -13,9 +14,11 @@
     "children": [
         {
             "id": "title",
+            "selector": "section.title",
             "template": "titleTpl.dust",
             "attributes": {
-              "className": "title"
+              "className": "title",
+              "tagName": "section"
             }
         }
       ]
