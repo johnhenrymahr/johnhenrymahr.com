@@ -33,7 +33,7 @@ module.exports = Backbone.View.extend({
     options = options || {}
     if (_.has(options, 'el')) {
       var $el = options.el instanceof Backbone.$ ? options.el : Backbone.$(options.el)
-      if (Backbone.$.contains(document, $el[0])) { // if the el is not in the DOM already remove the option
+      if (this._isServerRendered($el)) { // if the el is not in the DOM already remove the option
         if ($el.children().length) {
           this._serverRendered = true
         }
@@ -43,6 +43,20 @@ module.exports = Backbone.View.extend({
     }
     Backbone.View.call(this, options)
   },
+
+  /**
+   * _isServerRendered
+   *
+   * test if template has been rendered
+   * server side already
+   *
+   * @param  {jQuery} $el
+   * @return {boolean}
+   */
+  _isServerRendered: function ($el) {
+    return $el.length && Backbone.$.contains(document, $el[0])
+  },
+
   /**
    *  has view been rendered on server
    *  returns true ONLY FIrst tiem it is called
@@ -50,7 +64,7 @@ module.exports = Backbone.View.extend({
    * @private
    * @return {Boolean}
    */
-  _isServerRendered: function () {
+  serverRendered: function () {
     if (this._serverRendered) {
       this._serverRendered = false
       return true
@@ -119,7 +133,7 @@ module.exports = Backbone.View.extend({
     if (this._destroyed) {
       throw new Error('destroyed view: ' + this.cid + ' cannot be rendered.')
     }
-    if (_.isFunction(this.template) && this._isServerRendered() === false) {
+    if (_.isFunction(this.template) && this.serverRendered() === false) {
       this.template(this._getData(), function (err, html) {
         if (err === null) {
           if (_.isFunction(this.onRender)) {

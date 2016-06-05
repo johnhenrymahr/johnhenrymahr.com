@@ -1,3 +1,4 @@
+var $ = require('jquery')
 var _ = require('lodash')
 var View = require('app/views/_baseView')
 var manifest = require('app/utils/_manifest').json
@@ -18,6 +19,7 @@ module.exports = View.extend(_.merge({
             if (_.has(views, className)) {
               var instance = new views[child.id + 'View'](
                 _.merge(child.attributes || {}, {
+                  el: $(child.selector, this.$el),
                   model: App.model.getModel(child.id)
                 }))
               this.trigger('child:instance', instance)
