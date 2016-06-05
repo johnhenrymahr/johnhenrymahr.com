@@ -1,9 +1,24 @@
 @import '_common.less';
 
-body {
-	background-color: orange;
+html {
+  height: 100vh;
 }
 
-h1 {
-	font-size: 20px;
+body {
+  min-height: 100vh;
+  #gradient.vertical-three-colors(@jhm_orange; @jhm_grayblue; 70%; @black);
+}
+
+main {
+
+  width: 80%;
+  margin: 0px auto;
+  background-color: #fff;
+  overflow: auto;
+
+  h1 {
+  	font-size: 20px;
+      text-align: center
+  }
+
 }

@@ -1,1 +1,10 @@
-<div>logo here</div>
+<div class="col-xs-12 col-md-4">
+  {>"app/dust/partials/jhmlogo" /}
+</div>
+
+<div class="col-xs-12 col-md-4"></div>
+
+<div class="col-xs-12 col-md-4">
+  <h2>John Henry Mahr</h2>
+  <p> johnhenrymahr@gmail.com</p>
+</div>
