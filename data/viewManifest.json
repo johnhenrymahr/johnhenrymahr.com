@@ -17,7 +17,7 @@
             "selector": "section.title",
             "template": "titleTpl.dust",
             "attributes": {
-              "className": "title",
+              "className": "title container-fluid",
               "tagName": "section"
             }
         }
