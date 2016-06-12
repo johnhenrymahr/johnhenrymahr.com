@@ -1,0 +1,3 @@
+<div class="splash__blocks">
+{>"app/dust/partials/jhm-blocks" /}
+</div>
