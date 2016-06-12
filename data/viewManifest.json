@@ -5,7 +5,16 @@
     "className": "mainClass",
     "tagName": "main"
   },
-  "sections": [{
+  "sections": [
+    {
+      "id": "splash",
+      "template": "splashTpl.dust",
+      "attributes": {
+        "className": "splash"
+      },
+      "selector": ".splash"
+    },
+    {
     "container": {
       "attributes": {
         "className": "content"

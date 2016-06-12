@@ -3,12 +3,15 @@ var viewManifest = require('data/viewManifest.json')
 module.exports = {
   json: viewManifest,
   get: function (id) {
-    var result
-    _.each(this.json.sections, function (section) {
-      if (_.has(section, 'children')) {
-        result = _.find(section.children, {id: id})
+    return _.reduce(this.json.sections, function (result, value, key) {
+      if (_.isUndefined(result)) {
+        if (_.has(value, 'id') && value.id === id) {
+          result = value
+        } else if (_.isArray(value.children)) {
+          result = _.find(value.children, {'id': id})
+        }
       }
-    })
-    return result
+      return result
+    }, undefined)
   }
 }
