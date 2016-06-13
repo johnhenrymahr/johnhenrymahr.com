@@ -33,7 +33,7 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'mocha'],
 
     // web server port
     port: 9876,
@@ -53,6 +53,18 @@ module.exports = function (config) {
     browsers: ['PhantomJS'],
 
     webpack: webpackConfig,
+
+    // config for karma-mocha-reporter
+    client: {
+      mocha: {
+        reporter: 'html'
+      }
+    },
+
+    // config for karma-mocha-reporter
+    mochaReporter: {
+      output: 'minimal'
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
