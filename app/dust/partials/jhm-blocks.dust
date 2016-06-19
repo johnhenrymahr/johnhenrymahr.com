@@ -1,4 +1,4 @@
-<svg class="jhmblocks" xmlns="http://www.w3.org/2000/svg" width="800" height="879" viewBox="0 0 800 879">
+<svg class="jhmblocks" xmlns="http://www.w3.org/2000/svg" width="100%"  viewBox="0 0 800 879">
   <radialGradient id="a" cx="459.091" cy="362" r="295.978" gradientUnits="userSpaceOnUse">
     <stop offset=".005" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
   </radialGradient><path fill="url(#a)" d="M184.591 46h549v632h-549z"/>
