@@ -52,6 +52,12 @@ describe('MainView spec', function () {
     })
   })
 
+  context('render', function () {
+    it('can render its base template', function () {
+      chai.expect(view.render().$el.is(':empty')).to.be.false
+    })
+  })
+
   context(' getSections method', function () {
     it('returns  array', function () {
       var secs = view._getSections()
