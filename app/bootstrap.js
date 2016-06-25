@@ -16,6 +16,10 @@ App.onStart(function () {
   $('body').prepend(this.view.render().el)
 })
 
+if (localDev) {
+  window.App = App
+}
+
 $(function () {
   App.start()
 })

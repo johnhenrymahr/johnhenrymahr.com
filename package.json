@@ -24,7 +24,8 @@
       "it",
       "dust",
       "$",
-      "localStorage"
+      "localStorage",
+      "localDev"
     ]
   },
   "author": "John Mahr",

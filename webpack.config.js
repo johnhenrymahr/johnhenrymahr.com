@@ -129,7 +129,8 @@ if (TARGET === 'start' || TARGET === 'test' || !TARGET) {
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
-        jhmData: JSON.stringify(bootstrapData)
+        jhmData: JSON.stringify(bootstrapData),
+        localDev: true
       })
     ]
   })
