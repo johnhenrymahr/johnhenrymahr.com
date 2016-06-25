@@ -1,6 +1,5 @@
 var $ = require('jquery')
 var _ = require('lodash')
-var Backbone = require('backbone')
 var View = require('app/views/_baseView')
 var manifest = require('app/utils/_manifest').json
 var App = require('app/app')

@@ -131,20 +131,32 @@ module.exports = Backbone.View.extend({
   render: function (options) {
     _.defaults(options || {}, _.result(this, 'renderDefaults'))
     if (this._destroyed) {
-      throw new Error('destroyed view: ' + this.cid + ' cannot be rendered.')
+      throw new Error('The destroyed view: ' + this.cid + ' cannot be rendered.')
     }
-    if (_.isFunction(this.template) && this.serverRendered() === false) {
-      this.template(this._getData(), function (err, html) {
-        if (err === null) {
-          if (_.isFunction(this.onRender)) {
-            this.onRender(options)
-          }
-          this._attach(html, options)
-        }
-      }.bind(this))
+    if (!_.isFunction(this.template)) {
+      throw new Error('The view: ' + this.cid + ' has no template defined.')
+    }
+    if (this.serverRendered() === false) {
+      this.template(this._getData(), _.wrap(options, _.bind(this._templateCallback, this)))
     }
     return this
   },
+  /**
+   * _templateCallback: provided to dust function
+   * @param  {object} options [options passed to render]
+   * @param  {null|string} err     [error message if render failed, null otherwise]
+   * @param  {string|null} html    [rendered html]
+   * @return {undefined}
+   */
+  _templateCallback: function (options, err, html) {
+    if (err === null) {
+      if (_.isFunction(this.onRender)) {
+        this.onRender(options)
+      }
+      this._attach(html, options)
+    }
+  },
+
   /**
    * clean up  handlers
    *  and destroy view
