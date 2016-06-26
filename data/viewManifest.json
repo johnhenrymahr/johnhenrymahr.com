@@ -26,7 +26,7 @@
             "selector": "section.title",
             "template": "titleTpl.dust",
             "attributes": {
-              "className": "title container-fluid",
+              "className": "titleView container-fluid",
               "tagName": "section"
             }
         }

@@ -2,11 +2,17 @@
 
 .splash {
 
-   #gradient.vertical(@jhm_orange_dark; @jhm_orange; );
+   #gradient.vertical(@complimentBlue; @jhm_orange_light;);
 
    &__blocks {
       width: 60%;
-      margin: 10px auto;
+      margin: 0px auto;
+   }
+
+   &__footer {
+    width: 100%;
+    height: 25px;
+    #jhm.horizontal-stripes(@warmBrown; darken(@warmBrown, 3%));
    }
 
 }

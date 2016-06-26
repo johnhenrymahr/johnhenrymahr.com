@@ -1,0 +1,37 @@
+#jhm {
+  .horizontal-stripes(@color1; @color2) {
+      background: repeating-linear-gradient(
+      0deg,
+      @color1,
+      @color1 3px,
+      @color2 3px,
+      @color2 6px
+    );
+  }
+  .vertical-stripes(@color1; @color2) {
+      background: repeating-linear-gradient(
+      90deg,
+      @color1,
+      @color1 3px,
+      @color2 3px,
+      @color2 6px
+    );
+  }
+  .aspect-ratio(@width; @height) {
+  position: relative;
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: (@height / @width) * 100%;
+  }
+  > div  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+}
+

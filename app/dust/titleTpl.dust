@@ -1,10 +1,11 @@
-<div class="col-xs-12 col-md-4">
+<div class="col-xs-12 col-sm-4 titleView__logo">
+  <div>
   {>"app/dust/partials/jhmlogo" /}
+  </div>
 </div>
-
-<div class="col-xs-12 col-md-4"></div>
-
-<div class="col-xs-12 col-md-4">
-  <h2>John Henry Mahr</h2>
-  <p> johnhenrymahr@gmail.com</p>
+<div class="col-xs-12 col-sm-8 titleView__iconContainer row">
+    {>"app/dust/icons/iconTpl" icon="tech" /}
+    {>"app/dust/icons/iconTpl" icon="projects" /}
+    {>"app/dust/icons/iconTpl" icon="cv" /}
+    {>"app/dust/icons/iconTpl" icon="connect" /}
 </div>

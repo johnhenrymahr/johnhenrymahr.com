@@ -1,0 +1,11 @@
+<div class="col-xs-6 col-sm-3 icon">
+<div class="icon__wrapper">
+  <div class="icon__blend">
+    <div class="icon__stripes">
+    <a href="#" class="icon__content">
+      <span>{icon}</span>
+      </a>
+    </div>
+  </div>
+  </div>
+</div>

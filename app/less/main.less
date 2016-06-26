@@ -6,7 +6,7 @@ html {
 
 body {
   min-height: 100vh;
-   #gradient.vertical-three-colors(@jhm_orange; @jhm_grayblue; 70%; @black);
+  font-family: "museo-sans",sans-serif;
 }
 
 
@@ -15,13 +15,30 @@ main {
   margin: 0px auto;
   overflow: auto;
 
-  .content {
-    width: 80%;
-  }
-
   h1 {
-  	font-size: 20px;
-      text-align: center
+      font-family: "acta-poster", serif;
+  	font-size: 30px;
+      letter-spacing: 3px;
+      text-align: center;
+      display: block;
+      width: 100%;
+      margin: 0px;
+      background-color: @jhm_orange;
+      #jhm.horizontal-stripes(@jhm_orange; darken(@jhm_orange, 2%));
+      border-bottom: 2px solid @jhm_orange_dark;
+      padding: 1%;
+
+      @media (min-width: @screen-sm-min) {
+        font-size: 28px;
+      }
+       @media (min-width: @screen-md-min) {
+        font-size: 35px;
+      }
+       @media (min-width: @screen-lg-min) {
+        font-size: 4vw;
+      }
+
+
   }
 
 }
