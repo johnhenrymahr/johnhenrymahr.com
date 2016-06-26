@@ -137,6 +137,7 @@ if (TARGET === 'start' || TARGET === 'test' || !TARGET) {
 }
 
 if (TARGET === 'build') {
+  var autoprefixer = require('autoprefixer')
   var ExtractTextPlugin = require('extract-text-webpack-plugin')
   module.exports = merge(common, {
     devtook: 'source-map',
@@ -147,11 +148,15 @@ if (TARGET === 'build') {
           loader: ExtractTextPlugin.extract(
             // activate source maps via loader query
             'css?sourceMap!' +
+            'postcss-loader!' +
             'less?sourceMap'
           ),
           include: PATHS.app + '/less'
         }]
     },
+    postcss: [ autoprefixer({
+      browsers: ['last 2 versions']
+    }) ],
     plugins: [
       new ExtractTextPlugin('styles.css'),
       new webpack.optimize.UglifyJsPlugin(),
