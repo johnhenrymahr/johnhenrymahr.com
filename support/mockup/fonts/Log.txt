@@ -1,0 +1,20 @@
+	Bodoni 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Allied/Bodoni
+	Bodoni-Bold 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Allied/Bodoni Bold
+	Bodoni-BoldCondensed 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Adobe Systems/Bodoni BoldCondensed
+	Bodoni-BoldItalic 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Allied/Bodoni BoldItalic
+	Bodoni-Book 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Adobe Systems/Bodoni Book
+	Bodoni-BookItalic 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Adobe Systems/Bodoni BookItalic
+	Bodoni-Italic 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Allied/Bodoni Italic
+	Bodoni-Poster 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Allied/Bodoni Poster
+	Bodoni-PosterCompressed 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Adobe Systems/Bodoni PosterCompressed
+	Bodoni-PosterItalic 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Adobe Systems/Bodoni PosterItalic
+	Bodon 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Allied/Bodon
+	BodonBol 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Allied/BodonBol
+	BodonBolCon 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Adobe Systems/BodonBolCon
+	BodonBolIta 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Allied/BodonBolIta
+	BodonBoo 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Adobe Systems/BodonBoo
+	BodonBooIta 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Adobe Systems/BodonBooIta
+	BodonIta 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Allied/BodonIta
+	BodonPos 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Allied/BodonPos
+	BodonPosCom 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Adobe Systems/BodonPosCom
+	BodonPosIta 	OK 	/Volumes/Production/_web/johnhenrymahr.com/support/mockup/fonts/B/Bodoni/Adobe Systems/BodonPosIta
