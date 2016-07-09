@@ -26,6 +26,14 @@ describe('baseView spec', function () {
     it('generates a cid on instantiation', function () {
       chai.expect(view.cid).to.be.a('string')
     })
+    it('sets viewClass proiperty', function () {
+      view = new BaseView({viewClass: 'testing'})
+      chai.expect(view.viewClass).to.equal('testing')
+    })
+    it('sets template if template function provided', function () {
+      view = new BaseView({template: function () {}})
+      chai.expect(view.template).to.be.a('function')
+    })
     it('sets server rendered to true if dom populated ', function () {
       var $tpl = $('<main><h1>Just a test</h1></main>')
       var stub = sandbox.stub(BaseView.prototype, '_isServerRendered')
@@ -121,6 +129,12 @@ describe('baseView spec', function () {
     })
   })
   context('destroy method', function () {
+    it('calls onBeforeDetsroy if defined ', function () {
+      var stub = sandbox.stub()
+      view.onBeforeDestroy = stub
+      view.destroy()
+      chai.expect(stub.calledOnce).to.be.true
+    })
     it('calls undelegateEvents', function () {
       sandbox.stub(view, 'undelegateEvents')
       view.destroy()
