@@ -9,6 +9,13 @@ var _ = require('lodash')
 var Backbone = require('backbone')
 module.exports = Backbone.View.extend({
   /**
+   * view class
+   * id from manifest
+   *
+   * @type {String}
+   */
+  viewClass: null,
+  /**
    *  sanity check
    *
    * @type {Boolean}
@@ -31,6 +38,12 @@ module.exports = Backbone.View.extend({
    */
   constructor: function (options) {
     options = options || {}
+    if (_.isFunction(options.template)) {
+      this.template = options.template
+    }
+    if (_.has(options, 'viewClass')) {
+      this.viewClass = options.viewClass
+    }
     if (_.has(options, 'el')) {
       var $el = options.el instanceof Backbone.$ ? options.el : Backbone.$(options.el)
       if (this._isServerRendered($el)) { // if the el is not in the DOM already remove the option
@@ -162,6 +175,9 @@ module.exports = Backbone.View.extend({
    * @return {object} this
    */
   destroy: function () {
+    if (_.isFunction(this.onBeforeDestroy)) {
+      this.onBeforeDestroy()
+    }
     this.undelegateEvents()
     this.$el.removeData().unbind()
     this._destroyed = true
