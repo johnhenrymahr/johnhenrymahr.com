@@ -1,0 +1,12 @@
+<div class="row">
+<div class="col-sm-7 col-xs-12">
+<p>
+an intro about me.
+</p>
+  <ul>
+    <li>great thin abotu me</li>
+  </ul>
+</div>
+<div class="col-sm-5 col-xs-12">
+  <img src="rsc/img/headshot.jpg" srcset="rsc/img/headshot@2x.jpg 2x" width="177" height="250" />
+</div>

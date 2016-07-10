@@ -2,7 +2,7 @@
   "template": "mainTpl.dust",
   "selector": "main.mainView",
   "attributes": {
-    "className": "mainClass",
+    "className": "mainClass container-fluid",
     "tagName": "main"
   },
   "sections": [
@@ -26,7 +26,16 @@
             "selector": "section.title",
             "template": "titleTpl.dust",
             "attributes": {
-              "className": "titleView container-fluid",
+              "className": "titleView",
+              "tagName": "section"
+            }
+        },
+        {
+            "id": "intro",
+            "selector": "section.intro",
+            "template": "introTpl.dust",
+            "attributes": {
+              "className": "introView",
               "tagName": "section"
             }
         }
