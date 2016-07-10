@@ -5,6 +5,8 @@ var manifest = require('app/utils/_manifest').json
 var App = require('app/app')
 var buildElement = require('app/utils/buildContainer')
 
+// set up less style sheets
+require('app/less/_bootstrap.less') // make sure bootstrap laods first so can over-ride it as needed.
 var lessFiles = require.context('app/less', false, /^[^_]*.less$/) // files ending in .less, but not begining with _
 lessFiles.keys().forEach(function (path) {
   lessFiles(path)

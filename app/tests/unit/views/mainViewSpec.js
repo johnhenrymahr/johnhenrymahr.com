@@ -3,7 +3,6 @@ var App = require('app/app')
 var MainView = require('app/views/mainView')
 var chai = require('chai')
 var sinon = require('sinon')
-var $ = require('jquery')
 var views = {
   testView: Backbone.View.extend({})
 }
