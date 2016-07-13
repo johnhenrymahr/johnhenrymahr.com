@@ -6,7 +6,7 @@ var App = require('app/app')
 var buildElement = require('app/utils/buildContainer')
 
 // set up less style sheets
-require('app/less/_bootstrap.less') // make sure bootstrap laods first so can over-ride it as needed.
+require('app/less/_bootstrap.less') // make sure bootstrap loads first so can over-ride it as needed.
 var lessFiles = require.context('app/less', false, /^[^_]*.less$/) // files ending in .less, but not begining with _
 lessFiles.keys().forEach(function (path) {
   lessFiles(path)
@@ -28,12 +28,10 @@ module.exports = View.extend(_.merge({
     var elements = []
     if (this._manifest.sections.length) {
       _.each(this._manifest.sections, _.bind(function (section) {
-        if (_.has(section, 'id')) {
-          var instance = this._getViewInstance(section)
-          if (_.isObject(instance)) {
-            this._children.push(instance)
-            elements.push(instance.render().el)
-          }
+        var instance = this._getViewInstance(section)
+        if (_.isObject(instance)) {
+          this._children.push(instance)
+          elements.push(instance.render(options).el)
         }
         if (_.isArray(section.children)) {
           var container = buildElement(section.container)

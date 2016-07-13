@@ -1,3 +1,4 @@
+var _ = require('lodash')
 var Backbone = require('backbone')
 var App = require('app/app')
 var MainView = require('app/views/mainView')
@@ -43,7 +44,7 @@ describe('MainView spec', function () {
   var sandbox
   beforeEach(function () {
     view = new MainView()
-    view._manifest = manifest
+    view._manifest = _.clone(manifest)
     view._children = []
     view._views = views
     sandbox = sinon.sandbox.create()
@@ -64,7 +65,7 @@ describe('MainView spec', function () {
     })
   })
 
-  context(' getSections method', function () {
+  context('getSections method', function () {
     it('returns  array', function () {
       var secs = view._getSections()
       chai.expect(secs).to.be.a('array')
@@ -72,6 +73,32 @@ describe('MainView spec', function () {
     it('pushes instances onto stack', function () {
       view._getSections()
       chai.expect(view._children.length).to.equal(2)
+    })
+    it('calls getViewInstance for each iterateable section', function () {
+      var spy = sandbox.spy(view, '_getViewInstance')
+      view._getSections()
+      chai.expect(spy.calledTwice).to.be.true
+    })
+    it('does not push invalid instances onto stack', function () {
+      delete view._manifest.sections[0].children[0].id
+      var secs = view._getSections()
+      chai.expect(secs.length).to.equal(1)
+      chai.expect(view._children.length).to.equal(1)
+    })
+    it('returns array of DOM nodes', function () {
+      var secs = view._getSections()
+      chai.expect(_.has(secs[0], 'nodeName')).to.be.true
+    })
+    it('calls instance render method', function () {
+      var mock = {
+        el: '',
+        render: sandbox.stub()
+      }
+      mock.render.returns(mock)
+      var stub = sandbox.stub(view, '_getViewInstance')
+      stub.returns(mock)
+      view._getSections()
+      chai.expect(mock.render.calledTwice).to.be.true
     })
   })
 
