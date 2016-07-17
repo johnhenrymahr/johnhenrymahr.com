@@ -1,5 +1,13 @@
 {
-  "require": {},
+  "require": {
+    "dust-php/dust-php": "0.1.0",
+    "querypath/QueryPath": ">=3.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "JHM\\": "inc/"
+    }
+  },
   "require-dev": {
     "phpunit/phpunit": "5.4.*"
   }
