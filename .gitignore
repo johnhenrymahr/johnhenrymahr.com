@@ -37,6 +37,8 @@ build/*
 !build/index.html
 !build/rsc
 
+#composer packages
+server/vendor
 
 #OSX metadata files
 .DS_Store
