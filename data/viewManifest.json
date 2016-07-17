@@ -25,18 +25,18 @@
             "id": "title",
             "selector": "section.title",
             "template": "titleTpl.dust",
+            "tagName": "section",
             "attributes": {
-              "className": "titleView",
-              "tagName": "section"
+              "className": "titleView"
             }
         },
         {
             "id": "intro",
             "selector": "section.intro",
             "template": "introTpl.dust",
+            "tagName": "section",
             "attributes": {
-              "className": "introView",
-              "tagName": "section"
+              "className": "introView"
             }
         }
       ]
