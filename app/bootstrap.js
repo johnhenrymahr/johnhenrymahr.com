@@ -6,7 +6,7 @@ var AppModel = require('./models/appModel')
 var App = require('./app')
 require('dustjs-helpers')
 
-App.model = new AppModel(jhmData)
+App.model = new AppModel(jhmData, {parse: true})
 App.view = new MainView(_.merge({
   el: $(manifest.selector)
 }, manifest.attributes, {
