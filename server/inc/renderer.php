@@ -1,19 +1,19 @@
 <?php
 namespace JHM;
-class Renderer {
-  protected $html;
-  protected $dust;
-  protected $provider;
-  protected $manifset;
-  public function __construct(\JHM\DataProvider $provider, \JHM\Template $template, \Dust\Dust $dust) {
-    $this->provider = $provider;
-    $this->template = $template;
-    $this->$dust = $dust;
+class Renderer implements RendererInterface{
+  
+  protected $dustEngine;
+
+  public function __construct(\Dust\Dust $dust) {
+    $this->dustEngine = $dust;
   }
 
-  public function getTemplate($data) {
-    if (array_key_exists('template', $data)) {
-    }
+  public function compile($templateString) {
+  	return $this->dustEngine->compile($templateString);
+  }
+  
+  public function renderTemplate($template, $data) {
+  	return $this->dustEngine->renderTemplate($template, $data);	
   }
 
 }

@@ -1,17 +1,15 @@
 <?php
 namespace JHM;
-class Manifest {
+
+class Manifest implements ManifestInterface {
 
   protected $json = [];
 
-  public function __construct($filedata='') {
-      if (is_string($filedata) && !empty($filedata)) {
-        $this->setData($filedata)
-      }
-  }
-
-  public function setData($data) {
+  public function __construct(JHM\FileLoaderInterface $fileLoader) {
+    $fileData = $fileLoader->getManifest()
+    if ($fileData) {
       $this->json = json_decode($filedata, true);
+    }  
   }
 
   public function __get($key) {
@@ -20,6 +18,7 @@ class Manifest {
     }
     return false;
   }
+
   public function getTopLevelData () {
     return  array_diff_key($this->json, ["sections" => [], "children" => []]);
   }
