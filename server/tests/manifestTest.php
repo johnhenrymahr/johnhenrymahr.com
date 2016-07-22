@@ -55,7 +55,13 @@ class ManifestTest extends TestCase {
 
   protected function setUp() {
     global $json;
-    $this->obj = new Manifest ($json);
+    $fileLoaderMock = \Mockery::mock(JHM\FileLoaderInterface);
+    $fileLoaderMock->shouldReceive('getManifest')->once()->andReturn($json);
+
+    $this->obj = new Manifest ($fileLoaderMock);
+  }
+  protected function tearDown() {
+      \Mockery::close();
   }
   public function testGetter () {
       $this->assertEquals('mainTpl.dust', $this->obj->template);

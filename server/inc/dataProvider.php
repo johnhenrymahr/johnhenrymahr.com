@@ -12,7 +12,7 @@ class DataProvider implements DataProviderInterface {
   }
 
   public function getBootstrapData() {
-  	return {};
+  	return [];
   }
 }
 ?>
