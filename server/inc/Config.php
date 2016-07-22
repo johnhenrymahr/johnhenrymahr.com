@@ -19,7 +19,11 @@ class Config {
 	}
 	
 	public function resolvePath($file) {
-		
+		$ext = pathinfo($file, PATHINFO_EXTENSION);
+		if (array_key_exists($this->active_config['paths'][$ext])) {
+			return realpath($this->active_config['paths'][$ext].$file);
+		}
+		return $file;
 	}
 }
 ?>
