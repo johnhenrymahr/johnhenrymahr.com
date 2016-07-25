@@ -1,33 +1,41 @@
-<?php 
+<?php
 namespace JHM;
 class templateFactory implements templateFactoryInterface {
 
 	protected $renderer;
 
-	protected $fileLoader;
+	protected $config;
 
 	protected $dataProvider;
 
 	public function __construct(
-		JMH\RendererInterface $renderer, 
-		JHM\FileLoaderInterface $fileLoader, 
-		JHM\DataProviderInterface $dataProvider) {
+		RendererInterface $renderer,
+		ConfigInterface $config,
+		DataProviderInterface $dataProvider) {
 		$this->renderer = $renderer;
-		$this->fileLoader = $fileLoader;
+		$this->config = $config;
 		$this->dataProvider = $dataProvider;
 	}
 
-	public function getTemplate($data) {
-		if (array_key_exists($data, 'template') && array_key_exists($data, 'id')) {
-			$templateString = $this->fileLoader->getTemplate($data['template']);
-			$renderedTemplate = '';
-			if ($templateString) {
-				$template = $this->renderer->compile($templateString);
-				$data = $this->dataProvider->getTemplateModel($data['id']);
-				$renderedTemplate = $this->renderer->render($template, $data);	
+	public function getTemplate($data=[]) {
+		if (array_key_exists('template', $data) && array_key_exists('id', $data)) {
+			$templatePath = $this->config->resolvePath($data['template']);
+			if ($templatePath) {
+				$renderedContent = '';
+				$template = $this->renderer->compileFile($templatePath);
+				if ($template) {
+					$modelData = $this->dataProvider->getTemplateModel($data['id']);
+					$renderedContent = $this->renderer->render($template, $modelData);
+				}
 			}
-			return new JHM\Template($data, $renderedTemplate);
+			return $this->_templateFactory($data, $renderedContent);
 		}
+
+		return false;
+	}
+
+	protected function _templateFactory($data=[], $renderedContent='') {
+		return new Template($data, $renderedContent);
 	}
 }
 ?>

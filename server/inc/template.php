@@ -1,6 +1,5 @@
 <?php
 namespace JHM;
-
 class Template implements TemplateInterface {
 
   protected $attributes = [];
@@ -15,13 +14,13 @@ class Template implements TemplateInterface {
 
     if (is_string($content)) {
       $this->content = $content;
-    }  
+    }
 
     if (array_key_exists('tagName', $data)) {
       $this->tagName = $data['tagName'];
     }
 
-    if(array_key_exists('attributes', $data) && is_Array($data['attributes']))
+    if(array_key_exists('attributes', $data) && is_Array($data['attributes'])) {
       $this->attributes = $data['attributes'];
     }
 

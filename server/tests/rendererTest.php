@@ -1,23 +1,31 @@
 <?php
-use PHPUnit\Framework\TestCase;
-use JHM\Renderer;
-use JHM\DataProvider;
-use JHM\Manifest;
-class RendererTest extends TestCase {
+class RendererTest extends \PHPUnit\Framework\TestCase {
   protected $obj;
 
   protected $dustMock;
 
   protected function setUp () {
-    $this->dustMock = \Mockey::mock(\Dust\Dust)
-    $this->obj = new Renderer($this->dustMock);
+    $this->dustMock = \Mockery::mock('\Dust\Dust');
+    $this->obj = new \JHM\Renderer($this->dustMock);
   }
   protected function tearDown() {
       \Mockery::close();
   }
   public function testCompileMethod() {
-    $tpl = $this->obj->compile('<div>A test string</div>');
-    
+    $path = '/path/to/file.dust';
+    $templateMock = 'compiled ast';
+    $this->dustMock->shouldReceive('compileFile')->once()->with($path)->andReturn($templateMock);
+    $result = $this->obj->compileFile($path);
+    $this->assertEquals($templateMock, $result);
+  }
+
+  public function testRenderMethod () {
+    $templateMock = \Mockery::mock('\Dust\Ast\Body');
+    $data = [];
+    $renderedTemplate = '<div>a template</div>';
+    $this->dustMock->shouldReceive('renderTemplate')->once()->with($templateMock, $data)->andReturn($renderedTemplate);
+    $result = $this->obj->renderTemplate($templateMock, $data);
+    $this->assertEquals($renderedTemplate, $result);
   }
 
 }

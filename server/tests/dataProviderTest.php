@@ -1,13 +1,10 @@
 <?php
-use PHPUnit\Framework\TestCase;
-use JHM\DataProvider;
-
-class DataProviderTest extends TestCase {
+class DataProviderTest extends \PHPUnit\Framework\TestCase {
   protected $obj;
 
   protected function setUp() {
-  	$fileLoaderMock = \Mockery::mock(JHM\FileLoaderInterface);
-    $this->obj = new DataProvider($fileLoaderMock);
+  	$fileLoaderMock = \Mockery::mock('\JHM\FileLoaderInterface');
+      $this->obj = new \JHM\DataProvider($fileLoaderMock);
   }
   protected function tearDown() {
       \Mockery::close();

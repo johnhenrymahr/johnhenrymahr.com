@@ -1,10 +1,8 @@
 <?php
-namespace 'JHM';
+namespace JHM;
 interface FileLoaderInterface {
-	
-	public function getManifest();
 
-	public function getTemplate($id);
+	public function getManifest();
 
 	public function getConfig($id);
 }

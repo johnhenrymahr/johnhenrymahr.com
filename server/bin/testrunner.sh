@@ -3,7 +3,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TESTDIR="$(cd "${DIR}/../tests" && pwd)"
 PHPUNITPATH="$(cd "${DIR}/../vendor/phpunit/phpunit/" && pwd)"
 VENDOR="$(cd "${DIR}/../vendor/" && pwd)"
-
+echo ""
+echo "<------------------(Test Start)------------------>"
+echo ''
 echo "base directory: ${DIR}"
 echo "phpunit directory: ${PHPUNITPATH}"
 echo $"autoload path: ${VENDOR}/autoload.php"
@@ -26,4 +28,6 @@ if [ ! -d "${TESTDIR}" ]; then
 fi
 echo "Executing tests in ${TESTDIR}"
 ${PHPUNITPATH}/phpunit --bootstrap ${VENDOR}/autoload.php ${TESTDIR}
+echo ''
+echo "<------------------(Test End)------------------>"
 exit 1

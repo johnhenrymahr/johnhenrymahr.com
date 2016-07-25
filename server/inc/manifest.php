@@ -1,15 +1,14 @@
 <?php
 namespace JHM;
-
 class Manifest implements ManifestInterface {
 
   protected $json = [];
 
-  public function __construct(JHM\FileLoaderInterface $fileLoader) {
-    $fileData = $fileLoader->getManifest()
+  public function __construct(FileLoaderInterface $fileLoader) {
+    $fileData = $fileLoader->getManifest();
     if ($fileData) {
-      $this->json = json_decode($filedata, true);
-    }  
+      $this->json = json_decode($fileData, true);
+    }
   }
 
   public function __get($key) {

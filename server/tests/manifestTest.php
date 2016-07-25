@@ -1,7 +1,4 @@
 <?php
-use PHPUnit\Framework\TestCase;
-use JHM\Manifest;
-
 $json = <<<JSN
 {
   "template": "mainTpl.dust",
@@ -49,16 +46,16 @@ $json = <<<JSN
 }
 JSN;
 
-class ManifestTest extends TestCase {
+class ManifestTest extends \PHPUnit\Framework\TestCase {
 
   protected $obj;
 
   protected function setUp() {
     global $json;
-    $fileLoaderMock = \Mockery::mock(JHM\FileLoaderInterface);
+    $fileLoaderMock = \Mockery::mock('\JHM\FileLoaderInterface');
     $fileLoaderMock->shouldReceive('getManifest')->once()->andReturn($json);
 
-    $this->obj = new Manifest ($fileLoaderMock);
+    $this->obj = new JHM\Manifest ($fileLoaderMock);
   }
   protected function tearDown() {
       \Mockery::close();
