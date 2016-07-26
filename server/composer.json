@@ -10,6 +10,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "5.4.*",
-    "mockery/mockery": "@stable"
+    "mockery/mockery": "@stable",
+    "mikey179/vfsStream": "~1"
   }
 }

@@ -10,17 +10,17 @@ class Renderer implements RendererInterface{
 
   public function compileFile($path) {
     try {
-  	return $this->dustEngine->compileFile($path);
-    } catch (Exception $e) {
-      return false;
+  	 return $this->dustEngine->compileFile($path);
+    } catch (\Dust\DustException $e) {
+     return false;
     }
   }
 
   public function renderTemplate($template, $data) {
     try {
-  	return $this->dustEngine->renderTemplate($template, $data);
-    } catch(Exception $e) {
-        return false;
+  	 return $this->dustEngine->renderTemplate($template, $data);
+    } catch(\Dust\DustException $e) {
+     return '';
     }
   }
 

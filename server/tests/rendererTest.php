@@ -9,6 +9,7 @@ class RendererTest extends \PHPUnit\Framework\TestCase {
     $this->obj = new \JHM\Renderer($this->dustMock);
   }
   protected function tearDown() {
+      $this->dustMock = null;
       \Mockery::close();
   }
   public function testCompileMethod() {
@@ -19,6 +20,12 @@ class RendererTest extends \PHPUnit\Framework\TestCase {
     $this->assertEquals($templateMock, $result);
   }
 
+  public function testCompileMethodCatch() {
+    $path = '/path/to/file.dust';
+    $this->dustMock->shouldReceive('compileFile')->once()->with($path)->andThrow('\Dust\DustException');
+    $this->assertFalse($this->obj->compileFile($path));
+  }
+
   public function testRenderMethod () {
     $templateMock = \Mockery::mock('\Dust\Ast\Body');
     $data = [];
@@ -26,6 +33,15 @@ class RendererTest extends \PHPUnit\Framework\TestCase {
     $this->dustMock->shouldReceive('renderTemplate')->once()->with($templateMock, $data)->andReturn($renderedTemplate);
     $result = $this->obj->renderTemplate($templateMock, $data);
     $this->assertEquals($renderedTemplate, $result);
+  }
+
+  public function testRenderMethodCatch () {
+    $templateMock = \Mockery::mock('\Dust\Ast\Body');
+    $data = [];
+    $renderedTemplate = '<div>a template</div>';
+    $this->dustMock->shouldReceive('renderTemplate')->once()->with($templateMock, $data)->andThrow('\Dust\DustException');
+    $result = $this->obj->renderTemplate($templateMock, $data);
+    $this->assertEquals('', $result);
   }
 
 }

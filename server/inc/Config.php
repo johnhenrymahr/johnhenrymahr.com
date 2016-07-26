@@ -7,7 +7,8 @@ class Config implements ConfigInterface {
 		"basepath" => "",
 		"files" => [
 			"dust" => "{basepath}dust/",
-			"json" => "{basepath}data/"
+			"json" => "{basepath}data/",
+			"ini"  => "{basepath}cfg/"
 		]
 	];
 

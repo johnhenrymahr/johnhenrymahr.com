@@ -9,12 +9,14 @@ class FileLoader implements FileLoaderInterface {
 	}
 
 	public function getManifest() {
-		$path = $this->config->resolveFIle('manifest.json');
-		try {
-			return file_get_contents($path);
-		}catch(Exception $e) {
+		$path = $this->config->resolveFile('manifest.json');
+		$string = file_get_contents($path);
+
+		if($string) {
+			return $string;
+		} else {
 			throw new Exception('Could not load manifest. Path: '. $path);
-		}
+		}	
 	}
 
 	public function getConfig($id) {
