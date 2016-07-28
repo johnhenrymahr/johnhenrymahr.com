@@ -53,7 +53,7 @@ class ManifestTest extends \PHPUnit\Framework\TestCase {
   protected function setUp() {
     global $json;
     $fileLoaderMock = \Mockery::mock('\JHM\FileLoaderInterface');
-    $fileLoaderMock->shouldReceive('getManifest')->once()->andReturn($json);
+    $fileLoaderMock->shouldReceive('load')->with('manifest.json', true)->once()->andReturn(json_decode($json, true));
 
     $this->obj = new JHM\Manifest ($fileLoaderMock);
   }

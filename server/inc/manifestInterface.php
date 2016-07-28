@@ -1,6 +1,6 @@
 <?php
 namespace JHM;
-interface manifestInterface {
+interface ManifestInterface {
 
 	public function getTopLevelData();
 

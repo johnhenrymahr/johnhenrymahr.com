@@ -1,6 +1,6 @@
 <?php
 namespace JHM;
-interface templateFactoryInterface {
+interface TemplateFactoryInterface {
 	
 	public function getTemplate($data);
 }

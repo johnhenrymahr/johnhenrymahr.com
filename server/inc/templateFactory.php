@@ -1,6 +1,6 @@
 <?php
 namespace JHM;
-class templateFactory implements templateFactoryInterface {
+class TemplateFactory implements templateFactoryInterface {
 
 	protected $renderer;
 

@@ -5,10 +5,7 @@ class Manifest implements ManifestInterface {
   protected $json = [];
 
   public function __construct(FileLoaderInterface $fileLoader) {
-    $fileData = $fileLoader->getManifest();
-    if ($fileData) {
-      $this->json = json_decode($fileData, true);
-    }
+    $this->json = $fileLoader->load('manifest.json', true);
   }
 
   public function __get($key) {
