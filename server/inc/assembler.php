@@ -7,10 +7,10 @@ class Assembler {
   protected $templateFactory;
 
   public function __construct(
-    ManifsetInterface $manifest,
+    ManifestInterface $manifest,
     TemplateFactoryInterface $templateFactory
     ) {
-      $this->manifset = $manifset;
+      $this->manifset = $manifest;
       $this->templateFactory = $templateFactory;
   }
 

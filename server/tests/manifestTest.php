@@ -1,61 +1,19 @@
 <?php
-$json = <<<JSN
-{
-  "template": "mainTpl.dust",
-  "selector": "main.mainView",
-  "attributes": {
-    "className": "mainView container-fluid",
-    "tagName": "main"
-  },
-  "sections": [
-    {
-      "id": "splash",
-      "template": "splashTpl.dust",
-      "attributes": {
-        "className": "splash"
-      },
-      "selector": ".splash"
-    },
-    {
-    "container": {
-      "attributes": {
-        "className": "content"
-     }
-    },
-    "children": [
-        {
-            "id": "title",
-            "selector": "section.title",
-            "template": "titleTpl.dust",
-            "attributes": {
-              "className": "titleView",
-              "tagName": "section"
-            }
-        },
-        {
-            "id": "intro",
-            "selector": "section.intro",
-            "template": "introTpl.dust",
-            "attributes": {
-              "className": "introView",
-              "tagName": "section"
-            }
-        }
-      ]
-    }]
-}
-JSN;
 
 class ManifestTest extends \PHPUnit\Framework\TestCase {
 
   protected $obj;
 
   protected function setUp() {
-    global $json;
+    $dataPath = realpath(__DIR__).'/data/mockManifest.json';
+    $json = json_decode(file_get_contents($dataPath), true);
+    if (!is_array($json)) {
+      throw new Exception('Manifest Test: data not ready. Data path: '.$dataPath);
+    }   
     $fileLoaderMock = \Mockery::mock('\JHM\FileLoaderInterface');
-    $fileLoaderMock->shouldReceive('load')->with('manifest.json', true)->once()->andReturn(json_decode($json, true));
+    $fileLoaderMock->shouldReceive('load')->with('manifest.json', true)->once()->andReturn($json);
 
-    $this->obj = new JHM\Manifest ($fileLoaderMock);
+    $this->obj = new \JHM\Manifest ($fileLoaderMock);
   }
   protected function tearDown() {
       \Mockery::close();

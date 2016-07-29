@@ -1,0 +1,44 @@
+{
+  "template": "mainTpl.dust",
+  "selector": "main.mainView",
+  "attributes": {
+    "className": "mainView container-fluid",
+    "tagName": "main"
+  },
+  "sections": [
+    {
+      "id": "splash",
+      "template": "splashTpl.dust",
+      "attributes": {
+        "className": "splash"
+      },
+      "selector": ".splash"
+    },
+    {
+    "container": {
+      "attributes": {
+        "className": "content"
+     }
+    },
+    "children": [
+        {
+            "id": "title",
+            "selector": "section.title",
+            "template": "titleTpl.dust",
+            "attributes": {
+              "className": "titleView",
+              "tagName": "section"
+            }
+        },
+        {
+            "id": "intro",
+            "selector": "section.intro",
+            "template": "introTpl.dust",
+            "attributes": {
+              "className": "introView",
+              "tagName": "section"
+            }
+        }
+      ]
+    }]
+}
