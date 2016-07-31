@@ -1,6 +1,7 @@
 <?php
 namespace JHM;
-class JhmException extends \Exception {
-	
+
+class JhmException extends \Exception
+{
+
 }
-?>

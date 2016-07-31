@@ -1,18 +1,25 @@
 <?php
 namespace JHM;
-class DataProvider implements DataProviderInterface {
 
-  protected $fileLoader;
+class DataProvider implements DataProviderInterface
+{
 
-  public function __construct(FileLoaderInterface $fileLoader) {
-  	$this->fileLoader;
-  }
-  public function getTemplateModel ($templateId) {
-    return [];
-  }
+    protected $fileLoader;
 
-  public function getBootstrapData() {
-  	return [];
-  }
+    protected $logger;
+
+    public function __construct(FileLoaderInterface $fileLoader, LoggerInterface $logger)
+    {
+        $this->fileLoader = $fileLoader;
+        $this->logger = $logger;
+    }
+    public function getTemplateModel($templateId)
+    {
+        return [];
+    }
+
+    public function getBootstrapData()
+    {
+        return [];
+    }
 }
-?>

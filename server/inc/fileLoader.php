@@ -1,54 +1,89 @@
 <?php
 namespace JHM;
-class FileLoader implements FileLoaderInterface {
 
-	protected $config;
+use \Symfony\Component\Yaml\Exception\ParseException;
+use \Symfony\Component\Yaml\Yaml;
 
-	public function __construct(ConfigInterface $config) {
-		$this->config = $config;
-	}
+class FileLoader implements FileLoaderInterface
+{
 
-	protected function _loadIni($path) {
-		$return = file_get_contents($path);
-		if ($return) {
-			$return = @parse_ini_string($return, true, INI_SCANNER_TYPED);						
-		}
-		return $return;
-	}
+    protected $config;
 
-	protected function _loadJSON($path) {
-		$return = file_get_contents($path);
-		if ($return) {
-			$return = json_decode($return, true);
-			if (is_null($return)) {
-				$return = false;
-			}
-		}
-		return $return;
-	}
+    public function __construct(ConfigInterface $config)
+    {
+        $this->config = $config;
+    }
 
-	public function load($file, $strict=false) {
-		$path = $this->config->resolvePath($file);
-		$ext = pathinfo($file, PATHINFO_EXTENSION);
-		$return = false;
-		if (file_exists($path)) {
-			switch($ext) {
-				case 'ini':
-					$return = $this->_loadIni($path);
-				break;
-				case 'json':
-					$return = $this->_loadJSON($path);
-				break;
-			}
-		} elseif ($strict) {
-			throw new JhmException ('File not found at '.$path);
-		}
+    protected function _loadIni($path)
+    {
+        $return = file_get_contents($path);
+        if ($return) {
+            $return = @parse_ini_string($return, true, INI_SCANNER_TYPED);
+        }
+        return $return;
+    }
 
-		if ($return===false && $strict) {
-			throw new JhmException ('Could not parse file at '.$path);
-		}
+    protected function _loadYaml($path)
+    {
+        $return = file_get_contents($path);
+        if ($return) {
+            try {
+                $return = Yaml::parse($return);
+            } catch (ParseException $e) {
+                $return = false;
+            }
+        }
+        return $return;
+    }
 
-		return $return;
-	}
-}	
-?>
+    protected function _loadList($path)
+    {
+        return @file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    }
+
+    protected function _loadJSON($path)
+    {
+        $return = file_get_contents($path);
+        if ($return) {
+            $return = json_decode($return, true);
+            if (is_null($return)) {
+                $return = false;
+            }
+        }
+        return $return;
+    }
+
+    public function load($file, $strict = false, $default = false)
+    {
+        $path = $this->config->resolvePath($file);
+        $ext = pathinfo($file, PATHINFO_EXTENSION);
+        $return = $default;
+        if (file_exists($path)) {
+            switch ($ext) {
+                case 'ini':
+                    $return = $this->_loadIni($path);
+                    break;
+                case 'yaml':
+                    $return = $this->_loadYaml($path);
+                    break;
+                case 'json':
+                    $return = $this->_loadJSON($path);
+                    break;
+                case 'list':
+                    $return = $this->_loadList($path);
+                    break;
+            }
+        } elseif ($strict) {
+            throw new JhmException('File not found at ' . $path);
+        }
+
+        if ($return === false) {
+            if ($strict) {
+                throw new JhmException('Could not parse file at ' . $path);
+            }
+            $return = $default;
+        }
+
+        return $return;
+    }
+}

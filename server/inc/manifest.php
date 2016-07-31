@@ -1,37 +1,43 @@
 <?php
 namespace JHM;
-class Manifest implements ManifestInterface {
 
-  protected $json = [];
+class Manifest implements ManifestInterface
+{
 
-  public function __construct(FileLoaderInterface $fileLoader) {
-    $this->json = $fileLoader->load('manifest.json', true);
-  }
+    protected $json = [];
 
-  public function __get($key) {
-    if (array_key_exists($key, $this->json)) {
-      return $this->json[$key];
+    public function __construct(FileLoaderInterface $fileLoader)
+    {
+        $this->json = $fileLoader->load('manifest.json', true);
     }
-    return false;
-  }
 
-  public function getTopLevelData () {
-    return  array_diff_key($this->json, ["sections" => [], "children" => []]);
-  }
-
-  public function getSections() {
-    if (array_key_exists('sections', $this->json) && is_array($this->json['sections'])) {
-      return $this->json['sections'];
+    public function __get($key)
+    {
+        if (array_key_exists($key, $this->json)) {
+            return $this->json[$key];
+        }
+        return false;
     }
-    return [];
-  }
 
-  public function getChildren(array $section) {
-    if (array_key_exists('children', $section) && is_array($section['children'])) {
-      return $section['children'];
+    public function getTopLevelData()
+    {
+        return array_diff_key($this->json, ["sections" => [], "children" => []]);
     }
-    return [];
-  }
+
+    public function getSections()
+    {
+        if (array_key_exists('sections', $this->json) && is_array($this->json['sections'])) {
+            return $this->json['sections'];
+        }
+        return [];
+    }
+
+    public function getChildren(array $section)
+    {
+        if (array_key_exists('children', $section) && is_array($section['children'])) {
+            return $section['children'];
+        }
+        return [];
+    }
 
 }
-?>

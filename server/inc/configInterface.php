@@ -1,7 +1,9 @@
 <?php
 namespace JHM;
-interface ConfigInterface {
+
+interface ConfigInterface
+{
     public function get($key);
-	public function resolvePath($file);
+    public function getStorage($key);
+    public function resolvePath($file);
 }
-?>
