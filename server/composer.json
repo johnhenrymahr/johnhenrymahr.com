@@ -1,7 +1,10 @@
 {
   "require": {
     "dust-php/dust-php": "0.1.0",
-    "querypath/QueryPath": ">=3.0.0"
+    "symfony/yaml":"@stable",
+    "symfony/cache": "@stable",
+    "monolog/monolog": "^1.20",
+    "php-console/php-console": "^3.1"
   },
   "autoload": {
     "psr-4": {
