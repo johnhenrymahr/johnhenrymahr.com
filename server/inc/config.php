@@ -16,6 +16,7 @@ class Config implements ConfigInterface
             "json" => "{basepath}data/",
             "ini" => "{basepath}cfg/",
             "yaml" => "{basepath}cfg/",
+            "yml" => "{basepath}cfg/",
             "list" => "{basepath}cgf/",
         ],
     ];

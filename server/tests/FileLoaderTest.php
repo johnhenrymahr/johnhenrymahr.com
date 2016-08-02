@@ -133,6 +133,23 @@ class FileLoaderTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $result);
     }
 
+    public function testLoadYmlConfigSuccess()
+    {
+        $expected = ['foo' => 'bar'];
+        $rawData = "foo: bar";
+        $dir = \org\bovigo\vfs\vfsStream::newDirectory('cfg')->at($this->root);
+        $file = \org\bovigo\vfs\vfsStream::newFile('cfg.yml')->at($dir)->setContent($rawData);
+
+        $this->configMock
+            ->shouldReceive('resolvePath')
+            ->with('cfg.yml')
+            ->once()
+            ->andReturn($file->url());
+
+        $result = $this->obj->load('cfg.yml');
+        $this->assertEquals($expected, $result);
+    }
+
     public function testLoadListConfigSuccess()
     {
         $expected = ['foo', 'bar'];

@@ -58,12 +58,13 @@ class FileLoader implements FileLoaderInterface
         $path = $this->config->resolvePath($file);
         $ext = pathinfo($file, PATHINFO_EXTENSION);
         $return = $default;
-        if (file_exists($path)) {
+        if (is_file($path) && is_readable($path)) {
             switch ($ext) {
                 case 'ini':
                     $return = $this->_loadIni($path);
                     break;
                 case 'yaml':
+                case 'yml':
                     $return = $this->_loadYaml($path);
                     break;
                 case 'json':
