@@ -7,9 +7,10 @@ class Config implements ConfigInterface
     protected $active_config = [
         "webroot" => "",
         "basepath" => "",
+        "storage_dir" => "storage",
         "storage" => [
-            "filecache" => "{basepath}cache/",
-            "logs" => "{basepath}logs/",
+            "filecache" => "{basepath}{storage_dir}cache/",
+            "logs" => "{basepath}{storage_dir}logs/",
         ],
         "files" => [
             "dust" => "{basepath}dust/",
@@ -51,10 +52,20 @@ class Config implements ConfigInterface
     protected function _deTokenize($string)
     {
         return str_replace(
-            ['{webroot}', '{basepath}'],
-            [$this->active_config['webroot'], $this->active_config['basepath']],
+            ['{webroot}', '{basepath}', '{storage_dir}'],
+            [$this->prepUrl($this->active_config['webroot']), 
+             $this->prepUrl($this->active_config['basepath']),
+             $this->prepUrl($this->active_config['storage_dir'])
+            ],
             $string
         );
+    }
+
+    protected function prepUrl($url) {
+        if(empty($url)) {
+            return $url;
+        }
+        return rtrim($url, '/').'/';
     }
 
     protected function _getNestedVar(&$context, $name)

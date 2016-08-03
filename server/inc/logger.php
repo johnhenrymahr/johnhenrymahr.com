@@ -5,7 +5,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Hanlder\PHPConsoleHandler;
 use Psr\Log\InvalidArgumentException;
 
-class Logger implements LoggerInterface
+class Logger extends FileStorage implements LoggerInterface
 {
     protected $loggerEngine;
 
@@ -22,7 +22,7 @@ class Logger implements LoggerInterface
         $this->loggerEngine = new \Monolog\Logger('jhm');
         $logdir = $this->config->getStorage('logs');
         $this->logfile = $logdir . 'jhm-system.log';
-        if (!is_writable($this->logfile)) {
+        if (!$this->setupStorage($this->logfile)) {
             throw new JhmException('Log file not writeable. Path: ' . $this->logfile);
         }
 

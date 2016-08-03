@@ -5,7 +5,7 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\Cache\Exception\CacheException;
 
-class FileCache implements CacheInterface
+class FileCache extends FileStorage implements CacheInterface
 {
 
     protected $config;
@@ -21,12 +21,8 @@ class FileCache implements CacheInterface
     public function __construct(ConfigInterface $config, LoggerInterface $logger)
     {
         $this->config = $config;
-        $dir = $this->config->getStorage('filecache');
-
-        if (!is_writable($dir)) {
-            $dir = null;
-        }
-
+        $dir = $this->setupStorage($this->config->getStorage('filecache'), null);
+        
         try {
             $this->cacheEngine = new FilesystemAdapter('', 86400, $dir);
         } catch (CacheException $e) {
