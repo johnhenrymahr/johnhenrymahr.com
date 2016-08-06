@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"data",
+				"datadir"
+			],
+			[
+				"le",
+				"levels"
+			],
+			[
+				"log",
+				"loggerEngine"
+			],
+			[
+				"de",
+				"default_return"
+			],
+			[
+				"cache",
+				"cacheEngine"
+			],
+			[
+				"cach",
+				"cacheEngine"
+			],
+			[
+				"cahe",
+				"cachePath"
+			],
+			[
+				"array_key",
+				"array_key_exists"
+			],
+			[
+				"ca",
+				"cacheItems"
+			],
+			[
+				"pu",
+				"public"
+			],
+			[
 				"ch",
 				"children	.children()"
 			],
@@ -79,17 +119,25 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 127.0,
-		"last_filter": "javas",
+		"height": 392.0,
+		"last_filter": "php",
 		"selected_items":
 		[
 			[
-				"javas",
-				"Set Syntax: JavaScript"
+				"php",
+				"phpfmt: format now"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
 			],
 			[
 				"pack",
-				"Package Control: Install Package"
+				"Package Control: Remove Package"
+			],
+			[
+				"javas",
+				"Set Syntax: JavaScript"
 			],
 			[
 				"column",
@@ -116,10 +164,6 @@
 				"Package Control: Install Package"
 			],
 			[
-				"ins",
-				"Package Control: Install Package"
-			],
-			[
 				"sn",
 				"Snippet: Prototype"
 			],
@@ -140,7 +184,7 @@
 				"Set Syntax: JavaScript"
 			]
 		],
-		"width": 467.0
+		"width": 575.0
 	},
 	"console":
 	{
@@ -162,15 +206,48 @@
 	"expanded_folders":
 	[
 		"/Volumes/Production/_web/johnhenrymahr.com",
-		"/Volumes/Production/_web/johnhenrymahr.com/app",
-		"/Volumes/Production/_web/johnhenrymahr.com/app/dust",
-		"/Volumes/Production/_web/johnhenrymahr.com/app/models",
-		"/Volumes/Production/_web/johnhenrymahr.com/app/views",
-		"/Volumes/Production/_web/johnhenrymahr.com/build",
-		"/Volumes/Production/_web/johnhenrymahr.com/data"
+		"/Volumes/Production/_web/johnhenrymahr.com/server",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/webroot"
 	],
 	"file_history":
 	[
+		"/Volumes/Production/_web/johnhenrymahr.com/server/webroot/index.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/loggerInterface.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/logger.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/tests/LoggerTest.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/tests/DataProviderTest.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/tests/FileLoaderTest.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/tests/TemplateFactoryTest.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/tests/TemplateTest.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/tests/RendererTest.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/tests/ManifestTest.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/tests/FileCacheTest.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/tests/ConfigTest.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/tests/AssemblerTest.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/templateInterface.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/templateFactoryInterface.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/templateFactory.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/rendererInterface.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/composer.json",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/fileLoader.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/configInterface.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/manifest.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/manifestInterface.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/renderer.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/template.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/jhmException.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/dataProviderInterface.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/dataProvider.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/assembler.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/config.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/fileCache.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/vendor/monolog/monolog/src/Monolog/Handler/PHPConsoleHandler.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/fileLoaderInterface.php",
+		"/Users/johnmahr/Library/Application Support/Sublime Text 3/Packages/phpfmt/phpfmt.sublime-settings",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/cacheInterface.php",
+		"/Users/johnmahr/Library/Application Support/Sublime Text 3/Packages/User/phpfmt.sublime-settings",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/inc/jhmFatalException.php",
+		"/Volumes/Production/_web/johnhenrymahr.com/server/tests/dataProviderTest.php",
 		"/Volumes/Production/_web/johnhenrymahr.com/app/views/_view.js",
 		"/Volumes/Production/_web/johnhenrymahr.com/build/index.html",
 		"/Volumes/Production/_web/johnhenrymahr.com/app/bootstrap.js",
@@ -244,7 +321,7 @@
 	],
 	"find":
 	{
-		"height": 28.0
+		"height": 43.0
 	},
 	"find_in_files":
 	{
@@ -258,6 +335,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"_resolve",
+			"FileCache",
 			"table",
 			"                    $",
 			"table",
