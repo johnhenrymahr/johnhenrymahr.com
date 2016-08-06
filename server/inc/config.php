@@ -12,6 +12,9 @@ class Config implements ConfigInterface
             "filecache" => "{basepath}{storage_dir}cache/",
             "logs" => "{basepath}{storage_dir}logs/",
         ],
+        "flags" => [
+            "loggingEnabled" => true,
+        ],
         "files" => [
             "dust" => "{basepath}dust/",
             "json" => "{basepath}data/",
@@ -53,19 +56,20 @@ class Config implements ConfigInterface
     {
         return str_replace(
             ['{webroot}', '{basepath}', '{storage_dir}'],
-            [$this->prepUrl($this->active_config['webroot']), 
-             $this->prepUrl($this->active_config['basepath']),
-             $this->prepUrl($this->active_config['storage_dir'])
+            [$this->prepUrl($this->active_config['webroot']),
+                $this->prepUrl($this->active_config['basepath']),
+                $this->prepUrl($this->active_config['storage_dir']),
             ],
             $string
         );
     }
 
-    protected function prepUrl($url) {
-        if(empty($url)) {
+    protected function prepUrl($url)
+    {
+        if (empty($url)) {
             return $url;
         }
-        return rtrim($url, '/').'/';
+        return rtrim($url, '/') . '/';
     }
 
     protected function _getNestedVar(&$context, $name)
@@ -83,6 +87,11 @@ class Config implements ConfigInterface
     public function set($key, $value)
     {
         $this->active_config[$key] = $value;
+    }
+
+    public function __get($key)
+    {
+        return $this->get($key);
     }
 
     public function get($key)

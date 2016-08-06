@@ -13,6 +13,11 @@ class Manifest implements ManifestInterface
 
     public function __get($key)
     {
+        return $this->get($key);
+    }
+
+    public function get($key)
+    {
         if (array_key_exists($key, $this->json)) {
             return $this->json[$key];
         }

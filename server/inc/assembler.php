@@ -12,32 +12,35 @@ class Assembler
         ManifestInterface $manifest,
         TemplateFactoryInterface $templateFactory
     ) {
-        $this->manifset = $manifest;
+        $this->manifest = $manifest;
         $this->templateFactory = $templateFactory;
     }
 
     public function assemble()
     {
         $markup = "";
-        $mainTemplate = $this->templateFactory->getTemplate($this->manifset->getTopLevelData());
+        $mainTemplate = $this->templateFactory->getTemplate($this->manifest->getTopLevelData());
         if ($mainTemplate) {
             $markup .= $mainTemplate->open() . $mainTemplate->body();
         }
-        foreach ($this->manifset->getSections() as $section) {
+        foreach ($this->manifest->getSections() as $section) {
             $sectionTemplate = $this->templateFactory->getTemplate($section);
             if ($sectionTemplate) {
                 $markup .= $sectionTemplate->open() . $sectionTemplate->body();
             }
-            foreach ($this->manifset->getChildren($section) as $child) {
+            foreach ($this->manifest->getChildren($section) as $child) {
                 $childTemplate = $this->templateFactory->getTemplate($child);
                 if ($childTemplate) {
                     $markup .= $childTemplate->open() . $childTemplate->body() . $childTemplate->close();
                 }
             }
-            $markup .= $sectionTemplate->close();
+            if ($sectionTemplate) {
+                $markup .= $sectionTemplate->close();
+            }
         }
-        $mainTemplate->close();
-        $markup .= $mainTemplate->close();
+        if ($mainTemplate) {
+            $markup .= $mainTemplate->close();
+        }
 
         return $markup;
     }
