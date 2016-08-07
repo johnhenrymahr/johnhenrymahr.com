@@ -24,7 +24,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     }
 
     protected function tearDown()
-    {   
+    {
         $storagePath = dirname($this->cachePath);
         if (file_exists($storagePath)) {
             system('rm -rf ' . escapeshellarg($storagePath), $retval);
@@ -45,30 +45,31 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($obj->cacheReady());
     }
 
-    public function testDirCreate() {
+    public function testDirCreate()
+    {
         $cachePath = dirname($this->cachePath);
-        if(!file_exists($cachePath)) {
+        if (!file_exists($cachePath)) {
             mkdir($cachePath, 0777);
         }
-        $cachePath = $cachePath.'/cachedir';
+        $cachePath = $cachePath . '/cachedir';
         $configMock = \Mockery::mock('\JHM\ConfigInterface');
         $configMock->shouldReceive('getStorage')->with('filecache')->andReturn($cachePath);
         $obj = new \JHM\FileCache($configMock, $this->loggerMock);
         $obj->set('foo', 'bar');
         $obj->save();
         $this->assertTrue(file_exists($cachePath));
-     }
+    }
 
     public function testNullGet()
     {
         $result = $this->obj->get('foo');
-        $this->assertNull($result);
+        $this->assertEmpty($result);
     }
 
     public function testSave()
     {
         $this->obj->set('foo', 'bar');
-        $this->obj->save();        
+        $this->obj->save();
     }
 
     public function testGet()

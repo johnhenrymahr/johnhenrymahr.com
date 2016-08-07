@@ -22,7 +22,7 @@ class FileCache extends FileStorage implements CacheInterface
     {
         $this->config = $config;
         $dir = $this->setupStorage($this->config->getStorage('filecache'), null);
-        
+
         try {
             $this->cacheEngine = new FilesystemAdapter('', 86400, $dir);
         } catch (CacheException $e) {
@@ -43,6 +43,7 @@ class FileCache extends FileStorage implements CacheInterface
 
     public function get($key)
     {
+
         if (array_key_exists($key, $this->cacheItems)) {
             return $this->cacheItems[$key]->get();
         }
@@ -52,9 +53,9 @@ class FileCache extends FileStorage implements CacheInterface
                 return $item->get();
             }
         } catch (CacheException $e) {
-            return null;
+            return '';
         }
-        return null;
+        return '';
     }
 
     protected function _getItem($key)
