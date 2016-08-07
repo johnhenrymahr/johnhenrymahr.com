@@ -15,8 +15,8 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $storagedir = \org\bovigo\vfs\vfsStream::newDirectory('data')->at($datadir);
         $logdir = \org\bovigo\vfs\vfsStream::newDirectory('logs')->at($storagedir);
         $this->logfile = \org\bovigo\vfs\vfsStream::newFile('jhm-system.log')->at($logdir);
-        $this->configMock->shouldReceive('getStorage')->with('logs')->once()->andReturn($logdir->url() . '/');
-        $this->configMock->shouldReceive('get')->with('loggingEnabled')->andReturn(true);
+        $this->configMock->shouldReceive('getStorage')->with('logs')->once()->andReturn($logdir->url() . '/')->byDefault();
+        $this->configMock->shouldReceive('get')->with('loggingEnabled')->andReturn(true)->byDefault();
         $this->obj = new \JHM\Logger($this->configMock);
     }
 
@@ -43,8 +43,8 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
 
     public function testLogDisabled()
     {
-        $configMock = \Mockery::mock('\JHM\ConfigInterface')->shouldReceive('get')->with('loggingEnabled')->andReturn(false)->getMock();
-        $obj = new \JHM\Logger($configMock);
+        $this->configMock->shouldReceive('get')->with('loggingEnabled')->andReturn(false);
+        $obj = new \JHM\Logger($this->configMock);
         $obj->log('DEBUG', 'empty message');
         $content = $this->logfile->getContent();
         $this->assertFalse($obj->isEnabled());

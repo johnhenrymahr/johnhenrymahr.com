@@ -18,7 +18,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         }
         $this->loggerMock = \Mockery::mock('\JHM\LoggerInterface');
         $this->configMock = \Mockery::mock('\JHM\ConfigInterface');
-        $this->configMock->shouldReceive('getStorage')->with('filecache')->andReturn($this->cachePath);
+        $this->configMock->shouldReceive('getStorage')->with('filecache')->andReturn($this->cachePath)->byDefault();
         $this->obj = new \JHM\FileCache($this->configMock, $this->loggerMock);
 
     }
@@ -52,9 +52,8 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
             mkdir($cachePath, 0777);
         }
         $cachePath = $cachePath . '/cachedir';
-        $configMock = \Mockery::mock('\JHM\ConfigInterface');
-        $configMock->shouldReceive('getStorage')->with('filecache')->andReturn($cachePath);
-        $obj = new \JHM\FileCache($configMock, $this->loggerMock);
+        $this->configMock->shouldReceive('getStorage')->with('filecache')->andReturn($cachePath);
+        $obj = new \JHM\FileCache($this->configMock, $this->loggerMock);
         $obj->set('foo', 'bar');
         $obj->save();
         $this->assertTrue(file_exists($cachePath));
