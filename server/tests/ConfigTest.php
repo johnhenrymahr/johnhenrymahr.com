@@ -1,4 +1,6 @@
 <?php
+define('SERVER_ROOT', realpath(__DIR__ . '/data') . '/');
+
 class ConfigTest extends \PHPUnit\Framework\TestCase
 {
     protected $obj;
@@ -47,5 +49,16 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
     {
         $this->obj->set('basepath', 'var/web/');
         $this->assertEquals('var/web/data/file1.json', $this->obj->resolvePath('file1.json'));
+    }
+
+    public function testLiveConfig()
+    {
+        $this->assertTrue($this->obj->usingLiveConfig);
+        $this->assertTrue($this->obj->get('flags.testflag'));
+    }
+
+    public function testGetPageState()
+    {
+        $this->assertEquals('up', $this->obj->get('pagestate.homepage'));
     }
 }
