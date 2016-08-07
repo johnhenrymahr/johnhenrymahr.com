@@ -9,7 +9,7 @@
   },
   "autoload": {
     "psr-4": {
-      "JHM\\": "inc/"
+      "JHM\\": "libs/"
     }
   },
   "require-dev": {
