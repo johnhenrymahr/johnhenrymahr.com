@@ -19,6 +19,7 @@ const common = {
   entry: {
     app: PATHS.app + '/bootstrap'
   },
+
   output: {
     path: PATHS.build,
     filename: 'bundle.js'
@@ -54,32 +55,16 @@ const common = {
         include: PATHS.app + '/dust'
       },
       {
-        test: /\.jpg$/,
-        loader: 'file'
+        test: /\.(jpe?g|png|gif)$/i,
+        loader: 'file-loader?name=/img/[name].[ext]'
       },
       {
-        test: /\.png$/,
-        loader: 'file'
+        test: /\.(eot|ttf|woff|woff2)$/i,
+        loader: 'file-loader?name=/fonts/[name].[ext]'
       },
       {
         test: /\.svg$/,
-        loader: 'file'
-      },
-      {
-        test: /\.eot$/,
-        loader: 'file'
-      },
-      {
-        test: /\.ttf$/,
-        loader: 'file'
-      },
-      {
-        test: /\.woff$/,
-        loader: 'file'
-      },
-      {
-        test: /\.woff2$/,
-        loader: 'file'
+        loader: 'file-loader?name=/svg/[name].[ext]'
       }
     ],
     noParse: [/sinon/]
@@ -139,8 +124,16 @@ if (TARGET === 'start' || TARGET === 'test' || !TARGET) {
 if (TARGET === 'build') {
   var autoprefixer = require('autoprefixer')
   var ExtractTextPlugin = require('extract-text-webpack-plugin')
+  var AssetsPlugin = require('assets-webpack-plugin')
+  var CopyWebpackPlugin = require('copy-webpack-plugin')
+  var CleanWebpackPlugin = require('clean-webpack-plugin')
+
   module.exports = merge(common, {
     devtook: 'source-map',
+    output: {
+      path: PATHS.build + '/rsc/',
+      filename: 'js/[name]_[hash]bundle.js'
+    },
     module: {
       loaders: [
         {
@@ -158,9 +151,19 @@ if (TARGET === 'build') {
       browsers: ['last 2 versions']
     }) ],
     plugins: [
-      new ExtractTextPlugin('styles.css'),
+      new ExtractTextPlugin('css/[hash]styles.css'),
       new webpack.optimize.UglifyJsPlugin(),
-      new webpack.optimize.DedupePlugin()
+      new webpack.optimize.DedupePlugin(),
+      new AssetsPlugin({
+        path: PATHS.data,
+        prettyPrint: true
+      }),
+      new CopyWebpackPlugin([{from: 'assets/', to: '', ignore: '*.'}], {copyUnmodified: true}),
+      new CleanWebpackPlugin(['build'], {
+        verbose: true,
+        dry: false,
+        exclude: ['index.html']
+      })
     ]
   })
 }
