@@ -35,7 +35,9 @@ node_modules
 #build files
 build/*
 !build/index.html
-!build/rsc
+
+#compiled data
+data/webpack-assets.json
 
 #composer packages
 server/vendor
