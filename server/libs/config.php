@@ -7,8 +7,9 @@ class Config implements ConfigInterface
     public $usingLiveConfig = false;
 
     protected $active_config = [
-        "webroot" => "",
+        "webroot" => "webroot/",
         "basepath" => "",
+        "assetroot" =>"rsc/",
         "storage_dir" => "storage",
         "liveconfig" => "liveconfig",
         "pagestate" => [
