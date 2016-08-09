@@ -10,6 +10,7 @@ $config = $graph->get('Config');
 $assembler = $graph->get('Assembler');
 $dataProvider = $graph->get('DataProvider');
 $output = $graph->get('Output');
+$assets = $graph->get('Assets');
 ?>
 <!doctype html>
 <html  lang="en">
@@ -22,7 +23,7 @@ $output = $graph->get('Output');
         <meta name="keywords" content="html5, JavaScript, CSS3, Responsive Design, Semantic Markup, Backbone, Marionette, React, Angular">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <link rel="stylesheet" href="/rsc/css/styles.css">
+        <link rel="stylesheet" href="<?php echo $assets->get('css')?>">
     </head>
    <body>
    <script type="application/javascript">
@@ -47,7 +48,7 @@ switch (strtolower($config->get('pagestate.homepage'))) {
 ?>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
    <script src="https://use.typekit.net/zhf5ttk.js"></script>
-   <script type="application/javascript" src="/rsc/js/bundle.js"></script>
+   <script type="application/javascript" src="<?php echo $assets->get('js')?>"></script>
   <?php
 if (constant('PROD') === true) {
     include INCLUDES . 'analytics.php';
