@@ -1,9 +1,8 @@
 // Karma configuration
 // Generated on Fri Mar 25 2016 16:12:54 GMT-0500 (CDT)
-var webpackConfig = require('./webpack.config')
+var webpackConfig = require('./webpack.config.js')
 webpackConfig.entry = {}
 delete webpackConfig.externals // karma does not have access to externals
-
 module.exports = function (config) {
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)

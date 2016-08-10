@@ -4,7 +4,8 @@ const args = parseArgs(process.argv.slice(2))
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 
-const TARGET = process.env.npm_lifecycle_event
+const TARGET = process.env.npm_lifecycle_event || process.env.gulp_target
+console.log('target: ', TARGET)
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build'),
@@ -72,7 +73,7 @@ const common = {
 }
 
 // Default configuration
-if (TARGET === 'start' || TARGET === 'test' || !TARGET) {
+if (TARGET === 'start' || TARGET === 'test') {
   var scenarios = require(PATHS.data + '/scenarios.json')
   var scenarioKey = (args.s) ? args.s : 'default'
   var bootstrapData = scenarios[scenarioKey]
