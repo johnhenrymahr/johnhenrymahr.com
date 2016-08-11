@@ -1,7 +1,7 @@
 #! /bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TESTDIR="$(cd "${DIR}/../tests" && pwd)"
-PHPUNITPATH="$(cd "${DIR}/../vendor/phpunit/phpunit/" && pwd)"
+PHPUNITPATH="$(cd "${DIR}/../vendor/bin/" && pwd)"
 VENDOR="$(cd "${DIR}/../vendor/" && pwd)"
 echo ""
 echo "<------------------(Test Start)------------------>"

@@ -1,27 +1,6 @@
-/** *****************************************************************************
- * https://gist.github.com/plasticbrain/b98b5c3b97e7226353ce
- * http://mikeeverhart.net/2016/01/deploy-code-to-remote-servers-with-gulp-js/
- * Description:
- *
- *   Gulp file to push changes to remote servers (eg: staging/production)
- *
- * Usage:
- *
- *   gulp deploy --target
- *
- * Examples:
- *
- *   gulp deploy --production   // push to production
- *   gulp deploy --staging      // push to staging
- *
- ******************************************************************************/
 var gulp = require('gulp')
 
-var path = require('path')
-
 var merge = require('merge')
-
-var exec = require('child_process').exec
 
 // gulp-util - https://www.npmjs.com/package/gulp-util
 var gutil = require('gulp-util')
@@ -38,56 +17,61 @@ var prompt = require('gulp-prompt')
 // gulp-if - https://www.npmjs.com/package/gulp-if
 var gulpif = require('gulp-if')
 
-var webpack = require('webpack')
+var del = require('del')
 
-var KarmaServer = require('karma').Server
+var runSequence = require('run-sequence')
 
-gulp.task('test', function (done) {
-  process.env.gulp_target = 'test'
-  new KarmaServer({
-    configFile: path.join(__dirname, '/karma.conf.js'),
-    singleRun: true
-  }, done).start({port: 9876})
+var phpunit = require('gulp-phpunit')
+
+var shell = require('gulp-shell')
+
+var standard = require('gulp-standard')
+
+gulp.task('clean:bin', function () {
+  return del(['bin/**/*'])
 })
 
-gulp.task('build', function (done) {
-  process.env.gulp_target = 'build'
-
-  var config = require('./webpack.config')
-
-  webpack(config, function (err, stats) {
-    if (err) {
-      throwError('webpack', err)
-    }
-    gutil.log('[webpack]', stats.toString({
-      // output options
+gulp.task('lint', function () {
+  return gulp.src(['app/*.js', 'app/**/*.js'])
+    .pipe(standard())
+    .pipe(standard.reporter('default', {
+      breakOnError: true
     }))
-    done()
-  })
 })
 
-gulp.task('copy-server', function () {
+gulp.task('test:server', function () {
+  return gulp.src('server/phpunit.xml')
+    .pipe(phpunit('./server/vendor/bin/phpunit', {
+      stopOnFailure: true
+    }))
+})
+
+gulp.task('test:app', shell.task([
+  'npm test'
+]))
+
+gulp.task('build', shell.task([
+  'npm run build'
+]))
+
+gulp.task('copy:server', function () {
   return gulp.src('server/**/*')
     .pipe(gulp.dest('bin/'))
 })
 
-gulp.task('copy-app', function () {
+gulp.task('copy:app', function () {
   return gulp.src('build/rsc/**/*')
     .pipe(gulp.dest('bin/webroot/rsc'))
 })
 
-gulp.task('copy-data', function () {
+gulp.task('copy:data', function () {
   return gulp.src(['data/viewManifest.json', 'data/webpack-assets.json'])
     .pipe(gulp.dest('bin/data'))
 })
 
-gulp.task('copy-dust', function () {
+gulp.task('copy:dust', function () {
   return gulp.src('app/dust/**/*')
     .pipe(gulp.dest('bin/dust'))
-})
-
-gulp.task('version-bump', function (done) {
-  done()
 })
 
 gulp.task('rsync', function () {
@@ -134,6 +118,23 @@ gulp.task('rsync', function () {
       })
     ))
     .pipe(rsync(rsyncConf))
+})
+
+gulp.task('deploy', function () {
+  runSequence(
+    'clean:bin',
+    'lint',
+    'test:app',
+    'test:server',
+    'build',
+    'copy:server',
+    'copy:app',
+    'copy:data',
+    'copy:dust',
+    function () {
+      gutil.log('Task deploy finished.')
+    }
+  )
 })
 
 function throwError (taskName, msg) {
