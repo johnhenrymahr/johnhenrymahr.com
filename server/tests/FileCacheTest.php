@@ -69,6 +69,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     {
         $this->obj->set('foo', 'bar');
         $this->obj->save();
+        $this->assertEquals('bar', $this->obj->get('foo'));
     }
 
     public function testGet()
