@@ -1,8 +1,7 @@
 var gulp = require('gulp')
 
-var merge = require('merge')
+var _ = require('lodash')
 
-// gulp-util - https://www.npmjs.com/package/gulp-util
 var gutil = require('gulp-util')
 
 // Minimist - https://www.npmjs.com/package/minimist
@@ -26,6 +25,40 @@ var phpunit = require('gulp-phpunit')
 var shell = require('gulp-shell')
 
 var standard = require('gulp-standard')
+
+var servers = require('./servers.json')
+
+function Server (servers, serverKey) {
+  serverKey = serverKey || ''
+  var server
+  if (_.has(servers, serverKey)) {
+    server = servers.serverKey
+    _.defaults(server, servers._defaults)
+  } else {
+    server = servers._defaults
+  }
+  this.atts = server
+
+  this.name = serverKey
+
+  this.get = function (key) {
+    if (_.has(server, key)) {
+      return server[key]
+    }
+    return null
+  }
+
+  return this
+}
+
+var server = new Server(servers, argv.server)
+
+gulp.task('server', function (cb) {
+  gutil.log('server ID:', server.name)
+  gutil.log('webroot: ', server.get('webroot'))
+  gutil.log('server app: ', server.get('serverApp'))
+  cb()
+})
 
 gulp.task('clean:bin', function () {
   return del(['bin/**/*'])
@@ -55,24 +88,39 @@ gulp.task('build', shell.task([
   'npm run build'
 ]))
 
-gulp.task('copy:server', function () {
-  return gulp.src('server/**/*')
-    .pipe(gulp.dest('bin/'))
+gulp.task('copy:webroot', function () {
+  return gulp.src('server/webroot/*')
+    .pipe(gulp.dest('bin/' + server.get('webroot') + '/'))
+})
+
+gulp.task('copy:libs', function () {
+  return gulp.src('server/libs/*')
+    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/libs/'))
+})
+
+gulp.task('copy:includes', function () {
+  return gulp.src('server/includes/*')
+    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/includes/'))
+})
+
+gulp.task('copy:vendor', function () {
+  return gulp.src('server/vendor/**/*')
+    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/vendor/'))
 })
 
 gulp.task('copy:app', function () {
   return gulp.src('build/rsc/**/*')
-    .pipe(gulp.dest('bin/webroot/rsc'))
+    .pipe(gulp.dest('bin/' + server.get('webroot') + '/rsc'))
 })
 
 gulp.task('copy:data', function () {
   return gulp.src(['data/viewManifest.json', 'data/webpack-assets.json'])
-    .pipe(gulp.dest('bin/data'))
+    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/data'))
 })
 
 gulp.task('copy:dust', function () {
   return gulp.src('app/dust/**/*')
-    .pipe(gulp.dest('bin/dust'))
+    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/dust'))
 })
 
 gulp.task('rsync', function () {
@@ -93,21 +141,11 @@ gulp.task('rsync', function () {
     exclude: []
   }
 
-  var servers = {
-    production: {},
-    staging: {}
+  if (server.get('supportsRsync') === false) {
+    throwError('gulp-rsync', 'server does not support rsync.')
   }
 
-  // Staging
-  if (argv.staging) {
-    rsyncConf = merge(rsyncConf, servers.staging)
-  // Production
-  } else if (argv.production) {
-    rsyncConf = merge(rsyncConf, servers.production)
-  // Missing/Invalid Target
-  } else {
-    throwError('deploy', gutil.colors.red('Missing or invalid target'))
-  }
+  rsyncConf = _.merge(rsyncConf, server.get('rsync'))
 
   // Use gulp-rsync to sync the files
   return gulp.src(rsyncPaths)
@@ -123,13 +161,15 @@ gulp.task('rsync', function () {
 
 gulp.task('deploy', function (callback) {
   runSequence(
+    'server',
     'clean:bin',
     'lint',
     'test:app',
     'test:server',
     'build',
-    'copy:server',
-    ['copy:app', 'copy:data', 'copy:dust'],
+    ['copy:libs', 'copy:includes', 'copy:data', 'copy:dust', 'copy:vendor'],
+    'copy:webroot',
+    'copy:app',
     callback
   )
 })

@@ -46,7 +46,7 @@ printf "timestamp ${TS}, future ts = ${FTS}\n"
 
 printf "running gulp deploy --production \n"
 
-gulp deploy --production || { echo "build failed exit without updating version or tags"; exit 1; }
+gulp deploy --server=production || { echo "build failed exit without updating version or tags"; exit 1; }
 
 ##set server back to production mode
 

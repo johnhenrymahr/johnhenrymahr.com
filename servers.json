@@ -1,0 +1,18 @@
+{
+	"production": {
+
+	},
+	"staging": {
+
+	},
+	"develop": {
+
+	},
+	"_defaults": {
+		"rsync": {},
+		"rsyncSupported": false,
+		"webroot": "johnhenrymahr.com",
+		"serverApp": "server"
+	}
+
+}
