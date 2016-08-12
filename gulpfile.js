@@ -39,11 +39,12 @@ gulp.task('lint', function () {
     }))
 })
 
-gulp.task('test:server', function () {
-  return gulp.src('server/phpunit.xml')
+gulp.task('test:server', function (callback) {
+  gulp.src('server/phpunit.xml')
     .pipe(phpunit('./server/vendor/bin/phpunit', {
+      notify: false,
       stopOnFailure: true
-    }))
+    }, callback))
 })
 
 gulp.task('test:app', shell.task([
@@ -120,7 +121,7 @@ gulp.task('rsync', function () {
     .pipe(rsync(rsyncConf))
 })
 
-gulp.task('deploy', function () {
+gulp.task('deploy', function (callback) {
   runSequence(
     'clean:bin',
     'lint',
@@ -128,12 +129,8 @@ gulp.task('deploy', function () {
     'test:server',
     'build',
     'copy:server',
-    'copy:app',
-    'copy:data',
-    'copy:dust',
-    function () {
-      gutil.log('Task deploy finished.')
-    }
+    ['copy:app', 'copy:data', 'copy:dust'],
+    callback
   )
 })
 
