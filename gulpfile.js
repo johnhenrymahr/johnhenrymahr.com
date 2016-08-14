@@ -6,7 +6,6 @@ var path = require('path')
 
 var gutil = require('gulp-util')
 
-// Minimist - https://www.npmjs.com/package/minimist
 var argv = require('minimist')(process.argv)
 
 var del = require('del')
@@ -22,6 +21,8 @@ var standard = require('gulp-standard')
 var confirm = require('confirm-simple')
 
 var rsync = require('gulp-rsync')
+
+var fs = require('fs')
 
 function Server (serverKey) {
   var servers = require('./servers.json')
@@ -204,8 +205,21 @@ gulp.task('package', function (callback) {
     'composer',
     'copy:webroot',
     'copy:app',
+    'setServerApp',
     callback
   )
+})
+
+gulp.task('setServerApp', function (callback) {
+  try {
+    var indexPath = 'bin/' + server.get('webroot') + '/index.php'
+    var index = fs.readFileSync(indexPath, 'utf8')
+    index = index.replace('{{serverApp}}', server.get('serverApp'))
+    fs.writeFileSync(indexPath, index, 'utf8')
+    callback()
+  } catch (e) {
+    throwError('setServerApp', e)
+  }
 })
 
 gulp.task('deploy', function (callback) {
