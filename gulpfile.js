@@ -2,19 +2,12 @@ var gulp = require('gulp')
 
 var _ = require('lodash')
 
+var path = require('path')
+
 var gutil = require('gulp-util')
 
 // Minimist - https://www.npmjs.com/package/minimist
 var argv = require('minimist')(process.argv)
-
-// gulp-rsync - https://www.npmjs.com/package/gulp-rsync
-var rsync = require('gulp-rsync')
-
-// gulp-prompt - https://www.npmjs.com/package/gulp-prompt
-var prompt = require('gulp-prompt')
-
-// gulp-if - https://www.npmjs.com/package/gulp-if
-var gulpif = require('gulp-if')
 
 var del = require('del')
 
@@ -26,24 +19,55 @@ var shell = require('gulp-shell')
 
 var standard = require('gulp-standard')
 
-var servers = require('./servers.json')
+var confirm = require('confirm-simple')
 
-function Server (servers, serverKey) {
+var rsync = require('gulp-rsync')
+
+function Server (serverKey) {
+  var servers = require('./servers.json')
+  var serverConfPath = argv.serverconf || path.normalize(path.join(process.env.HOME, '/.serverconf.json'))
+  var privateServers
+  try {
+    privateServers = require(serverConfPath)
+    gutil.log(gutil.colors.green('Using private server config: ' + gutil.colors.bold(serverConfPath)))
+  } catch (e) {
+    gutil.log(gutil.colors.red('Could not load server config path: ' + gutil.colors.bold(serverConfPath)))
+    privateServers = {}
+  }
+
+  servers = _.merge(servers, privateServers)
   serverKey = serverKey || ''
   var server
   if (_.has(servers, serverKey)) {
-    server = servers.serverKey
+    server = servers[serverKey]
     _.defaults(server, servers._defaults)
   } else {
+    if (serverKey === 'production') {
+      throwError('server ', 'production deffinition not avaiable.')
+    }
+    serverKey = 'default'
     server = servers._defaults
   }
+
+  function expand (list) {
+    _.each(list, function (item, key, collection) {
+      if (_.isString(item)) {
+        collection[key] = item.replace('~', process.env.HOME)
+      } else if (_.isObject(item) || _.isArray(item)) {
+        expand(item)
+      }
+    })
+  }
+
+  expand(server)
+
   this.atts = server
 
   this.name = serverKey
 
   this.get = function (key) {
-    if (_.has(server, key)) {
-      return server[key]
+    if (_.has(this.atts, key)) {
+      return this.atts[key]
     }
     return null
   }
@@ -51,12 +75,16 @@ function Server (servers, serverKey) {
   return this
 }
 
-var server = new Server(servers, argv.server)
+var home = __dirname
+
+var server = new Server(argv.server)
 
 gulp.task('server', function (cb) {
   gutil.log('server ID:', server.name)
   gutil.log('webroot: ', server.get('webroot'))
   gutil.log('server app: ', server.get('serverApp'))
+  gutil.log('private key path: ', server.get('privateKey'))
+  gutil.log(gutil.colors[server.get('color')]('Using Server ' + gutil.colors.bold(server.name) + ' definition.'))
   cb()
 })
 
@@ -88,6 +116,32 @@ gulp.task('build', shell.task([
   'npm run build'
 ]))
 
+gulp.task('composer', shell.task([
+  'composer install --no-dev'
+], {
+  cwd: path.join(home, 'bin', server.get('serverApp'))
+}))
+
+gulp.task('confirm:push', function (callback) {
+  gutil.log(gutil.colors.yellow('Pushing to ' + gutil.colors.bold(server.name)))
+  if (server.name === 'production') {
+    gutil.log(gutil.colors.red("Heads up. Push to production. Can't undo this!"))
+  }
+  confirm('Sure?', function (ok) {
+    if (ok) {
+      callback()
+    }
+  })
+})
+
+gulp.task('confirm:deploy', function (callback) {
+  confirm('Run deployment script?', function (ok) {
+    if (ok) {
+      callback()
+    }
+  })
+})
+
 gulp.task('copy:webroot', function () {
   return gulp.src('server/webroot/*')
     .pipe(gulp.dest('bin/' + server.get('webroot') + '/'))
@@ -103,9 +157,9 @@ gulp.task('copy:includes', function () {
     .pipe(gulp.dest('bin/' + server.get('serverApp') + '/includes/'))
 })
 
-gulp.task('copy:vendor', function () {
-  return gulp.src('server/vendor/**/*')
-    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/vendor/'))
+gulp.task('copy:composer', function () {
+  return gulp.src(['server/composer.json', 'server/composer.lock'])
+    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/'))
 })
 
 gulp.task('copy:app', function () {
@@ -124,52 +178,42 @@ gulp.task('copy:dust', function () {
 })
 
 gulp.task('rsync', function () {
-  // Dirs and Files to sync
-  var rsyncPaths = ['bin/**/*']
-
-  // Default options for rsync
-  var rsyncConf = {
-    progress: true,
-    hostname: '',
-    username: '',
-    destination: '',
-    incremental: true,
-    relative: true,
-    emptyDirectories: true,
-    recursive: true,
-    clean: true,
-    exclude: []
+  var rsyncOpts = server.get('rsync')
+  if (rsyncOpts.enabled === false) {
+    throwError('rsync', 'Rsync is not enabled for this server: ' + gutil.colors.bold(server.name))
   }
-
-  if (server.get('supportsRsync') === false) {
-    throwError('gulp-rsync', 'server does not support rsync.')
-  }
-
-  rsyncConf = _.merge(rsyncConf, server.get('rsync'))
-
-  // Use gulp-rsync to sync the files
-  return gulp.src(rsyncPaths)
-    .pipe(gulpif(
-      argv.production,
-      prompt.confirm({
-        message: 'Heads Up! Are you SURE you want to push to PRODUCTION?',
-        default: false
-      })
-    ))
-    .pipe(rsync(rsyncConf))
+  gutil.log('shell arg: ' + gutil.colors.bold(rsyncOpts.shell))
+  return gulp.src('./bin/**/*')
+    .pipe(rsync(rsyncOpts))
 })
 
-gulp.task('deploy', function (callback) {
+gulp.task('send', function (callback) {
+  runSequence('confirm:push', 'rsync', callback)
+})
+
+gulp.task('clean:remote', function () {})
+
+gulp.task('package', function (callback) {
   runSequence(
-    'server',
     'clean:bin',
     'lint',
     'test:app',
     'test:server',
     'build',
-    ['copy:libs', 'copy:includes', 'copy:data', 'copy:dust', 'copy:vendor'],
+    ['copy:composer', 'copy:libs', 'copy:includes', 'copy:data', 'copy:dust'],
+    'composer',
     'copy:webroot',
     'copy:app',
+    callback
+  )
+})
+
+gulp.task('deploy', function (callback) {
+  runSequence(
+    'server',
+    'confirm:deploy',
+    'package',
+    'send',
     callback
   )
 })
@@ -177,6 +221,6 @@ gulp.task('deploy', function (callback) {
 function throwError (taskName, msg) {
   throw new gutil.PluginError({
     plugin: taskName,
-    message: msg
+    message: gutil.colors.red(msg)
   })
 }

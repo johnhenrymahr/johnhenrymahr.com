@@ -1,18 +1,19 @@
 {
-	"production": {
-
-	},
-	"staging": {
-
-	},
-	"develop": {
-
-	},
 	"_defaults": {
-		"rsync": {},
-		"rsyncSupported": false,
-		"webroot": "johnhenrymahr.com",
-		"serverApp": "server"
+            "rsync": {
+                "destination": "",
+                "hostname": "",
+                "username": "",
+                "progress": true,
+                "recursive": true,
+                "clean": true,
+                "enabled": false,
+                "root": "bin"
+            },
+            "privateKey": "",
+            "color": "yellow",
+            "webroot": "webroot",
+            "serverApp": "server"
 	}
 
 }
