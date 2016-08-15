@@ -1,12 +1,11 @@
 <?php
+ini_set('display_errors', 1);
 date_default_timezone_set('America/Chicago');
 define('SERVER_ROOT', dirname(realpath(__DIR__)) . "/");
 define('APP_DIR', '{{serverApp}}');
 define('APP_ROOT', SERVER_ROOT . rtrim(APP_DIR, '/') . '/');
 define('WEB_ROOT', realpath(__DIR__) . "/");
 define('INCLUDES', WEB_ROOT . 'includes/');
-$server_name = filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_STRING);
-define('PROD', strpos($server_name, 'johnhenrymahr.com') !== false);
 require APP_ROOT . 'vendor/autoload.php';
 $graph = new \JHM\Graph();
 $config = $graph->get('Config');
@@ -16,7 +15,7 @@ $output = $graph->get('Output');
 $assets = $graph->get('Assets');
 ?>
 <!doctype html>
-<html  lang="en">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -42,10 +41,6 @@ try {
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
    <script src="https://use.typekit.net/zhf5ttk.js"></script>
    <script type="application/javascript" src="<?php echo $assets->get('js'); ?>"></script>
-  <?php
-if (constant('PROD') === true) {
-    include INCLUDES . 'analytics.php';
-}
-?>
-    </body>
+   {{analytics}}
+  </body>
 </html>

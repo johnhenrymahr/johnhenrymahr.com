@@ -22,6 +22,8 @@ var confirm = require('confirm-simple')
 
 var rsync = require('gulp-rsync')
 
+var phplint = require('phplint').lint
+
 var fs = require('fs')
 
 function Server (serverKey) {
@@ -205,20 +207,40 @@ gulp.task('package', function (callback) {
     'composer',
     'copy:webroot',
     'copy:app',
-    'setServerApp',
+    'updateIndex',
+    'phplint',
     callback
   )
 })
 
-gulp.task('setServerApp', function (callback) {
+gulp.task('phplint', function (cb) {
+  phplint([
+    'bin/' + server.get('serverApp') + '/libs/*.php',
+    'bin/' + server.get('serverApp') + '/includes/*.php',
+    'bin/' + server.get('webroot') + '/index.php'
+  ], {limit: 10}, function (err, stdout, stderr) {
+    if (err) {
+      throwError('phplint', err)
+    }
+    cb()
+  })
+})
+
+gulp.task('updateIndex', function (callback) {
   try {
     var indexPath = 'bin/' + server.get('webroot') + '/index.php'
     var index = fs.readFileSync(indexPath, 'utf8')
+    var analytics = ''
     index = index.replace('{{serverApp}}', server.get('serverApp'))
+    if (server.name === 'production') {
+      analytics = fs.readFileSync('inc/analytics.html')
+      index = index.replace("ini_set('display_errors', 1);\n", '')
+    }
+    index = index.replace('{{analytics}}', analytics)
     fs.writeFileSync(indexPath, index, 'utf8')
     callback()
   } catch (e) {
-    throwError('setServerApp', e)
+    throwError('updateIndex', e)
   }
 })
 

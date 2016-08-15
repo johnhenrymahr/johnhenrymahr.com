@@ -78,6 +78,7 @@
     "minimist": "^1.2.0",
     "mocha": "^2.4.5",
     "phantomjs-prebuilt": "^2.1.6",
+    "phplint": "^1.7.1",
     "postcss-loader": "^0.9.1",
     "run-sequence": "^1.2.2",
     "sinon": "^1.17.3",
