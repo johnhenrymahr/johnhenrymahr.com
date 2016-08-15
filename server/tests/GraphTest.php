@@ -56,8 +56,8 @@ class GraphTest extends \PHPUnit\Framework\TestCase
         $this->AssertInstanceOf(\JHM\Assembler::class, $assembler);
         $clone = (array) $assembler;
         $this->assertEquals("\0*\0manifest", array_Keys($clone)[0]); // protected propertie keys get prepended with \0*\0 when cast to Array, private \0Class_name\0
-        $this->assertInstanceOf(\JHM\TemplateFactory::class, $clone["\0*\0templateFactory"]);
-        $this->assertInstanceOf(\JHM\Manifest::class, $clone["\0*\0manifest"]);
+        $this->assertInstanceOf(\JHM\TemplateFactoryInterface::class, $clone["\0*\0templateFactory"]);
+        $this->assertInstanceOf(\JHM\ManifestInterface::class, $clone["\0*\0manifest"]);
     }
 
     public function testDataProviderGet()
@@ -69,8 +69,18 @@ class GraphTest extends \PHPUnit\Framework\TestCase
         $dataProvider = $this->obj->get('DataProvider');
         $this->assertInstanceOf(\JHM\DataProvider::class, $dataProvider);
         $clone = (array) $dataProvider;
-        $this->assertInstanceOf(\JHM\Logger::class, $clone["\0*\0logger"]);
-        $this->assertInstanceOf(\JHM\fileLoader::class, $clone["\0*\0fileLoader"]);
+        $this->assertInstanceOf(\JHM\LoggerInterface::class, $clone["\0*\0logger"]);
+        $this->assertInstanceOf(\JHM\FileLoaderInterface::class, $clone["\0*\0fileLoader"]);
     }
 
+    public function testOutputGet()
+    {
+        $cacheMock = \Mockery::mock('JHM\\CacheInterface');
+        $cacheMock->shouldReceive('cacheReady')->andReturn(true);
+        $this->mockDeps('Output', 'JHM\\CacheInterface', 'substitutions', $cacheMock);
+        $output = $this->obj->get('Output');
+        $this->assertInstanceOf(\JHM\Output::class, $output);
+        $clone = (array) $output;        
+        $this->assertInstanceOf(\JHM\CacheInterface::class, $clone["\0*\0cacheInterface"]);
+    }
 }
