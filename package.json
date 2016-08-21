@@ -28,7 +28,8 @@
       "localDev"
     ],
     "ignore": [
-      "*.php"
+      "server/**/*.php",
+      "inc/*.html"
     ]
   },
   "author": "John Mahr",
