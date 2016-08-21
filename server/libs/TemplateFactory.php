@@ -28,7 +28,7 @@ class TemplateFactory implements templateFactoryInterface
                 $template = $this->renderer->compileFile($templatePath);
                 if ($template) {
                     $modelData = $this->dataProvider->getTemplateModel($data['id']);
-                    $renderedContent = $this->renderer->render($template, $modelData);
+                    $renderedContent = $this->renderer->renderTemplate($template, $modelData);
                 }
             }
             return $this->_templateFactory($data, $renderedContent);

@@ -49,7 +49,7 @@ class TemplateFactoryTest extends \PHPUnit\Framework\TestCase
         $this->mocks['config']->shouldReceive('resolvePath')->with('splashTpl.dust')->andReturn('/path/to/splashTpl.dust');
         $this->mocks['DP']->shouldReceive('getTemplateModel')->with('splash')->andReturn($mockData);
         $this->mocks['renderer']->shouldReceive('compileFile')->with('/path/to/splashTpl.dust')->andReturn($mockTpl);
-        $this->mocks['renderer']->shouldReceive('render')->with($mockTpl, $mockData)->andReturn($mockRendered);
+        $this->mocks['renderer']->shouldReceive('renderTemplate')->with($mockTpl, $mockData)->andReturn($mockRendered);
         $result = $this->obj->getTemplate($this->atts);
         $this->assertInstanceOf(\JHM\Template::class, $result);
         $this->assertEquals($mockRendered, $result->body());
@@ -78,7 +78,7 @@ class TemplateFactoryTest extends \PHPUnit\Framework\TestCase
         $this->mocks['config']->shouldReceive('resolvePath')->with('splashTpl.dust')->andReturn('/path/to/splashTpl.dust');
         $this->mocks['DP']->shouldReceive('getTemplateModel')->with('splash')->andReturn($mockData);
         $this->mocks['renderer']->shouldReceive('compileFile')->with('/path/to/splashTpl.dust')->andReturn($mockTpl);
-        $this->mocks['renderer']->shouldReceive('render')->with($mockTpl, $mockData)->andReturn(false);
+        $this->mocks['renderer']->shouldReceive('renderTemplate')->with($mockTpl, $mockData)->andReturn(false);
         $result = $this->obj->getTemplate($this->atts);
         $this->assertInstanceOf(\JHM\Template::class, $result);
         $this->assertEquals($mockRendered, $result->body());

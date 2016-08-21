@@ -122,19 +122,21 @@ gulp.task('build', shell.task([
 gulp.task('composer', shell.task([
   'composer install --no-dev'
 ], {
-  cwd: path.join(home, 'bin', server.get('serverApp'))
+  cwd: path.join(home, 'bin', path.basename(server.get('serverApp')))
 }))
 
 gulp.task('confirm:push', function (callback) {
   gutil.log(gutil.colors.yellow('Pushing to ' + gutil.colors.bold(server.name)))
   if (server.name === 'production') {
     gutil.log(gutil.colors.red("Heads up. Push to production. Can't undo this!"))
+    confirm('Sure?', function (ok) {
+      if (ok) {
+        callback()
+      }
+    })
+  } else {
+    callback()
   }
-  confirm('Sure?', function (ok) {
-    if (ok) {
-      callback()
-    }
-  })
 })
 
 gulp.task('confirm:deploy', function (callback) {
@@ -147,37 +149,37 @@ gulp.task('confirm:deploy', function (callback) {
 
 gulp.task('copy:webroot', function () {
   return gulp.src('server/webroot/*')
-    .pipe(gulp.dest('bin/' + server.get('webroot') + '/'))
+    .pipe(gulp.dest('bin/' + path.basename(server.get('webroot')) + '/'))
 })
 
 gulp.task('copy:libs', function () {
   return gulp.src('server/libs/*')
-    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/libs/'))
+    .pipe(gulp.dest('bin/' + path.basename(server.get('serverApp')) + '/libs/'))
 })
 
 gulp.task('copy:includes', function () {
   return gulp.src('server/includes/*')
-    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/includes/'))
+    .pipe(gulp.dest('bin/' + path.basename(server.get('serverApp')) + '/includes/'))
 })
 
 gulp.task('copy:composer', function () {
   return gulp.src(['server/composer.json', 'server/composer.lock'])
-    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/'))
+    .pipe(gulp.dest('bin/' + path.basename(server.get('serverApp')) + '/'))
 })
 
 gulp.task('copy:app', function () {
   return gulp.src('build/rsc/**/*')
-    .pipe(gulp.dest('bin/' + server.get('webroot') + '/rsc'))
+    .pipe(gulp.dest('bin/' + path.basename(server.get('webroot')) + '/rsc'))
 })
 
 gulp.task('copy:data', function () {
   return gulp.src(['data/viewManifest.json', 'data/webpack-assets.json'])
-    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/data'))
+    .pipe(gulp.dest('bin/' + path.basename(server.get('serverApp')) + '/data'))
 })
 
 gulp.task('copy:dust', function () {
   return gulp.src('app/dust/**/*')
-    .pipe(gulp.dest('bin/' + server.get('serverApp') + '/dust'))
+    .pipe(gulp.dest('bin/' + path.basename(server.get('serverApp')) + '/dust'))
 })
 
 gulp.task('rsync', function () {
@@ -194,23 +196,37 @@ gulp.task('send', function (callback) {
   runSequence('confirm:push', 'rsync', callback)
 })
 
-gulp.task('clean:remote', function () {})
+gulp.task('update:index', function (callback) {
+  try {
+    var indexPath = path.join('bin', path.basename(server.get('webroot')), 'index.php')
+    var index = fs.readFileSync(indexPath, 'utf8')
+    var analytics = ''
+    index = index.replace('{{serverApp}}', server.get('serverApp'))
+    if (server.name === 'production') {
+      analytics = fs.readFileSync('inc/analytics.html')
+      index = index.replace("ini_set('display_errors', 1);\n", '')
+    }
+    index = index.replace('{{analytics}}', analytics)
+    index = replaceComments(index)
+    fs.writeFileSync(indexPath, index, 'utf8')
+    callback()
+  } catch (e) {
+    throwError('update:index', e)
+  }
+})
 
-gulp.task('package', function (callback) {
-  runSequence(
-    'clean:bin',
-    'lint',
-    'test:app',
-    'test:server',
-    'build',
-    ['copy:composer', 'copy:libs', 'copy:includes', 'copy:data', 'copy:dust'],
-    'composer',
-    'copy:webroot',
-    'copy:app',
-    'updateIndex',
-    'phplint',
-    callback
-  )
+gulp.task('update:config', function (callback) {
+  try {
+    var cfgPath = path.join('bin', path.basename(server.get('serverApp')), 'libs', 'Config.php')
+    var config = fs.readFileSync(cfgPath, 'utf8')
+    config = config.replace('{{serverApp}}', server.get('serverApp'))
+    config = config.replace('{{webroot}}', server.get('webroot'))
+    config = replaceComments(config)
+    fs.writeFileSync(cfgPath, config, 'utf8')
+    callback()
+  } catch (e) {
+    throwError('update:config', e)
+  }
 })
 
 gulp.task('phplint', function (cb) {
@@ -226,22 +242,22 @@ gulp.task('phplint', function (cb) {
   })
 })
 
-gulp.task('updateIndex', function (callback) {
-  try {
-    var indexPath = 'bin/' + server.get('webroot') + '/index.php'
-    var index = fs.readFileSync(indexPath, 'utf8')
-    var analytics = ''
-    index = index.replace('{{serverApp}}', server.get('serverApp'))
-    if (server.name === 'production') {
-      analytics = fs.readFileSync('inc/analytics.html')
-      index = index.replace("ini_set('display_errors', 1);\n", '')
-    }
-    index = index.replace('{{analytics}}', analytics)
-    fs.writeFileSync(indexPath, index, 'utf8')
-    callback()
-  } catch (e) {
-    throwError('updateIndex', e)
-  }
+gulp.task('package', function (callback) {
+  runSequence(
+    'clean:bin',
+    'lint',
+    'test:app',
+    'test:server',
+    'build',
+    ['copy:composer', 'copy:libs', 'copy:includes', 'copy:data', 'copy:dust'],
+    'composer',
+    'copy:webroot',
+    'copy:app',
+    'update:index',
+    'update:config',
+    'phplint',
+    callback
+  )
 })
 
 gulp.task('deploy', function (callback) {
@@ -259,4 +275,7 @@ function throwError (taskName, msg) {
     plugin: taskName,
     message: gutil.colors.red(msg)
   })
+}
+function replaceComments (string) {
+  return string.replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$/gm, '$1')
 }

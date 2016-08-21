@@ -25,15 +25,15 @@ class FileLoaderTest extends \PHPUnit\Framework\TestCase
         $expected = ["foo" => "bar"];
 
         $dir = \org\bovigo\vfs\vfsStream::newDirectory('data')->at($this->root);
-        $file = \org\bovigo\vfs\vfsStream::newFile('manifest.json')->at($dir)->setContent($rawData);
+        $file = \org\bovigo\vfs\vfsStream::newFile('viewManifest.json')->at($dir)->setContent($rawData);
 
         $this->configMock
             ->shouldReceive('resolvePath')
-            ->with('manifest.json')
+            ->with('viewManifest.json')
             ->once()
             ->andReturn($file->url());
 
-        $result = $this->obj->load('manifest.json');
+        $result = $this->obj->load('viewManifest.json');
         $this->assertEquals($expected, $result);
     }
 
@@ -44,11 +44,11 @@ class FileLoaderTest extends \PHPUnit\Framework\TestCase
 
         $this->configMock
             ->shouldReceive('resolvePath')
-            ->with('manifest.json')
+            ->with('viewManifest.json')
             ->once()
             ->andReturn('path/to/nothing');
 
-        $this->obj->load('manifest.json', true);
+        $this->obj->load('viewManifest.json', true);
     }
 
     public function testLoadDataFailure()
@@ -56,11 +56,11 @@ class FileLoaderTest extends \PHPUnit\Framework\TestCase
 
         $this->configMock
             ->shouldReceive('resolvePath')
-            ->with('manifest.json')
+            ->with('viewManifest.json')
             ->once()
             ->andReturn('path/to/nothing');
 
-        $result = $this->obj->load('manifest.json', false);
+        $result = $this->obj->load('viewManifest.json', false);
         $this->assertEquals(false, $result);
     }
 
@@ -69,15 +69,15 @@ class FileLoaderTest extends \PHPUnit\Framework\TestCase
         $rawData = '{foo": "bar"}';
 
         $dir = \org\bovigo\vfs\vfsStream::newDirectory('data')->at($this->root);
-        $file = \org\bovigo\vfs\vfsStream::newFile('manifest.json')->at($dir)->setContent($rawData);
+        $file = \org\bovigo\vfs\vfsStream::newFile('viewManifest.json')->at($dir)->setContent($rawData);
 
         $this->configMock
             ->shouldReceive('resolvePath')
-            ->with('manifest.json')
+            ->with('viewManifest.json')
             ->once()
             ->andReturn($file->url());
 
-        $result = $this->obj->load('manifest.json', false);
+        $result = $this->obj->load('viewManifest.json', false);
         $this->assertEquals(false, $result);
     }
 
@@ -86,15 +86,15 @@ class FileLoaderTest extends \PHPUnit\Framework\TestCase
         $rawData = '{foo": "bar"}';
 
         $dir = \org\bovigo\vfs\vfsStream::newDirectory('data')->at($this->root);
-        $file = \org\bovigo\vfs\vfsStream::newFile('manifest.json')->at($dir)->setContent($rawData);
+        $file = \org\bovigo\vfs\vfsStream::newFile('viewManifest.json')->at($dir)->setContent($rawData);
 
         $this->configMock
             ->shouldReceive('resolvePath')
-            ->with('manifest.json')
+            ->with('viewManifest.json')
             ->once()
             ->andReturn($file->url());
 
-        $result = $this->obj->load('manifest.json', false, []);
+        $result = $this->obj->load('viewManifest.json', false, []);
         $this->assertEquals([], $result);
         $this->assertTrue(empty($result));
     }
@@ -105,15 +105,15 @@ class FileLoaderTest extends \PHPUnit\Framework\TestCase
         $rawData = '{foo": "bar"}';
 
         $dir = \org\bovigo\vfs\vfsStream::newDirectory('data')->at($this->root);
-        $file = \org\bovigo\vfs\vfsStream::newFile('manifest.json')->at($dir)->setContent($rawData);
+        $file = \org\bovigo\vfs\vfsStream::newFile('viewManifest.json')->at($dir)->setContent($rawData);
 
         $this->configMock
             ->shouldReceive('resolvePath')
-            ->with('manifest.json')
+            ->with('viewManifest.json')
             ->once()
             ->andReturn($file->url());
 
-        $result = $this->obj->load('manifest.json', true);
+        $result = $this->obj->load('viewManifest.json', true);
     }
 
     public function testLoadYamlConfigSuccess()

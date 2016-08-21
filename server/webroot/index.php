@@ -1,18 +1,18 @@
 <?php
 ini_set('display_errors', 1);
+ini_set('expose_php', 0);
 date_default_timezone_set('America/Chicago');
-define('SERVER_ROOT', dirname(realpath(__DIR__)) . "/");
-define('APP_DIR', '{{serverApp}}');
-define('APP_ROOT', SERVER_ROOT . rtrim(APP_DIR, '/') . '/');
-define('WEB_ROOT', realpath(__DIR__) . "/");
-define('INCLUDES', WEB_ROOT . 'includes/');
-require APP_ROOT . 'vendor/autoload.php';
+define('APP_PATH', '{{serverApp}}');
+define('WEB_ROOT', '{{webroot}}');
+define('INCLUDES', APP_PATH . 'includes/');
+require APP_PATH . 'vendor/autoload.php';
 $graph = new \JHM\Graph();
 $config = $graph->get('Config');
 $assembler = $graph->get('Assembler');
 $dataProvider = $graph->get('DataProvider');
 $output = $graph->get('Output');
 $assets = $graph->get('Assets');
+require INCLUDES . 'headers.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,11 +25,12 @@ $assets = $graph->get('Assets');
         <meta name="keywords" content="html5, JavaScript, CSS3, Responsive Design, Semantic Markup, Backbone, Marionette, React, Angular">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="<?php echo $assets->get('css'); ?>">
     </head>
    <body>
    <script type="application/javascript">
-     window.jhmData = <?php $output([$dataProvider, 'getBootstrapData'])->toJSON();?>
+     window.jhmData = <?php echo $output([$dataProvider, 'getBootstrapData'])->toJSON() . "\n"; ?>
    </script>
    <?php
 try {
@@ -41,6 +42,7 @@ try {
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
    <script src="https://use.typekit.net/zhf5ttk.js"></script>
    <script type="application/javascript" src="<?php echo $assets->get('js'); ?>"></script>
+  <script>try{Typekit.load({ async: true })}catch(e){}</script>
    {{analytics}}
   </body>
 </html>

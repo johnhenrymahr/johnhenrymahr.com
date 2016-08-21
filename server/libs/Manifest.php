@@ -8,7 +8,7 @@ class Manifest implements ManifestInterface
 
     public function __construct(FileLoaderInterface $fileLoader)
     {
-        $this->json = $fileLoader->load('manifest.json', true);
+        $this->json = $fileLoader->load('viewManifest.json', true);
     }
 
     public function __get($key)

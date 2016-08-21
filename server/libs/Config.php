@@ -7,9 +7,9 @@ class Config implements ConfigInterface
     public $usingLiveConfig = false;
 
     protected $active_config = [
-        "webroot" => "webroot/",
-        "basepath" => "",
-        "assetroot" =>"rsc/",
+        "webroot" => "{{webroot}}", // token replaced by deploy script
+        "basepath" => "{{serverApp}}", // token replaced by deploy script
+        "assetroot" => "rsc/",
         "storage_dir" => "storage",
         "liveconfig" => "liveconfig",
         "pagestate" => [
@@ -34,6 +34,8 @@ class Config implements ConfigInterface
 
     protected $host_configs = [
         "test" => [
+            "basepath" => "",
+            "webroot" => "",
             "testbase" => __DIR__ . "/../../",
             "liveconfig" => "testLiveConfig",
             "testroot" => 'tester/',

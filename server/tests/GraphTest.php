@@ -45,7 +45,7 @@ class GraphTest extends \PHPUnit\Framework\TestCase
         }
         $fileLoaderMock = \Mockery::mock('JHM\\FileLoaderInterface')
             ->shouldReceive('load')
-            ->with('manifest.json', true)
+            ->with('viewManifest.json', true)
             ->once()
             ->andReturn($json)
             ->getMock();

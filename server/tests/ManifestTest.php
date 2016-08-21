@@ -13,7 +13,7 @@ class ManifestTest extends \PHPUnit\Framework\TestCase
             throw new Exception('Manifest Test: data not ready. Data path: ' . $dataPath);
         }
         $fileLoaderMock = \Mockery::mock('\JHM\FileLoaderInterface');
-        $fileLoaderMock->shouldReceive('load')->with('manifest.json', true)->once()->andReturn($json);
+        $fileLoaderMock->shouldReceive('load')->with('viewManifest.json', true)->once()->andReturn($json);
 
         $this->obj = new \JHM\Manifest($fileLoaderMock);
     }
