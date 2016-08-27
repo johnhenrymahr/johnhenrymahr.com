@@ -6,7 +6,7 @@ ErrorDocument 404 /404.html
 Options -MultiViews
 
 #fall back to index.html when there is no index.php
-DirectoryIndex index.php index.html index.htm
+DirectoryIndex index.php maint.php index.html
 
 #rewrite www.example.com → example.com
 <IfModule mod_rewrite.c>

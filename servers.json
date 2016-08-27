@@ -3,10 +3,10 @@
             "rsync": {
                 "progress": true,
                 "recursive": true,
-                "clean": true,
-                "enabled": false
+                "clean": true
             },
             "shell": {
+                 "enabled": false,
                  "hostname": "",
                  "privateKey": "",
                  "port": 22,

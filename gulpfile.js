@@ -127,30 +127,18 @@ gulp.task('composer', shell.task([
   cwd: path.join(home, distFolder, path.basename(server.get('serverApp')))
 }))
 
-// remove the index.php on the remote server so it falls back to index.html
-gulp.task('server:remove:index', function () {
-  gutil.log(gutil.colors.magenta('setting server to maintenance mode.'))
-  var task = 'ssh -i ' + server.get('shell')['privateKey'] + ' -p ' + server.get('shell')['port'] + ' ' +
+// remove index,php on remote server so it switched to maintenance mode
+gulp.task('server:remove:index', shell.task('ssh -i ' + server.get('shell')['privateKey'] + ' -p ' + server.get('shell')['port'] + ' ' +
   server.get('shell')['username'] + '@' + server.get('shell')['hostname'] +
-  ' rm -f ' + path.join(server.get('shell')['destination'], path.basename(server.get('webroot')), 'index.php')
-  gutil.log('shell task: ')
-  gutil.log(task)
-  shell.task([task])
-})
+  " 'rm -f " + path.join(server.get('shell')['destination'], path.basename(server.get('webroot')), 'index.php') + "'")
+)
 
 // copy index.php to remote server so it is enabled again
-gulp.task('server:copy:index', function () {
-  gutil.log(gutil.colors.green('Enabling server production mode.'))
-  var task = 'scp -i ' + server.get('shell')['privateKey'] + ' -P ' +
-  server.get('shell')['port'] + ' ./index.php ' +
+gulp.task('server:copy:index', shell.task('scp -i ' + server.get('shell')['privateKey'] + ' -P ' +
+  server.get('shell')['port'] + ' ' + path.join(home, distFolder, path.basename(server.get('webroot')), 'index.php') + ' ' +
   server.get('shell')['username'] + '@' + server.get('shell')['hostname'] + ':' +
-  path.join(server.get('shell')['destination'], path.basename(server.get('webroot')), 'index.php')
-  gutil.log('shell task: ')
-  gutil.log(task)
-  shell.task([task], {
-    cwd: path.join(home, distFolder, path.basename(server.get('webroot')))
-  })
-})
+  path.join(server.get('shell')['destination'], path.basename(server.get('webroot')), 'index.php'))
+)
 
 gulp.task('confirm:push', function (callback) {
   gutil.log(gutil.colors.yellow('Pushing to ' + gutil.colors.bold(server.name)))
@@ -175,7 +163,7 @@ gulp.task('confirm:deploy', function (callback) {
 })
 
 gulp.task('copy:webroot', function () {
-  return gulp.src('server/webroot/*')
+  return gulp.src('server/webroot/*', {dot: true})
     .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('webroot')))))
 })
 
@@ -213,7 +201,7 @@ gulp.task('rsync', function () {
   var rsyncOpts = _.merge({}, server.get('shell'), server.get('rsync'))
 
   rsyncOpts.shell = 'ssh -p ' + rsyncOpts.port + ' -i ' + rsyncOpts.privateKey
-  rsyncOpts.exclude = 'index.php'
+  rsyncOpts.exclude = 'index.php .DS_Store'
   rsyncOpts.root = distFolder
   rsyncOpts.command = Boolean(argv.rsyncdebug || false)
   delete rsyncOpts.port // port will cause shell opt to be ignore
@@ -222,7 +210,7 @@ gulp.task('rsync', function () {
     throwError('rsync', 'Rsync is not enabled for this server: ' + gutil.colors.bold(server.name))
   }
   gutil.log('shell arg: ' + gutil.colors.bold(rsyncOpts.shell))
-  return gulp.src('./' + distFolder + '/**/*')
+  return gulp.src('./' + distFolder + '/**/*', {dot: true})
     .pipe(rsync(rsyncOpts))
 })
 
