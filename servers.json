@@ -1,16 +1,18 @@
 {
 	"_defaults": {
             "rsync": {
-                "destination": "",
-                "hostname": "",
-                "username": "",
                 "progress": true,
                 "recursive": true,
                 "clean": true,
-                "enabled": false,
-                "root": "bin"
+                "enabled": false
             },
-            "privateKey": "",
+            "shell": {
+                 "hostname": "",
+                 "privateKey": "",
+                 "port": 22,
+                 "username": "",
+                 "destination": ""
+            },
             "color": "yellow",
             "webroot": "webroot",
             "serverApp": "server"

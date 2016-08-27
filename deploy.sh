@@ -3,7 +3,7 @@
 ##################################
 ######## Deploy Version ##########
 ##################################
-#								 #	
+#								 #
 # 1) Deploy to production        #
 #								 #
 # 2) increment package version   #
@@ -34,7 +34,7 @@ else
     # echo [$key] not empty
     printf 'Exiting.\n'
     exit 1
-fi	
+fi
 
 TS="$(date +"%s")"
 ##timestamp 1 hour in future
@@ -42,13 +42,9 @@ FTS=$(($TS + 3600))
 
 printf "timestamp ${TS}, future ts = ${FTS}\n"
 
-##set server to maintaince mode
-
 printf "running gulp deploy --production \n"
 
 gulp deploy --server=production || { echo "build failed exit without updating version or tags"; exit 1; }
-
-##set server back to production mode
 
 #bump version patch
 #npm version patch
@@ -59,4 +55,3 @@ gulp deploy --server=production || { echo "build failed exit without updating ve
 #git push origin HEAD:"${BRANCH}"
 
 exit 0
- 

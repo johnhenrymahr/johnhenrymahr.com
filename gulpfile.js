@@ -26,6 +26,8 @@ var phplint = require('phplint').lint
 
 var fs = require('fs')
 
+var distFolder = 'dist'
+
 function Server (serverKey) {
   var servers = require('./servers.json')
   var serverConfPath = argv.serverconf || path.normalize(path.join(process.env.HOME, '/.serverconf.json'))
@@ -91,8 +93,8 @@ gulp.task('server', function (cb) {
   cb()
 })
 
-gulp.task('clean:bin', function () {
-  return del(['bin/**/*'])
+gulp.task('clean:dist', function () {
+  return del([distFolder + '/**/*'])
 })
 
 gulp.task('lint', function () {
@@ -122,8 +124,33 @@ gulp.task('build', shell.task([
 gulp.task('composer', shell.task([
   'composer install --no-dev'
 ], {
-  cwd: path.join(home, 'bin', path.basename(server.get('serverApp')))
+  cwd: path.join(home, distFolder, path.basename(server.get('serverApp')))
 }))
+
+// remove the index.php on the remote server so it falls back to index.html
+gulp.task('server:remove:index', function () {
+  gutil.log(gutil.colors.magenta('setting server to maintenance mode.'))
+  var task = 'ssh -i ' + server.get('shell')['privateKey'] + ' -p ' + server.get('shell')['port'] + ' ' +
+  server.get('shell')['username'] + '@' + server.get('shell')['hostname'] +
+  ' rm -f ' + path.join(server.get('shell')['destination'], path.basename(server.get('webroot')), 'index.php')
+  gutil.log('shell task: ')
+  gutil.log(task)
+  shell.task([task])
+})
+
+// copy index.php to remote server so it is enabled again
+gulp.task('server:copy:index', function () {
+  gutil.log(gutil.colors.green('Enabling server production mode.'))
+  var task = 'scp -i ' + server.get('shell')['privateKey'] + ' -P ' +
+  server.get('shell')['port'] + ' ./index.php ' +
+  server.get('shell')['username'] + '@' + server.get('shell')['hostname'] + ':' +
+  path.join(server.get('shell')['destination'], path.basename(server.get('webroot')), 'index.php')
+  gutil.log('shell task: ')
+  gutil.log(task)
+  shell.task([task], {
+    cwd: path.join(home, distFolder, path.basename(server.get('webroot')))
+  })
+})
 
 gulp.task('confirm:push', function (callback) {
   gutil.log(gutil.colors.yellow('Pushing to ' + gutil.colors.bold(server.name)))
@@ -149,56 +176,68 @@ gulp.task('confirm:deploy', function (callback) {
 
 gulp.task('copy:webroot', function () {
   return gulp.src('server/webroot/*')
-    .pipe(gulp.dest('bin/' + path.basename(server.get('webroot')) + '/'))
+    .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('webroot')))))
 })
 
 gulp.task('copy:libs', function () {
   return gulp.src('server/libs/*')
-    .pipe(gulp.dest('bin/' + path.basename(server.get('serverApp')) + '/libs/'))
+    .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('serverApp')), 'libs')))
 })
 
 gulp.task('copy:includes', function () {
   return gulp.src('server/includes/*')
-    .pipe(gulp.dest('bin/' + path.basename(server.get('serverApp')) + '/includes/'))
+    .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('serverApp')), 'includes')))
 })
 
 gulp.task('copy:composer', function () {
   return gulp.src(['server/composer.json', 'server/composer.lock'])
-    .pipe(gulp.dest('bin/' + path.basename(server.get('serverApp')) + '/'))
+    .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('serverApp')))))
 })
 
 gulp.task('copy:app', function () {
   return gulp.src('build/rsc/**/*')
-    .pipe(gulp.dest('bin/' + path.basename(server.get('webroot')) + '/rsc'))
+    .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('webroot')), 'rsc')))
 })
 
 gulp.task('copy:data', function () {
   return gulp.src(['data/viewManifest.json', 'data/webpack-assets.json'])
-    .pipe(gulp.dest('bin/' + path.basename(server.get('serverApp')) + '/data'))
+    .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('serverApp')), 'data')))
 })
 
 gulp.task('copy:dust', function () {
   return gulp.src('app/dust/**/*')
-    .pipe(gulp.dest('bin/' + path.basename(server.get('serverApp')) + '/dust'))
+    .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('serverApp')), 'dust')))
 })
 
 gulp.task('rsync', function () {
-  var rsyncOpts = server.get('rsync')
+  var rsyncOpts = _.merge({}, server.get('shell'), server.get('rsync'))
+
+  rsyncOpts.shell = 'ssh -p ' + rsyncOpts.port + ' -i ' + rsyncOpts.privateKey
+  rsyncOpts.exclude = 'index.php'
+  rsyncOpts.root = distFolder
+  rsyncOpts.command = Boolean(argv.rsyncdebug || false)
+  delete rsyncOpts.port // port will cause shell opt to be ignore
+
   if (rsyncOpts.enabled === false) {
     throwError('rsync', 'Rsync is not enabled for this server: ' + gutil.colors.bold(server.name))
   }
   gutil.log('shell arg: ' + gutil.colors.bold(rsyncOpts.shell))
-  return gulp.src('./bin/**/*')
+  return gulp.src('./' + distFolder + '/**/*')
     .pipe(rsync(rsyncOpts))
 })
 
 gulp.task('send', function (callback) {
-  runSequence('confirm:push', 'rsync', callback)
+  runSequence(
+    'confirm:push',
+    'server:remove:index',
+    'rsync',
+    'server:copy:index',
+    callback)
 })
 
 gulp.task('update:index', function (callback) {
   try {
-    var indexPath = path.join('bin', path.basename(server.get('webroot')), 'index.php')
+    var indexPath = path.join(distFolder, path.basename(server.get('webroot')), 'index.php')
     var index = fs.readFileSync(indexPath, 'utf8')
     var analytics = ''
     index = index.replace('{{serverApp}}', server.get('serverApp'))
@@ -217,7 +256,7 @@ gulp.task('update:index', function (callback) {
 
 gulp.task('update:config', function (callback) {
   try {
-    var cfgPath = path.join('bin', path.basename(server.get('serverApp')), 'libs', 'Config.php')
+    var cfgPath = path.join(distFolder, path.basename(server.get('serverApp')), 'libs', 'Config.php')
     var config = fs.readFileSync(cfgPath, 'utf8')
     config = config.replace('{{serverApp}}', server.get('serverApp'))
     config = config.replace('{{webroot}}', server.get('webroot'))
@@ -231,9 +270,9 @@ gulp.task('update:config', function (callback) {
 
 gulp.task('phplint', function (cb) {
   phplint([
-    'bin/' + server.get('serverApp') + '/libs/*.php',
-    'bin/' + server.get('serverApp') + '/includes/*.php',
-    'bin/' + server.get('webroot') + '/index.php'
+    path.join(distFolder, server.get('serverApp'), 'libs', '*.php'),
+    path.join(distFolder, server.get('serverApp'), 'includes', '*.php'),
+    path.join(distFolder, server.get('webroot'), 'index.php')
   ], {limit: 10}, function (err, stdout, stderr) {
     if (err) {
       throwError('phplint', err)
@@ -244,7 +283,7 @@ gulp.task('phplint', function (cb) {
 
 gulp.task('package', function (callback) {
   runSequence(
-    'clean:bin',
+    'clean:dist',
     'lint',
     'test:app',
     'test:server',
