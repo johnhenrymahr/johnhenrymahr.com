@@ -2,7 +2,7 @@
   "template": "mainTpl.dust",
   "selector": "main.mainView",
   "attributes": {
-    "className": "mainClass container-fluid",
+    "className": "main container-fluid",
     "tagName": "main"
   },
   "sections": [
@@ -17,28 +17,28 @@
     {
     "container": {
       "attributes": {
-        "className": "content"
+        "className": "content col-xs-12 col-md-8 col-lg-6 col-xl-6"
      }
     },
     "children": [
         {
-            "id": "title",
-            "selector": "section.title",
-            "template": "titleTpl.dust",
-            "tagName": "section",
+            "id": "core",
+            "selector": "section.core",
+            "template": "coreTpl.dust",
             "attributes": {
-              "className": "titleView"
-            }
-        },
-        {
-            "id": "intro",
-            "selector": "section.intro",
-            "template": "introTpl.dust",
-            "tagName": "section",
-            "attributes": {
-              "className": "introView"
+              "tagName": "section",
+              "className": "core"
             }
         }
       ]
+    },
+    {
+      "id": "contact",
+      "selector": "section.contact",
+      "template": "contactTpl.dust",
+      "attributes": {
+        "tagName": "section",
+        "className": "contact col-xs-12"
+      }
     }]
 }

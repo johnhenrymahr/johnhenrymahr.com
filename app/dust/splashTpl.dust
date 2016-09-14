@@ -1,4 +1,3 @@
 <div class="splash__blocks">
   {>"app/dust/svg/jhm-blocks" /}
 </div>
- <div class="splash__footer"></div>

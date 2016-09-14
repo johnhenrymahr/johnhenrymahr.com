@@ -1,0 +1,28 @@
+@import '_common.less';
+
+.core {
+  &__title {
+    &--container {
+      margin: 0px 20%;
+      position: relative;
+      top: 40px;
+      background-color: @tan;
+      border: 3px solid @darkerBrown;
+      >svg {
+        display: block;
+        padding: 15px;
+        margin: 0px auto;
+      }
+    }
+  }
+  &__content {
+    #gradient.vertical(@jhm_orange; @jhm_orange_dark; );
+   width: 100%;
+   padding-top: 90px;
+   padding-bottom: 40px;
+   overflow: hidden;
+   border-radius: 0px 0px 25px 25px;
+   box-shadow:  0px 3px 6px 0px rgba(50, 50, 50, 0.6);
+  }
+
+}

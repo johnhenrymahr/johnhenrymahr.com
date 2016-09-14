@@ -1,0 +1,17 @@
+ <menu class="menu">
+  <div class="menu__wrap">
+    <a class="menu__item col-xs-4 col-md-12">
+        <span>Tech</span>
+    </a>
+  </div>
+  <div class="menu__wrap">
+    <a class="menu__item col-xs-4 col-md-12">
+        <span>Blog</span>
+    </a>
+  </div>
+  <div class="menu__wrap">
+    <a class="menu__item col-xs-4 col-md-12">
+        <span>CV</span>
+    </a>
+  </div>
+</menu>
