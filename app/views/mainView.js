@@ -95,7 +95,7 @@ module.exports = View.extend(_.merge({
   template: require('app/dust/' + manifest.json.template),
 
   getContainer: function () {
-    return (manifest.has('content')) ? this.$(this._manifest.content) : this.$el
+    return (_.has(this._manifest, 'content')) ? this.$(this._manifest.content) : this.$el
   },
 
   onAttach: function (options) {
@@ -111,4 +111,4 @@ module.exports = View.extend(_.merge({
     }, this)
   }
 
-}, manifest.attributes))
+}, manifest.json.attributes))

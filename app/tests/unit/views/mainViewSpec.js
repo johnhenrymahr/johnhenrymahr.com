@@ -24,9 +24,9 @@ var manifest = {
     },
     children: [
       {
-        id: 'test',
+        id: 'contact',
         selector: 'section.title',
-        template: 'titleTpl.dust',
+        template: 'contactTpl.dust',
         attributes: {
           className: 'title container-fluid',
           tagName: 'section'
@@ -43,11 +43,11 @@ describe('MainView spec', function () {
   var view
   var sandbox
   beforeEach(function () {
+    sandbox = sinon.sandbox.create()
     view = new MainView()
     view._manifest = _.clone(manifest)
     view._children = []
     view._views = views
-    sandbox = sinon.sandbox.create()
   })
   afterEach(function () {
     view = null
@@ -107,6 +107,19 @@ describe('MainView spec', function () {
       var stub = sandbox.stub(view, '_getSections')
       view.onAttach({foo: 'bar'})
       chai.expect(stub.calledWith({foo: 'bar'}))
+    })
+  })
+
+  context('getContainer method', function () {
+    it('retuns main $el when no container is defined', function () {
+      chai.expect(view.getContainer()).to.equal(view.$el)
+    })
+    it('retuns correct container element when container is defined', function () {
+      view._manifest.content = '.contentContainer'
+      view.render()
+      var ele = view.getContainer()
+      chai.expect(ele).to.be.a('object')
+      chai.expect(ele.hasClass('contentContainer')).to.be.true
     })
   })
 

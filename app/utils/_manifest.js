@@ -2,9 +2,6 @@ var _ = require('lodash')
 var viewManifest = require('data/viewManifest.json')
 module.exports = {
   json: viewManifest,
-  has: function (prop) {
-    return _.has(this.json, prop)
-  },
   get: function (id) {
     return _.reduce(this.json.sections, function (result, value, key) {
       if (_.isUndefined(result)) {
