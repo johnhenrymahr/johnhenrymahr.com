@@ -1,0 +1,38 @@
+@import '_common.less';
+
+.about {
+    margin: 25px auto;
+    max-width: 750px;
+    background-color: @darkerBrown;
+    box-shadow: 2px 2px 7px 0px rgba(50, 50, 50, 0.75);
+    &__title {
+      position: relative;
+      width: 100%;
+      min-height: 200px;
+      background-repeat: no-repeat;
+      background-position: -10px -35px;
+      background-image: url('/rsc/img/light-field.jpg');
+
+      >h2 {
+        color: white;
+        font-size: 32px;
+        font-weight: bold;
+        padding: 20px 15px;
+        text-shadow: 2px 2px black;
+      }
+      @media (min-width: @screen-sm-min) {
+          >h2 {
+            padding: 0px;
+            position: absolute;
+            right: 20px;
+            bottom: 10px;
+          }
+      }
+    }
+   &__description   {
+    padding: 15px;
+    color: white;
+    font-size: 18px;
+
+   }
+}

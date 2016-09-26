@@ -1,9 +1,25 @@
 @import '_common.less';
 
 .core {
+   position: relative;
+   max-width: 750px;
+   margin: 0px auto;
+
+  &__logo {
+    @media (min-width: @screen-md-min) {
+      margin-bottom: -350px;
+     }
+     margin-bottom: 50px;
+  }
   &__title {
+     @media (max-width: @screen-sm-min) {
+        margin-top: -100px;
+     }
     &--container {
-      margin: 0px 20%;
+      margin: 50px 15% 0px;
+      @media (max-width: @screen-sm-min) {
+        margin-top: 0px;
+      }
       position: relative;
       top: 40px;
       background-color: @tan;
@@ -16,13 +32,62 @@
     }
   }
   &__content {
-    #gradient.vertical(@jhm_orange; @jhm_orange_dark; );
+   #gradient.vertical(@jhm_orange; @jhm_orange_dark; );
    width: 100%;
-   padding-top: 90px;
+   padding-top: 50px;
+   @media (min-width: @screen-md-min) {
+    padding-top: 140px;
+   }
    padding-bottom: 40px;
    overflow: hidden;
    border-radius: 0px 0px 25px 25px;
    box-shadow:  0px 3px 6px 0px rgba(50, 50, 50, 0.6);
   }
+  &__contact {
+      position: absolute;
+      padding: 10px;
+      bottom: 68px;
+      left: -44px;
+      .btn {
+        font-size: 20px;
+      }
+      >div {
+          text-align: right;
+          dispaly: table;
+          width: 300px;
+          background-color: @tan;
+          padding: 10px;
+          position: relative;
+          z-index: 10;
+          box-shadow: 2px 2px 7px 0px rgba(50, 50, 50, 0.75);
+      }
+      >div:before {
+        left: 0;
+        top: -10px;
+        content: " ";
+        height: 0;
+        width: 0;
+        z-index: 5;
+        position: absolute;
+        pointer-events: none;
+        border-bottom: 0px solid transparent;
+        border-top: 10px solid transparent;
+        border-right: 19px solid @darkerBrown;
+      }
 
+      >div:after {
+        left: 100%;
+        top: 0;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        border-bottom: 32px solid transparent;
+        border-top: 32px solid transparent;
+        border-left: 20px solid @tan;
+        margin-top: 0px;
+
+      }
+    }
 }

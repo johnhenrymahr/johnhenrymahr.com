@@ -1,6 +1,10 @@
 <div class="row">
-  <div class="core_logo col-md-6 col-xs-12"></div>
-  <div class="core__title col-md-6 col-xs-12">
+  <div class="col-md-7 col-xs-12">
+    <div class="core__logo">
+      {>"app/dust/svg/jhm-blocks" /}
+    </div>
+  </div>
+  <div class="core__title col-md-5 col-xs-12">
     <div class="core__title--container">
       {>"app/dust/svg/title" /}
     </div>
@@ -9,11 +13,15 @@
 <div class="row">
   <div class="core__content">
       <div class="col-md-9 col-xs-12">
-          {>"app/dust/sliders" /}
+          {>"app/dust/slides" /}
       </div>
       <div class="col-md-3 col-xs-12">
         {> "app/dust/menu" /}
       </div>
   </div>
-  <div class="core__contact">Lets Connect</div>
+    <div class="core__contact">
+        <div>
+          <a class="btn btn-primary btn-orange" href="#jhm_connect">Lets Connect</a>
+        </div>
+    </div>
 </div>

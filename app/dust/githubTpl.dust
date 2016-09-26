@@ -1,0 +1,6 @@
+<div class="github__logo">
+  {> "app/dust/svg/github" /}
+</div>
+<div class="github__text">
+  <a href="https://github.com/johnhenrymahr/johnhenrymahr.com" target="_BLANK">View this site on GitHub</a>
+</div>

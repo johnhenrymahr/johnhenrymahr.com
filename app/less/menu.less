@@ -10,7 +10,7 @@
     height: 75px;
     max-width: 75px;
     display: table;
-    border: 1px solid @black;
+    border: 1px solid @complimentBlue-dark;
     padding: 5px;
     margin: 0px auto 15px;
     #gradient.vertical(@complimentBlue;  @complimentBlue-light; );
@@ -25,14 +25,18 @@
     }
   }
 
-
-@media (max-width: @screen-md-min) {
+@media (max-width: @screen-xs-min) {
    text-align: center;
+   margin:  15px 0px;
+   min-height: 200px;
    &__wrap {
       display: inline-block;
       text-align: center;
    }
    &__item {
+      width: 65px;
+      height: 65px;
+      display: inline-block;
       margin: 10px 10px 15px 0px;
     }
  }

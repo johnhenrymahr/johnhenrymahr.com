@@ -1,6 +1,7 @@
 {
   "template": "mainTpl.dust",
   "selector": "main.mainView",
+  "content": ".contentContainer",
   "attributes": {
     "className": "main container-fluid",
     "tagName": "main"
@@ -15,20 +16,38 @@
       "selector": ".splash"
     },
     {
-    "container": {
-      "attributes": {
-        "className": "content col-xs-12 col-md-8 col-lg-6 col-xl-6"
-     }
-    },
-    "children": [
+      "container": {
+        "attributes": {
+          "className": "content col-xs-12 col-md-8 col-lg-6"
+        }
+      },
+      "children": [
         {
-            "id": "core",
-            "selector": "section.core",
-            "template": "coreTpl.dust",
-            "attributes": {
-              "tagName": "section",
-              "className": "core"
-            }
+          "id": "core",
+          "selector": "section.core",
+          "template": "coreTpl.dust",
+          "attributes": {
+            "tagName": "section",
+            "className": "core"
+          }
+        },
+        {
+          "id": "about",
+          "selector": "section.about",
+          "template": "aboutTpl.dust",
+          "attributes": {
+            "tagName": "section",
+            "className": "about"
+          }
+        },
+        {
+          "id": "github",
+          "selector": "section.github",
+          "template": "githubTpl.dust",
+          "attributes": {
+            "tagName": "section",
+            "className": "github row"
+          }
         }
       ]
     },
@@ -38,7 +57,9 @@
       "template": "contactTpl.dust",
       "attributes": {
         "tagName": "section",
+        "id": "jhm_connect",
         "className": "contact col-xs-12"
       }
-    }]
+    }
+  ]
 }

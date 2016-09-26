@@ -1,0 +1,39 @@
+@import '_common.less';
+
+.slides {
+  margin: 5px 0px 0px auto;
+  width: 85%;
+  overflow: hidden;
+  min-height: 100px;
+  @media (max-width: @screen-sm-min) {
+    & {
+      margin: 5px auto 0px auto;
+      width: 85%;
+      min-height: 100px;
+    }
+}
+  >img {
+    width: 100%;
+    opacity: .9;
+  }
+  &__slide {
+    width: 450px;
+    height: 250px;
+    border: 1px solid @complimentBlue-dark;
+    &--fusion {
+      background-image: url('/rsc/img/fusion.jpg');
+      background-repeat: no-repeat;
+    }
+  }
+
+}
+
+@media (max-width: @screen-sm-min) {
+
+  .slides {
+    margin: 5px auto 0px auto;
+    width: 85%;
+    min-height: 100px;
+  }
+
+}

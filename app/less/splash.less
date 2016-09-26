@@ -2,10 +2,14 @@
 
 .splash {
   width: 100%;
-
    &__blocks {
       width: 60%;
       margin: 0px auto;
    }
+   opacity: 1;
+   transition: opacity 2s ease-in-out;
+}
 
+.splash.hidden {
+  opacity: 0;
 }
