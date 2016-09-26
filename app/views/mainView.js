@@ -1,7 +1,7 @@
 var $ = require('jquery')
 var _ = require('lodash')
 var View = require('app/views/_baseView')
-var manifest = require('app/utils/_manifest').json
+var manifest = require('app/utils/_manifest')
 var App = require('app/app')
 var buildElement = require('app/utils/buildContainer')
 
@@ -22,7 +22,7 @@ mixinFiles.keys().forEach(function (path) {
 module.exports = View.extend(_.merge({
   _mixins: mixins,
   _children: [], // child views
-  _manifest: manifest,
+  _manifest: manifest.json,
   _getSections: function (options) {
     var elements = []
     if (this._manifest.sections.length) {
@@ -92,11 +92,16 @@ module.exports = View.extend(_.merge({
     return instance
   },
 
-  template: require('app/dust/' + manifest.template),
+  template: require('app/dust/' + manifest.json.template),
+
+  getContainer: function () {
+    return (manifest.has('content')) ? this.$(this._manifest.content) : this.$el
+  },
 
   onAttach: function (options) {
+    this.$container = this.getContainer()
     _.each(this._getSections(options), _.bind(function (section) {
-      this.$el.append(section)
+      this.$container.append(section)
     }, this))
   },
 
