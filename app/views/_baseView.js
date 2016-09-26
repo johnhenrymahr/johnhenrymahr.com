@@ -6,6 +6,7 @@
  * @Backbone View
  */
 var _ = require('lodash')
+var App = require('app/app')
 var Backbone = require('backbone')
 module.exports = Backbone.View.extend({
   /**
@@ -166,6 +167,29 @@ module.exports = Backbone.View.extend({
       }
       this._attach(html, options)
     }
+  },
+
+  /**
+   * transition end callback with failsafe
+   * @param  {object} $el  jQuery wrapped element
+   * @param  {number} duration in mciro-seconds
+   * @return {object}  instance
+   */
+  transitionEnd: function ($el, duration, cb) {
+    var called = false
+    if (!_.isNull(App._transition)) {
+      $el.one(App._transition, function () {
+        called = true
+        cb()
+      })
+    }
+    var callback = function () {
+      if (!called) {
+        cb()
+      }
+    }
+    setTimeout(callback, (duration + 100))
+    return this
   },
 
   /**
