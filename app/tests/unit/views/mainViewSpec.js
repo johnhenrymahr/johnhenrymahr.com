@@ -187,5 +187,17 @@ describe('MainView spec', function () {
       var instance = view._getViewInstance({id: 'test'})
       chai.expect(instance.foo).to.equal('bar')
     })
+    it('calls mixin initialize if provided', function () {
+      view._mixins = {
+        test: {
+          foo: 'bar',
+          initialize: function () {
+            this.foo = 'baz'
+          }
+        }
+      }
+      var instance = view._getViewInstance({id: 'test'})
+      chai.expect(instance.foo).to.equal('baz')
+    })
   })
 })
