@@ -5,24 +5,40 @@ var manifest = require('app/utils/_manifest')
 var App = require('app/app')
 var buildElement = require('app/utils/buildContainer')
 
-// set up less style sheets
-var lessFiles = require.context('app/less', false, /^[^_]*.less$/) // files ending in .less, but not begining with _
-lessFiles.keys().forEach(function (path) {
-  lessFiles(path)
-})
+function setUpDependencies (model) {
+  var deps = {}
+  // set up less style sheets
+  deps.lessFiles = require.context('app/less', false, /^[^_]*.less$/) // files ending in .less, but not begining with _
+  deps.lessFiles.keys().forEach(function (path) {
+    deps.lessFiles(path)
+  })
 
-// handle mixins
-var mixins = {}
-var mixinFiles = require.context('app/views', false, /ViewMixin.js$/)
-mixinFiles.keys().forEach(function (path) {
-  var key = path.replace('ViewMixin.js', '').replace(/^(.*[\\\/])/, '').toLowerCase()
-  mixins[key] = mixinFiles(path)
-})
+  // models
+  if (_.isFunction(model.setModel)) {
+    var models = require.context('app/models', false, /^[^_]*Model.js$/)
+    models.keys().forEach(function (path) {
+      var key = path.replace('Model.js', '').replace(/^(.*[\\\/])/, '').toLowerCase()
+      model.setModel(key, models(path))
+    })
+  }
+  // handle mixins
+  deps.mixins = {}
+  var mixinFiles = require.context('app/views', false, /ViewMixin.js$/)
+  mixinFiles.keys().forEach(function (path) {
+    var key = path.replace('ViewMixin.js', '').replace(/^(.*[\\\/])/, '').toLowerCase()
+    deps.mixins[key] = mixinFiles(path)
+  })
+  return deps
+}
 
 module.exports = View.extend(_.merge({
-  _mixins: mixins,
+  _mixins: null,
   _children: [], // child views
   _manifest: manifest.json,
+  initialize: function (options) {
+    var deps = setUpDependencies(options.model || {})
+    this._mixins = deps.mixins
+  },
   _getSections: function (options) {
     var elements = []
     if (this._manifest.sections.length) {

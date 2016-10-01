@@ -2,7 +2,7 @@ var $ = require('jquery')
 var _ = require('lodash')
 var MainView = require('./views/mainView')
 var manifest = require('app/utils/_manifest').json
-var AppModel = require('./models/appModel')
+var AppModel = require('./models/_appModel')
 var App = require('./app')
 require('dustjs-helpers')
 
