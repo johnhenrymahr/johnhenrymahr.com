@@ -48,18 +48,18 @@
             "tagName": "section",
             "className": "github row"
           }
+        },
+        {
+          "id": "contact",
+          "selector": "section.contact",
+          "template": "contactTpl.dust",
+          "attributes": {
+            "tagName": "section",
+            "id": "jhm_connect",
+            "className": "contact col-xs-12"
+          }
         }
       ]
-    },
-    {
-      "id": "contact",
-      "selector": "section.contact",
-      "template": "contactTpl.dust",
-      "attributes": {
-        "tagName": "section",
-        "id": "jhm_connect",
-        "className": "contact col-xs-12"
-      }
     }
   ]
 }

@@ -58,6 +58,20 @@ module.exports = Backbone.Model.extend({
           : true
       },
       message: 'Please enter a valid e-mail address.'
+    },
+    {
+      attribute: 'topic',
+      validate: function (topic) {
+        return Boolean(topic.length)
+      },
+      message: 'Please select a topic.'
+    },
+    {
+      attribute: 'message',
+      validate: function (message) {
+        return Boolean(message.length)
+      },
+      message: 'Please provide details.'
     }
   ]
 })
