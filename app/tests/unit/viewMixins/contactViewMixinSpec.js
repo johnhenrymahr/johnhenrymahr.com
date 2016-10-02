@@ -20,11 +20,15 @@ describe('contactView Mixin', function () {
     })
   })
   context('event handlers ', function () {
-    it('runs nValidationError method', function () {
+    it('runs onValidationError method', function () {
       var stub = sandbox.stub(view, 'decorate')
       var el = $('<div />')
       view.$ = sandbox.stub()
-      view.$.returns(el)
+      view.$.returns({
+        parents: function () {
+          return el
+        }
+      })
       view.onValidationError({}, {name: 'a name error', email: 'a email error'}, {})
       chai.expect(stub.calledWith(el, 'a name error')).to.be.true
       chai.expect(stub.calledWith(el, 'a email error')).to.be.true
@@ -58,11 +62,11 @@ describe('contactView Mixin', function () {
   context('decorator method', function () {
     var el
     beforeEach(function () {
-      el = $('<div><input /></div>')
+      el = $('<div><input class="form-control" /></div>')
       view.decorate(el, 'test message')
     })
     it('popultes message text', function () {
-      chai.expect(el.find('span.validation-error').text()).to.equal('test message')
+      chai.expect(el.find('span.validation-error').text()).to.equal(' test message')
     })
     it('puts span in correct location in DOM', function () {
       chai.expect(el.find('input').next()[0].tagName).to.equal('SPAN')
