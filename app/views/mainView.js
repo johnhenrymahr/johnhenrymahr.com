@@ -3,7 +3,7 @@ var _ = require('lodash')
 var View = require('app/views/_baseView')
 var manifest = require('app/utils/_manifest')
 var App = require('app/app')
-var buildElement = require('app/utils/buildContainer')
+var buildContainer = require('app/utils/buildContainer')
 
 function setUpDependencies (model) {
   var deps = {}
@@ -49,7 +49,7 @@ module.exports = View.extend(_.merge({
           elements.push(instance.render(options).el)
         }
         if (_.isArray(section.children)) {
-          var container = buildElement(section.container)
+          var container = buildContainer(section.container)
           _.each(section.children, _.bind(function (child) {
             var instance = this._getViewInstance(child)
             if (_.isObject(instance)) {
@@ -110,12 +110,12 @@ module.exports = View.extend(_.merge({
 
   template: require('app/dust/' + manifest.json.template),
 
-  getContainer: function () {
+  _getContainer: function () {
     return (_.has(this._manifest, 'content')) ? this.$(this._manifest.content) : this.$el
   },
 
   onAttach: function (options) {
-    this.$container = this.getContainer()
+    this.$container = this._getContainer()
     _.each(this._getSections(options), _.bind(function (section) {
       this.$container.append(section)
     }, this))

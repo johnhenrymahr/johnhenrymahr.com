@@ -10,18 +10,14 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="core__content">
-      <div class="col-md-9 col-xs-12">
-          {>"app/dust/slides" /}
-      </div>
-      <div class="col-md-3 col-xs-12">
-        {> "app/dust/menu" /}
-      </div>
-  </div>
-    <div class="core__contact">
-        <div>
-          <a class="btn btn-primary btn-orange" href="#jhm_connect">Lets Connect</a>
-        </div>
+<div class="row core__content">
+    <div class="col-md-2 col-xs-12"></div>
+    <div class="col-md-2 col-xs-12">
+      {>"app/dust/svg/ui" /}
     </div>
+    <div class="col-md-6 col-xs-12core__content--title">
+      <h2>Next Generation UIM</h2>
+      <p>How is your ui?</p>
+    </div>
+    <div class="col-md-2 col-xs-12"></div>
 </div>

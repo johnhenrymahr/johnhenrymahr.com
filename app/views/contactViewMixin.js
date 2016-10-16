@@ -23,6 +23,9 @@ module.exports = {
   },
   onInputChange: function (e) {
     var $el = this.$(e.currentTarget)
+    if ($el.val().length) {
+      $el.find('option[value=""]').attr('disabled', 'disabled')
+    }
     if ($el.val() === 'other') {
       $el.parent().next().removeClass('form-group-hidden')
     } else {
