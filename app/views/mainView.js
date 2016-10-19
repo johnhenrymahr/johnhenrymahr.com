@@ -3,7 +3,6 @@ var _ = require('lodash')
 var View = require('app/views/_baseView')
 var manifest = require('app/utils/_manifest')
 var App = require('app/app')
-var buildContainer = require('app/utils/buildContainer')
 
 function setUpDependencies (model) {
   var deps = {}
@@ -33,35 +32,28 @@ function setUpDependencies (model) {
 
 module.exports = View.extend(_.merge({
   _mixins: null,
-  _children: [], // child views
+  _children: [], // child views (sections)
   _manifest: manifest.json,
   initialize: function (options) {
     var deps = setUpDependencies(options.model || {})
     this._mixins = deps.mixins
+    this._getSections()
   },
-  _getSections: function (options) {
-    var elements = []
+  _getSections: function () {
     if (this._manifest.sections.length) {
       _.each(this._manifest.sections, _.bind(function (section) {
         var instance = this._getViewInstance(section)
         if (_.isObject(instance)) {
+          if (_.isArray(section.children)) {
+            _.each(section.children, _.bind(function (child) {
+              instance._children.push(this._getViewInstance(child))
+            }, this))
+          }
           this._children.push(instance)
-          elements.push(instance.render(options).el)
-        }
-        if (_.isArray(section.children)) {
-          var container = buildContainer(section.container)
-          _.each(section.children, _.bind(function (child) {
-            var instance = this._getViewInstance(child)
-            if (_.isObject(instance)) {
-              this._children.push(instance)
-              container.append(instance.render(options).el)
-              elements.push(container)
-            }
-          }, this))
         }
       }, this))
     }
-    return elements
+    return this._children
   },
 
   _setupEventProxy: function (instance) {
@@ -108,23 +100,6 @@ module.exports = View.extend(_.merge({
     return instance
   },
 
-  template: require('app/dust/' + manifest.json.template),
-
-  _getContainer: function () {
-    return (_.has(this._manifest, 'childContainer')) ? this.$(this._manifest.childContainer) : this.$el
-  },
-
-  onAttach: function (options) {
-    this.$container = this._getContainer()
-    _.each(this._getSections(options), _.bind(function (section) {
-      this.$container.append(section)
-    }, this))
-  },
-
-  onBeforeDestroy: function () {
-    _.each(this._children, function (childView) {
-      childView.destroy()
-    }, this)
-  }
+  template: require('app/dust/' + manifest.json.template)
 
 }, manifest.json.attributes))

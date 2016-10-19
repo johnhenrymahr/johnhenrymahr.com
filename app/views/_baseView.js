@@ -16,6 +16,17 @@ module.exports = Backbone.View.extend({
    * @type {String}
    */
   viewClass: null,
+
+  /**
+  *
+  * childViewContainer
+  *
+  * if there are child views, a selector
+  * for the container to append them to
+  * @type {string}
+  *
+  childViewContainer: null,
+
   /**
    *  sanity check
    *
@@ -31,6 +42,12 @@ module.exports = Backbone.View.extend({
   _serverRendered: false,
 
   /**
+  * child views
+  # @type {Array}
+  */
+  _children: [],
+
+  /**
    * handle el property intelegently
    *
    *
@@ -44,6 +61,9 @@ module.exports = Backbone.View.extend({
     }
     if (_.has(options, 'viewClass')) {
       this.viewClass = options.viewClass
+    }
+    if (_.has(options, 'childViewContainer')) {
+      this.childViewContainer = options.childViewContainer
     }
     if (_.has(options, 'el')) {
       var $el = options.el instanceof Backbone.$ ? options.el : Backbone.$(options.el)
@@ -134,7 +154,20 @@ module.exports = Backbone.View.extend({
     if (_.isFunction(this.onAttach)) {
       this.onAttach(options)
     }
+    if (this._children.length) {
+      this._renderChildViews(options)
+    }
+    this.trigger('view:attach', html, options)
   },
+
+  _renderChildViews: function (options) {
+    var $container = (_.isString(this.childViewContainer)) ? this.$(this.childViewContainer) : this.$el
+    _.each(this._children, _.bind(function (child) {
+      $container.append(child.render(options).el)
+      this.trigger('view:attachChild', child)
+    }, this))
+  },
+
   /**
    * basic render method
    * @param  {object} options
@@ -146,7 +179,7 @@ module.exports = Backbone.View.extend({
       throw new Error('The destroyed view: ' + this.cid + ' cannot be rendered.')
     }
     if (!_.isFunction(this.template)) {
-      throw new Error('The view: ' + this.cid + ' has no template defined.')
+      return this
     }
     if (this.serverRendered() === false) {
       this.template(this._getData(), _.wrap(options, _.bind(this._templateCallback, this)))
@@ -165,6 +198,7 @@ module.exports = Backbone.View.extend({
       if (_.isFunction(this.onRender)) {
         this.onRender(options)
       }
+      this.trigger('view:render', html, options)
       this._attach(html, options)
     }
   },
@@ -202,9 +236,19 @@ module.exports = Backbone.View.extend({
     if (_.isFunction(this.onBeforeDestroy)) {
       this.onBeforeDestroy()
     }
+    this.trigger('view:beforeDestroy')
+    if (this._children.length) {
+      _.each(this._children, function (child) {
+        child.destroy()
+      })
+    }
     this.undelegateEvents()
     this.$el.removeData().unbind()
     this._destroyed = true
+    if (_.isFunction(this.onDestroy)) {
+      this.onDestroy()
+    }
+    this.trigger('view:destroy')
     return this.remove()
   }
 })

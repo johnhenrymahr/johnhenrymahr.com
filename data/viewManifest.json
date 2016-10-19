@@ -1,7 +1,7 @@
 {
   "template": "mainTpl.dust",
   "selector": "main.mainView",
-  "content": ".contentContainer",
+  "childViewContainer": ".contentContainer",
   "attributes": {
     "className": "main container-fluid",
     "tagName": "main"
