@@ -1,6 +1,6 @@
 var $ = require('jquery')
 var _ = require('lodash')
-module.exports = function buildElement (config) {
+module.exports = function buildContainer (config) {
   config = _.isObject(config) ? config : {}
   _.defaults(config, {
     tagName: 'div'
