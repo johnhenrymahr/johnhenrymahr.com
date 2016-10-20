@@ -63,6 +63,14 @@ describe('MainView spec', function () {
     it('can render its base template', function () {
       chai.expect(view.render().$el.is(':empty')).to.be.false
     })
+    it('polulates _mixins array on instantiation', function () {
+      chai.expect(view._mixins).to.be.a('Object')
+    })
+    it('calls _getSections on init', function () {
+      var stub = sandbox.stub(view, '_getSections')
+      view.initialize({model: {}})
+      chai.expect(stub.calledOnce).to.be.true
+    })
   })
 
   context('getSections method', function () {
@@ -70,9 +78,9 @@ describe('MainView spec', function () {
       var secs = view._getSections()
       chai.expect(secs).to.be.a('array')
     })
-    it('pushes instances onto stack', function () {
+    it('pushes section instances onto stack', function () {
       view._getSections()
-      chai.expect(view._children.length).to.equal(2)
+      chai.expect(view._children.length).to.equal(1)
     })
     it('calls getViewInstance for each iterateable section', function () {
       var spy = sandbox.spy(view, '_getViewInstance')
@@ -84,58 +92,6 @@ describe('MainView spec', function () {
       var secs = view._getSections()
       chai.expect(secs.length).to.equal(1)
       chai.expect(view._children.length).to.equal(1)
-    })
-    it('returns array of DOM nodes', function () {
-      var secs = view._getSections()
-      chai.expect(_.has(secs[0], 'nodeName')).to.be.true
-    })
-    it('calls instance render method', function () {
-      var mock = {
-        el: '',
-        render: sandbox.stub()
-      }
-      mock.render.returns(mock)
-      var stub = sandbox.stub(view, '_getViewInstance')
-      stub.returns(mock)
-      view._getSections()
-      chai.expect(mock.render.calledTwice).to.be.true
-    })
-  })
-
-  context('onAttach', function () {
-    it('calls get sections on atatch', function () {
-      var stub = sandbox.stub(view, '_getSections')
-      view.onAttach({foo: 'bar'})
-      chai.expect(stub.calledWith({foo: 'bar'}))
-    })
-  })
-
-  context('getContainer method', function () {
-    it('retuns main $el when no container is defined', function () {
-      chai.expect(view.getContainer()).to.equal(view.$el)
-    })
-    it('retuns correct container element when container is defined', function () {
-      view._manifest.content = '.contentContainer'
-      view.render()
-      var ele = view.getContainer()
-      chai.expect(ele).to.be.a('object')
-      chai.expect(ele.hasClass('contentContainer')).to.be.true
-    })
-  })
-
-  context('onBeforeDestroy', function () {
-    it('calls children destroy methodns before detsroys itself', function () {
-      var child1 = new Backbone.View()
-      var child2 = new Backbone.View()
-      var stub = sandbox.stub()
-      var stub2 = sandbox.stub()
-      child1.destroy = stub
-      child2.destroy = stub2
-      view._children.push(child1)
-      view._children.push(child2)
-      view.destroy()
-      chai.expect(stub.calledOnce).to.be.true
-      chai.expect(stub2.calledOnce).to.be.true
     })
   })
 
