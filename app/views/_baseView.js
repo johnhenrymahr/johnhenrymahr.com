@@ -67,17 +67,14 @@ module.exports = Backbone.View.extend({
     }
     if (_.has(options, 'el')) {
       var $el = options.el instanceof Backbone.$ ? options.el : Backbone.$(options.el)
-      if (this._isServerRendered($el)) { // if the el is not in the DOM already remove the option
-        if ($el.children().length) {
-          this._serverRendered = true
-        }
+      if (this._isServerRendered($el) && $el.children().length) { // if the el is not in the DOM already remove the option
+        this._serverRendered = true
       } else {
         options = _.omit(options, 'el')
       }
     }
     Backbone.View.call(this, options)
   },
-
   /**
    * _isServerRendered
    *
@@ -90,10 +87,9 @@ module.exports = Backbone.View.extend({
   _isServerRendered: function ($el) {
     return $el.length && Backbone.$.contains(document, $el[0])
   },
-
   /**
    *  has view been rendered on server
-   *  returns true ONLY FIrst tiem it is called
+   *  returns true ONLY FIrst time it is called
    *
    * @private
    * @return {Boolean}
@@ -105,7 +101,6 @@ module.exports = Backbone.View.extend({
     }
     return false
   },
-
   /**
    *  return serialized model representation
    *
@@ -159,15 +154,39 @@ module.exports = Backbone.View.extend({
     }
     this.trigger('view:attach', html, options)
   },
-
+  /**
+  * _renderChildViews
+  *  loop through _children and render views
+  *  @param {Object} render options
+  *  @return {object} this
+  */
   _renderChildViews: function (options) {
-    var $container = (_.isString(this.childViewContainer)) ? this.$(this.childViewContainer) : this.$el
+    var $container = this._getChildViewContainer()
     _.each(this._children, _.bind(function (child) {
       $container.append(child.render(options).el)
       this.trigger('view:attachChild', child)
     }, this))
+    return this
   },
-
+  /**
+  * _getChildViewContainer
+  *  get a container object
+  *
+  *  @return {object} jQuery wrapped container
+  *  @thow error if container not found in DOM
+  */
+  _getChildViewContainer: function () {
+    if (_.isString(this.childViewContainer) && this.childViewContainer.length) {
+      var $container = this.$(this.childViewContainer)
+      if ($container.length) {
+        return $container
+      } else {
+        throw new Error('Child view container not found in context.')
+      }
+    } else {
+      return this.$el
+    }
+  },
   /**
    * basic render method
    * @param  {object} options
@@ -202,7 +221,6 @@ module.exports = Backbone.View.extend({
       this._attach(html, options)
     }
   },
-
   /**
    * transition end callback with failsafe
    * @param  {object} $el  jQuery wrapped element
@@ -225,7 +243,6 @@ module.exports = Backbone.View.extend({
     setTimeout(callback, (duration + 100))
     return this
   },
-
   /**
    * clean up  handlers
    *  and destroy view
