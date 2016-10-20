@@ -1,5 +1,6 @@
 {
   "require": {
+    "querypath/QueryPath": ">=3.0.0",
     "dust-php/dust-php": "0.1.0",
     "symfony/yaml":"@stable",
     "symfony/cache": "@stable",
