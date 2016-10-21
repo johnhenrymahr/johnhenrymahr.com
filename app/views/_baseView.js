@@ -149,10 +149,10 @@ module.exports = Backbone.View.extend({
     if (_.isFunction(this.onAttach)) {
       this.onAttach(options)
     }
+    this.trigger('view:attach', html, options)
     if (this._children.length) {
       this._renderChildViews(options)
     }
-    this.trigger('view:attach', html, options)
   },
   /**
   * _renderChildViews
