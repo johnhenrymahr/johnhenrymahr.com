@@ -15,7 +15,8 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
       },
       "selector": ".splash"
     }', true);
-        $this->obj = new \JHM\Template($atts, '<div>This be the rendered content</div>');
+        $q = \QueryPath::with('<div>This be the rendered content</div>');
+        $this->obj = new \JHM\Template($atts, $q);
     }
     protected function tearDown()
     {
@@ -27,13 +28,14 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('<section class="splash" data-foo="bar">', $this->obj->open());
     }
 
-    public function tesContentMethod()
+    public function testBodyMethod()
     {
-        $this->assertEquals('<div>This be the rendered content</div>', $this->obj->open());
+        $this->assertEquals('<div>This be the rendered content</div>', $this->obj->body());
     }
 
     public function tesCloseMethod()
     {
-        $this->assertEquals('</section>', $this->obj->open());
+        $this->assertEquals('</section>', $this->obj->close());
     }
+
 }

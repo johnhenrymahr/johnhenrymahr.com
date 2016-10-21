@@ -10,6 +10,8 @@ class TemplateFactory implements templateFactoryInterface
 
     protected $dataProvider;
 
+    protected $queryPath;
+
     public function __construct(
         RendererInterface $renderer,
         ConfigInterface $config,
@@ -23,21 +25,28 @@ class TemplateFactory implements templateFactoryInterface
     {
         if (array_key_exists('template', $data) && array_key_exists('id', $data)) {
             $templatePath = $this->config->resolvePath($data['template']);
+            $queryObj = null;
             if ($templatePath) {
                 $renderedContent = '';
                 $template = $this->renderer->compileFile($templatePath);
                 if ($template) {
                     $modelData = $this->dataProvider->getTemplateModel($data['id']);
                     $renderedContent = $this->renderer->renderTemplate($template, $modelData);
+                    if ($renderedContent) {
+                        $queryObj = \QueryPath::with($renderedContent);
+                    }
                 }
             }
-            return $this->_templateFactory($data, $renderedContent);
+            if (is_null($queryObj)) {
+                $queryObj = \QueryPath::with('');
+            }
+            return $this->_templateFactory($data, $queryObj);
         }
 
         return false;
     }
 
-    protected function _templateFactory($data = [], $renderedContent = '')
+    protected function _templateFactory($data = [], \QueryPath\DOMQuery $renderedContent)
     {
         return new Template($data, $renderedContent);
     }
