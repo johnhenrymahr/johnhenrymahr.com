@@ -98,4 +98,9 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('</section>', $this->obj->close());
     }
 
+    public function testMarkupMethod()
+    {
+        $this->assertEquals('<section class="splash" data-foo="bar"><div>This be the rendered content<div class="container"></div></div></section>', $this->obj->markup());
+    }
+
 }
