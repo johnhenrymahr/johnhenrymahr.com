@@ -16,33 +16,46 @@ class Assembler
         $this->templateFactory = $templateFactory;
     }
 
+    /**
+     * assemble
+     * assemble markup from manifest data
+     * @return string markup
+     */
     public function assemble()
     {
-        $markup = "";
         $mainTemplate = $this->templateFactory->getTemplate($this->manifest->getTopLevelData());
-        if ($mainTemplate) {
-            $markup .= $mainTemplate->open() . $mainTemplate->body();
+        if (!$mainTemplate) {
+            return '';
         }
         foreach ($this->manifest->getSections() as $section) {
+            if ($this->_shouldRender($section) === false) {
+                continue;
+            }
             $sectionTemplate = $this->templateFactory->getTemplate($section);
             if ($sectionTemplate) {
-                $markup .= $sectionTemplate->open() . $sectionTemplate->body();
-            }
-            foreach ($this->manifest->getChildren($section) as $child) {
-                $childTemplate = $this->templateFactory->getTemplate($child);
-                if ($childTemplate) {
-                    $markup .= $childTemplate->open() . $childTemplate->body() . $childTemplate->close();
+                $mainTemplate->appendChild($sectionTemplate);
+                if (array_key_exists('children', $section) && is_array($section['children'])) {
+                    foreach ($this->manifest->getChildren($section) as $child) {
+                        if ($this->_shouldRender($child) === false) {
+                            continue;
+                        }
+                        $childTemplate = $this->templateFactory->getTemplate($child);
+                        if ($childTemplate) {
+                            $sectionTemplate->appendChild($childTemplate);
+                        }
+                    }
                 }
             }
-            if ($sectionTemplate) {
-                $markup .= $sectionTemplate->close();
-            }
         }
-        if ($mainTemplate) {
-            $markup .= $mainTemplate->close();
-        }
+        return $mainTemplate->markup();
+    }
 
-        return $markup;
+    protected function _shouldRender(array $node)
+    {
+        if (array_key_exists('renderOnServer', $node) && $node['renderOnServer'] === false) {
+            return false;
+        }
+        return true;
     }
 
 }

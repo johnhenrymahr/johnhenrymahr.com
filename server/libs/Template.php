@@ -4,6 +4,8 @@ namespace JHM;
 class Template implements TemplateInterface
 {
 
+    use TemplateTraits;
+
     protected $data = [];
 
     protected $attributes = [];
@@ -14,11 +16,20 @@ class Template implements TemplateInterface
 
     protected $content = '';
 
-    public function __construct(array $data, \QueryPath\DOMQuery $content)
-    {
+    protected $_open = false;
 
-        $this->content = $content->find('body')->contents();
-        
+    public function __construct(array $data, \QueryPath\DOMQuery $content, $bareElement = false)
+    {
+        if ($bareElement) {
+            $e = $this->BARE_ELEMENT_WRAPPER_ELEMENT;
+            $c = $this->BARE_ELEMENT_WRAPPER_CLASS;
+            $this->content = $content->find("body > $e.$c")->contents();
+        } else {
+            $this->content = $content->find('body')->contents();
+        }
+
+        $this->data = $data;
+
         if (array_key_exists('tagName', $data)) {
             $this->tagName = $data['tagName'];
         }
@@ -31,7 +42,6 @@ class Template implements TemplateInterface
             $this->id = $data['id'];
         }
 
-        $this->data = $data;
     }
 
     public function open()
@@ -51,28 +61,39 @@ class Template implements TemplateInterface
         return '</' . $this->tagName . '>';
     }
 
-    public function markup() {
-        return $this->open().$this->body().$this->close();
+    public function markup()
+    {
+        return $this->open() . $this->body() . $this->close();
     }
 
-    public function appendChild(Template $template) {
-        $ref = $this->_getChildViewContainer()
+    public function isOpen()
+    {
+        return $this->_open;
+    }
+
+    public function appendChild(TemplateInterface $template)
+    {
+        $ref = $this->_getChildViewContainer();
         if ($ref) {
-            $ref->append($template->markup())
+            $ref->append($template->markup());
+            return $ref;
         }
+        return false;
     }
 
     protected function _getChildViewContainer()
     {
-        if (array_key_exists($this->data, 'childViewContainer')
-            && is_string($this->data['childViewContainer']) 
+        if (array_key_exists('childViewContainer', $this->data)
+            && is_string($this->data['childViewContainer'])
             && !empty($this->data['childViewContainer'])) {
 
             $ref = $this->content->find($this->data['childViewContainer']);
-        
+
             if (!$ref->count()) {
-               return false;
+                return false;
             }
+
+            return $ref;
 
         } else {
             return $this->content;

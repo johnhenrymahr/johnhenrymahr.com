@@ -26,16 +26,16 @@ class AssemblerTest extends \PHPUnit\Framework\TestCase
 
     public function testAssembleMethod()
     {
+        $expected = '<div><div class="content">Content</div><div><div class="content">Content</div><div><div class="content">Content</div></div><div><div class="content">Content</div></div></div><div><div class="content">Content</div><div><div class="content">Content</div></div><div><div class="content">Content</div></div></div></div>';
         $templateMock = \Mockery::mock('\JHM\TemplateInterface');
-        $templateMock->shouldReceive('open')->andReturn('<div>');
-        $templateMock->shouldReceive('body')->andReturn('<div class="content">Content</div>');
-        $templateMock->shouldReceive('close')->andReturn('</div>');
+
+        $templateMock->shouldReceive('markup')->once()->andReturn($expected);
+        $templateMock->shouldReceive('appendChild')->atLeast()->times(4);
         $this->manifest->shouldReceive('getTopLevelData')->once()->andReturn([]);
-        $this->manifest->shouldReceive('getSections')->once()->andReturn([[], []]);
-        $this->manifest->shouldReceive('getChildren')->twice()->andReturn(['child1', 'child2']);
+        $this->manifest->shouldReceive('getSections')->once()->andReturn([["children" => array()], [], ["renderOnServer" => false]]);
+        $this->manifest->shouldReceive('getChildren')->once()->andReturn([['child1'], ['child2']]);
         $this->templateFactory->shouldReceive('getTemplate')->andReturn($templateMock);
         $result = $this->obj->assemble();
-        $expected = '<div><div class="content">Content</div><div><div class="content">Content</div><div><div class="content">Content</div></div><div><div class="content">Content</div></div></div><div><div class="content">Content</div><div><div class="content">Content</div></div><div><div class="content">Content</div></div></div></div>';
 
         $this->assertEquals($expected, $result);
     }
