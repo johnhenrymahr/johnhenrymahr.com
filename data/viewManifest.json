@@ -16,10 +16,10 @@
       "selector": ".splash"
     },
     {
-      "container": {
-        "attributes": {
-          "className": "content col-xs-12 col-md-8 col-lg-6"
-        }
+      "id": "content",
+      "selector": ".content",
+      "attributes": {
+        "className": "content"
       },
       "children": [
         {
@@ -53,12 +53,12 @@
     },
     {
       "id": "contact",
-      "selector": "section.contact",
+      "selector": ".contact",
       "template": "contactTpl.dust",
       "attributes": {
-        "tagName": "section",
         "id": "jhm_connect",
-        "className": "contact col-xs-12"
+        "className": "contact col-xs-12",
+        "tagName": "section"
       }
     }
   ]

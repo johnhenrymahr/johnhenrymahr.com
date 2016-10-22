@@ -151,7 +151,6 @@ describe('baseView spec', function () {
       var stub = sandbox.stub(view, 'trigger')
       view._attach()
       chai.expect(stub.calledWith('view:attach')).to.be.true
-      chai.expect(stub.calledOnce).to.be.true
     })
     it('calls render on child views if defined', function () {
       view._children = ['a', 'b', 'c']

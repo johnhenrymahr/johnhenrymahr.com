@@ -45,7 +45,7 @@ module.exports = Backbone.View.extend({
   * child views
   # @type {Array}
   */
-  _children: [],
+  _children: null,
 
   /**
    * handle el property intelegently
@@ -65,6 +65,7 @@ module.exports = Backbone.View.extend({
     if (_.has(options, 'childViewContainer')) {
       this.childViewContainer = options.childViewContainer
     }
+    this._children = [] // set to array here so does not become part of protype
     if (_.has(options, 'el')) {
       var $el = options.el instanceof Backbone.$ ? options.el : Backbone.$(options.el)
       if (this._isServerRendered($el) && $el.children().length) { // if the el is not in the DOM already remove the option
@@ -150,9 +151,16 @@ module.exports = Backbone.View.extend({
       this.onAttach(options)
     }
     this.trigger('view:attach', html, options)
+    this._postRender(options)
+  },
+  _postRender: function (options) {
     if (this._children.length) {
       this._renderChildViews(options)
     }
+    if (_.isFunction(this.onPostRender)) {
+      this.onPostRender(options)
+    }
+    this.trigger('view:postRender', options)
   },
   /**
   * _renderChildViews
@@ -198,6 +206,7 @@ module.exports = Backbone.View.extend({
       throw new Error('The destroyed view: ' + this.cid + ' cannot be rendered.')
     }
     if (!_.isFunction(this.template)) {
+      this._postRender(options)
       return this
     }
     if (this.serverRendered() === false) {
