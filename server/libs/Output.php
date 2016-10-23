@@ -13,6 +13,10 @@ class Output
     {
         $this->cacheInterface = $cache;
         $this->cacheReady = $cache->cacheReady();
+        if (array_key_exists('jhm_disable_cache', $_COOKIE)) {
+            $this->cacheReady = false;
+            $this->cacheInterface->clear();
+        }
     }
 
     public function clear()

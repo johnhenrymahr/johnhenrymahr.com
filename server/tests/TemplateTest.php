@@ -2,13 +2,18 @@
 class TemplateTest extends \PHPUnit\Framework\TestCase
 {
 
-    use \JHM\TemplateTraits;
-
     protected $obj;
 
     protected $atts;
 
     protected $q;
+
+    protected function _getQueryObj($content)
+    {
+        $qp = \QueryPath::withHTML5(\QueryPath::HTML5_STUB);
+        $qp->find('body')->append($content);
+        return $qp;
+    }
 
     protected function setUp()
     {
@@ -22,7 +27,7 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
           },
           "selector": ".splash"
         }', true);
-        $this->q = \QueryPath::with('<div>This be the rendered content<div class="container"></div></div>');
+        $this->q = $this->_getQueryObj('<div>This be the rendered content<div class="container"></div></div>');
         $this->obj = new \JHM\Template($this->atts, $this->q);
     }
     protected function tearDown()
@@ -36,6 +41,24 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
     public function testConstruct()
     {
         $this->assertTrue(is_object($this->obj));
+    }
+
+    public function testAppendNoContainer()
+    {
+        $q = $this->_getQueryObj('');
+        $obj = new \JHM\Template($this->atts, $q);
+        $qc = \QueryPath::with('<p>child content</p>');
+        $atts = json_decode('{
+          "id": "childItem",
+          "tagName": "div",
+          "attributes": {
+            "className": "childitem"
+          }
+        }', true);
+        $expected = '<div class="childitem"><p>child content</p></div>';
+        $child = new \JHM\Template($atts, $qc);
+        $obj->appendChild($child);
+        $this->assertEquals($expected, $obj->body());
     }
 
     public function testAppendNoChildSelector()
@@ -76,16 +99,6 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
     public function testOpenMethod()
     {
         $this->assertEquals('<section class="splash" data-foo="bar">', $this->obj->open());
-    }
-
-    public function testBareElement()
-    {
-        $e = $this->BARE_ELEMENT_WRAPPER_ELEMENT;
-        $c = $this->BARE_ELEMENT_WRAPPER_CLASS;
-        $markup = "<$e class=\"$c\">child content</$e>";
-        $q = \QueryPath::with($markup);
-        $obj = new \JHM\Template($this->atts, $q, true);
-        $this->assertEquals('child content', $obj->body());
     }
 
     public function testBodyMethod()

@@ -18,6 +18,9 @@ class OuputTest extends \PHPUnit\Framework\TestCase
     }
     protected function tearDown()
     {
+        if (array_key_exists('jhm_disable_cache', $_COOKIE)) {
+            unset($_COOKIE['jhm_disable_cache']);
+        }
         \Mockery::close();
     }
 
@@ -61,6 +64,21 @@ class OuputTest extends \PHPUnit\Framework\TestCase
         $this->cacheMock->shouldReceive('get')->never();
         $this->cacheMock->shouldReceive('cacheReady')->andReturn(false);
         $c = new TestContainer();
+        $obj = new \JHM\Output($this->cacheMock);
+        $result = $obj(array($c, 'stringCallable'), 'key2')->toString();
+        $this->assertEquals('Test string', $result);
+        $obj = '';
+        $c = '';
+    }
+
+    public function testCacheForceDisabled()
+    {
+        $this->cacheMock->shouldReceive('get')->with('key2')->andReturn('a cached test string');
+        $this->cacheMock->shouldReceive('set')->never();
+        $this->cacheMock->shouldReceive('clear')->once();
+        $this->cacheMock->shouldReceive('save')->never();
+        $c = new TestContainer();
+        $_COOKIE['jhm_disable_cache'] = true;
         $obj = new \JHM\Output($this->cacheMock);
         $result = $obj(array($c, 'stringCallable'), 'key2')->toString();
         $this->assertEquals('Test string', $result);

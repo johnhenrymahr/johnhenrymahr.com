@@ -82,7 +82,7 @@ function Server (serverKey) {
 
 var home = __dirname
 
-var server = new Server(argv.server)
+var server = new Server(argv.server || 'local')
 
 gulp.task('server', function (cb) {
   gutil.log('server ID:', server.name)
@@ -160,6 +160,20 @@ gulp.task('confirm:deploy', function (callback) {
       callback()
     }
   })
+})
+
+gulp.task('copy:local', function (callback) {
+  runSequence('copy:local:server', 'copy:local:app', callback)
+})
+
+gulp.task('copy:local:server', function () {
+  return gulp.src('dist/JHMAPP/**/*', {dot: true})
+    .pipe(gulp.dest(path.join(process.env.HOME, 'www', 'JHMAPP')))
+})
+
+gulp.task('copy:local:app', function () {
+  return gulp.src('dist/jhm/**/*', {dot: true})
+    .pipe(gulp.dest(path.join(process.env.HOME, 'www', 'webroot', 'jhm')))
 })
 
 gulp.task('copy:webroot', function () {
@@ -284,6 +298,21 @@ gulp.task('package', function (callback) {
     'update:config',
     'phplint',
     callback
+  )
+})
+gulp.task('local', function (callback) {
+  runSequence(
+    'package',
+    'copy:local'
+  )
+})
+
+gulp.task('local:update', function (callback) {
+  runSequence(
+    ['copy:libs', 'copy:includes', 'copy:data', 'copy:dust', 'copy:webroot'],
+    'update:index',
+    'update:config',
+    'copy:local'
   )
 })
 

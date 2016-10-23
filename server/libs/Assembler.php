@@ -25,7 +25,7 @@ class Assembler
     {
         $mainTemplate = $this->templateFactory->getTemplate($this->manifest->getTopLevelData());
         if (!$mainTemplate) {
-            return '';
+            throw new JhmException('Could not load main template');
         }
         foreach ($this->manifest->getSections() as $section) {
             if ($this->_shouldRender($section) === false) {
@@ -33,7 +33,6 @@ class Assembler
             }
             $sectionTemplate = $this->templateFactory->getTemplate($section);
             if ($sectionTemplate) {
-                $mainTemplate->appendChild($sectionTemplate);
                 if (array_key_exists('children', $section) && is_array($section['children'])) {
                     foreach ($this->manifest->getChildren($section) as $child) {
                         if ($this->_shouldRender($child) === false) {
@@ -45,6 +44,7 @@ class Assembler
                         }
                     }
                 }
+                $mainTemplate->appendChild($sectionTemplate);
             }
         }
         return $mainTemplate->markup();

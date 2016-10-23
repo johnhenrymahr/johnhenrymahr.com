@@ -2,8 +2,6 @@
 class TemplateFactoryTest extends \PHPUnit\Framework\TestCase
 {
 
-    use \JHM\TemplateTraits;
-
     protected $atts;
 
     protected $obj;
@@ -41,17 +39,6 @@ class TemplateFactoryTest extends \PHPUnit\Framework\TestCase
     public function testGetTemplateNegative()
     {
         $this->assertFalse($this->obj->getTemplate());
-    }
-
-    public function testDetectBareElement()
-    {
-        $class = new ReflectionClass('\JHM\TemplateFactory');
-        $method = $class->getMethod('_isBareElement');
-        $method->setAccessible(true);
-        $bare = $method->invokeArgs($this->obj, array('content'));
-        $notBare = $method->invokeArgs($this->obj, array('<div>content</div>'));
-        $this->assertTrue($bare);
-        $this->assertFalse($notBare);
     }
 
     public function testGetTemplate()

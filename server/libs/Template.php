@@ -4,8 +4,6 @@ namespace JHM;
 class Template implements TemplateInterface
 {
 
-    use TemplateTraits;
-
     protected $data = [];
 
     protected $attributes = [];
@@ -20,22 +18,22 @@ class Template implements TemplateInterface
 
     public function __construct(array $data, \QueryPath\DOMQuery $content, $bareElement = false)
     {
-        if ($bareElement) {
-            $e = $this->BARE_ELEMENT_WRAPPER_ELEMENT;
-            $c = $this->BARE_ELEMENT_WRAPPER_CLASS;
-            $this->content = $content->find("body > $e.$c")->contents();
-        } else {
-            $this->content = $content->find('body')->contents();
-        }
+
+        $this->content = $content;
 
         $this->data = $data;
 
-        if (array_key_exists('tagName', $data)) {
-            $this->tagName = $data['tagName'];
-        }
-
         if (array_key_exists('attributes', $data) && is_Array($data['attributes'])) {
             $this->attributes = $data['attributes'];
+        }
+
+        if (array_key_exists('tagName', $this->attributes)) {
+            $this->tagName = $this->attributes['tagName'];
+            unset($this->attributes['tagName']);
+        }
+
+        if (array_key_exists('tagName', $data)) {
+            $this->tagName = $data['tagName'];
         }
 
         if (array_key_exists('id', $data)) {
@@ -52,7 +50,7 @@ class Template implements TemplateInterface
 
     public function body()
     {
-        return $this->content->html5();
+        return $this->content->find('body')->innerHTML5();
     }
 
     public function close()
@@ -92,11 +90,11 @@ class Template implements TemplateInterface
             if (!$ref->count()) {
                 return false;
             }
-
             return $ref;
-
+        } elseif ($this->content->find('body')->contents()->count()) {
+            return $this->content->find('body')->contents();
         } else {
-            return $this->content;
+            return $this->content->find('body');
         }
     }
 

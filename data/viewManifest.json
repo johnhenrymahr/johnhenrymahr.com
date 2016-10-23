@@ -1,4 +1,5 @@
 {
+  "id": "main",
   "template": "mainTpl.dust",
   "selector": "main.mainView",
   "childViewContainer": ".contentContainer",
