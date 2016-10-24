@@ -16,7 +16,7 @@ class Template implements TemplateInterface
 
     protected $_open = false;
 
-    public function __construct(array $data, \QueryPath\DOMQuery $content, $bareElement = false)
+    public function __construct(array $data, \QueryPath\DOMQuery $content)
     {
 
         $this->content = $content;
