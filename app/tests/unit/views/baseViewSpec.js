@@ -92,6 +92,12 @@ describe('baseView spec', function () {
       view.cid = '343'
       chai.expect(view.render()).to.equal(view)
     })
+    it('returns calls _postRender if not template is defined', function () {
+      var stub = sandbox.stub(view, '_postRender')
+      view.cid = '343'
+      view.render()
+      chai.expect(stub.called).to.be.true
+    })
     it('calls template function if server render false', function () {
       var stub = sandbox.stub()
       view.template = stub
@@ -136,6 +142,24 @@ describe('baseView spec', function () {
       chai.expect(stub.calledWith(html, options)).to.be.true
     })
   })
+  context('_postRender callback', function () {
+    it('calls render on child views if defined', function () {
+      view._children = ['a', 'b', 'c']
+      var stub = sandbox.stub(view, '_renderChildViews')
+      view._postRender()
+      chai.expect(stub.calledOnce).to.be.true
+    })
+    it('calls onPostRender method if one define', function () {
+      var stub = view.onPostRender = sandbox.stub()
+      view._postRender()
+      chai.expect(stub.called).to.be.true
+    })
+    it('triggers view:postRender event ', function () {
+      var stub = sandbox.stub(view, 'trigger')
+      view._postRender()
+      chai.expect(stub.calledWith('view:postRender')).to.be.true
+    })
+  })
   context('_attach callback', function () {
     it('calls attach ', function () {
       var stub = sandbox.stub(view, 'attach')
@@ -155,6 +179,11 @@ describe('baseView spec', function () {
     it('calls render on child views if defined', function () {
       view._children = ['a', 'b', 'c']
       var stub = sandbox.stub(view, '_renderChildViews')
+      view._attach()
+      chai.expect(stub.calledOnce).to.be.true
+    })
+    it('calls postrender method', function () {
+      var stub = sandbox.stub(view, '_postRender')
       view._attach()
       chai.expect(stub.calledOnce).to.be.true
     })
