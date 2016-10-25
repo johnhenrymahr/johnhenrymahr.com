@@ -8,9 +8,8 @@ interface TemplateInterface
      * __construct
      * @param array  $data   manifest data
      * @param \QueryPath\DOMQuery $content
-     * @param boolean  $bareElement true if element is just text
      */
-    public function __construct(array $data, \QueryPath\DOMQuery $content, $bareElement = false);
+    public function __construct(array $data, \QueryPath\DOMQuery $content);
     /**
      * open
      * @return string opening tag with rendered attributes

@@ -7,14 +7,18 @@ class OuputTest extends \PHPUnit\Framework\TestCase
 
     protected $cacheMock;
 
+    protected $logMock;
+
     protected function setUp()
     {
+        $this->logMock = \Mockery::mock('\JHM\LoggerInterface');
+        $this->logMock->shouldReceive('log');
         $this->cacheMock = \Mockery::mock('\JHM\CacheInterface');
         $this->cacheMock->shouldReceive('cacheReady')->andReturn(true)->byDefault();
         $this->cacheMock->shouldReceive('get')->with('key1')->andReturn('')->byDefault();
         $this->cacheMock->shouldReceive('set')->once()->byDefault();
         $this->cacheMock->shouldReceive('save')->once()->byDefault();
-        $this->obj = new \JHM\Output($this->cacheMock);
+        $this->obj = new \JHM\Output($this->cacheMock, $this->logMock);
     }
     protected function tearDown()
     {
@@ -22,6 +26,7 @@ class OuputTest extends \PHPUnit\Framework\TestCase
             unset($_COOKIE['jhm_disable_cache']);
         }
         \Mockery::close();
+        unset($_GET['cache-control']);
     }
 
     public function testOutputString()
@@ -64,7 +69,7 @@ class OuputTest extends \PHPUnit\Framework\TestCase
         $this->cacheMock->shouldReceive('get')->never();
         $this->cacheMock->shouldReceive('cacheReady')->andReturn(false);
         $c = new TestContainer();
-        $obj = new \JHM\Output($this->cacheMock);
+        $obj = new \JHM\Output($this->cacheMock, $this->logMock);
         $result = $obj(array($c, 'stringCallable'), 'key2')->toString();
         $this->assertEquals('Test string', $result);
         $obj = '';
@@ -79,12 +84,28 @@ class OuputTest extends \PHPUnit\Framework\TestCase
         $this->cacheMock->shouldReceive('save')->never();
         $c = new TestContainer();
         $_COOKIE['jhm_disable_cache'] = true;
-        $obj = new \JHM\Output($this->cacheMock);
+        $obj = new \JHM\Output($this->cacheMock, $this->logMock);
         $result = $obj(array($c, 'stringCallable'), 'key2')->toString();
         $this->assertEquals('Test string', $result);
         $obj = '';
         $c = '';
     }
+
+    public function testCacheControlPurge()
+    {
+        $this->cacheMock->shouldReceive('get')->with('key2')->andReturn('');
+        $this->cacheMock->shouldReceive('set')->once();
+        $this->cacheMock->shouldReceive('clear')->once();
+        $this->cacheMock->shouldReceive('save')->once();
+        $c = new TestContainer();
+        $_GET['cache-control'] = 'purge';
+        $obj = new \JHM\Output($this->cacheMock, $this->logMock);
+        $result = $obj(array($c, 'stringCallable'), 'key2')->toString();
+        $this->assertEquals('Test string', $result);
+        $obj = '';
+        $c = '';
+    }
+
 
     public function testNoCacheKey()
     {

@@ -17,6 +17,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
             mkdir($this->cachePath, 0777, true);
         }
         $this->loggerMock = \Mockery::mock('\JHM\LoggerInterface');
+        $this->loggerMock->shouldReceive('log');
         $this->configMock = \Mockery::mock('\JHM\ConfigInterface');
         $this->configMock->shouldReceive('getStorage')->with('filecache')->andReturn($this->cachePath)->byDefault();
         $this->obj = new \JHM\FileCache($this->configMock, $this->loggerMock);

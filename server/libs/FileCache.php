@@ -4,6 +4,7 @@ namespace JHM;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\Cache\Exception\CacheException;
+use Symfony\Component\Cache\Exception\InvalidArgumentException;
 
 class FileCache extends FileStorage implements CacheInterface
 {
@@ -21,15 +22,24 @@ class FileCache extends FileStorage implements CacheInterface
     public function __construct(ConfigInterface $config, LoggerInterface $logger)
     {
         $this->config = $config;
+        $this->logger = $logger;
         $dir = $this->setupStorage($this->config->getStorage('filecache'), null);
+        
+        if (!$dir) {
+            $dir = sys_get_temp_dir().'/jhm-cache';
+        }
 
         try {
             $this->cacheEngine = new FilesystemAdapter('', 86400, $dir);
+        } catch (InvalidArgumentException $e) {
+            $this->logger->log('WARNING', 'Could not start cache engine. ' . $e->getMessage());
+            $this->cacheEngine = false;    
         } catch (CacheException $e) {
-            $logger->log('WARNING', 'Could not start cache engine. ' . $e->getMessage());
+            $this->logger->log('WARNING', 'Could not start cache engine. ' . $e->getMessage());
             $this->cacheEngine = false;
         }
 
+        $this->logger->log('DEBUG', 'file cache engine enabled, storage directory: ' . $dir);
     }
 
     public function cacheReady()

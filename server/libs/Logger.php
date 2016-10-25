@@ -36,7 +36,7 @@ class Logger extends FileStorage implements LoggerInterface
                 }
                 $this->loggerEngine->pushHandler(new StreamHandler($this->logfile));
             } catch (Exception $e) {
-                throw new Jhm_Exception('Logger not ready ' . $e->getMessage());
+                throw new JhmException('Logger not ready ' . $e->getMessage());
             }
         }
     }
