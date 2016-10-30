@@ -33,6 +33,13 @@
           }
         },
         {
+          "id": "banner",
+          "selector": "div.banner",
+          "attributes": {
+            "className": "core-banner"
+          }
+        },
+        {
           "id": "about",
           "selector": "section.about",
           "template": "aboutTpl.dust",
