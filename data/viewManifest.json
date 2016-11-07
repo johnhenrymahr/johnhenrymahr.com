@@ -40,6 +40,15 @@
           }
         },
         {
+          "id": "menu",
+          "selector": "nav.menu-container",
+          "template": "menu.dust",
+          "attributes": {
+            "tagName": "nav",
+            "className":"menu-container"
+          }
+        },
+        {
           "id": "about",
           "selector": "section.about",
           "template": "aboutTpl.dust",
@@ -67,6 +76,15 @@
         "id": "jhm_connect",
         "className": "contact col-xs-12",
         "tagName": "section"
+      }
+    },
+    {
+      "id": "footer",
+      "selector": ".footer",
+      "template": "footer.dust",
+      "attributes": {
+        "className": "footer",
+        "tagName": "footer"
       }
     }
   ]

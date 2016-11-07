@@ -1,0 +1,27 @@
+@import '_common.less';
+
+.footer {
+  clear: both;
+  #jhm.horizontal-stripes(@jhm_orange; darken(@jhm_orange, 2%));
+  &__border {
+    padding: 1px;
+    height: 30px;
+    width: 100%;
+    background-color: @jhm_orange_dark;
+    margin: 0;
+  }
+  &__icon {
+    max-width: 350px;
+    margin: 0px auto;
+    >svg {
+      position: relative;
+    }
+  }
+  p {
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    top: -25px;
+  }
+}

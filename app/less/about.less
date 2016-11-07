@@ -12,27 +12,28 @@
       background-repeat: no-repeat;
       background-position: -25px -35px;
       background-image: url('/rsc/img/light-field.jpg');
+      background-color: #5ba6b9;
 
       >h2 {
-        color: white;
-        font-size: 32px;
+        color: @gray10;
+        text-align: right;
+        font-size: 36px;
         font-weight: bold;
-        padding: 20px 15px;
         text-shadow: 2px 2px black;
-      }
-      @media (min-width: @screen-sm-min) {
-          >h2 {
-            padding: 0px;
-            position: absolute;
-            right: 20px;
-            bottom: 10px;
-          }
+        padding: 0px;
+        position: absolute;
+        right: 20px;
+        bottom: 10px;
       }
     }
    &__description   {
     padding: 15px;
     color: white;
-    font-size: 18px;
-
+    font-size: 20px;
    }
+   @media (max-width: @screen-sm-min) {
+            &__description   {
+                padding: 30px;
+             }
+      }
 }

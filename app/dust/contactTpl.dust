@@ -1,20 +1,25 @@
 <div class="contact__header">
 </div>
 <div class="contact__content row">
+    <h2>Contact Me</h2>
     <div class="contact__logo">
     {> "app/dust/svg/jhmlogo" /}
   </div>
-  <div class="col-md-4 col-xs-12">
-    <img class="contact__headshot" src="rsc/img/headshot.jpg" srcset="rsc/img/headshot@2x.jpg 2x" width="140" height="198" />
-    <ul class="contact__socialLinks">
-        <li>Linked In</li>
-        <li>GitHub</li>
-        <li>Google Plus</li>
-    </ul>
+  <div class="col-md-4 col-xs-12 row contact__headshot">
+    <div class="col-xs-7 col-md-12">
+      <img  src="rsc/img/headshot.jpg" srcset="rsc/img/headshot@2x.jpg 2x" width="140" height="198" />
+    </div>
+    <div class="col-xs-5 col-md-12">
+      <ul class="contact__socialLinks">
+          <li>Linked In</li>
+          <li>GitHub</li>
+          <li>Google Plus</li>
+      </ul>
+    </div>
   </div>
   <div class="col-md-8 col-xs-12">
       <div class="contact__formContainer">
-      <h2>Contact Me</h2>
+      <h3>Send a message</h3>
       <div class="contact__formContainer--alerts js-alerts"></div>
       <form class="contact__form">
           <div class="form-group">
@@ -53,7 +58,7 @@
                 <input type="tel" class="form-control" name="phone" id="phone" />
             </div>
              <div class="form-group">
-              <input class="btn btn-primary" type="submit" name="submit" value="Send" />
+              <input class="btn btn-primary contact__form--submit" type="submit" name="submit" value="Send" />
             </div>
         </form>
       </div>

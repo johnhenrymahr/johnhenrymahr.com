@@ -1,4 +1,7 @@
+
  <menu class="menu">
+  <hr class="menu__rule" />
+  <div class="menu__prefix"></div>
   <div class="menu__wrap">
     <a class="menu__item col-xs-4 col-md-12">
         <span>Tech</span>
@@ -14,4 +17,6 @@
         <span>CV</span>
     </a>
   </div>
+  <div class="menu__postfix"></div>
+  <hr class="menu__rule" />
 </menu>

@@ -1,0 +1,7 @@
+<div class="footer__border"></div>
+<div class="footer__icon">
+  {> "app/dust/svg/yin-yang-logo" /}
+  <span class="sr-only">JHM Consulting.</span>
+</div>
+<p>&copy;2016 JHM Consulting, all rights reserved</p>
+<div class="footer__border"></div>

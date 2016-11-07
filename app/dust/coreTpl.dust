@@ -7,20 +7,20 @@
   </div>
   <div class="core__title col-md-4 col-xs-12">
     <div class="core__title--container">
-      <div>John Henry Mahr</div>
-      <a href="#jhm_connect" class="btn btn-primary">Contact</a>
+      <h1>John Henry Mahr</h1>
+      <a href="#jhm_connect" class="btn btn-primary core__title--link">Contact</a>
     </div>
   </div>
 </div>
 <div class="core__wrapper">
     <div class="row core__content">
-        <div class="col-md-2 col-xs-1"></div>
+        <div class="col-md-2 col-xs-0"></div>
         <div class="col-md-3 col-xs-4">
           <div class="core__content--icon">
             {>"app/dust/svg/ui" /}
           </div>
         </div>
-        <div class="col-md-6 col-xs-6 core__content--title">
+        <div class="col-md-6 col-xs-7 core__content--title">
           <h2>Next Generation UI</h2>
           <p>How is your ui?</p>
         </div>
@@ -31,7 +31,7 @@
         <div class="col-md-9 col-xs-12">
           <div class="core__content--body">
             <p>
-            The web UI is no longer simply a theme for a server based web app. It is an application in is own rigtht. With all thechalenges and oppotrtunities that this new status implies. It requires a new type of frotn end developer, anda new approach to development.
+            The web UI is no longer simply a theme for a server based web app. It is an application in is own rigtht. With all the chalenges and oppotrtunities that this new status implies. It requires a new type of frotn end developer, anda new approach to development.
             </p>
           </div>
         </div>

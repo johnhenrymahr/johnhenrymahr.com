@@ -1,18 +1,18 @@
 @import '_common.less';
 
 .menu {
-  margin: 10px 20px;
-  min-height: 300px;
+  margin: 2% auto 3%;
   padding: 0px;
+  display: block;
+  text-align: center;
 
   &__item {
-    width: 75px;
-    height: 75px;
-    max-width: 75px;
+    width: 90px;
+    height: 90px;
     display: table;
     border: 1px solid @complimentBlue-dark;
     padding: 5px;
-    margin: 0px auto 15px;
+    margin: 0px auto;
     #gradient.vertical(@complimentBlue;  @complimentBlue-light; );
 
     >span {
@@ -25,21 +25,40 @@
     }
   }
 
-@media (max-width: @screen-xs-min) {
-   text-align: center;
-   margin:  15px 0px;
-   min-height: 200px;
-   &__wrap {
+  &__wrap {
+    display: inline-block;
+    padding: 10px;
+  }
+  hr {
+      display: none;
+  }
+  @media(min-width: @screen-sm-min) {
+    hr {
       display: inline-block;
-      text-align: center;
-   }
-   &__item {
-      width: 65px;
-      height: 65px;
-      display: inline-block;
-      margin: 10px 10px 15px 0px;
+      border-color: @black;
+      width: 25%;
+      position: relative;
+      top: -35px;
     }
- }
+    &__prefix {
+      position: relative;
+      margin-right: 10px;
+      top: -40px;
+      display: inline-block;
+      height: 30px;
+      border-right: 1px solid @black;
+    }
+    &__postfix {
+      position: relative;
+      margin-left: 10px;
+      top: -40px;
+      display: inline-block;
+      height: 30px;
+      border-left: 1px solid @black;
+    }
+  }
+
+
 
   &__item:hover {
     border: 2px solid  @white;
