@@ -13,7 +13,7 @@
   </div>
 </div>
 <div class="core__wrapper">
-    <div class="row core__content">
+    <div class="row core__content slide">
         <div class="col-md-2 col-xs-0"></div>
         <div class="col-md-3 col-xs-4">
           <div class="core__content--icon">
@@ -31,7 +31,7 @@
         <div class="col-md-9 col-xs-12">
           <div class="core__content--body">
             <p>
-            The web UI is no longer simply a theme for a server based web app. It is an application in is own rigtht. With all the chalenges and oppotrtunities that this new status implies. It requires a new type of frotn end developer, anda new approach to development.
+            The web UI is no longer simply a theme for a server based web app. It is an application in is own rigtht. With all the chalenges and oppotrtunities that this new status implies. It requires a new type of front-end developer, and a new approach to development.
             </p>
           </div>
         </div>
