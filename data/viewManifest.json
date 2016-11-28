@@ -49,6 +49,15 @@
           }
         },
         {
+          "id": "tech",
+          "selector": "#tech",
+          "template": "tech.dust",
+          "attributes": {
+            "className": "collapse jhm_collapse",
+            "id": "tech"
+          }
+        },
+        {
           "id": "about",
           "selector": "section.about",
           "template": "aboutTpl.dust",
