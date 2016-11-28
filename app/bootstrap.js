@@ -5,6 +5,7 @@ var manifest = require('app/utils/_manifest').json
 var AppModel = require('./models/_appModel')
 var App = require('./app')
 require('dustjs-helpers')
+require('bootstrap/dist/js/bootstrap')
 
 App.model = new AppModel(window.jhmData, {parse: true})
 App.view = new MainView(_.merge({
