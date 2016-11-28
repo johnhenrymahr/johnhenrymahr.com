@@ -1,39 +1,34 @@
 <div class="row no-margin">
-  <div class="col-md-8 col-xs-12">
+  <div class="col-sm-8 col-xs-12">
     <div class="core__logo">
       &nbsp;
       {>"app/dust/svg/jhm-blocks" /}
     </div>
   </div>
-  <div class="core__title col-md-4 col-xs-12">
+  <div class="core__title col-sm-4 col-xs-12">
     <div class="core__title--container">
       <h1>John Henry Mahr</h1>
-      <a href="#jhm_connect" class="btn btn-primary core__title--link">Contact</a>
     </div>
   </div>
 </div>
 <div class="core__wrapper">
-    <div class="row core__content slide">
-        <div class="col-md-2 col-xs-0"></div>
-        <div class="col-md-3 col-xs-4">
+    <div class="row core__content">
+        <div class="col-md-3 col-xs-1 cell"></div>
+        <div class="col-md-5 col-xs-7 core__content--title cell">
+            <h2 class="core__content--title">User Interface Development.</h2>
+        </div>
+        <div class="core__content--icon-container col-md-2 col-xs-3 cell">
           <div class="core__content--icon">
-            {>"app/dust/svg/ui" /}
-          </div>
+            {>"app/dust/svg/ui-square" /}
+           </div>
         </div>
-        <div class="col-md-6 col-xs-7 core__content--title">
-          <h2>Next Generation UI</h2>
-          <p>How is your ui?</p>
-        </div>
-        <div class="col-md-1 col-xs-1"></div>
+        <div class="col-md-1 col-xs-1 cell"></div>
     </div>
     <div class="row core__subcontent no-margin">
         <div class="col-md-2 col-xs-12">&nbsp;</div>
         <div class="col-md-9 col-xs-12">
           <div class="core__content--body">
-            <p>
-            The web UI is no longer simply a theme for a server based web app. It is an application in is own rigtht. With all the chalenges and oppotrtunities that this new status implies. It requires a new type of front-end developer, and a new approach to development.
-            </p>
-          </div>
+            {> "app/dust/copy/client-is-back" /}
         </div>
         <div class="col-md-1 col-xs-12">&nbsp;</div>
     </div>

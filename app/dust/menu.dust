@@ -3,7 +3,7 @@
   <hr class="menu__rule" />
   <div class="menu__prefix"></div>
   <div class="menu__wrap">
-    <a class="menu__item col-xs-4 col-md-12">
+    <a class="menu__item col-xs-4 col-md-12" role="button" data-toggle="collapse" href="#tech" aria-expanded="false" aria-controls="tech">
         <span>Tech</span>
     </a>
   </div>

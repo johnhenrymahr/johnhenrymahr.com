@@ -1,4 +1,4 @@
-<h1 class="splash__title">John Henry Mahr</h1>
+<h1 class="splash__title">JHM Consulting</h1>
 <div class="splash__blocks">
   {>"app/dust/svg/jhm-blocks"  prefix="splash" /}
 </div>
