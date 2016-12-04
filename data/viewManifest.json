@@ -49,21 +49,32 @@
           }
         },
         {
-          "id": "tech",
-          "selector": "#tech",
-          "template": "tech.dust",
-          "attributes": {
-            "className": "collapse jhm_collapse",
-            "id": "tech"
-          }
-        },
-        {
           "id": "about",
           "selector": "section.about",
           "template": "aboutTpl.dust",
           "attributes": {
             "tagName": "section",
             "className": "about"
+          }
+        },
+        {
+          "id": "tech",
+          "selector": "#tech",
+          "template": "tech.dust",
+          "attributes": {
+            "tagName": "section",
+            "className": "tech",
+            "id": "tech"
+          }
+        },
+         {
+          "id": "ux",
+          "selector": "#ux",
+          "template": "ux.dust",
+          "attributes": {
+            "tagName": "section",
+            "className": "ux",
+            "id": "ux"
           }
         },
         {
