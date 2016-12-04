@@ -1,1 +1,52 @@
-Tech info here
+<h2 class="tech__title">Tech</h2>
+
+<div class="tech__body">
+  <p class="tech__desc">Here are some technologies I am using or have used. It is not a comprehensive list as UI technology is advancing at a rate few could keep up with.</p>
+
+  <p class="tech__desc">Client side technology is built around soem core fundmentals. These are what allow frotn end to be truly a application.</p>
+
+  <ul class="nav nav-tabs tech__nav" role="tablist">
+      <li role="presentation">
+        <a href="#frameworks" aria-controls="frameworks" role="tab" data-toggle="tab">Frameworks</a>
+      </li>
+      <li role="presentation" >
+        <a href="#modules" aria-controls="modules" role="tab" data-toggle="tab">Modules</a>
+      </li>
+      <li role="presentation" >
+        <a href="#tooling" aria-controls="tooling" role="tab" data-toggle="tab">Tooling</a>
+      </li>
+      <li role="presentation">
+        <a href="#testing" aria-controls="testing" role="tab" data-toggle="tab">Testing</a>
+      </li>
+  </ul>
+
+  <div class="tab-content tech__content">
+    <div id="frameworks" class="tab-pane">
+      <h3>Frameworks</h3>
+      <p>
+      Creating a client side app from the ground up can be quite daunting. Where to begin? Having a well though out and supported framework can be a huge help getting things moving. While no framework is perfect, and they ALL have their tradeoffs, in the end I believe the benefits outway the negatives for the most part.
+      </p>
+      <p>
+        But a framework is not a holy relic either. Its usefullness is what it allows you to get done. And if something better comes along...
+      </p>
+    </div>
+    <div id="modules" class="tab-pane">
+      <h3>Modules</h3>
+      <p>
+        Writing a large application without some sort of module system would be rather... uncomfortable, to say the least. As a developer, dealing with code in smaller functional chunks of code provides greater readability and logical structure.  Modules give me this while still allowing for the code to be assembled into a final, single, file for the greatest efficieny.
+      </p>
+    </div>
+     <div id="tooling" class="tab-pane">
+      <h3>Tooling</h3>
+      <p>
+        Node.js has allowed there to be a complete build system for front end code. It has also allowed the use of javascript as a server side language.
+       </p>
+    </div>
+        <div id="testing" class="tab-pane">
+      <h3>Testing</h3>
+      <p>
+       Must have testing.
+       </p>
+    </div>
+  </div>
+</div>
