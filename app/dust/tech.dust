@@ -1,27 +1,42 @@
-<h2 class="tech__title">Tech</h2>
+<h2 class="tech__title sr-only">Tech</h2>
+
+<div class="tech__bar"></div>
 
 <div class="tech__body">
-  <p class="tech__desc">Here are some technologies I am using or have used. It is not a comprehensive list as UI technology is advancing at a rate few could keep up with.</p>
-
-  <p class="tech__desc">Client side technology is built around soem core fundmentals. These are what allow frotn end to be truly a application.</p>
-
-  <ul class="nav nav-tabs tech__nav" role="tablist">
-      <li role="presentation">
-        <a href="#frameworks" aria-controls="frameworks" role="tab" data-toggle="tab">Frameworks</a>
+  <div class="row">
+      <div class="tech__logo col-md-6 col-xs-12" aria-hidden="true">
+        {> "app/dust/svg/tech-logo" /}
+      </div>
+      <div class="tech__desc col-md-6 col-xs-12">
+        <p >Here are some technologies I am using or have used. It is not a comprehensive list as UI technology is advancing at a rate few could keep up with.</p>
+        <p>Client side technology is built around some core fundmentals. These are what allow front end to be truly a application.</p>
+      </div>
+ </div>
+  <ul class="tech__nav row" role="tablist row" >
+      <li role="presentation" class="tech__nav--item active col-md-3 col-xxs-12" >
+        <div>
+          <a href="#frameworks" aria-controls="frameworks" role="tab" data-toggle="tab">Frameworks</a>
+        </div>
       </li>
-      <li role="presentation" >
-        <a href="#modules" aria-controls="modules" role="tab" data-toggle="tab">Modules</a>
+      <li role="presentation" class="tech__nav--item col-md-3 col-xxs-12" >
+        <div>
+          <a href="#modules" aria-controls="modules" role="tab" data-toggle="tab">Modules</a>
+        </div>
       </li>
-      <li role="presentation" >
+      <li role="presentation" class="tech__nav--item col-md-3 col-xxs-12" >
+        <div>
         <a href="#tooling" aria-controls="tooling" role="tab" data-toggle="tab">Tooling</a>
+        </div>
       </li>
-      <li role="presentation">
+      <li role="presentation" class="tech__nav--item col-md-3 col-xxs-12" >
+        <div>
         <a href="#testing" aria-controls="testing" role="tab" data-toggle="tab">Testing</a>
+        </div>
       </li>
   </ul>
 
   <div class="tab-content tech__content">
-    <div id="frameworks" class="tab-pane">
+    <div id="frameworks" class="tab-pane active">
       <h3>Frameworks</h3>
       <p>
       Creating a client side app from the ground up can be quite daunting. Where to begin? Having a well though out and supported framework can be a huge help getting things moving. While no framework is perfect, and they ALL have their tradeoffs, in the end I believe the benefits outway the negatives for the most part.
