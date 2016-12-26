@@ -2,7 +2,7 @@
   <div class="col-sm-8 col-xs-12">
     <div class="core__logo">
       &nbsp;
-      {>"app/dust/svg/jhm-blocks" /}
+      {>"app/dust/svg/jhm-blocks" prefix="core_" /}
     </div>
   </div>
   <div class="core__title col-sm-4 col-xs-12">
