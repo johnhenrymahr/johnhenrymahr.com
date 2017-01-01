@@ -8,11 +8,16 @@ require('dustjs-helpers')
 require('bootstrap/dist/js/bootstrap')
 
 App.model = new AppModel(window.jhmData, {parse: true})
-App.view = new MainView(_.merge({
-  el: $(manifest.selector)
-}, manifest.attributes, {
-  model: App.model
-}))
+App.view = new MainView(_.merge(
+  {
+    el: $(manifest.selector),
+    childViewContainer: manifest.childViewContainer || null
+  },
+  manifest.attributes,
+  {
+    model: App.model
+  }
+))
 
 App.onStart(function () {
   $('body').prepend(this.view.render().el)

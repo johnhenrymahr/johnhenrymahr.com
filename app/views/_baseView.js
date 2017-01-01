@@ -24,7 +24,7 @@ module.exports = Backbone.View.extend({
   * if there are child views, a selector
   * for the container to append them to
   * @type {string}
-  *
+  */
   childViewContainer: null,
 
   /**
@@ -153,6 +153,11 @@ module.exports = Backbone.View.extend({
     this.trigger('view:attach', html, options)
     this._postRender(options)
   },
+  /**
+   *post render handler
+   * @param  {object} options
+   * @return {undefined}
+   */
   _postRender: function (options) {
     if (this._children.length) {
       this._renderChildViews(options)
@@ -184,6 +189,7 @@ module.exports = Backbone.View.extend({
   *  @thow error if container not found in DOM
   */
   _getChildViewContainer: function () {
+    console.log('child view container ', this.childViewContainer)
     if (_.isString(this.childViewContainer) && this.childViewContainer.length) {
       var $container = this.$(this.childViewContainer)
       if ($container.length) {
