@@ -23,7 +23,7 @@ App.onStart(function () {
   $('body').prepend(this.view.render().el)
 })
 
-if (_.has(window, 'localDev') && window.localDev === true) {
+if (window.localDev) {
   window.App = App
 }
 
