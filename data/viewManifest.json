@@ -67,6 +67,15 @@
             "id": "tech"
           }
         },
+        {
+          "id": "quote1",
+          "selector": "section.quote1",
+          "template": "quote.dust",
+          "attributes": {
+            "tagName": "section",
+            "className": "quote"
+          }
+        },
          {
           "id": "ux",
           "selector": "#ux",
@@ -75,6 +84,25 @@
             "tagName": "section",
             "className": "ux",
             "id": "ux"
+          }
+        },
+        {
+          "id": "quote2",
+          "selector": "section.quote2",
+          "template": "quote2.dust",
+          "attributes": {
+            "tagName": "section",
+            "className": "quote"
+          }
+        },
+        {
+          "id": "cv",
+          "selector": "section.cv",
+          "template": "cv.dust",
+           "attributes": {
+            "tagName": "section",
+            "className": "cv",
+            "id": "cv"
           }
         },
         {

@@ -13,22 +13,22 @@
       </div>
  </div>
   <ul class="tech__nav row" role="tablist row" >
-      <li role="presentation" class="tech__nav--item active col-md-3 col-xxs-12" >
+      <li role="presentation" class="tech__nav--item active col-md-3 col-xs-12" >
         <div>
           <a href="#frameworks" aria-controls="frameworks" role="tab" data-toggle="tab">Frameworks</a>
         </div>
       </li>
-      <li role="presentation" class="tech__nav--item col-md-3 col-xxs-12" >
+      <li role="presentation" class="tech__nav--item col-md-3 col-xs-12" >
         <div>
           <a href="#modules" aria-controls="modules" role="tab" data-toggle="tab">Modules</a>
         </div>
       </li>
-      <li role="presentation" class="tech__nav--item col-md-3 col-xxs-12" >
+      <li role="presentation" class="tech__nav--item col-md-3 col-xs-12" >
         <div>
         <a href="#tooling" aria-controls="tooling" role="tab" data-toggle="tab">Tooling</a>
         </div>
       </li>
-      <li role="presentation" class="tech__nav--item col-md-3 col-xxs-12" >
+      <li role="presentation" class="tech__nav--item col-md-3 col-xs-12" >
         <div>
         <a href="#testing" aria-controls="testing" role="tab" data-toggle="tab">Testing</a>
         </div>

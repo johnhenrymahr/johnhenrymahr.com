@@ -1,7 +1,64 @@
-<h2>User Experience</h2>
-<p>
-The concerns of User Experice go far beyond the realm of the user interface or front end developer. But a good front end or user interface developer must look beyound simple technical implementation of a design, UX document or business objective. In short we must be an advocate for the users, all users. Hopefully, in a well formed and functional team, the UI developer is not the only advocate for the user. But we can, and must, advocate for improving the exprice with thsoe aspects of the experice that we are uniqiy aware of.
-</p>
-<h3>Semantic Markup</h3>
-<p>Often overlooked, but highly important, is the structure presented beyound the obvious visual one the most atke for granted. This lack if attention for the semantic structure of a page is often bruttaly obvious for those with visual impaiments. <p>
-<h3>Accessibilty</h3
+<div class="ux__bar"></div>
+
+<div class="ux__body">
+  <div class="row">
+      <div class="ux__logo col-md-6 col-xs-12" aria-hidden="true">
+        <span>UX</span>
+      </div>
+      <div class="col-md-6 col-xs-12">
+        <h2 class="ux__title">User Experience</h2>
+        <div class="ux__desc">
+          <p >The concerns of User Experice go far beyond the realm of the user interface or front end developer. But a good front end or user interface developer must look beyound simple technical implementation of a design, UX document or business objective. In short we must be an advocate for the users, all users. Hopefully, in a well formed and functional team, the UI developer is not the only advocate for the user. But we can, and must, advocate for improving the exprice with thsoe aspects of the experice that we are uniqiy aware of.</p>
+        </div>
+      </div>
+ </div>
+  <ul class="ux__nav row" role="tablist row" >
+      <li role="presentation" class="ux__nav--item active col-md-3 col-xs-12" >
+        <div>
+          <a href="#semantic-markup" aria-controls="sematic-markup" role="tab" data-toggle="tab">Semantic Markup</a>
+        </div>
+      </li>
+      <li role="presentation" class="ux__nav--item col-md-3 col-xs-12" >
+        <div>
+          <a href="#design" aria-controls="design" role="tab" data-toggle="tab">Design</a>
+        </div>
+      </li>
+      <li role="presentation" class="ux__nav--item col-md-3 col-xs-12" >
+        <div>
+        <a href="#accessibility" aria-controls="accessibility" role="tab" data-toggle="tab">Accessability</a>
+        </div>
+      </li>
+      <li role="presentation" class="ux__nav--item col-md-3 col-xs-12" >
+        <div>
+        <a href="#useability" aria-controls="useability" role="tab" data-toggle="tab">Useability</a>
+        </div>
+      </li>
+  </ul>
+
+  <div class="tab-content ux__content">
+    <div id="semantic-markup" class="tab-pane active">
+      <h3>Semantic Markup</h3>
+      <p>
+      Often overlooked, but highly important, is the structure presented beyound the obvious visual one the most atke for granted. This lack if attention for the semantic structure of a page is often bruttaly obvious for those with visual impaiments.
+      </p>
+    </div>
+    <div id="design" class="tab-pane">
+      <h3>Design</h3>
+      <p>
+
+       </p>
+    </div>
+    <div id="accessibility" class="tab-pane">
+      <h3>Accessibility</h3>
+      <p>
+        It is easy to fall into the pattern of looking a web site as monolithic visual experice when in fact it must present its information in many ways that are accessible to uses of many.
+      </p>
+    </div>
+        <div id="useability" class="tab-pane">
+      <h3>Useability</h3>
+      <p>
+       Must have testingShould be useable
+       </p>
+    </div>
+  </div>
+</div>

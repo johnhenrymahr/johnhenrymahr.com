@@ -189,7 +189,6 @@ module.exports = Backbone.View.extend({
   *  @thow error if container not found in DOM
   */
   _getChildViewContainer: function () {
-    console.log('child view container ', this.childViewContainer)
     if (_.isString(this.childViewContainer) && this.childViewContainer.length) {
       var $container = this.$(this.childViewContainer)
       if ($container.length) {

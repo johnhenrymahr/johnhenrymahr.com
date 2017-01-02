@@ -1,6 +1,7 @@
 @import '_common.less';
 
 .splash {
+  dipslay: table-cell;
   &__title  {
       font-family: "acta-poster", serif;
       position: relative;
@@ -25,15 +26,16 @@
        @media (min-width: @screen-lg-min) {
         font-size: 2.5vw;
       }
+      overflow: hidden;
    }
 
    &__blocks {
-      max-width: 1200px;
+      max-width: 800px;
       margin: 0px auto;
+      transition-duration: 3s;
    }
+
 }
-
-
-.splash.hidden {
-  opacity: 0;
+.splash.gone  .splash__blocks {
+    transform: translateX(-200%)
 }

@@ -1,9 +1,9 @@
-var view = require('app/views/contactViewMixin')
+var view = require('app/views/cvViewMixin')
 var chai = require('chai')
 var sinon = require('sinon')
 var $ = require('jQuery')
 
-describe('contactView Mixin', function () {
+describe('cvView Mixin spec', function () {
   var sandbox
   beforeEach(function () {
     sandbox = sinon.sandbox.create()
@@ -20,6 +20,20 @@ describe('contactView Mixin', function () {
     })
   })
   context('event handlers ', function () {
+    it('onRequestClick calls togglePopover method', function () {
+      var stub = sandbox.stub(view, 'togglePopover')
+      var e = {preventDefault: sandbox.stub()}
+      view.onRequestClick(e)
+      chai.expect(stub.called).to.be.true
+      chai.expect(e.preventDefault.called).to.be.true
+    })
+    it('onFormCancel calls togglePopover method', function () {
+      var stub = sandbox.stub(view, 'togglePopover')
+      var e = {preventDefault: sandbox.stub()}
+      view.onFormCancel(e)
+      chai.expect(stub.called).to.be.true
+      chai.expect(e.preventDefault.called).to.be.true
+    })
     it('runs onValidationError method', function () {
       var stub = sandbox.stub(view, 'decorate')
       var el = $('<div />')

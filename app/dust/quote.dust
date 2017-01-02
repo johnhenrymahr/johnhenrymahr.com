@@ -1,0 +1,8 @@
+<div class="quote__background quote__top">
+  <blockquote class="blockquote right">
+    <span class="blockquote__quote">&ldquo;</span>
+      Controlling complexity is the essence of computer programming.
+    <span class="blockquote__quote">&rdquo;</span>
+    <span class="blockquote__citation">&mdash;Brian Kernigan</span>
+  </blockquote>
+</div>
