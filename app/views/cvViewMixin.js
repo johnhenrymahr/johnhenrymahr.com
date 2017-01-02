@@ -56,6 +56,12 @@ module.exports = _.extend(decorator, {
   },
   onFormCancel: function (e) {
     e.preventDefault()
+    this.model.clear()
+    this.$('.form-control:visible').each(_.bind(function (idx, ele) {
+      var $ele = $(ele)
+      $ele.val('')
+      this.undecorate($ele.parent())
+    }, this))
     this.togglePopover()
   }
 })
