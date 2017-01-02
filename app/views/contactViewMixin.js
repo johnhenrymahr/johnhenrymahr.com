@@ -49,7 +49,6 @@ module.exports = {
     }, this))
     this.model.set(fields)
     if (this.model.isValid()) {
-    } else {
     }
   },
   decorate: function ($el, message) {
