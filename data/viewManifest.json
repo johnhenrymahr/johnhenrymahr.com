@@ -9,12 +9,13 @@
   },
   "sections": [
     {
-      "id": "splash",
-      "template": "splashTpl.dust",
+      "id": "header",
+      "selector": "header",
+      "template": "header.dust",
       "attributes": {
-        "className": "splash"
-      },
-      "selector": ".splash"
+        "tagName": "header",
+        "className": "header"
+      }
     },
     {
       "id": "content",
@@ -33,18 +34,12 @@
           }
         },
         {
-          "id": "banner",
-          "selector": "div.banner",
-          "attributes": {
-            "className": "core-banner"
-          }
-        },
-        {
           "id": "menu",
           "selector": "nav.menu-container",
           "template": "menu.dust",
           "attributes": {
             "tagName": "nav",
+            "aria-hidden":"true",
             "className":"menu-container"
           }
         },
@@ -121,7 +116,7 @@
       "selector": ".contact",
       "template": "contactTpl.dust",
       "attributes": {
-        "id": "jhm_connect",
+        "id": "contact",
         "className": "contact col-xs-12",
         "tagName": "section"
       }
