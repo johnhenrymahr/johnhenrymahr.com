@@ -1,10 +1,11 @@
 var _ = require('lodash')
-module.exports = {
+var decorator = require('app/utils/decorator')
+module.exports = _.extend(decorator, {
   events: {
     'blur .form-group .form-control:visible': 'onInputBlur',
     'change .form-group select.form-control': 'onInputChange',
     'focus .form-group .form-control:visible': 'onInputFocus',
-    'submit form': 'onFormSubmit'
+    'submit .contact__form': 'onFormSubmit'
   },
   initialize: function (options) {
     if (_.has(options, 'model')) {
@@ -41,6 +42,7 @@ module.exports = {
     this.model.set($el.attr('name'), $el.val(), {validate: true})
   },
   onFormSubmit: function (e) {
+    console.log('called')
     e.preventDefault()
     var fields = {}
     this.$('.form-control:visible').each(_.bind(function (idx, ele) {
@@ -50,18 +52,5 @@ module.exports = {
     this.model.set(fields)
     if (this.model.isValid()) {
     }
-  },
-  decorate: function ($el, message) {
-    $el.addClass('has-error')
-    $el
-      .find('.validation-error')
-      .remove()
-      .end()
-      .find('.form-control')
-      .after('<span class="validation-error"><i class="glyphicon glyphicon-warning-sign"></i> ' + message + '</span>')
-  },
-  undecorate: function ($el) {
-    $el.find('.validation-error').remove()
-    $el.removeClass('has-error')
   }
-}
+})

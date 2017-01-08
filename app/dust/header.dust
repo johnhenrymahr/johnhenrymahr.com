@@ -1,0 +1,14 @@
+<nav class="nav">
+   <a class="nav__item"  href="#tech" >
+        <span>Tech</span>
+    </a>
+   <a class="nav__item" href="#ux">
+        <span>UX</span>
+    </a>
+    <a class="nav__item" href="#cv">
+        <span>CV</span>
+    </a>
+    <a class="nav__item" href="#contact">
+        <span>Contact</span>
+    </a>
+</nav>
