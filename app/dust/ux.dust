@@ -13,25 +13,17 @@
       </div>
  </div>
   <ul class="ux__nav row" role="tablist row" >
-      <li role="presentation" class="ux__nav--item active col-md-3 col-xs-12" >
-        <div>
-          <a href="#semantic-markup" aria-controls="sematic-markup" role="tab" data-toggle="tab">Semantic Markup</a>
-        </div>
+      <li role="presentation" class="ux__nav--item active col-md-3 col-xs-12" >      
+        <a href="#semantic-markup" aria-controls="sematic-markup" role="tab" data-toggle="tab"><span>Semantic Markup</span></a>
       </li>
       <li role="presentation" class="ux__nav--item col-md-3 col-xs-12" >
-        <div>
-          <a href="#design" aria-controls="design" role="tab" data-toggle="tab">Design</a>
-        </div>
+        <a href="#design" aria-controls="design" role="tab" data-toggle="tab"><span>Design</span></a>
       </li>
       <li role="presentation" class="ux__nav--item col-md-3 col-xs-12" >
-        <div>
-        <a href="#accessibility" aria-controls="accessibility" role="tab" data-toggle="tab">Accessability</a>
-        </div>
+        <a href="#accessibility" aria-controls="accessibility" role="tab" data-toggle="tab"><span>Accessability</span></a>
       </li>
       <li role="presentation" class="ux__nav--item col-md-3 col-xs-12" >
-        <div>
-        <a href="#useability" aria-controls="useability" role="tab" data-toggle="tab">Useability</a>
-        </div>
+        <a href="#useability" aria-controls="useability" role="tab" data-toggle="tab"><span>Useability</span></a>
       </li>
   </ul>
 
