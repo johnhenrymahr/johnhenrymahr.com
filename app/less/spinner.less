@@ -1,0 +1,114 @@
+@import '_common.less';
+
+@keyframes spinner {
+  0% {
+    opacity: 1;
+    -ms-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0.1;
+    -ms-transform: scale(1);
+    -moz-transform: scale(1);
+    -webkit-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+}
+.spinner {
+  background: none;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  transform: scale(.7);
+
+  @media (max-width:@screen-sm-min) {
+    transform: scale(.4);
+  }
+}
+.spinner > span {
+  font-size: 21px;
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+
+  @media (max-width:@screen-sm-min) {
+    display: none;
+  }
+}
+.spinner > div {
+  width: 24px;
+  height: 24px;
+  margin-left: 4px;
+  margin-top: 4px;
+  position: absolute;
+}
+.spinner > div > div {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background: #000;
+}
+.spinner > div:nth-of-type(1) > div {
+  animation: spinner 1s linear infinite;
+  animation-delay: 0s;
+}
+.spinner > div:nth-of-type(1) {
+  transform: translate(84px, 84px) rotate(45deg) translate(70px, 0);
+}
+.spinner > div:nth-of-type(2) > div {
+  animation: spinner 1s linear infinite;
+  animation-delay: 0.12s;
+}
+.spinner > div:nth-of-type(2) {
+  transform: translate(84px, 84px) rotate(90deg) translate(70px, 0);
+}
+.spinner > div:nth-of-type(3) > div {
+  animation: spinner 1s linear infinite;
+  animation-delay: 0.25s;
+}
+.spinner > div:nth-of-type(3) {
+  transform: translate(84px, 84px) rotate(135deg) translate(70px, 0);
+}
+.spinner > div:nth-of-type(4) > div {
+  animation: spinner 1s linear infinite;
+  animation-delay: 0.37s;
+}
+.spinner > div:nth-of-type(4) {
+  transform: translate(84px, 84px) rotate(180deg) translate(70px, 0);
+}
+.spinner > div:nth-of-type(5) > div {
+  animation: spinner 1s linear infinite;
+  animation-delay: 0.5s;
+}
+.spinner > div:nth-of-type(5) {
+  transform: translate(84px, 84px) rotate(225deg) translate(70px, 0);
+}
+.spinner > div:nth-of-type(6) > div {
+  animation: spinner 1s linear infinite;
+  animation-delay: 0.62s;
+}
+.spinner > div:nth-of-type(6) {
+  transform: translate(84px, 84px) rotate(270deg) translate(70px, 0);
+}
+.spinner > div:nth-of-type(7) > div {
+  animation: spinner 1s linear infinite;
+  animation-delay: 0.75s;
+}
+.spinner > div:nth-of-type(7) {
+  transform: translate(84px, 84px) rotate(315deg) translate(70px, 0);
+}
+.spinner > div:nth-of-type(8) > div {
+  animation: spinner 1s linear infinite;
+  animation-delay: 0.87s;
+}
+.spinner > div:nth-of-type(8) {
+  transform: translate(84px, 84px) rotate(360deg) translate(70px, 0);
+}

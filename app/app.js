@@ -31,6 +31,10 @@ module.exports = {
     return null
   },
 
+  ready: function () {
+    this.vent.trigger('app:ready')
+  },
+
   start: function () {
     this.vent.trigger('app:start')
   }

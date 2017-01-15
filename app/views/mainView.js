@@ -16,7 +16,7 @@ function setUpDependencies (model) {
   if (_.isFunction(model.setModel)) {
     var models = require.context('app/models', false, /^[^_]*Model.js$/)
     models.keys().forEach(function (path) {
-      var key = path.replace('Model.js', '').replace(/^(.*[\\\/])/, '').toLowerCase()
+      var key = path.replace('Model.js', '').replace(/^(.*[\\/])/, '').toLowerCase()
       model.setModel(key, models(path))
     })
   }
@@ -24,7 +24,7 @@ function setUpDependencies (model) {
   deps.mixins = {}
   var mixinFiles = require.context('app/views', false, /ViewMixin.js$/)
   mixinFiles.keys().forEach(function (path) {
-    var key = path.replace('ViewMixin.js', '').replace(/^(.*[\\\/])/, '').toLowerCase()
+    var key = path.replace('ViewMixin.js', '').replace(/^(.*[\\/])/, '').toLowerCase()
     deps.mixins[key] = mixinFiles(path)
   })
   return deps

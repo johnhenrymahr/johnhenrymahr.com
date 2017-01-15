@@ -5,33 +5,31 @@ body {
   min-height: 100vh;
   width: 100%;
   display: table;
-  font-family: "museo-sans",sans-serif;
+  font-family: "museo-sans", sans-serif;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  #gradient.vertical-three-colors(@complimentBlue;  @jhm_orange_light; @color-stop: 70%; @darkerBrown);
+  #gradient.vertical-three-colors(@complimentBlue;
+  @jhm_orange_light;
+  @color-stop: 70%;
+  @darkerBrown);
 }
-
-main.container-fluid {
+main.container-fluid.row {
   width: 100%;
   margin: 0px auto;
   padding: 0px;
   overflow: auto;
 
-
   .content {
     width: 100%;
   }
-
   .main__bar {
     width: 100%;
     background-color: @jhm_orange;
     height: 25px;
     position: fixed;
   }
-
   div.content {
     margin: 0px auto;
     float: none;
   }
-
 }

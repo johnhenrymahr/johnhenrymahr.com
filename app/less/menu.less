@@ -13,6 +13,9 @@
     border: 1px solid @complimentBlue-dark;
     padding: 5px 10px;
     margin: 0px auto;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(.59,.06,.43,.78);
+    transform: scale(1);
     #gradient.vertical(@complimentBlue;  @complimentBlue-light; );
 
     >span {
@@ -24,7 +27,17 @@
         vertical-align: center;
     }
   }
-
+  &__item:hover {
+    border: 2px solid  @white;
+    outline: 1px dotted @white;
+    text-decoration: none;
+    cursor: pointer;
+    transform: scale(1.1);
+    >span {
+      color: @white;
+      text-decoration: none
+    }
+  }
   &__wrap {
     display: inline-block;
     padding: 3px 10px;
@@ -56,17 +69,6 @@
       display: inline-block;
       height: 30px;
       border-left: 1px solid @black;
-    }
-  }
-
-  &__item:hover {
-    border: 2px solid  @white;
-    outline: 1px dotted @white;
-    text-decoration: none;
-    cursor: pointer;
-    >span {
-      color: @white;
-      text-decoration: none
     }
   }
 }

@@ -3,30 +3,30 @@ var _ = require('lodash')
 var MainView = require('./views/mainView')
 var manifest = require('app/utils/_manifest').json
 var AppModel = require('./models/_appModel')
-var App = require('./app')
+var app = require('./app')
 require('dustjs-helpers')
 require('bootstrap/dist/js/bootstrap')
 
-App.model = new AppModel(window.jhmData, {parse: true})
-App.view = new MainView(_.merge(
+app.model = new AppModel(window.jhmData, {parse: true})
+app.view = new MainView(_.merge(
   {
     el: $(manifest.selector),
     childViewContainer: manifest.childViewContainer || null
   },
   manifest.attributes,
   {
-    model: App.model
+    model: app.model
   }
 ))
 
-App.onStart(function () {
+app.onStart(function () {
   $('body').prepend(this.view.render().el)
 })
 
 if (window.localDev) {
-  window.App = App
+  window.app = app
 }
 
 $(function () {
-  App.start()
+  app.start()
 })

@@ -1,5 +1,5 @@
 module.exports = {
-  onAttach: function () {
+  onAppReady: function () {
     $(window).on('scroll', function (e) {
       if ($(document).scrollTop() > 0) {
         this.$el.addClass('active')
