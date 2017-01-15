@@ -6,7 +6,7 @@
  * @Backbone View
  */
 var _ = require('lodash')
-var App = require('app/app')
+var app = require('../app')
 var Backbone = require('backbone')
 module.exports = Backbone.View.extend({
   /**
@@ -73,6 +73,9 @@ module.exports = Backbone.View.extend({
       } else {
         options = _.omit(options, 'el')
       }
+    }
+    if (_.isFunction(this.onAppReady)) {
+      this.listenToOnce(app.vent, 'app:ready', _.bind(this.onAppReady, this))
     }
     Backbone.View.call(this, options)
   },
@@ -243,8 +246,8 @@ module.exports = Backbone.View.extend({
    */
   transitionEnd: function ($el, duration, cb) {
     var called = false
-    if (!_.isNull(App._transition)) {
-      $el.one(App._transition, function () {
+    if (!_.isNull(app._transition)) {
+      $el.one(app._transition, function () {
         called = true
         cb()
       })
