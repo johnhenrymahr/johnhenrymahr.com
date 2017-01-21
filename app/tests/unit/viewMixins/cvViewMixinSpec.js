@@ -27,13 +27,6 @@ describe('cvView Mixin spec', function () {
       chai.expect(stub.called).to.be.true
       chai.expect(e.preventDefault.called).to.be.true
     })
-    it('onFormCancel calls togglePopover method', function () {
-      var stub = sandbox.stub(view, 'togglePopover')
-      var e = {preventDefault: sandbox.stub()}
-      view.onFormCancel(e)
-      chai.expect(stub.called).to.be.true
-      chai.expect(e.preventDefault.called).to.be.true
-    })
     it('runs onValidationError method', function () {
       var stub = sandbox.stub(view, 'decorate')
       var el = $('<div />')

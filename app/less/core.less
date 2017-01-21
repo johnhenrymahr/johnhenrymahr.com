@@ -72,14 +72,15 @@
     &--control {
       display: inline-block;
       #gradient.vertical(@jhm_yellow_orange, @jhm_orange);
-      border: 1px solid @black;
+      border: 2px solid @warmBrown;
       font-weight: bold;
-      color: @black;
+      color: darken(@warmBrown, 10%);
       font-size: 18px;
       box-shadow: 0px 3px 6px 0px rgba(50, 50, 50, 0.6);
     }
     &--control:hover {
       text-decoration: underline;
+      color: darken(@warmBrown, 10%);
       background: @jhm_yellow_orange;
     }
     @media(max-width:@screen-sm-min) {

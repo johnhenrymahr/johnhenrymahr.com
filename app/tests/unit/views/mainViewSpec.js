@@ -95,6 +95,31 @@ describe('MainView spec', function () {
     })
   })
 
+  context('extract atts method', function () {
+    it('extracts attributes when they exist', function () {
+      var test = {
+        'tagName': 'section',
+        'className': 'hoe',
+        'tabindex': '0'
+      }
+      var expected = {
+        tagName: 'section',
+        className: 'hoe',
+        attributes: {
+          tabindex: '0'
+        }
+      }
+      chai.expect(view._extractAttributes(test)).to.deep.equal(expected)
+    })
+    it('does not add attributes if there are not any', function () {
+      var test = {
+        'tagName': 'section',
+        'className': 'hoe'
+      }
+      chai.expect(view._extractAttributes(test)).to.deep.equal(test)
+    })
+  })
+
   context('_setupEventProxy, _eventProxyHandler methods', function () {
     it('matches on event  name', function () {
       var test = /^(view:)/

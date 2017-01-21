@@ -71,6 +71,16 @@ module.exports = View.extend(_.merge({
     }
   },
 
+  _extractAttributes: function (atts) {
+    var nonAtts = ['className', 'id', 'tagName']
+    var newAtts = _.pick(atts, nonAtts)
+    var attAtts = _.omit(atts, nonAtts)
+    if (!_.isEmpty(attAtts)) {
+      newAtts.attributes = attAtts
+    }
+    return newAtts
+  },
+
   _getViewInstance: function (item) {
     var instance
     _.defaults(item || {}, {
@@ -85,9 +95,9 @@ module.exports = View.extend(_.merge({
     var template = (item.template) ? require('app/dust/' + item.template) : false
     var mixin = (_.isObject(this._mixins[item.id])) ? this._mixins[item.id] : {}
     var ViewClass = (!_.isEmpty(mixin)) ? View.extend(mixin) : View
-
+    var atts = this._extractAttributes(item.attributes || {})
     instance = new ViewClass(
-      _.merge(item.attributes || {}, {
+      _.merge(atts, {
         template: template,
         viewClass: item.id,
         el: $(item.selector, this.$el),

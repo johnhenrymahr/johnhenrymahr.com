@@ -3,6 +3,18 @@ var Backbone = require('backbone')
 module.exports = {
   vent: _.clone(Backbone.Events),
 
+  _stateVars: {},
+
+  setState: function (key, v) {
+    this._stateVars[key] = v
+  },
+
+  getState: function (key) {
+    if (_.has(this._stateVars, key)) {
+      return this._stateVars[key]
+    }
+  },
+
   onStart: function (handler, context) {
     context = context || this
     if (_.isFunction(handler)) {
@@ -29,6 +41,25 @@ module.exports = {
       }
     }
     return null
+  },
+
+  _ventPromises: {},
+
+  registerVentPromise: function (event) {
+    if (_.has(this._ventPromises, event) && this._ventPromises[event].state() === 'pending') {
+      return
+    }
+    this._ventPromises[event] = new $.Deferred()
+    var args = Array.prototype.slice.call(arguments)
+    this.vent.once(event, _.bind(function () {
+      this._ventPromises[event].resolve.apply(this, args.slice(1))
+    }, this))
+  },
+
+  getVentPromise: function (vent) {
+    if (_.has(this._ventPromises, vent)) {
+      return this._ventPromises[vent].promise()
+    }
   },
 
   ready: function () {

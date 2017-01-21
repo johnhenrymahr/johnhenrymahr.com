@@ -1,8 +1,17 @@
 var _ = require('lodash')
-module.exports = {
+var itemHandler = require('app/utils/menuItemHandler')
+var App = require('app/app')
+module.exports = _.extend({}, itemHandler, {
+  initialize: function () {
+    this._registerPromsie()
+    App.setState('core:expanded', false)
+  },
+  events: {
+    'click .core__connect--control': 'handleMenuClick'
+  },
   onAppReady: function () {
     this.coreAnimation()
-    this.bindScrollHandler()
+    this.listenTo(App.vent, 'core:expand', _.bind(this._expand, this))
   },
   stepsAnimation: function () {
     var $ele = this.$('.core__steps')
@@ -46,24 +55,51 @@ module.exports = {
   },
   coreAnimation: function () {
     console.log('run core animation')
+    $('html, body').scrollTop(0)
     _.delay(_.bind(function () {
       this.transitionEnd(this.$el, 750, _.bind(function () {
         this.stepsAnimation()
         this.contentAnimation()
+        this.bindScrollHandler()
       }, this))
       this.$el.addClass('active')
     }, this), 1200)
   },
   bindScrollHandler: function () {
-    $(window).on('scroll', function (e) {
+    $(window).on('scroll', _.bind(_.debounce(function (e) {
       if ($(document).scrollTop() > 0) {
-        this.$('.core__content--body').addClass('expanded')
-        this.$('.core__banner').addClass('shifted')
+        this._expand()
       }
       if ($(document).scrollTop() === 0) {
-        this.$('.core__content--body').removeClass('expanded')
-        this.$('.core__banner').removeClass('shifted')
+        this._collapse()
       }
-    }.bind(this))
+    }, 250, {leading: true}), this))
+  },
+  _bindTransitionEnd: function ($ele, expanded) {
+    if (_.isFunction(this.transitionEnd)) {
+      this.transitionEnd($ele, 1200, _.bind(function () {
+        App.setState('core:expanded', expanded)
+        if (expanded) {
+          App.vent.trigger('core:expanded')
+        } else {
+          this._registerPromsie()
+        }
+      }, this))
+    }
+  },
+  _registerPromsie: function () {
+    App.registerVentPromise('core:expanded')
+  },
+  _expand: function () {
+    var $ele = this.$('.core__content--body')
+    this._bindTransitionEnd($ele, true)
+    $ele.addClass('expanded')
+    this.$('.core__banner').addClass('shifted')
+  },
+  _collapse: function () {
+    var $ele = this.$('.core__content--body')
+    this._bindTransitionEnd($ele, false)
+    $ele.removeClass('expanded')
+    this.$('.core__banner').removeClass('shifted')
   }
-}
+})
