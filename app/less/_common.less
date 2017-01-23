@@ -4,40 +4,36 @@
 @import (reference) "_mixins.less";
 
 .clearfix {
-    .clearfix();
+  .clearfix();
 }
-
 .no-margin {
   margin: 0px;
 }
-
+.fadeOut {
+  opacity: 0;
+}
 .btn-orange {
   background-color: @jhm_orange;
   color: black;
 }
-
 .btn {
-    font-weight: bold;
-    letter-spacing: 1px;
-    padding-left: 25px;
-    padding-right: 25px;
-    border-radius: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 10px;
 }
-
 .btn-orange:hover {
   background-color: @jhm_orange_dark;
 }
-
 .form-group-hidden {
   display: none;
 }
-
 .cell {
   float: none;
   display: table-cell;
   vertical-align: middle;
 }
-
 .form-group {
   .optional {
     color: @gray;
@@ -50,7 +46,6 @@
 .has-error label {
   color: @brand-danger;
 }
-
 .validation-error {
   display: block;
   margin-top: 5px;

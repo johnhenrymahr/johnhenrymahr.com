@@ -110,6 +110,13 @@ module.exports = View.extend(_.merge({
     return instance
   },
 
-  template: require('app/dust/' + manifest.json.template)
+  template: require('app/dust/' + manifest.json.template),
+
+  onPostRender: function () {
+    this.$('.onLoad').addClass('hidden')
+    this.listenToOnce(App.vent, 'app:ready', _.bind(function () {
+      this.$('.onLoad').removeClass('hidden')
+    }, this))
+  }
 
 }, manifest.json.attributes))

@@ -6,6 +6,9 @@ module.exports = _.extend({}, itemHandler, {
     this._registerPromsie()
     App.setState('core:expanded', false)
   },
+  onAttach: function () {
+    this.$('.core__wrapper, .core__title, .core__banner').addClass('fadeOut')
+  },
   events: {
     'click .core__connect--control': 'handleMenuClick'
   },
@@ -61,6 +64,7 @@ module.exports = _.extend({}, itemHandler, {
         this.stepsAnimation()
         this.contentAnimation()
         this.bindScrollHandler()
+        this.$('.core__wrapper, .core__title, .core__banner').removeClass('fadeOut')
       }, this))
       this.$el.addClass('active')
     }, this), 1200)
