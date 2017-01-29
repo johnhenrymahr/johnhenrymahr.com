@@ -113,10 +113,35 @@ module.exports = View.extend(_.merge({
   template: require('app/dust/' + manifest.json.template),
 
   onPostRender: function () {
-    this.$('.onLoad').addClass('hidden')
+    App.vent.trigger('mainView:postRender')
+    var $onLoad = this.$('.onLoad')
+    $onLoad.addClass('hidden fadeOut fadeUp')
     this.listenToOnce(App.vent, 'app:ready', _.bind(function () {
-      this.$('.onLoad').removeClass('hidden')
+      this.bindScrollHandler()
     }, this))
+    this.listenTo(App.vent, 'scroll:expand', _.bind(function () {
+      $onLoad.removeClass('hidden')
+      _.defer(function () {
+        $onLoad.removeClass('fadeOut fadeUp')
+      })
+    }, this))
+    this.listenTo(App.vent, 'scroll:collapse', _.bind(function () {
+      this.transitionEnd($onLoad, 1500, function ($el) {
+        $el.addClass('hidden')
+      })
+      $onLoad.addClass('fadeOut fadeUp')
+    }, this))
+  },
+
+  bindScrollHandler: function () {
+    $(window).on('scroll', _.bind(_.debounce(function (e) {
+      if ($(document).scrollTop() > 0) {
+        App.vent.trigger('scroll:expand')
+      }
+      if ($(document).scrollTop() === 0) {
+        App.vent.trigger('scroll:collapse')
+      }
+    }, 250, {leading: true}), this))
   }
 
 }, manifest.json.attributes))

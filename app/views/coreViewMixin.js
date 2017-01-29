@@ -5,16 +5,22 @@ module.exports = _.extend({}, itemHandler, {
   initialize: function () {
     this._registerPromsie()
     App.setState('core:expanded', false)
+    this.listenTo(App.vent, 'scroll:expand', _.bind(this._expand, this))
+    this.listenTo(App.vent, 'scroll:collapse', _.bind(this._collapse, this))
   },
   onAttach: function () {
     this.$('.core__wrapper, .core__title, .core__banner').addClass('fadeOut')
   },
   events: {
-    'click .core__connect--control': 'handleMenuClick'
+    'click .core__connect--control': 'handleMenuClick',
+    'click .arrow>a ': 'scrollDown'
+  },
+  scrollDown: function (e) {
+    e.preventDefault()
+    this.scrollToElement(this.$('.core__wrapper'))
   },
   onAppReady: function () {
     this.coreAnimation()
-    this.listenTo(App.vent, 'core:expand', _.bind(this._expand, this))
   },
   stepsAnimation: function () {
     var $ele = this.$('.core__steps')
@@ -63,21 +69,10 @@ module.exports = _.extend({}, itemHandler, {
       this.transitionEnd(this.$el, 750, _.bind(function () {
         this.stepsAnimation()
         this.contentAnimation()
-        this.bindScrollHandler()
         this.$('.core__wrapper, .core__title, .core__banner').removeClass('fadeOut')
       }, this))
       this.$el.addClass('active')
     }, this), 1200)
-  },
-  bindScrollHandler: function () {
-    $(window).on('scroll', _.bind(_.debounce(function (e) {
-      if ($(document).scrollTop() > 0) {
-        this._expand()
-      }
-      if ($(document).scrollTop() === 0) {
-        this._collapse()
-      }
-    }, 250, {leading: true}), this))
   },
   _bindTransitionEnd: function ($ele, expanded) {
     if (_.isFunction(this.transitionEnd)) {
@@ -99,11 +94,16 @@ module.exports = _.extend({}, itemHandler, {
     this._bindTransitionEnd($ele, true)
     $ele.addClass('expanded')
     this.$('.core__banner').addClass('shifted')
+    this.$('.arrow').addClass('fadeOut').removeClass('bounce')
   },
   _collapse: function () {
     var $ele = this.$('.core__content--body')
     this._bindTransitionEnd($ele, false)
     $ele.removeClass('expanded')
     this.$('.core__banner').removeClass('shifted')
+    this.$('.arrow').removeClass('fadeOut').addClass('bounce')
+  },
+  onPostRender: function () {
+    this.$('.arrow>a').get(0).focus()
   }
 })

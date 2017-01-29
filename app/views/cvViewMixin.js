@@ -34,9 +34,13 @@ module.exports = _.extend(decorator, {
   togglePopover: function () {
     var $ref = this.$('.cv__popover')
     if ($ref.is(':visible')) {
-      $ref.slideUp('slow')
+      $ref.slideUp('slow', function () {
+        $ref.get(0).focus()
+      })
     } else {
-      $ref.slideDown('slow')
+      $ref.slideDown('slow', function () {
+        $ref.find('input:first').get(0).focus()
+      })
     }
   },
   onRequestClick: function (e) {

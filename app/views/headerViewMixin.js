@@ -6,15 +6,10 @@ module.exports = _.extend({}, itemHandler, {
     'click .nav__item': 'handleMenuClick'
   },
   onAppReady: function () {
-    this.listenToOnce(App.vent, 'core:expanded', _.bind(this._expand, this))
-    $(window).on('scroll', _.bind(_.debounce(function (e) {
-      if ($(document).scrollTop() > 0) {
-        this._expand()
-      }
-      if ($(document).scrollTop() === 0) {
-        this._collapse()
-      }
-    }, 150), this))
+    this.listenToOnce(App.vent, 'core:expanded', _.bind(function () {
+      this.listenTo(App.vent, 'scroll:expand', _.bind(this._expand, this))
+      this.listenTo(App.vent, 'scroll:collapse', _.bind(this._collapse, this))
+    }, this))
   },
   _expand: function () {
     if (App.getState('core:expanded')) {

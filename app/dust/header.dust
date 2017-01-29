@@ -11,7 +11,7 @@
     <a class="nav__item" href="#cv">
         <span>CV</span>
     </a>
-    <a class="nav__item" href="#contact">
+    <a class="nav__item" href="#contact" data-focus=".contact__form input:first">
         <span>Contact</span>
     </a>
 </nav>

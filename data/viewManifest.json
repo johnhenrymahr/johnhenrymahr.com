@@ -42,7 +42,7 @@
           "attributes": {
             "tagName": "nav",
             "aria-hidden":"true",
-            "className":"menu-container"
+            "className":"menu-container onLoad"
           }
         },
         {

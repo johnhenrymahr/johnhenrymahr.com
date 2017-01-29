@@ -17,7 +17,7 @@
     </a>
   </div>
   <div class="menu__wrap">
-    <a class="menu__item col-xs-4 col-md-12" href="#contact">
+    <a class="menu__item col-xs-4 col-md-12" href="#contact" data-focus=".contact__form input:first">
         <span>Contact</span>
     </a>
   </div>

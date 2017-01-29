@@ -154,7 +154,7 @@ module.exports = Backbone.View.extend({
       this.onAttach(options)
     }
     this.trigger('view:attach', html, options)
-    this._postRender(options)
+    _.defer(_.bind(this._postRender, this)) // wait for DOM manipulation to finish
   },
   /**
    *post render handler
@@ -214,7 +214,7 @@ module.exports = Backbone.View.extend({
       throw new Error('The destroyed view: ' + this.cid + ' cannot be rendered.')
     }
     if (!_.isFunction(this.template)) {
-      this._postRender(options)
+      this._postRender()
       return this
     }
     if (this.serverRendered() === false) {
@@ -249,12 +249,12 @@ module.exports = Backbone.View.extend({
     if (!_.isNull(app._transition)) {
       $el.one(app._transition, function () {
         called = true
-        cb()
+        cb($el)
       })
     }
     var callback = function () {
       if (!called) {
-        cb()
+        cb($el)
       }
     }
     setTimeout(callback, (duration + 100))
