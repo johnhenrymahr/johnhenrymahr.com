@@ -64,7 +64,6 @@ module.exports = _.extend({}, itemHandler, {
   },
   coreAnimation: function () {
     console.log('run core animation')
-    $('html, body').scrollTop(0)
     _.delay(_.bind(function () {
       this.transitionEnd(this.$el, 750, _.bind(function () {
         this.stepsAnimation()

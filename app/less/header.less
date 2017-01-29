@@ -14,6 +14,10 @@
   left: 0;
   z-index: 3000;
 
+  @media (max-width:@screen-sm-min) {
+    padding: 0px;
+    border: none;
+  }
   .nav {
     dispaly: block;
     max-width: 850px;
@@ -22,7 +26,9 @@
 
     @media (max-width:@screen-sm-min) {
       margin: 0px;
-      width: 100%;
+      padding: 0px;
+      border: none;
+      width: auto;
       text-align: center;
     }
     &__item {
@@ -34,7 +40,10 @@
       border-left: 1px solid @white;
 
       @media (max-width:@screen-sm-min) {
-        padding: 6px 25px;
+        padding: 6px 0px;
+        width: 20%;
+        margin-left: -1px;
+        text-align: center;
       }
     }
     &__item:hover {
