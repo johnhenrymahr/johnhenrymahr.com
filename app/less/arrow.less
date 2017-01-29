@@ -1,0 +1,27 @@
+@import '_common.less';
+
+.arrow {
+  text-align: center;
+  margin: 2px auto;
+  opacity: 1;
+  transition: all 1.2s ease 0s;
+
+  >a {
+    color: @gray15;
+  }
+}
+.bounce {
+  animation: bounce 2s 5;
+  animation-delay: 3s;
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}

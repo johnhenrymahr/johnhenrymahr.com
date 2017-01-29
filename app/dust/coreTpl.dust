@@ -49,8 +49,11 @@
             <div class="col-md-1 col-xs-12">&nbsp;</div>
         </div>
     </div>
+    <div class="arrow bounce">
+      <a class="fa fa-arrow-down fa-2x" href="#"></a>
+   </div>
     <div class="core__connect">
-       <a href="#contact" class="btn core__connect--control">Let‘s Connect!</a>
+       <a href="#contact" class="btn core__connect--control" data-focus=".contact__form input:first">Let‘s Connect!</a>
     </div>
   </div>
 </div>
