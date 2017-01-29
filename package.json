@@ -40,6 +40,7 @@
     "bootstrap": "^3.3.6",
     "dustjs-helpers": "^1.7.3",
     "dustjs-linkedin": "^2.7.2",
+    "font-awesome": "^4.7.0",
     "lodash": "^4.6.1",
     "moment": "~2.11.2"
   },
@@ -83,6 +84,7 @@
     "run-sequence": "^1.2.2",
     "sinon": "^1.17.3",
     "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1",
     "webpack-merge": "^0.8.4"

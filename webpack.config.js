@@ -60,12 +60,8 @@ const common = {
         loader: 'file-loader?name=/img/[name].[ext]'
       },
       {
-        test: /\.(eot|ttf|woff|woff2)$/i,
-        loader: 'file-loader?name=/fonts/[name].[ext]'
-      },
-      {
-        test: /\.svg$/,
-        loader: 'file-loader?name=/svg/[name].[ext]'
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url?limit=10000&name=fonts/[name].[ext]'
       }
     ],
     noParse: [/sinon/]
