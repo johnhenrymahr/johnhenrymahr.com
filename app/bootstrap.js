@@ -27,6 +27,17 @@ if (window.localDev) {
   window.app = app
 }
 
+function loader () {
+  var d = $.Deferred()
+    // synchronous code
+  _.delay(function () {
+    d.resolve()
+  }, 1000)
+  return d
+}
+
+var mainRenderPromise = app.registerVentPromise('mainView:postRender')
+
 $(function () {
-  app.start()
+  app.start().all([loader(), mainRenderPromise]).done(_.bind(app.ready, app))
 })

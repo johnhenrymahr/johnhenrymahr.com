@@ -54,6 +54,7 @@ module.exports = {
     this.vent.once(event, _.bind(function () {
       this._ventPromises[event].resolve.apply(this, args.slice(1))
     }, this))
+    return this.getVentPromise(event)
   },
 
   getVentPromise: function (vent) {
@@ -62,12 +63,23 @@ module.exports = {
     }
   },
 
+  all: function (promises) {
+    promises = promises || []
+    var $d = new $.Deferred()
+    $.when.apply($, promises).done(function () {
+      $d.resolve()
+    })
+    return $d.promise()
+  },
+
   ready: function () {
     this.vent.trigger('app:ready')
+    return this
   },
 
   start: function () {
     this.vent.trigger('app:start')
+    return this
   }
 
 }
