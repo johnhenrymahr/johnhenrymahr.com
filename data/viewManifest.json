@@ -37,6 +37,7 @@
         },
         {
           "id": "menu",
+          "disabled": true,
           "selector": "nav.menu-container",
           "template": "menu.dust",
           "attributes": {
