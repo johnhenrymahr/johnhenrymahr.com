@@ -1,6 +1,7 @@
 {
   "name": "johnhenrymahr.com",
   "version": "0.0.0",
+  "license" : "BSD-3-Clause",
   "description": "John Henry Mahr personal website",
   "main": "index.js",
   "scripts": {
@@ -33,7 +34,6 @@
     ]
   },
   "author": "John Mahr",
-  "license": "BSD",
   "gitHead": "835e3f2d17b44be3beff8fafa2768ac22f373c76",
   "dependencies": {
     "backbone": "~1.2.3",
