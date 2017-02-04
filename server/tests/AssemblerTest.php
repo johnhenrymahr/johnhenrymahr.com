@@ -7,11 +7,14 @@ class AssemblerTest extends \PHPUnit\Framework\TestCase
 
     protected $templateFactory;
 
+    protected $markup;
+
     protected function setUp()
     {
         $this->manifest = \Mockery::mock('\JHM\ManifestInterface');
         $this->templateFactory = \Mockery::mock('\JHM\TemplateFactoryInterface');
         $this->obj = new \JHM\Assembler($this->manifest, $this->templateFactory);
+        $this->markup = file_get_contents(realpath(__DIR__) . '/data/expectedMarkupOutput.html');
     }
 
     protected function tearDown()
@@ -26,10 +29,9 @@ class AssemblerTest extends \PHPUnit\Framework\TestCase
 
     public function testAssembleMethod()
     {
-        $expected = '<div><div class="content">Content</div><div><div class="content">Content</div><div><div class="content">Content</div></div><div><div class="content">Content</div></div></div><div><div class="content">Content</div><div><div class="content">Content</div></div><div><div class="content">Content</div></div></div></div>';
         $templateMock = \Mockery::mock('\JHM\TemplateInterface');
 
-        $templateMock->shouldReceive('markup')->once()->andReturn($expected);
+        $templateMock->shouldReceive('markup')->once()->andReturn($this->markup);
         $templateMock->shouldReceive('appendChild')->atLeast()->times(4);
         $this->manifest->shouldReceive('getTopLevelData')->once()->andReturn([]);
         $this->manifest->shouldReceive('getSections')->once()->andReturn([["children" => array()], [], ["renderOnServer" => false]]);
@@ -37,7 +39,7 @@ class AssemblerTest extends \PHPUnit\Framework\TestCase
         $this->templateFactory->shouldReceive('getTemplate')->andReturn($templateMock);
         $result = $this->obj->assemble();
 
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($this->markup, $result);
     }
 
 }

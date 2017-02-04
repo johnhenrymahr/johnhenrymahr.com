@@ -30,6 +30,10 @@ function setUpDependencies (model) {
   return deps
 }
 
+function disabled (obj) {
+  return Boolean(_.isObject(obj) && _.has(obj, 'disabled') && obj.disabled === true)
+}
+
 module.exports = View.extend(_.merge({
   _mixins: null,
   _children: [], // child views (sections)
@@ -42,10 +46,16 @@ module.exports = View.extend(_.merge({
   _getSections: function () {
     if (this._manifest.sections.length) {
       _.each(this._manifest.sections, _.bind(function (section) {
+        if (disabled(section)) {
+          return
+        }
         var instance = this._getViewInstance(section)
         if (_.isObject(instance)) {
           if (_.isArray(section.children)) {
             _.each(section.children, _.bind(function (child) {
+              if (disabled(child)) {
+                return
+              }
               instance._children.push(this._getViewInstance(child))
             }, this))
           }

@@ -17,6 +17,19 @@ class Assembler
     }
 
     /**
+     * isDisabled
+     * @param  array  $arr s
+     * @return boolean   array item contains true disabled attribute
+     */
+    protected function isDisabled(array $arr)
+    {
+        if (array_key_exists('disabled', $arr) && $arr['disabled'] === true) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * assemble
      * assemble markup from manifest data
      * @return string markup
@@ -52,7 +65,7 @@ class Assembler
 
     protected function _shouldRender(array $node)
     {
-        if (array_key_exists('renderOnServer', $node) && $node['renderOnServer'] === false) {
+        if ((array_key_exists('renderOnServer', $node) && $node['renderOnServer'] === false) || $this->isDisabled($node)) {
             return false;
         }
         return true;

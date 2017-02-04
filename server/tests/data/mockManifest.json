@@ -15,29 +15,48 @@
       "selector": ".splash"
     },
     {
-    "container": {
-      "attributes": {
-        "className": "content"
-     }
-    },
-    "children": [
+      "container": {
+        "attributes": {
+          "className": "content"
+        }
+      },
+      "children": [
         {
-            "id": "title",
-            "selector": "section.title",
-            "template": "titleTpl.dust",
-            "attributes": {
-              "className": "titleView",
-              "tagName": "section"
-            }
+          "id": "title",
+          "selector": "section.title",
+          "template": "titleTpl.dust",
+          "attributes": {
+            "className": "titleView",
+            "tagName": "section"
+          }
         },
         {
-            "id": "intro",
-            "selector": "section.intro",
-            "template": "introTpl.dust",
-            "attributes": {
-              "className": "introView",
-              "tagName": "section"
-            }
+          "id": "intro",
+          "selector": "section.intro",
+          "template": "introTpl.dust",
+          "attributes": {
+            "className": "introView",
+            "tagName": "section"
+          }
+        },
+        {
+          "id": "contact",
+          "selector": "section.contact",
+          "renderOnServer": false,
+          "template": "contact.dust",
+          "attributes": {
+            "className": "contact",
+            "tagName": "section"
+          }
+        },
+        {
+          "id": "nothing",
+          "selector": "section.placeholder",
+          "disabled": true,
+          "template": "placeholder.dust",
+          "attributes": {
+            "tagName": "div"
+          }
         }
       ]
     }]
