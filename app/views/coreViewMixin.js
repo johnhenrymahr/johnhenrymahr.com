@@ -11,6 +11,7 @@ module.exports = _.extend({}, itemHandler, {
   },
   events: {
     'click .core__connect--control': 'handleMenuClick',
+    'click .core__content--body .seemore': 'handleSeeMore',
     'click .arrow>a ': 'scrollDown',
     'click .core__content': 'scrollDown'
   },
@@ -66,6 +67,11 @@ module.exports = _.extend({}, itemHandler, {
           .dequeue()
      }, this))
   },
+  handleSeeMore: function (e) {
+    e.preventDefault()
+    this._expandClass = 'expanded-fully'
+    this.$('.core__content--body').removeClass('expanded').addClass(this._expandClass)
+  },
   coreAnimation: function () {
     console.log('run core animation')
     this.$('.core__wrapper, .core__title, .core__banner').removeClass('hidden')
@@ -104,14 +110,15 @@ module.exports = _.extend({}, itemHandler, {
     this.scrollDownOnce()
     var $ele = this.$('.core__content--body')
     this._bindTransitionEnd($ele, true)
-    $ele.addClass('expanded')
+    $ele.addClass(this._expandClass)
     this.$('.core__banner').addClass('shifted')
     this.$('.arrow').addClass('fadeOut').removeClass('bounce')
   },
+  _expandClass: 'expanded',
   _collapse: function () {
     var $ele = this.$('.core__content--body')
     this._bindTransitionEnd($ele, false)
-    $ele.removeClass('expanded')
+    $ele.removeClass(this._expandClass)
     this.$('.core__banner').removeClass('shifted')
     this.$('.arrow').removeClass('fadeOut').addClass('bounce')
   },

@@ -45,6 +45,7 @@
             <div class="col-md-9 col-xs-12">
               <div class="core__content--body">
                 {> "app/dust/copy/intro-content" /}
+                <a class="seemore" href="#" >&mdash;&nbsp;See more&nbsp;&mdash;</a>
             </div>
             <div class="col-md-1 col-xs-12">&nbsp;</div>
         </div>
