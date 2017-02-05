@@ -31,6 +31,7 @@ function loader () {
   var d = $.Deferred()
     // synchronous code
   _.delay(function () {
+    window.scrollTo(0, 0)
     d.resolve()
   }, 1000)
   return d
