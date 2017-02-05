@@ -57,7 +57,7 @@ const common = {
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
-        loader: 'file-loader?name=/img/[name].[ext]'
+        loader: 'file-loader?publicPath=rsc/img/&outputPath=/build/rsc/img/"'
       },
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
