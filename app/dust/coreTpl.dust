@@ -45,16 +45,18 @@
             <div class="col-md-9 col-xs-12">
               <div class="core__content--body">
                 {> "app/dust/copy/intro-content" /}
-                <a class="seemore" href="#" >&mdash;&nbsp;See more&nbsp;&mdash;</a>
+                <span class="seemore">&mdash;&nbsp;<a class="seemore__link" href="#" data-track='core:seemore'>See more</a>&nbsp;&mdash;</span>
             </div>
             <div class="col-md-1 col-xs-12">&nbsp;</div>
         </div>
     </div>
     <div class="arrow bounce">
-      <a class="fa fa-arrow-down fa-2x" href="#"></a>
+      <a class="fa fa-arrow-down fa-2x" href="#" data-track="scroll-arrow"></a>
    </div>
     <div class="core__connect fadeOut">
-       <a href="#contact" class="btn core__connect--control" data-focus=".contact__form input:first">Let‘s Connect!</a>
+       <a href="#contact" class="btn core__connect--control" data-focus=".contact__form input:first" data-track="core:lets-connect">
+        Let‘s Connect!
+       </a>
     </div>
   </div>
 </div>

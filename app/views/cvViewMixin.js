@@ -1,9 +1,13 @@
 var _ = require('lodash')
 var decorator = require('../utils/decorator')
+var App = require('app/app')
 module.exports = _.extend(decorator, {
   initialize: function (options) {
     if (_.has(options, 'model')) {
       this.listenTo(options.model, 'invalid', _.bind(this.onValidationError, this))
+      this.listenTo(options.model, 'sync', function () {
+        App.vent.trigger('app:track', 'cv-request-refs', 'cv:submit:success', 'form-submit')
+      })
     }
   },
   onValidationError: function (model, error, options) {

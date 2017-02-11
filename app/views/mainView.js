@@ -162,6 +162,10 @@ module.exports = View.extend(_.merge({
       this.bindScrollHandler()
       this.enableScroll()
     }, this))
+    // track initial scroll
+    this.listenToOnce(App.vent, 'scroll:expand', _.bind(function () {
+      App.vent.trigger('app:track', 'window', 'user scrolled down', 'scroll')
+    }, this))
   },
 
   unbindScrollHandler: function () {

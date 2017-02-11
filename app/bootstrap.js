@@ -30,7 +30,7 @@ if (window.localDev) {
 function loader () {
   var d = $.Deferred()
     // synchronous code
-  _.delay(function () {
+  _.delay(function () { // fake latency here
     window.scrollTo(0, 0)
     d.resolve()
   }, 1000)

@@ -72,7 +72,47 @@ module.exports = {
     return $d.promise()
   },
 
+  _track: function (eventCategory, eventLabel, eventAction, eventValue) {
+    eventAction = eventAction || 'click'
+    if (_.isUndefined(eventCategory) || _.isUndefined(eventLabel)) {
+      return
+    }
+    var track = {
+      hitType: 'event',
+      eventCategory: eventCategory,
+      eventAction: eventAction,
+      eventLabel: eventLabel
+    }
+    if (eventValue) {
+      track.eventValue = eventValue
+    }
+    if (_.isFunction(window, 'ga')) {
+      window.ga('send', track)
+    }
+    if (window.localDev) {
+      console.log('ga() tracking ', typeof track, track)
+    }
+  },
+
+  eventTracking: function (e) {
+    var $ele = $(e.currentTarget)
+    var track = $ele.data('track')
+    if (track) {
+      this._track($ele.prop('tagName') + ':' + $ele.attr('class') || '', track)
+    }
+  },
+
+  setupTracking: function () {
+    _.bindAll(this, ['_track', 'eventTracking'])
+    this.vent.off('app:track')
+    this.vent.on('app:track', this._track)
+    $(document)
+      .off('click', 'a, button, input[type=submit]', this.eventTracking)
+      .on('click', 'a, button, input[type=submit]', this.eventTracking)
+  },
+
   ready: function () {
+    this.setupTracking()
     this.vent.trigger('app:ready')
     return this
   },

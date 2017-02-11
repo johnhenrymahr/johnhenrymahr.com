@@ -1,17 +1,17 @@
 <nav class="nav">
-    <a class="nav__item"  href="#core" >
+    <a class="nav__item"  href="#core" data-track="header-nav:home" >
         <span>Home</span>
     </a>
-   <a class="nav__item"  href="#tech" >
+   <a class="nav__item"  href="#tech" data-track="header-nav:tech" >
         <span>Tech</span>
     </a>
-   <a class="nav__item" href="#ux">
+   <a class="nav__item" href="#ux" data-track="header-nav:ux" >
         <span>UX</span>
     </a>
-    <a class="nav__item" href="#cv">
+    <a class="nav__item" href="#cv" data-track="header-nav:cv" >
         <span>CV</span>
     </a>
-    <a class="nav__item" href="#contact" data-focus=".contact__form input:first">
+    <a class="nav__item" href="#contact" data-focus=".contact__form input:first" data-track="header-nav:contact">
         <span>Contact</span>
     </a>
 </nav>

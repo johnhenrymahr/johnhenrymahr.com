@@ -14,16 +14,16 @@
  </div>
   <ul class="tech__nav row" role="tablist row" >
       <li role="presentation" class="tech__nav--item active col-md-3 col-xs-12" >
-        <a href="#frameworks" aria-controls="frameworks" role="tab" data-toggle="tab"><span>Frameworks</span></a>
+        <a href="#frameworks" aria-controls="frameworks" role="tab" data-toggle="tab" data-track="tech:frameworks"><span>Frameworks</span></a>
       </li>
       <li role="presentation" class="tech__nav--item col-md-3 col-xs-12" >
-        <a href="#modules" aria-controls="modules" role="tab" data-toggle="tab"><span>Modules</span></a>
-      </li>
-      <li role="presentation" class="tech__nav--item col-md-3 col-xs-12" >      
-        <a href="#tooling" aria-controls="tooling" role="tab" data-toggle="tab"><span>Tooling</span></a>
+        <a href="#modules" aria-controls="modules" role="tab" data-toggle="tab" data-track="tech:modules"><span>Modules</span></a>
       </li>
       <li role="presentation" class="tech__nav--item col-md-3 col-xs-12" >
-        <a href="#testing" aria-controls="testing" role="tab" data-toggle="tab"><span>Testing</span></a>
+        <a href="#tooling" aria-controls="tooling" role="tab" data-toggle="tab" data-track="tech:tooling"><span>Tooling</span></a>
+      </li>
+      <li role="presentation" class="tech__nav--item col-md-3 col-xs-12" >
+        <a href="#testing" aria-controls="testing" role="tab" data-toggle="tab" data-track="tech:testing"><span>Testing</span></a>
       </li>
   </ul>
 

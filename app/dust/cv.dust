@@ -13,13 +13,13 @@
     </div>
     <div class="row cv__content">
       <div class="cv__resume cv__item col-md-4 col-xs-12">
-          <a href="/download-resume"><span>Download Resume</span></a>
+          <a href="/download-resume" data-track="cv:download-resume"><span>Download Resume</span></a>
       </div>
       <div class="cv__resume cv__item col-md-4 col-xs-12">
-          <a href="/download-resume"><span>Download Tech Sheet</span></a>
+          <a href="/download-resume" data-track="cv:download-tech_sheet"><span>Download Tech Sheet</span></a>
       </div>
       <div class="cv__ref cv__item col-md-4 col-xs-12">
-         <a href="#" class="cv__ref--request"> <span>Request References</span></a>
+         <a href="#" class="cv__ref--request" data-track="cv:expand-references"> <span>Request References</span></a>
       </div>
     </div>
     <div class="cv__popover">
@@ -41,7 +41,7 @@
                   <input type="email" class="form-control" name="email" id="email" />
               </div>
               <div class="form-group cv__form--controls">
-                  <input type="submit" name="submit" value="Request" class="btn btn-primary cv__form--control" />
+                  <input type="submit" name="submit" value="Request" class="btn btn-primary cv__form--control"  data-track="cv:attempt-form-submit" />
                   <a href="#" class="cv__form--cancel cv__form--control">cancel</a>
               </div>
             </form>

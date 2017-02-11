@@ -2,22 +2,22 @@
   <hr class="menu__rule" />
   <div class="menu__prefix"></div>
   <div class="menu__wrap">
-    <a class="menu__item col-xs-4 col-md-12" role="button"  href="#tech" >
+    <a class="menu__item col-xs-4 col-md-12" role="button"  href="#tech" data-track="menu:tech">
         <span>Tech</span>
     </a>
   </div>
   <div class="menu__wrap">
-    <a class="menu__item col-xs-4 col-md-12" href="#ux">
+    <a class="menu__item col-xs-4 col-md-12" href="#ux" data-track="menu:ux">
         <span>UX</span>
     </a>
   </div>
   <div class="menu__wrap">
-    <a class="menu__item col-xs-4 col-md-12" href="#cv">
+    <a class="menu__item col-xs-4 col-md-12" href="#cv" data-track="menu:cv">
         <span>CV</span>
     </a>
   </div>
   <div class="menu__wrap">
-    <a class="menu__item col-xs-4 col-md-12" href="#contact" data-focus=".contact__form input:first">
+    <a class="menu__item col-xs-4 col-md-12" href="#contact" data-focus=".contact__form input:first" data-track="menu:contact">
         <span>Contact</span>
     </a>
   </div>
