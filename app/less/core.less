@@ -368,8 +368,7 @@
       opacity: 1;
 
       .seemore {
-        display: block;
-        width: 150px;
+        display: inline-block;
         margin: auto;
         text-align: center;
         position: absolute;
@@ -377,12 +376,17 @@
         left: 50%;
         margin-left: -75px;
         top: 290px;
-        color: @white;
+        color: @tan;
         z-index: 5000;
-      }
-      .seemore:hover, .seemore:focus {
-        text-decoration: none;
-        border-bottom: 1px solid @white;
+        padding-bottom: 5px;
+
+        &__link {
+          color: @tan;
+        }
+        &__link:hover, &__link:focus {
+          text-decoration: none;
+          border-bottom: 2px solid @tan;
+        }
       }
     }
     &--body.expanded-fully {
