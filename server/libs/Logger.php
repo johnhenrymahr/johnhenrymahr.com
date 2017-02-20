@@ -12,6 +12,8 @@ class Logger extends FileStorage implements LoggerInterface
 
     protected $loggerEngine;
 
+    protected $logFileName = 'jhm-system.log';
+
     protected $config;
 
     protected $logfile = '';
@@ -25,7 +27,7 @@ class Logger extends FileStorage implements LoggerInterface
         if ($this->enabled) {
             $this->loggerEngine = new \Monolog\Logger('jhm');
             $logdir = $this->config->getStorage('logs');
-            $this->logfile = $logdir . 'jhm-system.log';
+            $this->logfile = $logdir . $this->logFileName;
             if (!$this->setupStorage($this->logfile)) {
                 throw new JhmException('Log file not writeable. Path: ' . $this->logfile);
             }
