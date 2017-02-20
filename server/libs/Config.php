@@ -32,6 +32,11 @@ class Config implements ConfigInterface
         ],
     ];
 
+    protected $hostMap = [
+        'johnhenrymahr.com' => 'production',
+        'faketestdomain.net' => 'test',
+    ];
+
     protected $host_configs = [
         "test" => [
             "basepath" => "",
@@ -56,10 +61,12 @@ class Config implements ConfigInterface
         if (is_array($host_config)) {
             $this->host_configs = array_merge($this->host_configs, $host_config);
         }
-        if (array_key_exists($hostname, $this->host_configs)) {
+        $key = $this->_getMappedKey($hostname);
+        if ($key && (array_key_exists($key, $this->host_configs))) {
+            $this->active_config = array_replace_recursive($this->active_config, $this->host_configs[$key]);
+        } elseif (array_key_exists($hostname, $this->host_configs)) {
             $this->active_config = array_replace_recursive($this->active_config, $this->host_configs[$hostname]);
         }
-
         $liveconfig = $this->_getLiveConfig();
         if ($liveconfig && is_array($liveconfig) && !empty($liveconfig)) {
             $this->active_config = array_replace_recursive($this->active_config, $liveconfig);
@@ -70,6 +77,14 @@ class Config implements ConfigInterface
             $this->active_config['basepath'] = realpath($this->active_config['basepath']);
         }
 
+    }
+
+    protected function _getMappedKey($hostname)
+    {
+        if (array_key_exists($hostname, $this->hostMap)) {
+            return $this->hostMap[$hostname];
+        }
+        return false;
     }
 
     protected function _getLiveConfig()

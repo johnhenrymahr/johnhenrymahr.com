@@ -7,7 +7,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        $this->obj = new \JHM\Config('test', '', false);
+        $this->obj = new \JHM\Config('faketestdomain.net', '', false);
     }
     protected function tearDown()
     {
