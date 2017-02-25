@@ -46,7 +46,6 @@ module.exports = _.extend(decorator, {
     this.model.set($el.attr('name'), $el.val(), {validate: true})
   },
   onFormSubmit: function (e) {
-    console.log('called')
     e.preventDefault()
     var fields = {}
     this.$('.form-control:visible').each(_.bind(function (idx, ele) {
