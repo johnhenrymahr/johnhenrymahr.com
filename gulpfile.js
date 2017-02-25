@@ -256,6 +256,19 @@ gulp.task('update:index', function (callback) {
   }
 })
 
+gulp.task('update:api', function (callback) {
+  try {
+    var indexPath = path.join(distFolder, path.basename(server.get('webroot')), 'api', 'index.php')
+    var index = fs.readFileSync(indexPath, 'utf8')
+    index = index.replace('{{serverApp}}', server.get('serverApp'))
+    index = replaceComments(index)
+    fs.writeFileSync(indexPath, index, 'utf8')
+    callback()
+  } catch (e) {
+    throwError('update:api', e)
+  }
+})
+
 gulp.task('update:config', function (callback) {
   try {
     var cfgPath = path.join(distFolder, path.basename(server.get('serverApp')), 'libs', 'Config.php')
@@ -295,6 +308,7 @@ gulp.task('package', function (callback) {
     'copy:webroot',
     'copy:app',
     'update:index',
+    'update:api',
     'update:config',
     'phplint',
     callback
