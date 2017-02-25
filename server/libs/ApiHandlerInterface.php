@@ -19,7 +19,7 @@ interface ApiHandlerInterface
     public function status();
 
     /**
-     * get json body
+     * get json response body
      * @return Array
      */
     public function body();
