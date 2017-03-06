@@ -110,7 +110,6 @@ module.exports = _.extend({}, itemHandler, {
     this.scrollDownOnce()
     var $ele = this.$('.core__content--body')
     this._bindTransitionEnd($ele, true)
-    $ele.addClass(this._expandClass)
     this.$('.core__banner').addClass('shifted')
     this.$('.arrow').addClass('fadeOut').removeClass('bounce')
   },
@@ -118,7 +117,6 @@ module.exports = _.extend({}, itemHandler, {
   _collapse: function () {
     var $ele = this.$('.core__content--body')
     this._bindTransitionEnd($ele, false)
-    $ele.removeClass(this._expandClass)
     this.$('.core__banner').removeClass('shifted')
     this.$('.arrow').removeClass('fadeOut').addClass('bounce')
   },

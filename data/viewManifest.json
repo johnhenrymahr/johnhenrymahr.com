@@ -34,88 +34,18 @@
             "id": "core",
             "tabindex": "0"
           }
-        },
-        {
-          "id": "menu",
-          "disabled": true,
-          "selector": "nav.menu-container",
-          "template": "menu.dust",
-          "attributes": {
-            "tagName": "nav",
-            "aria-hidden":"true",
-            "className":"menu-container onLoad"
-          }
-        },
-        {
-          "id": "about",
-          "selector": "section.about",
-          "template": "aboutTpl.dust",
-          "attributes": {
-            "tagName": "section",
-            "className": "about onLoad"
-          }
-        },
-        {
-          "id": "tech",
-          "selector": "#tech",
-          "template": "tech.dust",
-          "attributes": {
-            "tagName": "section",
-            "className": "tech onLoad",
-            "tabindex": "0",
-            "id": "tech"
-          }
-        },
-        {
-          "id": "quote1",
-          "selector": "section.quote1",
-          "template": "quote.dust",
-          "attributes": {
-            "tagName": "section",
-            "className": "quote onLoad"
-          }
-        },
-         {
-          "id": "ux",
-          "selector": "#ux",
-          "template": "ux.dust",
-          "attributes": {
-            "tagName": "section",
-            "className": "ux onLoad",
-            "tabindex": "0",
-            "id": "ux"
-          }
-        },
-        {
-          "id": "quote2",
-          "selector": "section.quote2",
-          "template": "quote2.dust",
-          "attributes": {
-            "tagName": "section",
-            "className": "quote onLoad"
-          }
-        },
-        {
-          "id": "cv",
-          "selector": "section.cv",
-          "template": "cv.dust",
-           "attributes": {
-            "tagName": "section",
-            "tabindex": "0",
-            "className": "cv onLoad",
-            "id": "cv"
-          }
-        },
-        {
-          "id": "github",
-          "selector": "section.github",
-          "template": "githubTpl.dust",
-          "attributes": {
-            "tagName": "section",
-            "className": "github row onLoad"
-          }
         }
       ]
+    },
+    {
+      "id": "details",
+      "selector": ".details",
+       "template": "details.dust",
+       "attributes": {
+        "id": "details",
+        "className": "details onLoad",
+        "tagName": "section"
+      }
     },
     {
       "id": "contact",
