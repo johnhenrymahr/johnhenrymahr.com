@@ -1,20 +1,25 @@
 
   <div class="details__content row">
-  <div class="col-md-2 col-xs-0"></div>
-  <div class="col-md-4 col-xs-12">
-  <h2>Building the modern web client</h2>
+  <div class="col-md-2  col-sm-0 col-xs-0"></div>
+  <div class="col-md-4 col-sm-5 col-xs-12">
+  <h2 class="details__heading">
+    <span class="details__heading--building">
+    Building
+    </span>{~s}
+    <span class="details__heading--modern">
+    the modern
+    </span>{~s}
+    <span class="details__heading--client">
+    web client
+    </span>
+
+  </h2>
   </div>
-  <div class="col-md-4 col-xs-12 details__intro">
-  <p>
- With the advent of html5, css3, and the modern javascript ecosystem the client-server architecture of the web now has a true client that can stand on its own as a full-fledged application. This change in paradigm has both put more preasure on the front-end developer and challenged the way the industry must think about ui development and the division of responsabilities within the development team.
-  </p>
- 
-  </div>
-  <div class="col-md-2 col-xs-0"></div>
-  </div>
-  <div class="row">
-    <div class="col-md-2 col-xs-0"></div>
-    <div class="col-md-8 col-xs-12">
+    <div class="col-md-4 col-sm-7 col-xs-12 details__body">
+    <img src="rsc/img/waves.jpg" />
+    <p>
+     With the advent of html5, css3, and the modern javascript ecosystem the client-server architecture of the web now has a true client that can stand on its own as a full-fledged application. This change in paradigm has both put more preasure on the front-end developer and challenged the way the industry must think about ui development and the division of responsabilities within the development team.
+    </p>
     <p>
     In the past the font-end was little more that a decorator for an 'application' being assembled on the server; providing styles and possibly some limited functionality or ui effects through client side scripting. The bulk of the application and business logic was kept (safely) on the server, making abundant 'round tripping' from client to server and back again a common practice. The font end was just decoration for the most part, it was the frosting on the cake but not the cake itself.
     </p>
@@ -25,5 +30,5 @@
     There is much to be gained from this approach: the load on the network is lessened, latency has less fo an affect, and teh end user gets an overall more responsive experiece. But this also creates new challenges for the ui developer. Broken front end code has a much larger downside than in the past  -- it can render the entire application unusable, or worse produce and inconsistent experience. Not to mention the potential security issues from a more autonomous ui application. In addition, the fact that there is just a lot more code that needs to be written and maintained for a modern application means that the oppertunity for human error goes up greatly. To counter this new tools and approaches are required.
     </p>
     </div>
-    <div class="col-md-2 col-xs-0"></div>
+    <div class="col-md-2 col-sm-0 col-xs-0"></div>
   </div>

@@ -1,5 +1,5 @@
 <div class="content-block">
-  <h3>The modern web client</h3>
+  <h2>The modern web client</h2>
   <p>
   With the advent of html5, css3, and modern javascript the client-server architecture of the web now has a true client that can  be treated as a full-fledged application freeing up the backend code and infrastructure (for the most part) from genearting templates so it can focus on data and business logic delivered  through whatever enterprise service architecture domain is in place.
   </p>

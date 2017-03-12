@@ -1,59 +1,39 @@
-<h2 class="tech__title sr-only">Tech</h2>
-
-<div class="tech__bar"></div>
-
-<div class="tech__body">
-  <div class="row">
-      <div class="tech__logo col-md-6 col-xs-12" aria-hidden="true">
-        {> "app/dust/svg/tech-logo" /}
-      </div>
-      <div class="tech__desc col-md-6 col-xs-12">
-        <p >Here are some technologies I am using or have used. It is not a comprehensive list as UI technology is advancing at a rate few could keep up with.</p>
-        <p>Client side technology is built around some core fundmentals. These are what allow front end to be truly a application.</p>
-      </div>
- </div>
-  <ul class="tech__nav row" role="tablist row" >
-      <li role="presentation" class="tech__nav--item active col-md-3 col-xs-12" >
-        <a href="#frameworks" aria-controls="frameworks" role="tab" data-toggle="tab" data-track="tech:frameworks"><span>Frameworks</span></a>
-      </li>
-      <li role="presentation" class="tech__nav--item col-md-3 col-xs-12" >
-        <a href="#modules" aria-controls="modules" role="tab" data-toggle="tab" data-track="tech:modules"><span>Modules</span></a>
-      </li>
-      <li role="presentation" class="tech__nav--item col-md-3 col-xs-12" >
-        <a href="#tooling" aria-controls="tooling" role="tab" data-toggle="tab" data-track="tech:tooling"><span>Tooling</span></a>
-      </li>
-      <li role="presentation" class="tech__nav--item col-md-3 col-xs-12" >
-        <a href="#testing" aria-controls="testing" role="tab" data-toggle="tab" data-track="tech:testing"><span>Testing</span></a>
-      </li>
-  </ul>
-
-  <div class="tab-content tech__content">
-    <div id="frameworks" class="tab-pane active">
-      <h3>Frameworks</h3>
-      <p>
-      Creating a client side app from the ground up can be quite daunting. Where to begin? Having a well though out and supported framework can be a huge help getting things moving. While no framework is perfect, and they ALL have their tradeoffs, in the end I believe the benefits outway the negatives for the most part.
-      </p>
-      <p>
-        But a framework is not a holy relic either. Its usefullness is what it allows you to get done. And if something better comes along...
-      </p>
-    </div>
-    <div id="modules" class="tab-pane">
-      <h3>Modules</h3>
-      <p>
-        Writing a large application without some sort of module system would be rather... uncomfortable, to say the least. As a developer, dealing with code in smaller functional chunks of code provides greater readability and logical structure.  Modules give me this while still allowing for the code to be assembled into a final, single, file for the greatest efficieny.
-      </p>
-    </div>
-     <div id="tooling" class="tab-pane">
-      <h3>Tooling</h3>
-      <p>
-        Node.js has allowed there to be a complete build system for front end code. It has also allowed the use of javascript as a server side language.
-       </p>
-    </div>
-        <div id="testing" class="tab-pane">
-      <h3>Testing</h3>
-      <p>
-       Must have testing.
-       </p>
-    </div>
-  </div>
+<div class="row tech__header">
+<div class="col-md-6 col-xs-12">
+  <h2 class="tech__title">UI Toolset</h2>
 </div>
+<div class="col-md-6 col-xs-12">
+Thi si some text.
+</div>
+</div>
+
+<ul class="tech__list">
+  <li class="tech__item">
+   <img src="rsc/logos/webpack.svg" />
+    <span>Webpack</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/react.svg" />
+    <span>React</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/redux.svg" />
+    <span>Redux</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/jest.png" />
+    <span>Jest</span>
+  </li>
+   <li class="tech__item">
+   <img src="rsc/logos/babel.svg" />
+    <span>Babel</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/less.png" />
+    <span>Less</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/node.svg" />
+    <span>Node JS</span>
+  </li>
+</ul>

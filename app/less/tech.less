@@ -1,108 +1,48 @@
 @import '_common.less';
 
 .tech {
-  margin: 10% 0px 0px;
-  position: relative;
+  width: 100%;
+  padding: 50px;
+  background-color: @tan;
+  color: @lightBrown;
 
-  &__bar {
-    width: 100%;
-    height: 320px;
-    background-color: fade(@complimentBlue, 50%);
-    position: absolute;
-    top: 177px;
-    z-index: 1000;
-    @media (max-width: @screen-sm-min) {
-      display: none;
-    }
+  &__title {
+    .heavy;
+    text-align: right;
+    font-size: 50px;
   }
-
-  &__body {
+  &__header {
+    margin-bottom: 30px;
+  }
+  &__list {
+    padding: 0px;
+    width: 85%;
+    margin: 20px auto;
+    .clearfix();
+  }
+  &__item {
+    list-style: none;
     position: relative;
-    z-index: 1010;
-    max-width: 850px;
-    margin: auto;
-    box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.34);
-    background-color: @techBlue;
-    background-image: url('/rsc/img/waves.jpg');
-    background-repeat: no-repeat;
-    min-height: 665px;
-  }
-
-  &__logo {
-      width: 225px;
-      margin: 100px 0px 0px 75px;
-      @media (max-width: @screen-sm-min) {
-         margin: 100px auto 0px;
-         float: none;
-      }
-  }
-
-  &__desc {
-    max-width: 350px;
+    padding: 0px;
+    width: 200px;
     height: 275px;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, .3);
-    margin: 175px 0px 0px 140px;
-    font-size: 17px;
-    @media (max-width: @screen-sm-min) {
-        float: none;
-        width: auto;
-        margin: 30px;
-        max-width: none;
+    font-size: 22px;
+    display: block;
+    margin: 15px;
+    float: left;
+
+    >img {
+      display: block;
+      width: 185px;
+      margin: auto;
+    }
+    >span {
+      display: block;
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      bottom: 10px;
+      .bold;
     }
   }
-
-  &__nav {
-   // background-color: @white;
-   border-top: 2px solid @white;
-   width: 100%;
-   font-size: 18px;
-   padding: 0px;
-   margin: 0px;
-    &--item {
-      position: relative;
-      list-style: none;
-      height: 95px;
-      vertical-align: bottom;
-      border-right: 2px solid @white;
-      padding-bottom: 5px;
-      background-color: rgba(255, 255, 255, .5);
-      border-bottom: 2px solid @white;
-      @media (max-width: @screen-sm-min) {
-        height: 45px;
-      }
-      a {
-        color: #000;
-        display: table;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        position: absolute;
-        bottom: 5px;
-        left: 0px;
-        >span {
-          display: table-cell;
-          vertical-align: bottom;
-        }
-      }
-    }
-    &--item:last-child {
-      border-right: none;
-    }
-    &--item:hover {
-      background-color: rgba(255, 255, 255, .6);
-    }
-    &--item.active {
-      font-size: 1.5em;
-      height: 95px;
-      border-bottom: none;
-      background-color: rgba(255, 255, 255, .8);
-    }
-  }
-
-  &__content {
-      padding: 25px;
-      #gradient.vertical (rgba(255, 255, 255, .8), rgba(255, 255, 255, 0))
-  }
-
 }

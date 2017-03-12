@@ -3,6 +3,24 @@
 @import (reference) "_vars.less";
 @import (reference) "_mixins.less";
 
+.normal {
+  font-family: "struktur_proregular", sans-serif;
+}
+.bold {
+  font-family: "struktur_probold", sans-serif;
+}
+.italic {
+  font-family: "struktur_proitalic", sans-serif;
+}
+.bolditalic {
+  font-family: "struktur_probold_italic", sans-serif;
+}
+.heavy {
+  font-family: "struktur_proheavy", serif;
+}
+.bodini {
+  font-family: "didonesquebold", sans-serif;
+}
 .clearfix {
   .clearfix();
 }
@@ -46,7 +64,11 @@
   vertical-align: middle;
 }
 .form-group {
+  label {
+    .bold;
+  }
   .optional {
+    .normal;
     color: @gray;
     font-weight: normal;
   }

@@ -2,21 +2,60 @@
 
 .details {
   width: 100%;
-  padding: 10px;
+  padding: 15px;
   background-color: @warmBrown;
   color: #fff;
   font-size: 20px;
 
-  h2 {
+  &__heading {
+    .bodini;
     text-align: left;
-    font-size: 3.5em;
+    font-size: 4vw;
     margin: 0px 20px 0px;
-    padding: 0px 0px 30px;
-    line-height: 1em;
+    padding: 0px 0px 10px;
+    line-height: 1.7em;
+
+    &--building {
+      font-size: 1.4em;
+    }
+    &--client {
+      font-size: 1.9em;
+      line-height: 1.0em;
+    }
+  }
+  &__heading + hr {
+    border: 1px dotted @white;
+  }
+  @media(max-width:@screen-sm-min) {
+    &__heading {
+      font-size: 40px;
+      text-align: center;
+      margin: 0px 15px 30px 15px;
+      line-height: 1.6em;
+
+      >span {
+        display: block;
+      }
+      &--modern {
+        font-size: 1.1em;
+      }
+    }
   }
   &__content {
     margin: 10px auto;
     font-size: 1em;
+    margin-top: 100px;
+  }
+  &__body {
+    text-align: justify;
+
+    >img {
+      width: 100%;
+      margin: 20px 0px 75px;
+    }
+    > p {
+      margin-bottom: 20px;
+    }
   }
   &__intro {
     padding-top: 10px;

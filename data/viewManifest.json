@@ -48,6 +48,16 @@
       }
     },
     {
+      "id": "tech",
+      "selector": ".tech",
+      "template": "tech.dust",
+      "attributes": {
+        "id": "tech",
+        "className": "tech onLoad",
+        "tagName": "section"
+      }
+    },
+    {
       "id": "contact",
       "selector": ".contact",
       "template": "contactTpl.dust",

@@ -1,12 +1,12 @@
 <nav class="nav">
     <a class="nav__item"  href="#core" data-track="header-nav:home" >
-        <span>Home</span>
+        <span>⇧ Top</span>
+    </a>
+    <a class="nav__item" href="#details" data-track="header-nav:details" >
+        <span>Summary</span>
     </a>
    <a class="nav__item"  href="#tech" data-track="header-nav:tech" >
         <span>Tech</span>
-    </a>
-   <a class="nav__item" href="#ux" data-track="header-nav:ux" >
-        <span>UX</span>
     </a>
     <a class="nav__item" href="#cv" data-track="header-nav:cv" >
         <span>CV</span>
