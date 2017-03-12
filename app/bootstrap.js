@@ -4,6 +4,8 @@ var MainView = require('./views/mainView')
 var manifest = require('app/utils/_manifest').json
 var AppModel = require('./models/_appModel')
 var app = require('./app')
+var WebFont = require('webfontloader')
+
 require('dustjs-helpers')
 require('bootstrap/dist/js/bootstrap')
 
@@ -27,13 +29,26 @@ if (window.localDev) {
   window.app = app
 }
 
+// fonts
+var fontPromise = new $.Deferred()
+WebFont.load({
+  custom: {
+    families: ['struktur_proregular', 'struktur_proitalic', 'struktur_proheavy', 'struktur_probold_italic', 'struktur_probold', 'didonesquebold']
+  },
+  active: function () { // fonts loaded OK
+    fontPromise.resolve()
+  },
+  inactive: function () { // fonts could not be loaded
+    fontPromise.resolve()
+  }
+})
+
 function loader () {
   var d = $.Deferred()
-    // synchronous code
-  _.delay(function () { // fake latency here
+  $.when(fontPromise).done(function () {
     window.scrollTo(0, 0)
     d.resolve()
-  }, 1000)
+  })
   return d
 }
 
