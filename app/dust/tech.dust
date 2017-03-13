@@ -9,31 +9,63 @@ Thi si some text.
 
 <ul class="tech__list">
   <li class="tech__item">
-   <img src="rsc/logos/webpack.svg" />
+   <img src="rsc/logos/webpack.svg" alt="webpack logo" />
     <span>Webpack</span>
   </li>
   <li class="tech__item">
-   <img src="rsc/logos/react.svg" />
+   <img src="rsc/logos/react.svg" alt="react logo" />
     <span>React</span>
   </li>
   <li class="tech__item">
-   <img src="rsc/logos/redux.svg" />
+   <img src="rsc/logos/redux.svg" alt="redux logo" />
     <span>Redux</span>
   </li>
   <li class="tech__item">
-   <img src="rsc/logos/jest.png" />
-    <span>Jest</span>
+   <img src="rsc/logos/jest.png" alt="jest logo"/>
+    <span>Jest Testing Framework</span>
   </li>
    <li class="tech__item">
-   <img src="rsc/logos/babel.svg" />
+   <img src="rsc/logos/babel.svg" alt="babel logo" />
     <span>Babel</span>
   </li>
   <li class="tech__item">
-   <img src="rsc/logos/less.png" />
+   <img src="rsc/logos/less.png" alt="less logo" />
     <span>Less</span>
   </li>
   <li class="tech__item">
-   <img src="rsc/logos/node.svg" />
+   <img src="rsc/logos/node.svg" alt="node logo" />
     <span>Node JS</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/git-logo.jpg" alt="Git logo" />
+    <span>Git VCS</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/gulp.svg" alt="Gulp logo" />
+    <span>Gulp taskrunner</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/bootstrap.svg" alt="Bootstrap logo" />
+    <span>Bootstrap Framework</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/eslint-logo.png" alt="ES Lint logo" />
+    <span>ES Lint</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/standardJS.svg" alt="JS Stanard Format logo" />
+    <span>JS Standard Format</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/standardJS.svg" alt="JS Stanard Format logo" />
+    <span>JS Standard Format</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/loDash.png" alt="lodash logo" />
+    <span>lo dash</span>
+  </li>
+  <li class="tech__item">
+   <img src="rsc/logos/mochajs.png" alt="mocha logo" />
+    <span>mocha</span>
   </li>
 </ul>
