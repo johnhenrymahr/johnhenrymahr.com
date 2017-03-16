@@ -57,15 +57,11 @@ Thi is some text.
     <span>JS Standard Format</span>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-   <img src="rsc/logos/standardJS.svg" alt="JS Stanard Format logo" />
-    <span>JS Standard Format</span>
-  </li>
-  <li class="tech__item col-md-2 col-sm-4 col-xs-6">
    <img src="rsc/logos/loDash.png" alt="lodash logo" />
     <span>lo dash</span>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-   <img src="rsc/logos/mochajs.png" alt="mocha logo" />
+   <img src="rsc/logos/mochajs.svg" alt="mocha logo" />
     <span>mocha</span>
   </li>
 </ul>
