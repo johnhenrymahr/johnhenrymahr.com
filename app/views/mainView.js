@@ -3,7 +3,6 @@ var _ = require('lodash')
 var View = require('app/views/_baseView')
 var manifest = require('app/utils/_manifest')
 var App = require('app/app')
-require('app/plugins/jquery.disableScroll')
 
 function setUpDependencies (model) {
   var deps = {}
@@ -82,24 +81,6 @@ module.exports = View.extend(_.merge({
     }
   },
 
-  _scrollDisabled: false,
-
-  disableScroll: function () {
-    if (!this._scrollDisabled) {
-      this._scrollDisabled = true
-      $(window).disablescroll({
-        handleScrollbar: false
-      })
-    }
-  },
-
-  enableScroll: function () {
-    if (this._scrollDisabled) {
-      this._scrollDisabled = false
-      $(window).disablescroll('undo')
-    }
-  },
-
   _extractAttributes: function (atts) {
     var nonAtts = ['className', 'id', 'tagName']
     var newAtts = _.pick(atts, nonAtts)
@@ -144,43 +125,11 @@ module.exports = View.extend(_.merge({
   onPostRender: function () {
     App.vent.trigger('mainView:postRender')
     var $onLoad = this.$('.onLoad')
-    $onLoad.addClass('hidden fadeOut fadeUp')
-    this.listenToOnce(App.vent, 'app:ready', _.bind(function () {
-      this.bindScrollHandler()
-    }, this))
-    this.listenToOnce(App.vent, 'scroll:expand', _.bind(function () {
-      $onLoad.removeClass('hidden')
-      _.defer(function () {
-        $onLoad.removeClass('fadeOut fadeUp')
-      })
-    }, this))
-    this.listenTo(App.vent, 'scroll:disable', _.bind(function () {
-      this.unbindScrollHandler()
-      this.disableScroll()
-    }, this))
-    this.listenTo(App.vent, 'scroll:enable', _.bind(function () {
-      this.bindScrollHandler()
-      this.enableScroll()
-    }, this))
-    // track initial scroll
-    this.listenToOnce(App.vent, 'scroll:expand', _.bind(function () {
-      App.vent.trigger('app:track', 'window', 'user scrolled down', 'scroll')
-    }, this))
+    $onLoad.addClass('hidden fadeOut')
   },
 
   unbindScrollHandler: function () {
     $(window).off('scroll')
-  },
-
-  bindScrollHandler: function () {
-    $(window).on('scroll', _.bind(_.debounce(function (e) {
-      if ($(document).scrollTop() > 0) {
-        App.vent.trigger('scroll:expand')
-      }
-      if ($(document).scrollTop() === 0) {
-        App.vent.trigger('scroll:collapse')
-      }
-    }, 250, {leading: true}), this))
   }
 
 }, manifest.json.attributes))
