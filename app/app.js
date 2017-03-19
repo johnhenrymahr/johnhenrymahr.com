@@ -1,7 +1,12 @@
+var $ = require('jquery')
 var _ = require('lodash')
 var Backbone = require('backbone')
+var Router = require('router')
+
 module.exports = {
   vent: _.clone(Backbone.Events),
+
+  router: new Router(),
 
   _stateVars: {},
 
@@ -111,6 +116,10 @@ module.exports = {
       .on('click', 'a, button, input[type=submit]', this.eventTracking)
   },
 
+  setupMenuListener: function () {
+    this.vent.on('app:navigate', this._menuListener, this)
+  },
+
   ready: function () {
     this.setupTracking()
     this.vent.trigger('app:ready')
@@ -118,6 +127,10 @@ module.exports = {
   },
 
   start: function () {
+    this.router.listen()
+    this.vent.once('core:animationEnd', function () {
+      Backbone.history.start()
+    })
     this.vent.trigger('app:start')
     return this
   }
