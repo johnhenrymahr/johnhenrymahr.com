@@ -58,6 +58,16 @@
       }
     },
     {
+      "id": "cv",
+      "selector": ".cv",
+      "template": "cv.dust",
+      "attributes": {
+        "id": "cv",
+        "className": "cv onLoad",
+        "tagName": "section"
+      }
+    },
+    {
       "id": "contact",
       "selector": ".contact",
       "template": "contactTpl.dust",
