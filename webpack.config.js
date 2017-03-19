@@ -112,6 +112,7 @@ if (TARGET === 'start' || TARGET === 'test') {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         'window.jhmData': JSON.stringify(bootstrapData),
+        'window.appLogging': true,
         'window.localDev': true
       })
     ]

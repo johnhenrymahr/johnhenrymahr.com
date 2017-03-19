@@ -284,5 +284,10 @@ module.exports = Backbone.View.extend({
     }
     this.trigger('view:destroy')
     return this.remove()
+  },
+  log: function () {
+    if (console && _.isFunction(console.log) && window.appLogging) {
+      console.log.apply(this, arguments)
+    }
   }
 })
