@@ -46,14 +46,16 @@ WebFont.load({
 function loader () {
   var d = $.Deferred()
   $.when(fontPromise).done(function () {
-    window.scrollTo(0, 0)
-    d.resolve()
+    _.delay(function () { // get the browser to respect scollTop
+      window.scrollTo(0, 0)
+      d.resolve()
+    }, 100)
   })
   return d
 }
 
 var mainRenderPromise = app.registerVentPromise('mainView:postRender')
 
-$(function () {
+$(window).load(function () {
   app.start().all([loader(), mainRenderPromise]).done(_.bind(app.ready, app))
 })
