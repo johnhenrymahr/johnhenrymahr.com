@@ -3,13 +3,14 @@
 .cv {
   position: relative;
   padding: 1px;
-  margin-top: 10%;
+  margin: 15px 0px;
+
   &__logo {
     background-color: none;
     width: 150px;
     position: absolute;
-    top:  -30px;
-    left:  70px;
+    top: -30px;
+    left: 70px;
   }
   &__bar {
     position: absolute;
@@ -19,12 +20,18 @@
     background-color: rgba(241, 195, 94, .7);
   }
   &__outer {
-      box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.34);
-      position: relative;
-      max-width: 850px;
-      margin: 80px auto 0px;
-     #gradient.vertical(@jhm_orange; @jhm_orange_dark; );
-     padding: 60px;
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.34);
+    position: relative;
+    max-width: 850px;
+    margin: 80px auto 0px;
+    #gradient.vertical(@jhm_orange;
+    @jhm_orange_dark;
+    );
+    padding: 60px;
+
+    @media (max-width:@screen-sm-min) {
+      padding: 40px;
+    }
   }
   &__inner {
     background-color: @tan;
@@ -34,6 +41,7 @@
     margin: 20px auto;
     max-width: 400px;
     text-align: center;
+
     >div {
       margin: 0px 0px 20px 0px;
     }
@@ -49,26 +57,32 @@
     width: 100%;
     text-align: center;
   }
+  @media (max-width:@screen-sm-min) {
+    &__title {
+      margin-top: 40px;
+    }
+  }
   &__content {
-   margin: 40px 30px 0px;
-   background-color: lighten(@tan, 5%);
-   border: 1px solid @white;
+    margin: 40px 30px 0px;
+    background-color: lighten(@tan, 5%);
+    border: 1px solid @white;
   }
   &__item {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
     padding: 0px 0px;
+
     >a {
       display: block;
       padding: 10px;
       margin: 10px 0px;
     }
-    @media (max-width: @screen-sm-min) {
-        a {
-          margin: 0px;
-        }
-     }
+    @media (max-width:@screen-sm-min) {
+      a {
+        margin: 0px;
+      }
+    }
   }
   &__form {
     &--cancel {
@@ -79,17 +93,17 @@
       margin-top: 30px;
     }
     &--control {
-      @media (max-width: @screen-sm-min) {
-          display: block;
-          width: 100%;
-          text-align: center;
-          margin-bottom: 10px;
-        }
-     }
+      @media (max-width:@screen-sm-min) {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    }
   }
   &__popover {
     display: none;
-    box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.34);
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.34);
     position: relative;
     top: -10px;
     z-index: 1200;
@@ -99,26 +113,28 @@
     background: @white;
     border: 1px solid @gray40;
     border-radius: 10px;
-    @media (max-width: @screen-sm-min) {
-       top: -3px;
-       margin: 0px;
+
+    @media (max-width:@screen-sm-min) {
+      top: -3px;
+      margin: 0px;
     }
     &--arrow {
-          top: -22px;
-          right: 85px;
-          margin-left: -11px;
-          border-top-width: 0;
-          border-color: transparent;
-          border-bottom-color: @gray60;
-          border-width: 11px;
-          position: absolute;
-          display: block;
-          width: 0;
-          height: 0;
-          border-style: solid;
-          @media (max-width: @screen-sm-min) {
-            right: 50%;
-          }
+      top: -22px;
+      right: 85px;
+      margin-left: -11px;
+      border-top-width: 0;
+      border-color: transparent;
+      border-bottom-color: @gray60;
+      border-width: 11px;
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+
+      @media (max-width:@screen-sm-min) {
+        right: 50%;
+      }
     }
     &--title {
       padding: 0px;
@@ -139,18 +155,28 @@
       border-top-width: 0px;
     }
   }
-  &__item:first-child  + &__item  {
+  &__item:first-child  + &__item {
     a {
       border-right: 1px solid @gray60;
       border-left: 1px solid @gray60;
     }
-    @media (max-width: @screen-sm-min) {
+    @media (max-width:@screen-sm-min) {
       border-top: 1px solid lighten(@tan, 10%);
       border-bottom: 1px solid@white;
+
       a {
         border-right: none;
         border-left: none;
       }
+    }
+  }
+  &__arrow {
+    margin-top: 25px;
+    text-align: center;
+
+    >a.arrow {
+      font-size: 40px;
+      color: @warmBrown;
     }
   }
 }

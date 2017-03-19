@@ -26,24 +26,9 @@
   &__heading + hr {
     border: 1px dotted @white;
   }
-  @media(max-width:@screen-sm-min) {
-    &__heading {
-      font-size: 40px;
-      text-align: center;
-      margin: 0px 15px 30px 15px;
-      line-height: 1.6em;
-
-      >span {
-        display: block;
-      }
-      &--modern {
-        font-size: 1.1em;
-      }
-    }
-  }
   &__content {
     margin: 10px auto;
-    font-size: 1em;
+    font-size: 1.25em;
     margin-top: 100px;
   }
   &__body {
@@ -59,5 +44,31 @@
   }
   &__intro {
     padding-top: 10px;
+  }
+  &__arrow {
+    text-align: center;
+    padding: 15px;
+
+    >a.arrow {
+      font-size: 40px;
+    }
+  }
+  @media(max-width:@screen-sm-min) {
+    &__content {
+      margin-top: 50px;
+    }
+    &__heading {
+      font-size: 40px;
+      text-align: center;
+      margin: 0px 15px 30px 15px;
+      line-height: 1.6em;
+
+      >span {
+        display: block;
+      }
+      &--modern {
+        font-size: 1.1em;
+      }
+    }
   }
 }

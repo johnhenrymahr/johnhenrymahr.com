@@ -4,8 +4,7 @@
 .header {
   transform: translateY(-150%);
   transition: .7s ease-in-out;
-  opacity: .75;
-  overflow: hidden;
+  opacity: .85;
   position: fixed;
   background-color: @header_color;
   margin: 0px;
@@ -20,7 +19,7 @@
     border: none;
   }
   .nav {
-    dispaly: block;
+    display: block;
     max-width: 850px;
     margin: 0px auto;
     text-align: right;
@@ -40,11 +39,21 @@
       background-color: lighten(@header_color, 5%);
       border-left: 1px solid @white;
 
+      &--selected {
+        .bold;
+        .roundBottom;
+        position: relative;
+        top: 2px;
+      }
       @media (max-width:@screen-sm-min) {
         padding: 6px 0px;
         width: 20%;
         margin-left: -1px;
         text-align: center;
+
+        &--selected {
+          right: 1px;
+        }
       }
     }
     &__item:hover {

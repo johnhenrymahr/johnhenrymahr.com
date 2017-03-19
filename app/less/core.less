@@ -160,12 +160,88 @@
   &__steps.slideOut {
     transform: translateX(-150%);
   }
+  &__spread {
+    position: absolute;
+    top: 600px;
+    width: 100%;
+    opacity: .6;
+
+    >div {
+      background-color: @jhm_orange;
+    }
+    >div:first-child {
+      height: 25px;
+      background-color: darken(@jhm_orange, 4%);
+    }
+    >div:nth-child(2) {
+      height: 24px;
+      margin-top: 2px;
+    }
+    >div:nth-child(3) {
+      height: 23px;
+      margin-top: 5px;
+    }
+    >div:nth-child(4) {
+      height: 21px;
+      margin-top: 8px;
+    }
+    >div:nth-child(5) {
+      height: 19px;
+      margin-top: 12px;
+    }
+    >div:nth-child(6) {
+      height: 17px;
+      margin-top: 14px;
+    }
+    >div:nth-child(7) {
+      height: 15px;
+      margin-top: 16px;
+    }
+    >div:nth-child(8) {
+      height: 13px;
+      margin-top: 16px;
+    }
+    >div:nth-child(9) {
+      height: 11px;
+      margin-top: 16px;
+    }
+    >div:nth-child(10) {
+      height: 8px;
+      margin-top: 16px;
+    }
+    >div:nth-child(11) {
+      height: 6px;
+      margin-top: 16px;
+    }
+    >div:nth-child(12) {
+      height: 4px;
+      margin-top: 16px;
+    }
+    >div:nth-child(13) {
+      height: 2px;
+      margin-top: 16px;
+    }
+    >div:nth-child(14) {
+      height: 2px;
+      margin-top: 16px;
+    }
+    >div:nth-child(15) {
+      height: 1px;
+      margin-top: 16px;
+    }
+  }
+  @media(max-width:@screen-sm-min) {
+    &__banner {
+      display: none;
+    }
+  }
   &__banner {
     width: 100%;
     height: 150px;
-    background-color: fade(#8d482f, 80%);
+    background-color: fade(#8d482f, 85%);
     position: absolute;
     top: 480px;
+    z-index: 2;
     transform: translateY(0px);
     transition: .7s ease-in-out;
   }
@@ -173,7 +249,7 @@
     transform: translateY(45px);
   }
   @media(max-width:@screen-sm-min) {
-    &__banner {
+    &__spread {
       display: none;
     }
   }
@@ -237,6 +313,7 @@
     width: 100%;
     position: relative;
     overflow: hidden;
+    z-index: 10;
     top: -35px;
 
     @media (max-width:@screen-sm-min) {
@@ -250,6 +327,7 @@
     z-index: 5000;
     width: 100%;
     margin: 0px;
+    cursor: pointer;
     padding: 10px 0;
     background-color: fade(@complimentBlue, 60%);
 

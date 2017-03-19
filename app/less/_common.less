@@ -30,16 +30,22 @@
 .fadeOut {
   opacity: 0;
 }
-.fadeUp {
-  max-height: 0px;
-}
 .pointer {
   cursor: pointer;
 }
+.roundBottom {
+  border-radius: 0px 0px 2px 2px;
+}
 .onLoad {
-  optacity: 1;
-  max-height: 2000px;
-  transition: all 1.5s ease-in-out;
+  opacity: 1;
+  transition: all .7s ease-in-out;
+}
+.onLoad.fadeOut {
+  opacity: 0;
+}
+.onLoad.fadeUp {
+  max-height: 0px;
+  overflow: hidden;
 }
 .btn-orange {
   background-color: @jhm_orange;

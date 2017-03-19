@@ -1,22 +1,16 @@
 var _ = require('lodash')
 var App = require('app/app')
-var itemHandler = require('app/utils/menuItemHandler')
-module.exports = _.extend({}, itemHandler, {
-  events: {
-    'click .nav__item': 'handleMenuClick'
-  },
-  onAppReady: function () {
-    this.listenToOnce(App.vent, 'core:expanded', _.bind(function () {
-      this.listenTo(App.vent, 'scroll:expand', _.bind(this._expand, this))
-      this.listenTo(App.vent, 'scroll:collapse', _.bind(this._collapse, this))
+module.exports = {
+  initialize: function () {
+    this.listenTo(App.vent, 'core:animationEnd', _.bind(function () {
+      _.delay(_.bind(function () {
+        this.$el.addClass('active')
+      }, this), 700)
     }, this))
-  },
-  _expand: function () {
-    if (App.getState('core:expanded')) {
-      this.$el.addClass('active')
-    }
-  },
-  _collapse: function () {
-    this.$el.removeClass('active')
+
+    this.listenTo(App.router, 'route', _.bind(function (route) {
+      this.$('a').removeClass('nav__item--selected')
+      this.$('a[href$=' + route + ']').addClass('nav__item--selected')
+    }, this))
   }
-})
+}

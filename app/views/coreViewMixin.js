@@ -1,28 +1,8 @@
 var _ = require('lodash')
-var itemHandler = require('app/utils/menuItemHandler')
 var App = require('app/app')
-module.exports = _.extend({}, itemHandler, {
-  initialize: function (options) {
-    this._registerPromise()
-    App.setState('core:expanded', false)
-    this.bindExpand()
-    this.scrollDownOnce = _.once(this.scrollDown)
-    this.listenTo(App.vent, 'scroll:collapse', _.bind(this._collapse, this))
-  },
+module.exports = {
   events: {
-    'click .core__connect--control': 'handleMenuClick',
-    'click .core__content--body .seemore': 'handleSeeMore',
-    'click .arrow>a ': 'scrollDown',
-    'click .core__content': 'scrollDown'
-  },
-  bindExpand: function () {
-    this.listenToOnce(App.vent, 'scroll:expand', _.bind(this._expand, this))
-  },
-  scrollDown: function (e) {
-    if (_.isObject(e) && _.isFunction(e.preventDefault)) {
-      e.preventDefault()
-    }
-    this.scrollToElement(this.$('.core__wrapper'))
+    'click .arrow>a ': 'handleArrowClick'
   },
   onAppReady: function () {
     this.coreAnimation()
@@ -65,15 +45,11 @@ module.exports = _.extend({}, itemHandler, {
           .addClass('active')
           .end()
           .dequeue()
+       this._coreAnimationComplete()
      }, this))
   },
-  handleSeeMore: function (e) {
-    e.preventDefault()
-    this._expandClass = 'expanded-fully'
-    this.$('.core__content--body').removeClass('expanded').addClass(this._expandClass)
-  },
   coreAnimation: function () {
-    console.log('run core animation')
+    this.log('run core animation')
     this.$('.core__wrapper, .core__title, .core__banner').removeClass('hidden')
     _.delay(_.bind(function () {
       this.transitionEnd(this.$el, 750, _.bind(function () {
@@ -83,44 +59,11 @@ module.exports = _.extend({}, itemHandler, {
       this.$el.addClass('active')
     }, this), 1200)
   },
-  _bindTransitionEnd: function ($ele, expanded) {
-    if (_.isFunction(this.transitionEnd)) {
-      this.transitionEnd($ele, 1200, _.bind(function () {
-        App.setState('core:expanded', expanded)
-        if (expanded) {
-          App.vent.trigger('core:expanded')
-          this.$('.core__connect').removeClass('fadeOut')
-          this.$('.core__content').removeClass('pointer')
-          _.defer(function () {
-            App.vent.trigger('scroll:enable')
-          })
-        } else {
-          this._registerPromise()
-          this.bindExpand()
-          this.$('.core__content').addClass('pointer')
-        }
-      }, this))
-    }
-  },
-  _registerPromise: function () {
-    App.registerVentPromise('core:expanded')
-  },
-  _expand: function () {
-    App.vent.trigger('scroll:disable')
-    this.scrollDownOnce()
-    var $ele = this.$('.core__content--body')
-    this._bindTransitionEnd($ele, true)
-    this.$('.core__banner').addClass('shifted')
-    this.$('.arrow').addClass('fadeOut').removeClass('bounce')
-  },
-  _expandClass: 'expanded',
-  _collapse: function () {
-    var $ele = this.$('.core__content--body')
-    this._bindTransitionEnd($ele, false)
-    this.$('.core__banner').removeClass('shifted')
+  _coreAnimationComplete: function () {
     this.$('.arrow').removeClass('fadeOut').addClass('bounce')
+    App.vent.trigger('core:animationEnd')
   },
   onPostRender: function () {
     this.$('.arrow>a').get(0).focus()
   }
-})
+}

@@ -9,59 +9,90 @@ Thi is some text.
 
 <ul class="tech__list row">
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div>
    <img src="rsc/logos/webpack.svg" alt="webpack logo" />
     <span>Webpack</span>
+    </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div>
    <img src="rsc/logos/react.svg" alt="react logo" />
     <span>React</span>
+    </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div>
    <img src="rsc/logos/redux.svg" alt="redux logo" />
     <span>Redux</span>
+    </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+  <div>
    <img src="rsc/logos/jest.png" alt="jest logo"/>
-    <span>Jest Testing Framework</span>
+    <span>Jest</span>
+    </div>
   </li>
    <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-   <img src="rsc/logos/babel.svg" alt="babel logo" />
-    <span>Babel</span>
+   <div>
+      <img src="rsc/logos/babel.svg" alt="babel logo" />
+      <span>Babel</span>
+   </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+  <div>
    <img src="rsc/logos/less.png" alt="less logo" />
     <span>Less</span>
+    </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div>
    <img src="rsc/logos/node.svg" alt="node logo" />
     <span>Node JS</span>
+    </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div>
    <img src="rsc/logos/git-logo.jpg" alt="Git logo" />
     <span>Git VCS</span>
+    </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div>
    <img src="rsc/logos/gulp.svg" alt="Gulp logo" />
     <span>Gulp taskrunner</span>
-  </li> 
+    </div>
+  </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div>
    <img src="rsc/logos/bootstrap.svg" alt="Bootstrap logo" />
     <span>Bootstrap Framework</span>
+    </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div>
    <img src="rsc/logos/eslint-logo.png" alt="ES Lint logo" />
     <span>ES Lint</span>
+    </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div>
    <img src="rsc/logos/standardJS.svg" alt="JS Stanard Format logo" />
     <span>JS Standard Format</span>
+    </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div>
    <img src="rsc/logos/loDash.png" alt="lodash logo" />
     <span>lo dash</span>
+    </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+  <div>
    <img src="rsc/logos/mochajs.svg" alt="mocha logo" />
     <span>mocha</span>
+    </div>
   </li>
 </ul>
+<div class="tech__arrow">
+  <a  class="arrow fa fa-arrow-down fa-2x" href="#cv"></a>
+</div>

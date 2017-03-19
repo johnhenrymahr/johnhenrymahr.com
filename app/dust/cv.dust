@@ -1,4 +1,3 @@
-<div class="cv__bar"></div>
 <div class="cv__outer">
   <div class="cv__logo">
      {> "app/dust/svg/jhmlogo" /}
@@ -46,6 +45,9 @@
               </div>
             </form>
         </div>
+    </div>
+    <div class="cv__arrow">
+      <a  class="arrow fa fa-arrow-down fa-2x" href="#contact"></a>
     </div>
   </div>
 </div>
