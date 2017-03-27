@@ -61,7 +61,6 @@
             <div class="col-md-2 col-xs-12">&nbsp;</div>
             <div class="col-md-9 col-xs-12">
               <div class="core__content--body">
-                {> "app/dust/copy/intro-content" /}
                 <span class="seemore">&mdash;&nbsp;<a class="seemore__link" href="#" data-track='core:seemore'>See more</a>&nbsp;&mdash;</span>
             </div>
             <div class="col-md-1 col-xs-12">&nbsp;</div>
