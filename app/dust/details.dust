@@ -1,29 +1,50 @@
-
   <div class="details__content row">
-  <div class="col-md-2  col-sm-0 col-xs-0"></div>
-  <div class="col-md-4 col-sm-5 col-xs-12">
-  <h2 class="details__heading">
-    <span class="details__heading--building">
-    Building
-    </span>{~s}
-    <span class="details__heading--modern">
-    the modern
-    </span>{~s}
-    <span class="details__heading--client">
-    web client
-    </span>
-
+    <div class="col-md-2  col-sm-0 col-xs-0"></div>
+    <div class="col-md-4 col-sm-5 col-xs-12">
+    <h2 class="details__heading">
+      <span class="details__heading--building">
+      Building
+      </span>{~s}
+      <span class="details__heading--modern">
+      the modern
+      </span>{~s}
+      <span class="details__heading--client">
+      web client
+      </span>
   </h2>
   </div>
-    <div class="col-md-4 col-sm-7 col-xs-12 details__body">
+  <div class="col-md-4 col-sm-7 col-xs-12 details__body">
+    <h3 class="details__heading details__model-heading">Steps Forward.</h3>
     <p>
-     With the advent of html5, css3, and the modern javascript ecosystem the client-server architecture of the web now has a true client that can stand on its own as a full-fledged application. This change in paradigm has both put more preasure on the front-end developer and challenged the way the industry must think about ui development and the division of responsabilities within the development team.
-    </p>
-    <p>
-    In the past the font-end was little more that a decorator for an 'application' being assembled on the server; providing styles and possibly some limited functionality or ui effects through client side scripting. The bulk of the application and business logic was kept (safely) on the server, making abundant 'round tripping' from client to server and back again a common practice. The font end was just decoration for the most part, it was the frosting on the cake but not the cake itself.
+      With ever growing  browser support for html5 standards and the advent of the modern JavaScript ecosystem it now possible to build web applications that can opperate as more than simple enhancements for server rendered pages. The modern web client can render its own ui, enforce (to a degree) its own business logic, communicate with a large range of services, and in genral provide a more responsive user experience that is closer in feel to a native applciation than a web page. This change in paradigm has both put more preasure on the front-end / ui developer and challenged the way the industry needs to think about ui development and the division of responsabilities within the development team.
     </p>
     </div>
     <div class="col-md-2 col-sm-0 col-xs-0"></div>
+  </div>
+  <hr class="details__rule" />
+  <div class="details__content row">
+    <div class="col-md-2  col-sm-0 col-xs-0"></div>
+    <div class="col-md-8 col-xs-12 details__body">
+      <h3 class="details__heading details__model-heading">The Client Application Stack</h3>
+        <div class="details__col">
+          <p>
+          The basic underlying fundamental technologies of the web have not really changed: it is still html, css and javascript. But the division of responsibilies has shifted more toward the client.  In the diagram below if have attempted a simplified, generic visualization of a client driven architecture. It i
+          </p>
+          <p>
+          The server is still responsible for sending the initial html page to the browser as it alwasy has. The page may contain a basic mount point for the front end application or there may be need for initial server side rendering for SEO reasons. It is also likely the server would be embeding initial bootstrap data for the application to avoid and immediate additional data requests. Ideally, at this point the server is done producing html. Additional domain interactions would be in the form of api requests using whatever standard is appropriate: REST, SOAP, GraphQL -- whatever the architecture demands.  In the case of an authenticated application, these domain services would also still maintain the session by checking request headers and responding as approriate when a session expires.
+          </p>
+          <p>
+          Once an application has been bootstrapped onto the page it can then use its own internal data store to maintain its state and respond to user interactions, view component initialization events, or stream events (in the case of the <a href="https://github.com/Reactive-Extensions/RxJS">reactive model</a>).  The diagram illustrates a data flow that is essentialy the <a href="https://facebook.github.io/flux/">Flux</a> pattern were data flows in a single direction. An application event (or <a href="http://redux.js.org/docs/basics/Actions.html">Action</a> ) causes a change in applciation state which in turn causes the application to re-render its display. Data flows down to the store through event handlers and the state is manipulated there (or a new state is produced if the state is immutable).  The store responsible for transforming the state and passing back to the view engine. It is at this point of transformation that UI business logic is enforced and any integrations with other ui technologies such as service calls or ui routing, analytics events, and so on could be triggered.
+          </p>
+          <p>
+          Bellow the state layer I have placed the somewhat generic concept of the model. The model is a placeholder for the layer that handles making the api requests using  XMLHttpRequest, Fetch or even WebSockets. It also needs to provide a syncronous api to the store for asyncronous actions (like api requests) using something like events, promises, or callbacks, or generators.
+          </p>
+          <div class="details__model">
+            {>"app/dust/svg/ui-model" /}
+          </div>
+        </div>
+    </div>
+    <div class="col-md-2  col-sm-0 col-xs-0"></div>
   </div>
   <div class="details__arrow">
     <a  class="arrow fa fa-arrow-down fa-2x" href="#tech"></a>

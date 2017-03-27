@@ -1,4 +1,5 @@
 @import '_common.less';
+@darkColor: darken(@warmBrown, 25%);
 
 .details {
   width: 100%;
@@ -9,13 +10,19 @@
   color: #fff;
   font-size: 20px;
 
+  a {
+    color: @gray10;
+    .bold;
+  }
   &__heading {
     .bodini;
+    // .heavy;
     text-align: left;
     font-size: 4vw;
     margin: 0px 20px 0px;
     padding: 0px 0px 10px;
     line-height: 1.7em;
+    text-shadow: 4px 4px 3px @darkColor;
 
     &--building {
       font-size: 1.4em;
@@ -25,12 +32,20 @@
       line-height: 1.0em;
     }
   }
+  &__model-heading {
+    .heavy;
+    text-align: center;
+    font-size: 2.5vw;
+    margin-bottom: 20px;
+  }
   &__heading + hr {
     border: 1px dotted @white;
   }
   &__content {
-    margin: 10px auto;
+    margin: 30px auto;
     font-size: 1.25em;
+  }
+  &__content:first-child {
     margin-top: 100px;
   }
   &__body {
@@ -47,6 +62,21 @@
   &__intro {
     padding-top: 10px;
   }
+  &__model {
+    background-color: @white;
+    border: 3px solid @darkColor;
+    margin: 50px 0px;
+  }
+  &__col {
+    margin: 0px 15px;
+  }
+  &__rule {
+    width: 300px;
+    border-color: @white;
+    border-width: 1px;
+    margin: 50px auto;
+    box-shadow: 2px 2px 2px 0px @darkColor;
+  }
   &__arrow {
     text-align: center;
     padding: 15px;
@@ -58,6 +88,9 @@
   @media(max-width:@screen-sm-min) {
     &__content {
       margin-top: 50px;
+    }
+    &__rule {
+      width: 80%;
     }
     &__heading {
       font-size: 40px;
