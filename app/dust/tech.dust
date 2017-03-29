@@ -3,100 +3,247 @@
   <h2 class="tech__title">UI Toolset</h2>
 </div>
 <div class="col-md-6 col-xs-12">
-Thi is some text.
+This is some text.
 </div>
 </div>
 
 <ul class="tech__list row">
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-    <div>
-      <img src="rsc/logos/webpack.svg" alt="webpack logo" />
-      <a href="#" class="tech__item--title tech__popover--trigger">Webpack</a>
-      <span class="tech__popover hidden">
-        <span class="tech__popover--title">Webpack Moudle System</span>
-        <span class="tech__popover--body">
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/webpack.svg" alt="webpack logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Webpack</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">Webpack Module Bundler</h3>
+        <div class="tech__item-content--body">
+          <p>
           webpack content here
-          <a target="_BLANK" href="https://webpack.js.org">Visit Site</a>
-        </span>
-      </span>
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="https://webpack.js.org">
+            More Info
+          </a>
+        </div>
+      </div>
     </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-    <div>
-   <img src="rsc/logos/react.svg" alt="react logo" />
-    <span>React</span>
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/react.svg" alt="react logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">React</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">React Framework</h3>
+        <div class="tech__item-content--body">
+          <p>
+          react here
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="https://facebook.github.io/react/">
+            More Info
+          </a>
+        </div>
+      </div>
     </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-    <div>
-   <img src="rsc/logos/redux.svg" alt="redux logo" />
-    <span>Redux</span>
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/redux.svg" alt="redux logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Redux</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">Redux State Container</h3>
+        <div class="tech__item-content--body">
+          <p>
+          redux here
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="http://redux.js.org">
+            More Info
+          </a>
+        </div>
+      </div>
     </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-  <div>
-   <img src="rsc/logos/jest.png" alt="jest logo"/>
-    <span>Jest</span>
-    </div>
-  </li>
-   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-   <div>
-      <img src="rsc/logos/babel.svg" alt="babel logo" />
-      <span>Babel</span>
-   </div>
-  </li>
-  <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-  <div>
-   <img src="rsc/logos/less.png" alt="less logo" />
-    <span>Less</span>
-    </div>
-  </li>
-  <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-    <div>
-   <img src="rsc/logos/node.svg" alt="node logo" />
-    <span>Node JS</span>
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/jest.png" alt="jest logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Jest</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">Jest Testing Framework</h3>
+        <div class="tech__item-content--body">
+          <p>
+          Jest here
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="https://facebook.github.io/jest/">
+            More Info
+          </a>
+        </div>
+      </div>
     </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-    <div>
-   <img src="rsc/logos/git-logo.jpg" alt="Git logo" />
-    <span>Git VCS</span>
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/babel.svg" alt="babel logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Babel</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">Babel Javascript Compiler</h3>
+        <div class="tech__item-content--body">
+          <p>
+          Babel here
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="https://babeljs.io">
+            More Info
+          </a>
+        </div>
+      </div>
     </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-    <div>
-   <img src="rsc/logos/gulp.svg" alt="Gulp logo" />
-    <span>Gulp taskrunner</span>
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/less.png" alt="less logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Less</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">Less CSS Preprocessor</h3>
+        <div class="tech__item-content--body">
+          <p>
+          Less here
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="http://lesscss.org">
+            More Info
+          </a>
+        </div>
+      </div>
     </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-    <div>
-   <img src="rsc/logos/bootstrap.svg" alt="Bootstrap logo" />
-    <span>Bootstrap Framework</span>
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/node.svg" alt="babel logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Node</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">Node JS JavaScript Runtime</h3>
+        <div class="tech__item-content--body">
+          <p>
+          Node JS
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="https://nodejs.org">
+            More Info
+          </a>
+        </div>
+      </div>
     </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-    <div>
-   <img src="rsc/logos/eslint-logo.png" alt="ES Lint logo" />
-    <span>ES Lint</span>
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/git-logo.jpg" alt="git logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Git</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">Git Version Control System</h3>
+        <div class="tech__item-content--body">
+          <p>
+          Git 
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="https://git-scm.com">
+            More Info
+          </a>
+        </div>
+      </div>
     </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-    <div>
-   <img src="rsc/logos/standardJS.svg" alt="JS Stanard Format logo" />
-    <span>JS Standard Format</span>
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/gulp.svg" alt="gulp logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Gulp</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">Gulp Task Runner</h3>
+        <div class="tech__item-content--body">
+          <p>
+          Gulp stuff 
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="http://gulpjs.com">
+            More Info
+          </a>
+        </div>
+      </div>
     </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-    <div>
-   <img src="rsc/logos/loDash.png" alt="lodash logo" />
-    <span>lo dash</span>
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/bootstrap.svg" alt="bootstrap logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Bootstrap</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">Bootstrap CSS Framework</h3>
+        <div class="tech__item-content--body">
+          <p>
+          Bootstrap stuff 
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="http://getbootstrap.com">
+            More Info
+          </a>
+        </div>
+      </div>
     </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
-  <div>
-   <img src="rsc/logos/mochajs.svg" alt="mocha logo" />
-    <span>mocha</span>
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/eslint-logo.png" alt="eslint logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">ES Lint</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">Es Lint JavaScript Linter</h3>
+        <div class="tech__item-content--body">
+          <p>
+          ES Lint stuff 
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="http://eslint.org">
+            More Info
+          </a>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/standardJS.svg" alt="standardjs logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">JS Standard</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title"> JavaScript Standard Style</h3>
+        <div class="tech__item-content--body">
+          <p>
+          standard stuff 
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="https://github.com/feross/standard">
+            More Info
+          </a>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/loDash.png" alt="lodash logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Lodash</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title"> Lodash Javascript Utility</h3>
+        <div class="tech__item-content--body">
+          <p>
+          lodash stuff 
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="https://lodash.com">
+            More Info
+          </a>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div class="tech__item--wrapper">
+      <img class="tech_item--image" src="rsc/logos/sininlogo.png" alt="sinon logo" aria-hidden="true" />
+      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Sinon</a>
+      <div class="tech__item-content sr-only">
+        <h3 class="tech__item-content--title">Sinon Mocks, Spys, and Stubs</h3>
+        <div class="tech__item-content--body">
+          <p>
+          Sinon stuff 
+          </p>
+          <a target="_BLANK" clss="tech__item-content--link" href="http://sinonjs.org">
+            More Info
+          </a>
+        </div>
+      </div>
     </div>
   </li>
 </ul>

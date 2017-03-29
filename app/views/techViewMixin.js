@@ -1,17 +1,17 @@
 var $ = require('jquery')
 module.exports = {
   onAttach: function () {
-    this.$('.tech__popover--trigger').each(function (idx, ele) {
+    this.$('.tech__popover').each(function (idx, ele) {
       var $ele = $(ele)
-      var $content = $ele.next('.tech__popover')
+      var $content = $ele.next('.tech__item-content')
       $ele
       .on('click', function (e) {
         e.preventDefault()
       })
       .popover({
-        content: $content.find('.tech__popover--body').html(),
-        title: $content.find('.tech__popover--title').text(),
-        container: $ele.parents('li'),
+        content: $('.tech__item-content--body', $content).html(),
+        title: $('.tech__item-content--title', $content).text(),
+        container: $ele.parents('.tech__item'),
         placement: 'top',
         html: true
       })
