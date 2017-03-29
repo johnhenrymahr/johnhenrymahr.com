@@ -10,8 +10,15 @@ Thi is some text.
 <ul class="tech__list row">
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
     <div>
-   <img src="rsc/logos/webpack.svg" alt="webpack logo" />
-    <span>Webpack</span>
+      <img src="rsc/logos/webpack.svg" alt="webpack logo" />
+      <a href="#" class="tech__item--title tech__popover--trigger">Webpack</a>
+      <span class="tech__popover hidden">
+        <span class="tech__popover--title">Webpack Moudle System</span>
+        <span class="tech__popover--body">
+          webpack content here
+          <a target="_BLANK" href="https://webpack.js.org">Visit Site</a>
+        </span>
+      </span>
     </div>
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
