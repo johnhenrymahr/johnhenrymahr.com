@@ -231,7 +231,7 @@ This is some text.
   </li>
   <li class="tech__item col-md-2 col-sm-4 col-xs-6">
     <div class="tech__item--wrapper">
-      <img class="tech_item--image" src="rsc/logos/sininlogo.png" alt="sinon logo" aria-hidden="true" />
+      <img class="tech_item--image" src="rsc/logos/sinonlogo.png" alt="sinon logo" aria-hidden="true" />
       <a href="#" class="tech__item--link tech__popover" aria-hidden="true">Sinon</a>
       <div class="tech__item-content sr-only">
         <h3 class="tech__item-content--title">Sinon Mocks, Spys, and Stubs</h3>
