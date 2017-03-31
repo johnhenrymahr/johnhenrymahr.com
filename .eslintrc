@@ -1,0 +1,17 @@
+{
+	"extends": "standard"
+	"globals": {
+    "jhmData",
+    "define",
+    "sandbox",
+    "context",
+    "describe",
+    "beforeEach",
+    "afterEach",
+    "it",
+    "dust",
+    "$",
+    "localStorage",
+    "localDev"
+   }	
+}
