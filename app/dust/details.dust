@@ -2,8 +2,8 @@
     <div class="col-lg-2 col-md-0"></div>
     <div class="col-lg-4 col-md-12">
       <h2 class="details__heading">
-        <span class="details__heading--building">Building</span>
-        <span class="details__heading--modern">the modern</span>
+        <span class="details__heading--building">Building</span>{~s}
+        <span class="details__heading--modern">the modern</span>{~s}
         <span class="details__heading--client">web client</span>
       </h2>
     </div>
