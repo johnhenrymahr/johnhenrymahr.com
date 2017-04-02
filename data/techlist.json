@@ -1,0 +1,114 @@
+[
+      {
+        "id": "webpack",
+        "img": "rsc/logos/webpack.svg",
+        "url": "https://webpack.js.org",
+        "name": "WebPack",
+        "title": "WebPack Module Bundler",
+        "desc": "here is about webpack"
+      },
+      {
+        "id": "react",
+        "img": "rsc/logos/react.svg",
+        "url": "https://facebook.github.io/react/",
+        "name": "React",
+        "title": "React Framework",
+        "desc": ""
+      },
+      {
+        "id": "redux",
+        "img": "rsc/logos/redux.svg",
+        "name": "Redux",
+        "url": "http://redux.js.org",
+        "title": "Redux State Container",
+        "desc": ""
+      },
+      {
+        "id": "jest",
+        "name": "Jest",
+        "img": "rsc/logos/jest.png",
+        "url": "https://facebook.github.io/jest/",
+        "title": "Jest Testing Framework",
+        "desc": ""
+      },
+      {
+        "id": "bable",
+        "name":"babel",
+        "img": "rsc/logos/babel.svg",
+        "url": "https://babeljs.io",
+        "title": "Babel Javascript Compiler",
+        "desc": ""
+      },
+      {
+        "id": "less",
+        "name":"Less",
+        "img": "rsc/logos/less.png",
+        "url": "http://lesscss.org",
+        "title": "Less CSS Preprocessor",
+        "desc": ""
+      },
+      {
+        "id": "nodejs",
+        "name":"Node.js",
+        "img": "rsc/logos/node.svg",
+        "url": "https://nodejs.org",
+        "title": "Node JS JavaScript Runtime",
+        "desc": ""
+      },
+      {
+        "id": "git",
+        "name": "Git",
+        "img": "rsc/logos/git-logo.jpg",
+        "url": "https://git-scm.com",
+        "title": "Git Version Control System",
+        "desc": ""
+      },
+      {
+        "id": "gulp",
+        "name": "Gulp",
+        "img": "rsc/logos/gulp.svg",
+        "url": "http://gulpjs.com",
+        "title": "Gulp Automation",
+        "desc": ""
+      },
+      {
+        "id": "bootstrap",
+        "name": "Bootstrap",
+        "img": "rsc/logos/bootstrap.svg",
+        "url": "http://getbootstrap.com",
+        "title": "Bootstrap Framework",
+        "desc": ""
+      },
+      {
+        "id": "elsint",
+        "name": "ESLint",
+        "img": "rsc/logos/eslint-logo.png",
+        "url": "http://eslint.org",
+        "title": "ES Lint",
+        "desc": ""
+      },
+      {
+        "id": "js-standard",
+        "name": "Standard JS",
+        "img": "rsc/logos/standardJS.svg",
+        "url": "https://github.com/feross/standard",
+        "title": "JavaScript Standard Style",
+        "desc": ""
+      },
+      {
+        "id": "lodash",
+        "name": "Lodash",
+        "img": "rsc/logos/loDash.png",
+        "url": "https://lodash.com",
+        "title": "Lodash Javascript Utility",
+        "desc": ""
+      },
+      {
+        "id": "sinon",
+        "name": "Sinon.js",
+        "img": "rsc/logos/sinonlogo.png",
+        "url": "http://sinonjs.org",
+        "title": "Sinon Mocks, Spys, and Stubs",
+        "desc": ""
+      }
+]
