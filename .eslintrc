@@ -1,6 +1,6 @@
 {
-	"extends": "standard"
-	"globals": {
+"extends": "standard",
+"globals": {
     "jhmData",
     "define",
     "sandbox",
@@ -13,5 +13,5 @@
     "$",
     "localStorage",
     "localDev"
-   }	
+   }
 }
