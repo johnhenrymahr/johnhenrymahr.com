@@ -36,6 +36,9 @@
         <p>
           Because of the possibility for data transformation at the model level I have also marked the model as a layer that could be hosted on a node.js middleware server. It is quite a bit more complex than the app pre-rendering I mentioned above  and is just a little bit on the bleeding edge(at least for me). The model code would have to exists on both the client and the middle layer so when the store needs to request a resource the client instance of the model would pass a request to the middle layer instance of the model which would in turn make the actual service call, transform the response as needed and pass it back to the client instance which would then resolve the aync request with the response for the store to use in it‘s next state transformation.  It is certainly more complex than a direct service call from the client on the and could have some downsides in terms of network latency and scaling. But it does have the potential to offload some of the data processing  to a more predictable environment. Additionally the response eventually sent back to the client could be optimized to be a lean as possible decreasing the request payload (in theory). Provided that the connection between the middle layer and the server is (ideally) robust and the connection between the middle layer and the client is unknown this could have beneficial effects on slower clients operating on slower network (2g)
         </p>
+        <dv class="details__model">
+          {>"app/dust/svg/ui-model" /}
+        </dv>
       </div>
     </div>
   </div>
