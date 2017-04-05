@@ -9,19 +9,28 @@ This is some text.
 
 <ul class="tech__list row">
 {#tech}
-  <li class="tech__item tech__item--{id} col-md-2 col-sm-4 col-xs-6">
-    <div class="tech__item--wrapper">
-      <img class="tech_item--image" src="{img}" alt="{name} logo" aria-hidden="true" />
-      <a href="#" class="tech__item--link tech__popover" aria-hidden="true">{name}</a>
-      <div class="tech__item-content sr-only">
-        <h3 class="tech__item-content--title">{title}</h3>
-        <div class="tech__item-content--body">
-          <p>
-          {desc}
-          </p>
-          <a target="_BLANK" clss="tech__item-content--link" href="{url}">
-            More Info
-          </a>
+  <li aria-labelledby="tech__tem--label_{id}" id="tech__item_{id}" class="tech__item col-md-2 col-sm-4 col-xs-6">
+    <div class="tech__item--wrapper">      
+      <a href="#" data-toggle="modal" data-target="#tech__modal_{id}" class="tech__item--link" aria-hidden="true">
+        <img class="tech__item--image" src="{img}" alt="{name} logo" />
+        <span class="tech__item--label" id="tech__item--label_{id}">
+          {name}
+        </span>
+      </a>
+      <div class="tech__modal modal fade" id="tech__modal_{id}" tabindex="-1" role="dialog" aria-labelledby="tech__modal--label_{id}">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="tech__modal--label_{id}">{title}</h4>
+            </div>
+            <div class="modal-body">
+              {desc}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
