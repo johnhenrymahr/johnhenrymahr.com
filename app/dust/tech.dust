@@ -22,10 +22,29 @@ This is some text.
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="tech__modal--label_{id}">{title}</h4>
+              <div class="tech__modal--header">{name}</div>
             </div>
             <div class="modal-body">
-              {desc}
+            <div class="row tech__modal--row">
+                <div class="col-lg-4 col-md-12">
+                </div>
+                <div class="col-lg-8 col-md-12">
+                  <h4 class="tech__modal--title" id="tech__modal--label_{id}">
+                    {title}
+                  </h4>
+                </div>               
+                </div>
+              </div>
+              <div class="row tech__modal--row">
+                <div class="col-lg-4 col-md-12">
+                  <img class="tech__modal--image" src="{img}" alt="{name} logo" />
+                </div>
+                <div class="col-lg-8 col-md-12">
+                 
+                  {desc}
+                </div>               
+                </div>
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
