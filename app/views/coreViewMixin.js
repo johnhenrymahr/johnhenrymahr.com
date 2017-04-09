@@ -50,7 +50,7 @@ module.exports = {
   },
   coreAnimation: function () {
     this.log('run core animation')
-    this.$('.core__wrapper, .core__title, .core__banner').removeClass('hidden')
+    this.$('.core__wrapper, .core__banner').removeClass('hidden')
     _.delay(_.bind(function () {
       this.transitionEnd(this.$el, 750, _.bind(function () {
         this.stepsAnimation()
@@ -61,6 +61,7 @@ module.exports = {
   },
   _coreAnimationComplete: function () {
     this.$('.arrow').removeClass('fadeOut').addClass('bounce')
+    this.$('.core__title--container').removeClass('stageRight')
     App.vent.trigger('core:animationEnd')
   },
   onPostRender: function () {

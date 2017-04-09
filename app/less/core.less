@@ -46,6 +46,9 @@
       top: 50%;
       right: 25%;
     }
+    @media(max-width:@screen-lg-min) and (min-width:@screen-sm-min) {
+      top: -1100px;
+    }
     @media (max-width:@screen-sm-min) {
       margin-top: 200px;
       margin-bottom: -80px;
@@ -264,14 +267,21 @@
   }
   &__title {
     padding: 0px;
+    position: relative;
 
     &--container {
+      transition: .7s ease-in-out;
+      transform: translateX(0px);
+      transition-timing-function: cubic-bezier(.59, .06, .43, .78);
       position: relative;
       text-align: center;
       z-index: 4000;
       top: 140px;
       left: -20px;
 
+      &.stageRight {
+        transform: translateX(3000px);
+      }
       @media (max-width:@screen-sm-min) {
         top: 0px;
         left: 0px;
