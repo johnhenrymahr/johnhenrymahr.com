@@ -3,14 +3,16 @@
   <h2 class="tech__title">UI Toolset</h2>
 </div>
 <div class="col-md-6 col-xs-12">
-This is some text.
+  <p>
+  Below you will find my preferred current toolset for development. Granted I use what the project calls for and not every project is a perfect fit for these tools (this very website uses few of these tools ironically) But I think this toolset offers a lot and is how I intend on setting up new projects.
+  </p>
 </div>
 </div>
 
 <ul class="tech__list row">
 {#tech}
   <li aria-labelledby="tech__tem--label_{id}" id="tech__item_{id}" class="tech__item col-md-2 col-sm-4 col-xs-6">
-    <div class="tech__item--wrapper">      
+    <div class="tech__item--wrapper">
       <a href="#" data-toggle="modal" data-target="#tech__modal_{id}" class="tech__item--link" aria-hidden="true">
         <img class="tech__item--image" src="{img}" alt="{name} logo" />
         <span class="tech__item--label" id="tech__item--label_{id}">
@@ -18,44 +20,85 @@ This is some text.
         </span>
       </a>
       <div class="tech__modal modal fade" id="tech__modal_{id}" tabindex="-1" role="dialog" aria-labelledby="tech__modal--label_{id}">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <div class="tech__modal--header">{name}</div>
+      <div class="tech__modal--wrapper">
+        <div class="modal-dialog tech__modal--center" role="document">
+          <div class="modal-content tech__modal--content">
+            <div class="modal-header tech__modal--header">
+              {name}
             </div>
-            <div class="modal-body">
-            <div class="row tech__modal--row">
-                <div class="col-lg-4 col-md-12">
+            <div class="modal-body tech__modal--body">
+                <div class="row tech__modal--row">
+                  <div class="col-lg-4 col-md-12">
+                  </div>
+                  <div class="col-lg-8 col-md-12">
+                    <h4 class="tech__modal--title" id="tech__modal--label_{id}">
+                      {title}
+                    </h4>
+                  </div>
                 </div>
-                <div class="col-lg-8 col-md-12">
-                  <h4 class="tech__modal--title" id="tech__modal--label_{id}">
-                    {title}
-                  </h4>
-                </div>               
-                </div>
-              </div>
               <div class="row tech__modal--row">
-                <div class="col-lg-4 col-md-12">
-                  <img class="tech__modal--image" src="{img}" alt="{name} logo" />
-                </div>
-                <div class="col-lg-8 col-md-12">
-                 
-                  {desc}
-                </div>               
+                  <div class="col-lg-4 col-md-12">
+                    <img class="tech__modal--image" src="{img}" alt="{name} logo" />
+                  </div>
+                  <div class="col-lg-8 col-md-12">
+                    {#desc}
+                      <p>{.}</p>
+                    {/desc}
+                    {?url}
+                      <p class="tech__modal--link">
+                        <a href="{url}" title="Open {name} project page in a new window." target="_BLANK">
+                          Visit Project Home.
+                          <span class="sr-only">Opens {name} project page in a new window.</span>
+                        </a>
+                      </p>
+                    {/url}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="modal-footer tech__modal--footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </li>
  {/tech}
 </ul>
+
+<div class="row tech__header">
+<div class="col-md-6 col-xs-12">
+  <h2 class="tech__title">Next Up: <span>Reactive Extensions for JavaScript (RxJS)</span></h2>
+    <div class="tech__title--image_wrapper"><img width="150" src="rsc/logos/rx.png" class="tech__title--image" alt="reactive extensions logo" /></div>
+</div>
+<div class="col-md-6 col-xs-12">
+  <p>
+   A way to deal with asynchronous operations that are stream like and do not resolve to a single value, but a stream of value. Why?
+   The request/response system fit very nice with promises: question resolves to answer or failure. But if instead of request/response we think in terms of subscribing to an event stream it does not work as well. The reactive is all about responding to changes in a stream using a push like technology: web-sockets or server sent events. There seem to be hints that this is the future, or a future of web. So it would not seem to be a bad technology to learn more about.
+  </p>
+  <p>
+  <a target="_BLANK" href="https://github.com/Reactive-Extensions/RxJS">Visit Project Page</a>
+  </p>
+</div>
+</div>
+<hr />
+<div class="row tech__header">
+  <div class="col-md-6 col-xs-12">
+    <h2 class="tech__title tech__title--smaller">Other Stuff</h2>
+  </div>
+  <div class="col-md-6 col-xs-12">
+    <p>Some other technologies have had used in the past, or currently still use. </p>
+    <ul>
+      <li>Backbone, Backbone.marionette</li>
+      <li>Require.js</li>
+      <li>Karma, Chai, Mocha, PhantomJS, Istanbul</li>
+      <li>dust.js template language</li>
+    </ul>
+  </div>
+</div>
 <div class="tech__arrow">
   <a  class="arrow fa fa-arrow-down fa-2x" href="#cv"></a>
 </div>

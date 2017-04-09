@@ -1,114 +1,132 @@
 [
-      {
-        "id": "webpack",
-        "img": "rsc/logos/webpack.svg",
-        "url": "https://webpack.js.org",
-        "name": "WebPack",
-        "title": "WebPack Module Bundler",
-        "desc": "here is about webpack"
-      },
-      {
-        "id": "react",
-        "img": "rsc/logos/react.svg",
-        "url": "https://facebook.github.io/react/",
-        "name": "React",
-        "title": "React Framework",
-        "desc": ""
-      },
-      {
-        "id": "redux",
-        "img": "rsc/logos/redux.svg",
-        "name": "Redux",
-        "url": "http://redux.js.org",
-        "title": "Redux State Container",
-        "desc": ""
-      },
-      {
-        "id": "jest",
-        "name": "Jest",
-        "img": "rsc/logos/jest.png",
-        "url": "https://facebook.github.io/jest/",
-        "title": "Jest Testing Framework",
-        "desc": ""
-      },
-      {
-        "id": "bable",
-        "name":"babel",
-        "img": "rsc/logos/babel.svg",
-        "url": "https://babeljs.io",
-        "title": "Babel Javascript Compiler",
-        "desc": ""
-      },
-      {
-        "id": "less",
-        "name":"Less",
-        "img": "rsc/logos/less.png",
-        "url": "http://lesscss.org",
-        "title": "Less CSS Preprocessor",
-        "desc": ""
-      },
-      {
-        "id": "nodejs",
-        "name":"Node.js",
-        "img": "rsc/logos/node.svg",
-        "url": "https://nodejs.org",
-        "title": "Node JS JavaScript Runtime",
-        "desc": ""
-      },
-      {
-        "id": "git",
-        "name": "Git",
-        "img": "rsc/logos/git-logo.jpg",
-        "url": "https://git-scm.com",
-        "title": "Git Version Control System",
-        "desc": ""
-      },
-      {
-        "id": "gulp",
-        "name": "Gulp",
-        "img": "rsc/logos/gulp.svg",
-        "url": "http://gulpjs.com",
-        "title": "Gulp Automation",
-        "desc": ""
-      },
-      {
-        "id": "bootstrap",
-        "name": "Bootstrap",
-        "img": "rsc/logos/bootstrap.svg",
-        "url": "http://getbootstrap.com",
-        "title": "Bootstrap Framework",
-        "desc": ""
-      },
-      {
-        "id": "elsint",
-        "name": "ESLint",
-        "img": "rsc/logos/eslint-logo.png",
-        "url": "http://eslint.org",
-        "title": "ES Lint",
-        "desc": ""
-      },
-      {
-        "id": "js-standard",
-        "name": "Standard JS",
-        "img": "rsc/logos/standardJS.svg",
-        "url": "https://github.com/feross/standard",
-        "title": "JavaScript Standard Style",
-        "desc": ""
-      },
-      {
-        "id": "lodash",
-        "name": "Lodash",
-        "img": "rsc/logos/loDash.png",
-        "url": "https://lodash.com",
-        "title": "Lodash Javascript Utility",
-        "desc": ""
-      },
-      {
-        "id": "sinon",
-        "name": "Sinon.js",
-        "img": "rsc/logos/sinonlogo.png",
-        "url": "http://sinonjs.org",
-        "title": "Sinon Mocks, Spys, and Stubs",
-        "desc": ""
-      }
+  {
+    "id": "webpack",
+    "img": "rsc/logos/webpack.svg",
+    "url": "https://webpack.js.org",
+    "name": "WebPack",
+    "title": "WebPack Module Bundler",
+    "desc": ["Webpack is the foundation of  the UI workflow for me right now.  Given a JavaScript bootstrap or entry point file, it traverses the dependency graph for that file and builds a single file (bundle) containing all of those dependencies . It does so much on top of that basic function it is hard to iterate all of its benefits.  It supports npm modules, amd, umd, commonJS and ES2015 (import)  module syntaxes, has a large ecosystem of loaders (for images, css, less, json, etc ) and plugins. It comes with a development server that uses a hot module replacement system that  makes real time live updates a reality.  It can support multiple code bundles with asynchronous code loading.  And much, much more.", "It is built around a configuration file that can be a bit of a beast until your learns its finer points. But once you learn to use it you will find that it is just so useful."]
+  },
+  {
+    "id": "react",
+    "img": "rsc/logos/react.svg",
+    "url": "https://facebook.github.io/react/",
+    "name": "React",
+    "title": "React Framework",
+    "desc": ["Everyone needs a framework and this is my choice at the moment. Component based, declarative, functional: all the buzz words. But the thing is: it really works. JSX can be disconcerting at first and seems to break separation of concerns. But once you get used to it you will love it. ",
+     "I knew I was in after struggling through my first project. I looked back at the code I produced and realized it was really easy to understand and that would make it really easy to maintain.  It is truly a new way of think about UI Design and it really WORKS."]
+  },
+  {
+    "id": "redux",
+    "img": "rsc/logos/redux.svg",
+    "name": "Redux",
+    "url": "http://redux.js.org",
+    "title": "Redux State Container",
+    "desc": ["When your React app gets to a point where it is using a lot of state and the built in mechanisms for state management are not robust enough Redux is the solution (for me). It implements the flux pattern and has become the defacto leader in flux implementations for good reason.  It is well though out, well documented with a nice ecosystem of enhancements and testing tools. It is the natural partner to React and really helps get complex application sunder control. Not to mention the really nice Chrome development plug-in. "]
+
+  },
+  {
+    "id": "jest",
+    "name": "Jest",
+    "img": "rsc/logos/jest.png",
+    "url": "https://facebook.github.io/jest/",
+    "title": "Jest Testing Framework",
+    "desc": ["I have somewhat recently switched from  the Karma/Mocha/Chai stack to Jest and I do not want to go back. The other stack was fine but had so many pieces from different projects that needed to work together it became really complex. Jest is an integrated solution built on Jasmine. It is easy to set up, has a fairly standard syntax, integrated coverage reports (very nice!) and from my experience is very stable."]
+
+  },
+  {
+    "id": "babel",
+    "name":"Babel",
+    "img": "rsc/logos/babel.svg",
+    "url": "https://babeljs.io",
+    "title": "Babel Javascript Compiler",
+    "desc": ["We all know about ES2015 right? Well if not, it is the next version of JavasScript with all kinds of new features. Many of these language features are supported in the newest browsers, but certainly not all. Regardless of browser support you can start using those new features now by using Babel. It lets you work in the new format and then transpiles the code back to the (current) standard ES5. It sounds complex, and it is, but the good news is that it works. And the new language features are so addictive you just will not want to go back to the old way. ", "When using React and JSX babel is almost a requirement. I avoided transpiled languages like CoffeScript for a long time, but I have accepted it now as the way of thing. And honestly, Babel has made it really painless. And if you setup source mapping debugging is not even that bad either."]
+
+  },
+  {
+    "id": "less",
+    "name":"Less",
+    "img": "rsc/logos/less.png",
+    "url": "http://lesscss.org",
+    "title": "Less CSS Preprocessor",
+    "desc": "What can I say? A css pre-processor is really useful. It gives you mix-ins, variables, reference imports and more. There are other options out there that accomplish the same goals sure. But I like Less. And it is written in JavaScript so compiling on a js build system is easy."
+  },
+  {
+    "id": "node",
+    "name":"node",
+    "img": "rsc/logos/node.svg",
+    "url": "https://nodejs.org",
+    "title": "Node JS JavaScript Runtime",
+    "desc": ["Node is just so cool. At least I think so. Sure, there are advanced usages like middle ware servers and proxies and so on. But the every day, every project benefits it brings is the ability to set up a front end build system and tooling  written in JavaScript are just so essential. Node sort of falls into the background as a infrastructure thing. But it forms a foundation that so many great tools are built on it is just an essential component. "]
+
+  },
+  {
+    "id": "npm",
+    "name":"npm",
+    "img": "rsc/logos/npm.svg",
+    "url": "https://www.npmjs.com",
+    "title": "NPM JavaScript package manager",
+    "desc": ["Npm is the package manager that gets installed with node.js. It is getting some flack as of late and there is even a popular alternative called Yarn from FB which fixes some of its issues.  Originally conceived of for managing server packages, tools like Webpack have made it useful for client side code. It provides the tooling for installing, packaging and publishing self contained modules of code. It also provides a public registry for publishing open source packages for the community. Compared to the past of self-managing dependencies it is a huge step forward. "]
+
+  },
+  {
+    "id": "git",
+    "name": "Git",
+    "img": "rsc/logos/git-logo.png",
+    "url": "https://git-scm.com",
+    "title": "Git Version Control System",
+    "desc": ["If you are serious about code you need a version control system. It is NOT optional. And GIT is the best one. Sure there are other options, but come on. Just learn git, love git. And learn the command line interface."]
+
+  },
+  {
+    "id": "gulp",
+    "name": "Gulp",
+    "img": "rsc/logos/gulp.svg",
+    "url": "http://gulpjs.com",
+    "title": "Gulp Automation",
+    "desc": "Gulp is a task runner that uses streams. I I am not sure if it is the best option out there but it works. And it lets you write your tasks in basic JavaScript without complex configuration files ( like some other alternatives).  With Webpack it may have less purpose than in the past but it is still really useful. "
+  },
+  {
+    "id": "bootstrap",
+    "name": "Bootstrap",
+    "img": "rsc/logos/bootstrap.svg",
+    "url": "http://getbootstrap.com",
+    "title": "Bootstrap Framework",
+    "desc": ["Bootstrap provides a nice foundation to build you styles on. The grid system makes responsive design a lot easier. It sets nice defaults, and gives a lot of utility functionality. The JavaScript components are jQuery based so not so compatible with React (but still usable). Even though I understand there is a React port of them which I have yet to try out. You don't need bootstrap, but it sure makes life a lot easier. "]
+
+  },
+  {
+    "id": "elsint",
+    "name": "ESLint",
+    "img": "rsc/logos/eslint-logo.png",
+    "url": "http://eslint.org",
+    "title": "ES Lint",
+    "desc": ["I remember the days before I used a linter. I thought I was being so careful, so disciplined that my code was solid. then I linted it one and one day and... Well now I use a linter. Es Lint seems to be the way to go, It is highly configurable and highly pluggable and has vast editor support, a nice command line tool and formatter.  I now consider my pre-linting days to be the dark ages full of syntax error and implicit global variables. Just use a linter."]
+
+  },
+  {
+    "id": "js-standard",
+    "name": "Standard JS",
+    "img": "rsc/logos/standardJS.svg",
+    "url": "https://github.com/feross/standard",
+    "title": "JavaScript Standard Style",
+    "desc": ["Using a linter is one thing, but coming up with a set of linting standards is another. Standard was built around the concept that develops will argue about style until the end of time.  And that argument is essentially a great waste of brain resource. Standard sets a reasonable set of code style rules (even if they do tend to anger many people) and says stop arguing, just use this. I did not like some of their choices at first either. But now I am fine with it. I do not want to spend any more of my life thinking about code style, use a standard plugin or tool of some sort (there is an ESLint Shareable Config  of course) to lint and format you code and move on with you life. At least that is how I see it."]
+
+  },
+  {
+    "id": "lodash",
+    "name": "Lodash",
+    "img": "rsc/logos/loDash.png",
+    "url": "https://lodash.com",
+    "title": "Lodash Javascript Utility",
+    "desc": ["A useful set of utilities for JavaScript that solve many common problems.  Some may say it is less important in the age of ES2015 and beyond. And it is true  some of its methods like map and filter may be redundant. But it still has its uses.  And you do not need to import the entire library, it is modularized. Its implementation of debounce and throttle are some of its high points."]
+  },
+  {
+    "id": "sinon",
+    "name": "Sinon.js",
+    "img": "rsc/logos/sinonlogo.png",
+    "url": "http://sinonjs.org",
+    "title": "Sinon Mocks, Spys, and Stubs",
+    "desc": ["While Jest does provide some very nice mocking capability there are situations when you need a bit more. Sinon proves some nice extra functionality for creating method spies and stubs. It has a useful fake server and sand boxing system as well.  Anything that makes testing easier is OK with me. "]
+  }
 ]

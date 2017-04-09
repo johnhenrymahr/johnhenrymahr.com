@@ -6,41 +6,114 @@
   background-color: @tan;
   color: @lightBrown;
 
+  hr {
+    max-width: 700px;
+    margin: 60px auto;
+  }
+  &__header {
+    margin-bottom: 100px;
+
+    &:first-child {
+      margin-bottom: 20px;
+    }
+  }
+  p {
+    max-width: 450px;
+    font-size: 16px;
+    text-align: left;
+    padding: 15px;
+  }
+  ul {
+    text-align: left;
+  }
   &__title {
     .heavy;
-    margin-top: 50px;
     text-align: right;
     font-size: 50px;
+    margin: 0px 20px 20px;
+
+    &--image {
+      padding-right: 20px;
+      padding-top: 10px;
+    }
+    &--image_wrapper {
+      text-align: right;
+    }
+    &--smaller {
+      font-size: 30px;
+    }
+    >span {
+      font-size: 25px;
+      line-height: 45px;
+      display: block;
+      .bold;
+    }
   }
   &__list {
     padding: 0px;
     max-width: 1200px;
-    margin: 0px auto 40px;
+    margin: 0px auto 100px;
     border-top: 1px solid #fff;
     border-bottom: 1px solid #fff;
   }
   &__modal {
-    top: 25%;
+    &--wrapper {
+      display: table;
+      height: 100%;
+      width: 100%;
+      pointer-events: none;
+    }
+    &--center {
 
+      /* To center vertically */
+      display: table-cell;
+      vertical-align: middle;
+      pointer-events: none;
+    }
+    &--content {
+
+      /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+      width: 800px;
+      height: inherit;       /* To center horizontally */
+      margin: 0 auto;
+      pointer-events: all;
+      padding: 0px;
+    }
     &--title {
+      .bold;
       font-size: 24px;
       padding: 0px;
-      margin: 0px;
+      margin: 10px 0px;
       text-align: left;
+    }
+    &--link {
+      margin: 15px 0px 25px;
     }
     &--row {
       margin: 0px;
+
+      p {
+        font-size: 18px;
+        max-width: 450px;
+        text-align: justify;
+      }
     }
     &--header {
-      margin-left: 10px;
+      padding-left: 20px;
+      color: @gray60;
     }
-    &--content {
-      padding: 10px 50px;
+    &--body {
+      #gradient.vertical(@white, @gray15, 80%, 100%);
+      border-bottom: 1px solid @gray25;
+    }
+    &--footer {
+      background-color: @gray10;
+      border-radius: 0px 0px 5px 5px;
     }
     &--image, img {
       display: block;
       position: relative;
-      top: -50px;
+      top: -25px;
       width: 95%;
       max-height: 210px;
       margin: 10px auto;
@@ -99,11 +172,13 @@
     &__modal {
       &--image, img {
         top: 0px;
-        width: 65%;
-        max-height: 150px;
+        max-width: 65%;
       }
       &--title {
         text-align: center;
+      }
+      &--content {
+        width: 100%;
       }
     }
     &__list {
@@ -112,6 +187,13 @@
     }
     &__title, &__header {
       text-align: center;
+
+      &--image {
+        padding: 20px 0px;
+      }
+      &--image_wrapper {
+        text-align: center;
+      }
     }
   }
 }
