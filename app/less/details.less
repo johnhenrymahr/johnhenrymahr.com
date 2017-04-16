@@ -87,11 +87,18 @@
   }
   @media (max-width:@screen-lg-min) and (min-width:@screen-sm-min) {
     &__heading {
-      color: yellow;
+      font-size: 40px;
       text-align: center;
+
+      &--modern {
+        display: block;
+      }
     }
     &__heading, p {
       margin: 0px 15% 20px;
+    }
+    &__model-heading {
+      font-size: 35px;
     }
   }
   @media(max-width:@screen-sm-min) {
@@ -113,6 +120,9 @@
       &--modern {
         font-size: 1.1em;
       }
+    }
+    &__model-heading {
+      font-size: 35px;
     }
   }
 }

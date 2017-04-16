@@ -36,33 +36,33 @@
   &__logo {
     position: absolute;
     right: 75px;
-    top: -80px;
-    width: 125px;
+    top: -90px;
+    width: 150px;
   }
   &__content {
     h2 {
       .heavy;
       text-align: center;
       letter-spacing: 1px;
-      margin: 75px 30px 30px;
+      padding: 20px 30px 15px;
+      margin: 70px 35px 10px;
       font-weight: bold;
       display: block;
-      padding: 5px;
-      color: darken(@tan-dark, 10%);
-      text-shadow: 2px 2px 1px @tan-dark;
+      color: darken(@tan-dark, 20%);
+      text-shadow: 2px 1px 0px @tan-dark;
       font-size: 3em;
     }
     background-color: @tan;
     position: relative;
     max-width: 850px;
     margin: 0px auto;
-    border-radius: 0px 0px 25px 25px;
+    border-radius: 0px 0px 15px 15px;
     box-shadow: 0px 3px 6px 0px rgba(50, 50, 50, 0.6);
   }
   &__formContainer {
     margin: 20px 15px 40px;
     padding: 0px 30px;
-    background-color: lighten(@tan, 2%);
+    background-color: lighten(@tan, 3%);
     border: 2px solid darken(@tan, 2%);
     border-radius: 10px;
 
@@ -73,6 +73,7 @@
   &__form {
     &--submit {
       margin: 15px 0px;
+      font-size: 16px;
 
       @media(max-width:@screen-sm-min) {
         width: 100%;
