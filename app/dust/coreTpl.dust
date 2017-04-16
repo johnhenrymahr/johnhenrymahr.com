@@ -67,7 +67,9 @@
         </div>
     </div>
     <div class="arrow fadeOut">
-      <a class="fa fa-arrow-down fa-2x" href="#details" data-track="core-arrow"></a>
+      <a class="fa fa-arrow-down fa-2x" href="#details" data-track="core-arrow">
+      <span class="arrow-meta">Next: <strong>Summary</strong></span>
+      </a>
    </div>
     <div class="core__connect fadeOut">
        <a href="#contact" class="btn core__connect--control" data-focus=".contact__form input:first" data-track="core:lets-connect">

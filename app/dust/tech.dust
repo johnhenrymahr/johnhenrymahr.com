@@ -4,7 +4,7 @@
 </div>
 <div class="col-md-6 col-xs-12">
   <p>
-  This is my preferred toolset for development, when I have a choice that is. I hav eonly been using this toolset for abotu 8 months so it is relatively new. But it has proven to be a real advancement over what I have used in the past.  The combination of React and Jest has made front end code with high unit test coverage a realtiy in my workflow because of the way it abstracts DOM manipulation..
+  This is my preferred tool set for development, when I have a choice that is. I have only been using this tool set for about 8 months so it is relatively new. But it has proven to be a real advancement over what I have used in the past.  The combination of React and Jest has made front-end code with high unit test coverage a reality in my work-flow because of the way it abstracts DOM manipulation..
   </p>
 </div>
 </div>
@@ -76,8 +76,7 @@
 </div>
 <div class="col-md-6 col-xs-12">
   <p>
-   A way to deal with asynchronous operations that are stream like and do not resolve to a single value, but a stream of value. Why?
-   The request/response system fit very nice with promises: question resolves to answer or failure. But if instead of request/response we think in terms of subscribing to an event stream it does not work as well. The reactive approach is all about responding to changes in a stream that is using a push like technology: web-sockets or server sent events. There seem to be hints that this is the future, or a future, of the communications infrastructure of the web. So it would not seem to be a bad technology to learn more about.
+   A way to deal with asynchronous operations that are stream like and do not resolve to a single value, but a stream of value. Why? The request/response system fit very nice with promises: question resolves to answer or failure. But if instead of request/response we think in terms of subscribing to an event stream it does not work as well. The reactive approach is all about responding to changes in a stream that is using a push like technology: web-sockets or server sent events. There seem to be hints that this is the future, or a future, of the communications infrastructure of the web. So it would not seem to be a bad technology to learn more about.
   </p>
   <p>
   <a target="_BLANK" href="https://github.com/Reactive-Extensions/RxJS">Visit Project Page</a>
@@ -100,11 +99,14 @@
       <li>Grunt Task Runner</li>
       <li>Bluebird and Q promise polyfills</li>
       <li>Moment.js date/time library</li>
+      <li>React Router, React Router Redux</li>
       <li>Redux Form</li>
       <li>Freemarker Java templates</li>
     </ul>
   </div>
 </div>
 <div class="tech__arrow">
-  <a  class="arrow fa fa-arrow-down fa-2x" href="#cv"></a>
+  <a  class="arrow fa fa-arrow-down fa-2x" href="#cv">
+  <span class="arrow-meta">Next: <strong>CV and Details</strong></span>
+  </a>
 </div>

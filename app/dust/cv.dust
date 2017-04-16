@@ -47,7 +47,8 @@
         </div>
     </div>
     <div class="cv__arrow">
-      <a  class="arrow fa fa-arrow-down fa-2x" href="#contact"></a>
+      <a  class="arrow fa fa-arrow-down fa-2x" href="#contact">
+       <span class="arrow-meta">Next: <strong>Contact Form</strong></span></a>
     </div>
   </div>
 </div>

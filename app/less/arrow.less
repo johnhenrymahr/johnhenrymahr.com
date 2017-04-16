@@ -10,8 +10,26 @@
     color: @gray15;
   }
 }
+.arrow-meta {
+  display: block;
+  text-decoration: none;
+  margin-top: 10px;
+  font-size: 24px;
+  transition: all .5s ease 0s;
+  .italic;
+  opacity: 0;
+
+  strong {
+    .bold;
+    font-style: normal;
+  }
+}
+.arrow:hover  .arrow-meta {
+  opacity: 1;
+  text-decoration: none;
+}
 .bounce {
-  animation: bounce 2s 5;
+  animation: bounce 2s 3;
   animation-delay: 3s;
 }
 @keyframes bounce {

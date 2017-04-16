@@ -14,9 +14,18 @@ module.exports = Backbone.Router.extend({
 
   currentRoute: '',
 
+  coreArrowVisibility: function (route) {
+    if (route === '' || route === 'core') {
+      $('section#core .arrow').show()
+    } else {
+      $('section#core .arrow').hide()
+    }
+  },
+
   listen: function () {
     this.on('route', _.bind(function (route) {
       this.currentRoute = route
+      this.coreArrowVisibility(route)
       var $scrollTarget = $('#' + route)
       $('.onLoad').addClass('hidden fadeOut')
       $scrollTarget.removeClass('hidden')
