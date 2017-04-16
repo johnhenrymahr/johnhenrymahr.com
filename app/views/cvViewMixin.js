@@ -1,7 +1,7 @@
 var _ = require('lodash')
 var decorator = require('../utils/decorator')
 var App = require('app/app')
-module.exports = _.extend(decorator, {
+module.exports = _.extend({}, decorator, {
   initialize: function (options) {
     if (_.has(options, 'model')) {
       this.listenTo(options.model, 'invalid', _.bind(this.onValidationError, this))

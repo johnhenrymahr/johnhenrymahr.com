@@ -1,12 +1,12 @@
 var _ = require('lodash')
 var App = require('app/app')
 var decorator = require('app/utils/decorator')
-module.exports = _.extend(decorator, {
+module.exports = _.extend({}, decorator, {
   events: {
     'blur .form-group .form-control:visible': 'onInputBlur',
     'change .form-group select.form-control': 'onInputChange',
     'focus .form-group .form-control:visible': 'onInputFocus',
-    'submit .contact__form': 'onFormSubmit'
+    'submit form': 'onFormSubmit'
   },
   initialize: function (options) {
     if (_.has(options, 'model')) {
