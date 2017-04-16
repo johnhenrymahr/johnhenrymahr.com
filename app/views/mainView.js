@@ -126,10 +126,6 @@ module.exports = View.extend(_.merge({
     App.vent.trigger('mainView:postRender')
     var $onLoad = this.$('.onLoad')
     $onLoad.addClass('hidden fadeOut')
-  },
-
-  unbindScrollHandler: function () {
-    $(window).off('scroll')
   }
 
 }, manifest.json.attributes))
