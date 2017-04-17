@@ -68,7 +68,7 @@
     </div>
     <div class="arrow fadeOut">
       <a class="fa fa-arrow-down fa-2x" href="#details" data-track="core-arrow">
-      <span class="arrow-meta">Next: <strong>Summary</strong></span>
+      <span class="arrow-meta">Learn More</span>
       </a>
    </div>
     <div class="core__connect fadeOut">
