@@ -177,7 +177,7 @@ gulp.task('copy:local:app', function () {
 })
 
 gulp.task('copy:webroot', function () {
-  return gulp.src('server/webroot/*', {dot: true})
+  return gulp.src('server/webroot/**/*', {dot: true})
     .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('webroot')))))
 })
 
@@ -275,6 +275,12 @@ gulp.task('update:config', function (callback) {
     var config = fs.readFileSync(cfgPath, 'utf8')
     config = config.replace('{{serverApp}}', server.get('serverApp'))
     config = config.replace('{{webroot}}', server.get('webroot'))
+    config = config.replace('{{mailToAddress}}', server.get('mailToAddress'))
+    config = config.replace('{{mailToName}}', server.get('mailToName'))
+    config = config.replace('{{smtp__enabled}}', server.atts.smtp.enabled)
+    config = config.replace('{{smtp__hostname}}', server.atts.smtp.hostname)
+    config = config.replace('{{smtp__username}}', server.atts.smtp.username)
+    config = config.replace('{{smtp__password}}', server.atts.smtp.password)
     config = replaceComments(config)
     fs.writeFileSync(cfgPath, config, 'utf8')
     callback()
@@ -300,7 +306,7 @@ gulp.task('package', function (callback) {
   runSequence(
     'clean:dist',
     'lint',
-    'test:app',
+  //  'test:app',
     'test:server',
     'build',
     ['copy:composer', 'copy:libs', 'copy:includes', 'copy:data', 'copy:dust'],
