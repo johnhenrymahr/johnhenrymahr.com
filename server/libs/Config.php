@@ -9,7 +9,8 @@ class Config implements ConfigInterface
     protected $active_config = [
         "webroot" => "{{webroot}}", // token replaced by deploy script
         "basepath" => "{{serverApp}}", // token replaced by deploy script
-        "mailTo" => "{{mailTo}}", // send contact emails here, token replaced by deploy script
+        "systemMailTo" => "{{mailToAddress}}", // send contact emails here, token replaced by deploy script
+        "systemMailToName" => "{{mailToName}}", // token replaced by deploy script
         "assetroot" => "rsc/",
         "storage_dir" => "storage",
         "liveconfig" => "liveconfig",
@@ -20,6 +21,13 @@ class Config implements ConfigInterface
             "filecache" => "{basepath}{storage_dir}cache/",
             "logs" => "{basepath}{storage_dir}logs/",
             "digest" => "{basepath}{storage_dir}digest/",
+            "docs" => "{basepath}{storage_dir}docs/",
+        ],
+        "smtp" => [
+            "enabled" => "{{smtp__enabled}}", // token replaced by deploy script
+            "hostname" => "{{smtp__hostname}}", // token replaced by deploy script
+            "username" => "{{smtp__username}}", // token replaced by deploy script
+            "password" => "{{smtp__password}}", // token replaced by deploy script
         ],
         "flags" => [
             "loggingEnabled" => true,
@@ -49,6 +57,9 @@ class Config implements ConfigInterface
             "testroot" => 'tester/',
             "cachekey" => [
                 "testkey2" => 290,
+            ],
+            "smtp" => [
+                "enabled" => false,
             ],
             "files" => [
                 "foo" => "bar",

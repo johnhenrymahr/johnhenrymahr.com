@@ -9,13 +9,18 @@ class MailerTest extends \PHPUnit\Framework\TestCase
 
     protected $obj;
 
+    protected $mailer;
+
     protected function setUp()
     {
 
         $this->logger = \Mockery::mock('\JHM\LoggerInterface');
+        $this->mailer = \Mockery::mock('\PhpMailer');
         $this->config = \Mockery::mock('\JHM\ConfigInterface');
-        $this->config->shouldReceive('get')->with('mailTo')->andReturn('testmail@mail.com')->byDefault();
-        $this->obj = \Mockery::mock('\JHM\Mailer[_send, _getTimeStamp]', array($this->config, $this->logger))->shouldAllowMockingProtectedMethods();
+        $this->config->shouldReceive('get')->with('systemMailTo')->andReturn('testmail@mail.com')->byDefault();
+        $this->config->shouldReceive('get')->with('systemMailToName')->andReturn('John Mahr')->byDefault();
+        $this->config->shouldReceive('get')->with('smtp.enabled')->andReturn(false)->byDefault();
+        $this->obj = new \JHM\Mailer($this->mailer, $this->config, $this->logger);
     }
 
     protected function tearDown()
@@ -26,73 +31,78 @@ class MailerTest extends \PHPUnit\Framework\TestCase
 
     }
 
-    public function testSendCalled()
+    public function testSetupSystemMailer()
     {
-        $this->obj->shouldReceive('_getTimeStamp')->andReturn('10-6');
-        $this->config->shouldReceive('get')->with('sendMail')->andReturn(true);
-        $this->obj->shouldReceive('_send')->once()->andReturn(true);
-        $result = $this->obj->send();
-        $this->assertTrue($result);
-    }
-
-    public function testSendNotCalled()
-    {
-        $this->config->shouldReceive('get')->with('sendMail')->andReturn(false);
-        $this->obj->shouldReceive('_send')->never();
-        $this->obj->send();
+        $this->mailer->shouldReceive('addAddress')->with('testmail@mail.com', 'John Mahr');
+        $this->obj->setupSystemMailer();
         $this->assertTrue(true);
     }
 
-    public function testMailArguments()
+    public function testSetRecipient()
     {
-
-        $body = "Date: 10-6\ntest body line 1\ntest body line 2";
-        $from = '-fjoe.from@mail.com';
-        $this->obj->shouldReceive('_getTimeStamp')->andReturn('10-6');
-        $this->config->shouldReceive('get')->with('sendMail')->andReturn(true);
-        $this->obj->shouldReceive('_send')->once()->with('testmail@mail.com', 'test subject', $body, $from)->andReturn(true);
-        $this->obj->setSubject('test subject');
-        $this->obj->setBody('test body line 1');
-        $this->obj->setBody('test body line 2');
-        $this->obj->setFromAddress('joe.from@mail.com');
-        $result = $this->obj->send();
-        $this->assertTrue($result);
-        $this->assertTrue($this->obj->sent);
-        $timestamp = $this->obj->timestamp;
-        $this->assertTrue(!empty($timestamp));
+        $this->mailer->shouldReceive('addAddress')->with('joe@test.com', 'bar');
+        $this->obj->setRecipient('joe@test.com', 'bar');
+        $this->assertTrue(true);
     }
-
-    public function testGetters()
-    {
-        $body = "Date: 10-6\ntest body line 1\ntest body line 2";
-        $from = '-fjoe.from@mail.com';
-        $this->obj->shouldReceive('_getTimeStamp')->andReturn('10-6');
-        $this->obj->setSubject('test subject');
-        $this->obj->setBody('test body line 1');
-        $this->obj->setBody('test body line 2');
-        $this->obj->setFromAddress('joe.from@mail.com');
-        $this->assertEquals('10-6', $this->obj->timestamp);
-        $this->assertEquals('joe.from@mail.com', $this->obj->from);
-        $this->assertEquals('test subject', $this->obj->subject);
-        $this->assertEquals($body, $this->obj->body);
-        $this->assertEquals('testmail@mail.com', $this->obj->to);
-    }
-
-    public function testLogMailErrors()
-    {
-        $body = "Date: 10-6\ntest body line 1\ntest body line 2";
-        $this->obj->shouldReceive('_getTimeStamp')->andReturn('10-6');
-        $this->config->shouldReceive('get')->with('sendMail')->andReturn(true);
-        $this->obj->shouldReceive('_send')->once()->andReturn(false);
-        $this->logger->shouldReceive('log')->once()->with('WARNING', 'Could not send message');
-        $result = $this->obj->send();
-        $this->assertFalse($result);
-    }
-
-    public function testThrowBadTo()
+    public function testSetRecipientBadAddress()
     {
         $this->expectException(\JHM\JhmException::class);
-        $this->config->shouldReceive('get')->with('mailTo')->andReturn('badMail');
-        $obj = new \JHM\Mailer($this->config, $this->logger);
+        $this->obj->setRecipient('foo', 'bar');
+    }
+    public function testSetTextBody()
+    {
+        $this->obj->setBody('a test string');
+        $this->assertEquals($this->mailer->Body, 'a test string');
+    }
+    public function testSetFromAddress()
+    {
+        $this->mailer->shouldReceive('setFrom')->with('test@test.com', 'tester');
+        $this->obj->setFrom('test@test.com', 'tester');
+        $this->assertEquals($this->obj->fromAddress, 'test@test.com');
+        $this->assertEquals($this->obj->fromName, 'tester');
+    }
+    public function testSetUpNoReply()
+    {
+        $this->mailer->shouldReceive('setFrom')->with('test@mail.com', 'testmailer');
+        $this->obj->noReplyAddress = 'test@mail.com';
+        $this->obj->noReplyName = 'testmailer';
+        $this->obj->setupNoReply();
+        $this->assertEquals($this->obj->fromAddress, 'test@mail.com');
+        $this->assertEquals($this->obj->fromName, 'testmailer');
+    }
+    public function testSetFromBadAddress()
+    {
+        $this->obj->setFrom('test', 'tester');
+        $this->assertEquals($this->obj->fromAddress, '');
+        $this->assertEquals($this->obj->fromName, '');
+    }
+    public function testAddAttachment()
+    {
+        $this->config->shouldReceive('getStorage')->with('docs')->andReturn('/path/to/docs/');
+        $this->mailer->shouldReceive('addAttachment')->with('/path/to/docs/testfile');
+        $this->obj->addAttachment('testfile');
+        $this->assertTrue(true);
+    }
+    public function testSetReplyToAddress()
+    {
+        $this->mailer->shouldReceive('addReplyTo')->with('test@test.com', 'tester');
+        $this->obj->setRelpyTo('test@test.com', 'tester');
+        $this->assertEquals($this->obj->replyAddress, 'test@test.com');
+        $this->assertEquals($this->obj->replyName, 'tester');
+    }
+    public function testSetReplyToBadAddress()
+    {
+        $this->obj->setRelpyTo('test', 'tester');
+        $this->assertEquals($this->obj->fromAddress, '');
+        $this->assertEquals($this->obj->fromName, '');
+    }
+    public function testSendHTML()
+    {
+        $this->mailer->shouldReceive('isHTML');
+        $this->mailer->shouldReceive('send');
+        $this->obj->setHTML(true);
+        $this->obj->setBody('<p>a test </p>');
+        $this->obj->send();
+        $this->assertEquals("a test\n", $this->mailer->AltBody);
     }
 }

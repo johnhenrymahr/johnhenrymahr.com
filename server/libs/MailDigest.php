@@ -26,8 +26,11 @@ class MailDigest extends FileStorage implements MailDigestInterface
     public function writeMessage(MailerInterface $mailer)
     {
         $message = "Date: {$mailer->timestamp}\n";
-        $message .= "From: {$mailer->from}\n";
-        $message .= "To: {$mailer->to}\n";
+        $message .= "From: {$mailer->fromName} ({$mailer->fromAddress})\n";
+        if ($mailer->replyAddress) {
+            $message .= "Reply To: {$mailer->replyName} ({$mailer->replyAddress})\n";
+        }
+        $message .= "To: {$mailer->toName} ({$mailer->toAddress})\n";
         $message .= "Subject: {$mailer->subject}\n\n";
         $message .= "{$mailer->body}\n";
         $message .= "------------------------------\n\n";

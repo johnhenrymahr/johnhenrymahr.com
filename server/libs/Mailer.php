@@ -5,110 +5,176 @@ namespace JHM;
 class Mailer implements MailerInterface
 {
 
+    public $body = ''; //text body only, for logging
+
+    public $subject = '';
+
+    public $timestamp;
+
+    public $fromAddress;
+
+    public $fromName = '';
+
+    public $replyAddress;
+
+    public $replyName = '';
+
+    public $toAddress;
+
+    public $toName = '';
+
+    public $noReplyAddress = 'noreply@johnhenrymahr.com';
+
+    public $noReplyName = 'JHM Auto Mailer';
+
+    protected $mailerEngine;
+
     protected $config;
 
     protected $logger;
 
-    protected $from;
+    protected $html = false;
 
-    private $to;
-
-    protected $subject;
-
-    protected $timestamp = null;
-
-    public $sent = false;
-
-    protected $body = array();
-
-    protected $bodyGlue = "\n";
-
-    public function __construct(ConfigInterface $config, LoggerInterface $logger)
+    public function __construct(\PhpMailer $mailer, ConfigInterface $config, LoggerInterface $logger)
     {
         $this->config = $config;
         $this->logger = $logger;
-        $to = filter_var($this->config->get('mailTo'), FILTER_SANITIZE_EMAIL);
-        if (filter_var($to, FILTER_VALIDATE_EMAIL)) {
-            $this->to = $to;
+        $this->mailerEngine = $mailer;
+        $this->mailerEngine->Body = '';
+        $this->mailerEngine->AltBody = '';
+    }
+
+    public function setHTML($html = false)
+    {
+        $this->html = (bool) $html;
+        $this->mailerEngine->isHTML($this->html);
+    }
+
+    public function setupSystemMailer()
+    {
+        $this->toAddress = $toAddress = filter_var($this->config->get('systemMailTo'), FILTER_SANITIZE_EMAIL);
+        $this->toName = $toName = $this->config->get('systemMailToName');
+        if (filter_var($toAddress, FILTER_VALIDATE_EMAIL)) {
+            $this->mailerEngine->addAddress($toAddress, $toName);
         } else {
-            throw new JhmException('Email to address not valid: ' . $to);
+            throw new JhmException('Email to address not valid: ' . $toAddress);
+        }
+    }
+
+    public function setupNoReply()
+    {
+        $this->setFrom($this->noReplyAddress, $this->noReplyName);
+    }
+
+    public function setRecipient($address, $name)
+    {
+        if (filter_var($address, FILTER_VALIDATE_EMAIL)) {
+            $this->mailerEngine->addAddress($address, $name);
+        } else {
+            throw new JhmException('Email to address not valid: ' . $address);
+        }
+    }
+
+    public function setupSMTP()
+    {
+        if ($this->config->get('smtp.enabled')) {
+            $this->mailerEngine->isSMTP();
+            $this->mailerEngine->Host = $this->config->get('smtp.hostname');
+            $this->mailerEngine->Username = $this->config->get('smtp.username');
+            $this->mailerEngine->Password = $this->config->get('smtp.password');
+            $this->mailerEngine->SMPTSecure = 'tls';
+            $this->mailerEngine->Port = 587;
         }
     }
 
     public function setSubject($subject)
     {
-        $this->subject = trim(filter_var($subject, FILTER_SANITIZE_STRING));
+        $this->mailerEngine->Subject = $this->subject = trim(filter_var($subject, FILTER_SANITIZE_STRING));
     }
 
-    public function setBody($body, $reset = false)
+    protected function setTextBody($body)
     {
-        if ($reset) {
-            $this->body = array();
-        }
         $body = filter_var($body, FILTER_SANITIZE_STRING);
         if ($body) {
-            $this->body[] = trim($body);
+            $this->body = $body;
+            if ($this->html) {
+                $this->mailerEngine->AltBody .= $body;
+            } else {
+                $this->mailerEngine->Body .= $body;
+            }
         }
     }
 
-    public function setFromAddress($email)
+    protected function setHtmlBody($body)
+    {
+        $this->mailerEngine->Body .= $body;
+    }
+
+    public function setBody($body)
+    {
+        if ($this->html) {
+            $this->setHtmlBody($body);
+        } else {
+            $this->setTextBody($body);
+        }
+    }
+
+    public function addAttachment($filename)
+    {
+        $docs = $this->config->getStorage('docs');
+        $path = $docs . $filename;
+        if (is_readable($path)) {
+            $this->mailerEngine->addAttachment($path);
+        }
+    }
+
+    public function setFrom($email, $name = '')
     {
         $from = trim(filter_var($email, FILTER_SANITIZE_EMAIL));
-        if ($from) {
-            $this->from = $from;
+        $name = trim(filter_var($name, FILTER_SANITIZE_STRING));
+        if (filter_var($from, FILTER_VALIDATE_EMAIL)) {
+            $this->fromAddress = $from;
+            $this->fromName = $name;
+            $this->mailerEngine->setFrom($from, $name);
         }
     }
 
-    protected function getFormattedFrom()
+    public function setRelpyTo($email, $name)
     {
-        return "-f{$this->from}";
-    }
-
-    protected function getBody()
-    {
-        $body = array_merge(['Date: ' . $this->_getTimeStamp()], $this->body);
-        return implode($this->bodyGlue, $body);
-    }
-
-    protected function _getTimeStamp()
-    {
-        return $this->$this->timestamp;
-    }
-
-    public function __get($key)
-    {
-        switch ($key) {
-            case 'subject':
-            case 'from':
-            case 'to':
-                return $this->{$key};
-            case 'timestamp':
-                return $this->_getTimeStamp();
-            case 'body':
-                return $this->getBody();
+        $from = trim(filter_var($email, FILTER_SANITIZE_EMAIL));
+        $name = trim(filter_var($name, FILTER_SANITIZE_STRING));
+        if (filter_var($from, FILTER_VALIDATE_EMAIL)) {
+            $this->replyAddress = $from;
+            $this->replyName = $name;
+            $this->mailerEngine->addReplyTo($from, $name);
         }
     }
 
-    public function send()
+    protected function injectTimeStamp()
     {
 
-        $this->timestamp = date(DATE_RFC2822);
-
-        if ($this->config->get('sendMail')) {
-            $this->sent = $this->_send($this->to, $this->subject, $this->getBody(), $this->getFormattedFrom());
+        $timestamp = $this->timestamp = date(DATE_RFC2822);
+        if ($this->html) {
+            $this->mailerEngine->Body .= '<p style="color: gray; font-style: italic">JHM Mailsystem sent: ' . $timestamp . '</p>';
         } else {
-            $this->sent = true;
+            $this->mailerEngine->Body .= "\nJHM Mailsystem sent: {$timestamp}\n";
         }
-
-        if (!$this->sent) {
-            $this->logger->log('WARNING', 'Could not send message');
-        }
-
-        return $this->sent;
     }
 
-    protected function _send($to, $subject, $body, $headers)
+    protected function setAltBody()
     {
-        return @mail($to, $subject, $body, $headers);
+        $html = new \Html2Text\Html2Text($this->mailerEngine->Body);
+        $this->setTextBody($html->getText());
+    }
+
+    public function send($timestamp = false)
+    {
+        if ($timestamp) {
+            $this->injectTimeStamp();
+        }
+        if ($this->html) {
+            $this->setAltBody();
+        }
+        return $this->mailerEngine->send();
     }
 }

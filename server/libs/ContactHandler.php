@@ -26,22 +26,24 @@ class ContactHandler implements ApiHandlerInterface
         }
 
         $r = $request->request;
+        $this->mailer->setupSystemMailer();
         $this->mailer->setSubject('johnhenrymahr.com: Web Form Contact: ' . $r->get('topic'));
-        $this->mailer->setFromAddress($r->get('email'));
-        $this->mailer->setBody('Website Contact');
-        $this->mailer->setBody('From: ' . $r->get('name') . ' (' . $r->get('email') . ')');
+        $this->mailer->setFrom($r->get('email'), $r->get('name'));
+        $this->mailer->setRelpyTo($r->get('email'), $r->get('name'));
+        $this->mailer->setBody("Website Contact\n");
+        $this->mailer->setBody('From: ' . $r->get('name') . ' (' . $r->get('email') . ')' . "\n");
         if ($r->has('phoneNumber')) {
-            $this->mailer->setBody('Phone Number: ' . $r->get('phoneNumber'));
+            $this->mailer->setBody('Phone Number: ' . $r->get('phoneNumber') . "\n");
         }
         if ($r->has('company')) {
-            $this->mailer->setBody('Company: ' . $r->get('company'));
+            $this->mailer->setBody('Company: ' . $r->get('company') . "\n");
         }
-        $this->mailer->setBody('Topic: ' . $r->get('topic'));
+        $this->mailer->setBody('Topic: ' . $r->get('topic') . "\n");
         if ($r->has('custom-topic')) {
-            $this->mailer->setBody($r->get('custom-topic'));
+            $this->mailer->setBody($r->get('custom-topic') . "\n");
         }
-        $this->mailer->setBody($r->get('message'));
-        $mailResult = $this->mailer->send();
+        $this->mailer->setBody($r->get('message') . "\n");
+        $mailResult = $this->mailer->send(true);
         $this->digest->writeMessage($this->mailer);
 
         if ($mailResult) {

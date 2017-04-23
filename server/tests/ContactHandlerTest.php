@@ -37,8 +37,10 @@ class ContactHandler extends \PHPUnit\Framework\TestCase
                 'message' => 'a test message.',
             )
         );
+        $this->mailer->shouldReceive('setupSystemMailer')->once();
+        $this->mailer->shouldReceive('setRelpyTo')->once();
         $this->mailer->shouldReceive('setSubject')->once();
-        $this->mailer->shouldReceive('setFromAddress')->once();
+        $this->mailer->shouldReceive('setFrom')->once();
         $this->mailer->shouldReceive('setBody')->times(6);
         $this->mailer->shouldReceive('send')->once()->andReturn(true);
         $this->digest->shouldReceive('writeMessage')->once();
@@ -60,8 +62,10 @@ class ContactHandler extends \PHPUnit\Framework\TestCase
                 'message' => 'a test message.',
             )
         );
+        $this->mailer->shouldReceive('setupSystemMailer')->once();
+        $this->mailer->shouldReceive('setRelpyTo')->once();
         $this->mailer->shouldReceive('setSubject')->once();
-        $this->mailer->shouldReceive('setFromAddress')->once();
+        $this->mailer->shouldReceive('setFrom')->once();
         $this->mailer->shouldReceive('setBody')->times(6);
         $this->mailer->shouldReceive('send')->once()->andReturn(false);
         $this->digest->shouldReceive('writeMessage')->once();

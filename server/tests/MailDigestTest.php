@@ -26,7 +26,7 @@ class MailDigestTest extends \PHPUnit\Framework\TestCase
         $this->configMock->shouldReceive('getStorage')->with('digest')->once()->andReturn($logdir->url() . '/')->byDefault();
         $this->obj = \Mockery::mock('\JHM\MailDigest[_getDigestName]', array($this->configMock, $this->loggerMock))->shouldAllowMockingProtectedMethods();
         $this->obj->shouldReceive('_getDigestName')->andReturn('2017_12__digest')->byDefault();
-        $this->mailerMock = \Mockery::mock('\JHM\MailerInterface');
+        $this->mailerMock = \Mockery::mock('\JHM\Mailer');
     }
 
     protected function tearDown()
@@ -39,12 +39,14 @@ class MailDigestTest extends \PHPUnit\Framework\TestCase
         $this->mailerMock->body = "Body Line1\nBodyLine2";
         $this->mailerMock->subject = "Subject Line";
         $this->mailerMock->timestamp = '2017';
-        $this->mailerMock->from = "from@mail.com";
-        $this->mailerMock->to = "to@mailerMock";
+        $this->mailerMock->fromAddress = "from@mail.com";
+        $this->mailerMock->fromName = "Test Dude";
+        $this->mailerMock->toAddress = "to@mailerMock";
+        $this->mailerMock->toName = "To Dude";
         $result = $this->obj->writeMessage($this->mailerMock);
         $message = "Date: 2017\n";
-        $message .= "From: from@mail.com\n";
-        $message .= "To: to@mailerMock\n";
+        $message .= "From: Test Dude (from@mail.com)\n";
+        $message .= "To: To Dude (to@mailerMock)\n";
         $message .= "Subject: Subject Line\n\n";
         $message .= "Body Line1\nBodyLine2\n";
         $message .= "------------------------------\n\n";
@@ -60,8 +62,8 @@ class MailDigestTest extends \PHPUnit\Framework\TestCase
         $this->mailerMock->body = "Body Line1\nBodyLine2";
         $this->mailerMock->subject = "Subject Line";
         $this->mailerMock->timestamp = '2017';
-        $this->mailerMock->from = "from@mail.com";
-        $this->mailerMock->to = "to@mailerMock";
+        $this->mailerMock->fromAddress = "from@mail.com";
+        $this->mailerMock->toAddress = "to@mailerMock";
         $this->obj->shouldReceive('_getDigestName')->andReturn('2017_13__digest');
         $this->loggerMock->shouldReceive('log')->with('WARNING', 'Could not write mail digest.');
         $result = $this->obj->writeMessage($this->mailerMock);
