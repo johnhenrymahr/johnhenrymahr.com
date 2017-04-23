@@ -30,7 +30,7 @@ var distFolder = 'dist'
 
 function Server (serverKey) {
   var servers = require('./servers.json')
-  var serverConfPath = argv.serverconf || path.normalize(path.join(process.env.HOME, '/.serverconf.json'))
+  var serverConfPath = argv.serverconf || path.normalize(path.join(process.env.HOME, '/jhm-vault/serverconf.json'))
   var privateServers
   try {
     privateServers = require(serverConfPath)
@@ -48,7 +48,7 @@ function Server (serverKey) {
     _.defaults(server, servers._defaults)
   } else {
     if (serverKey === 'production') {
-      throwError('server ', 'production deffinition not avaiable.')
+      throwError('server ', 'production definition not available.')
     }
     serverKey = 'default'
     server = servers._defaults

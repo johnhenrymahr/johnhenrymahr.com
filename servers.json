@@ -1,10 +1,18 @@
 {
-	"_defaults": {
+        "_defaults": {
             "rsync": {
                 "progress": true,
                 "recursive": true,
                 "clean": true
             },
+             "smtp": {
+              "enabled": false,
+              "hostname": "",
+              "username": "",
+              "password": ""
+            },
+            "mailToAddress": "",
+            "mailToName": "",
             "shell": {
                  "enabled": false,
                  "hostname": "",
