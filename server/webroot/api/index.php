@@ -7,9 +7,9 @@ $graph = new \JHM\Graph();
 $contactHandler = $graph->get('ContactHandler');
 $api = $graph->get('Api');
 try {
-    $api->handler('contact', $contactHandler);
+    $api->handler('contact', $contactHandler); // bind handler to request parameter component. i.e. component=contact
     $api->init();
-    $api->respond();
+    $api->respond(); // will respond with 404 if no component found
 } catch (Exception $e) {
-    http_response_code('503');
+    http_response_code('503'); // internal server error.
 }
