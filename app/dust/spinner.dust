@@ -1,5 +1,5 @@
 <div class='spinner' >
-  <span>Loading...<span class="sr-only">Website is loading. Please wait.</span></span>
+  <span>{verb}...{?sr}<span class="sr-only">{sr}</span>{/sr}</span>
   <div>
     <div>
     </div>

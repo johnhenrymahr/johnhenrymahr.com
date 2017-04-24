@@ -33,7 +33,7 @@
           &nbsp;
           {>"app/dust/svg/jhm-blocks" prefix="core_" /}
           <div class="core__logo--spinner">
-            {>"app/dust/spinner" /}
+            {>"app/dust/spinner" verb="Loading" sr="Website is loading. Please wait." /}
           </div>
         </div>
       </div>
