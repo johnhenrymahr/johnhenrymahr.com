@@ -1,6 +1,7 @@
 var _ = require('lodash')
 var Backbone = require('backbone')
 module.exports = Backbone.Model.extend({
+  url: '/api',
   validate: function (atts, options) {
     var errors = {}
     _.forEach(atts, _.bind(function (value, key) {
@@ -11,6 +12,11 @@ module.exports = Backbone.Model.extend({
       }, this))
     }, this))
     return (!_.isEmpty(errors)) ? errors : undefined
+  },
+  defaults: function () {
+    return {
+      component: 'contact'
+    }
   },
   validations: [
     {
@@ -35,7 +41,7 @@ module.exports = Backbone.Model.extend({
       message: 'Field contains unrecognized characters.'
     },
     {
-      attribute: 'phoneNumber',
+      attribute: 'phone',
       validate: function (phone) {
         return (phone.length)
           ? (/^\([2-9][0-9]{2}\)[ ]*[2-9][0-9]{2}[ ]*[-]*[ ]*[0-9]{4}$|^[2-9][0-9]{2}[ ]*[.-]*[ ]*[2-9][0-9]{2}[ ]*[.-]*[ ]*[0-9]{4}$/).test(phone)

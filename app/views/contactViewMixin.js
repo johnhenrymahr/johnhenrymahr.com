@@ -11,9 +11,19 @@ module.exports = _.extend({}, decorator, {
   initialize: function (options) {
     if (_.has(options, 'model')) {
       this.listenTo(options.model, 'invalid', _.bind(this.onValidationError, this))
-      this.listenTo(options.model, 'sync', function () {
+      this.listenTo(options.model, 'sync', _.bind(function () {
         App.vent.trigger('app:track', 'contact-form', 'contact:submit:success', 'form-submit')
-      })
+        this.render({_data: { state: 'success' }})
+      }, this))
+      this.listenTo(options.model, 'error', _.bind(function () {
+        this.render({_data: {submitError: true}})
+      }, this))
+      this.listenTo(options.model, 'change:phone', _.bind(function (model, value, options) {
+        this.$('input[name=phone]').val(this.formatPhoneNumber(value))
+      }, this))
+      this.listenTo(options.model, 'request', _.bind(function () {
+        this.render({_data: {state: 'submitting'}})
+      }, this))
     }
   },
   onValidationError: function (model, error, options) {
@@ -25,6 +35,10 @@ module.exports = _.extend({}, decorator, {
         }
       }, this))
     }
+  },
+  templateHelpers: {
+    state: '',
+    submitError: false
   },
   onInputChange: function (e) {
     var $el = this.$(e.currentTarget)
@@ -45,6 +59,11 @@ module.exports = _.extend({}, decorator, {
     var $el = this.$(e.currentTarget)
     this.model.set($el.attr('name'), $el.val(), {validate: true})
   },
+  formatPhoneNumber: function (s) {
+    var s2 = ('' + s).replace(/\D/g, '')
+    var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/)
+    return (!m) ? null : '(' + m[1] + ') ' + m[2] + '-' + m[3]
+  },
   onFormSubmit: function (e) {
     e.preventDefault()
     var fields = {}
@@ -54,6 +73,7 @@ module.exports = _.extend({}, decorator, {
     }, this))
     this.model.set(fields)
     if (this.model.isValid()) {
+      this.model.save()
     }
   }
 })

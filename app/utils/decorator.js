@@ -6,7 +6,7 @@ module.exports = {
       .remove()
       .end()
       .find('.form-control')
-      .after('<span class="validation-error"><i class="glyphicon glyphicon-warning-sign"></i> ' + message + '</span>')
+      .after('<span class="validation-error"><i class="glyphicon glyphicon-alert"></i> ' + message + '</span>')
   },
   undecorate: function ($el) {
     $el.find('.validation-error').remove()
