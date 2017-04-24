@@ -119,15 +119,19 @@ module.exports = Backbone.View.extend({
    *
    * @return object
    */
-  renderDefaults: {},
+  renderDefaults: {
+    _data: {}
+  },
 
   /**
    * @private
+   * @options {object||null} render options
    * @return {object} template data
    */
-  _getData: function () {
+  _getData: function (options) {
+    options = options || {}
     var data = this.serializeModel()
-    _.merge(data, _.result(this, 'templateHelpers', {}))
+    _.merge(data, _.result(this, 'templateHelpers', {}), options._data || {})
     return data
   },
   /**
@@ -218,7 +222,7 @@ module.exports = Backbone.View.extend({
       return this
     }
     if (this.serverRendered() === false) {
-      this.template(this._getData(), _.wrap(options, _.bind(this._templateCallback, this)))
+      this.template(this._getData(options), _.wrap(options, _.bind(this._templateCallback, this)))
     }
     return this
   },
