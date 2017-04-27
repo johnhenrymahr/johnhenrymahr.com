@@ -45,6 +45,17 @@
     font-size: 1.25em;
   }
   &__content:first-child {
+    @media (min-width:@screen-lg-min) {
+      display: table;
+
+      .col-lg-4 {
+        display: table-cell;
+        vertical-align: middle;
+        float: none;
+      }
+    }
+  }
+  &__content:first-child {
     margin-top: 100px;
   }
   &__body {
