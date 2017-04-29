@@ -28,6 +28,8 @@ var fs = require('fs')
 
 var distFolder = 'dist'
 
+var inlineCss = require('gulp-inline-css')
+
 function Server (serverKey) {
   var servers = require('./servers.json')
   var serverConfPath = argv.serverconf || path.normalize(path.join(process.env.HOME, '/jhm-vault/serverconf.json'))
@@ -211,6 +213,12 @@ gulp.task('copy:dust', function () {
     .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('serverApp')), 'dust')))
 })
 
+gulp.task('copy:mail', function () {
+  return gulp.src('./server/mailTpl/*.html')
+    .pipe(inlineCss())
+    .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('serverApp')), 'mailTpl')))
+})
+
 gulp.task('rsync', function () {
   var rsyncOpts = _.merge({}, server.get('shell'), server.get('rsync'))
 
@@ -309,7 +317,7 @@ gulp.task('package', function (callback) {
   //  'test:app',
     'test:server',
     'build',
-    ['copy:composer', 'copy:libs', 'copy:includes', 'copy:data', 'copy:dust'],
+    ['copy:composer', 'copy:libs', 'copy:includes', 'copy:data', 'copy:dust', 'copy:mail'],
     'composer',
     'copy:webroot',
     'copy:app',
