@@ -13,7 +13,7 @@ interface MailerInterface
 
     public function setFrom($email, $name);
 
-    public function setRelpyTo($email, $name);
+    public function setReplyTo($email, $name);
 
     public function setupSMTP();
 
