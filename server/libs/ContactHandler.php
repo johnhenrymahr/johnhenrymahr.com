@@ -1,6 +1,7 @@
 <?php
 namespace JHM;
 
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContactHandler implements ApiHandlerInterface
@@ -10,12 +11,15 @@ class ContactHandler implements ApiHandlerInterface
 
     protected $digest;
 
+    protected $fileLoader;
+
     protected $_status;
 
-    public function __construct(MailerInterface $mailer, MailDigestInterface $digest)
+    public function __construct(MailerInterface $mailer, MailDigestInterface $digest, FileLoaderInterface $fileLoader)
     {
         $this->mailer = $mailer;
         $this->digest = $digest;
+        $this->fileLoader = $fileLoader;
     }
 
     public function process(Request $request)
@@ -25,34 +29,58 @@ class ContactHandler implements ApiHandlerInterface
             return false;
         }
 
-        $r = $request->request;
-        $this->mailer->setupSystemMailer();
-        $this->mailer->setSubject('johnhenrymahr.com: Web Form Contact: ' . $r->get('topic'));
-        $this->mailer->setFrom($r->get('email'), $r->get('name'));
-        $this->mailer->setRelpyTo($r->get('email'), $r->get('name'));
-        $this->mailer->setBody("Website Contact\n");
-        $this->mailer->setBody('From: ' . $r->get('name') . ' (' . $r->get('email') . ')' . "\n");
-        if ($r->has('phoneNumber')) {
-            $this->mailer->setBody('Phone Number: ' . $r->get('phoneNumber') . "\n");
-        }
-        if ($r->has('company')) {
-            $this->mailer->setBody('Company: ' . $r->get('company') . "\n");
-        }
-        $this->mailer->setBody('Topic: ' . $r->get('topic') . "\n");
-        if ($r->has('custom-topic')) {
-            $this->mailer->setBody($r->get('custom-topic') . "\n");
-        }
-        $this->mailer->setBody($r->get('message') . "\n");
-        $mailResult = $this->mailer->send(true);
-        $this->digest->writeMessage($this->mailer);
+        $mailResult = $this->_sendSystemMail($request->request);
 
         if ($mailResult) {
             $this->_status = 200;
+            $this->_sendThankYouMail($request->request);
         } else {
             $this->_status = 500;
         }
 
         return $mailResult;
+    }
+
+    protected function _sendSystemMail(ParameterBag $request)
+    {
+        $this->mailer->reset();
+        $this->mailer->setupSystemMailer();
+        $this->mailer->setSubject('johnhenrymahr.com: Web Form Contact: ' . $request->get('topic'));
+        $this->mailer->setFrom($request->get('email'), $request->get('name'));
+        $this->mailer->setRelpyTo($request->get('email'), $request->get('name'));
+        $this->mailer->setBody("Website Contact\n");
+        $this->mailer->setBody('From: ' . $request->get('name') . ' (' . $request->get('email') . ')' . "\n");
+        if ($request->has('phoneNumber')) {
+            $this->mailer->setBody('Phone Number: ' . $request->get('phoneNumber') . "\n");
+        }
+        if ($request->has('company')) {
+            $this->mailer->setBody('Company: ' . $request->get('company') . "\n");
+        }
+        $this->mailer->setBody('Topic: ' . $request->get('topic') . "\n");
+        if ($request->has('custom-topic')) {
+            $this->mailer->setBody($request->get('custom-topic') . "\n");
+        }
+        $this->mailer->setBody($request->get('message') . "\n");
+
+        $mailResult = $this->mailer->send(true);
+
+        $this->digest->writeMessage($this->mailer);
+
+        return $mailResult;
+    }
+
+    protected function _sendThankYouMail(ParameterBag $request)
+    {
+        $this->mailer->reset();
+        $tpl = $this->fileLoader->load('thankYou.html');
+        if ($tpl) {
+            $this->mailer->setupNoReply();
+            $this->mailer->setHTML(true);
+            $this->mailer->setSubject('Thanks for Contacting John Henry Mahr');
+            $this->mailer->setBody(trim($tpl));
+            $this->mailer->setRecipient($request->get('email'), $request->get('name'));
+            $this->mailer->send();
+        }
     }
 
     protected function _validate(Request $request)
