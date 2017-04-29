@@ -40,6 +40,7 @@ class Config implements ConfigInterface
             "yaml" => "{basepath}cfg/",
             "yml" => "{basepath}cfg/",
             "list" => "{basepath}cgf/",
+            "html" => "{basepath}mailTpl/",
         ],
     ];
 
