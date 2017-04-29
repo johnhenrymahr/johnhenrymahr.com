@@ -73,6 +73,8 @@ class FileLoader implements FileLoaderInterface
                 case 'list':
                     $return = $this->_loadList($path);
                     break;
+                default:
+                    $return = file_get_contents($path);
             }
         } elseif ($strict) {
             throw new JhmException('File not found at ' . $path);
