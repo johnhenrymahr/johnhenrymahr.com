@@ -11,6 +11,15 @@
               "username": "",
               "password": ""
             },
+            "mysql": {
+                "enabled": false,
+                "host": "",
+                "port": 3306,
+                "db": "",
+                "user": "",
+                "password": "",
+                "prefix": ""
+             },
             "mailToAddress": "",
             "mailToName": "",
             "shell": {
