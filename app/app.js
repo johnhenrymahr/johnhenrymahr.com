@@ -63,7 +63,7 @@ module.exports = {
   },
 
   getVentPromise: function (vent) {
-    if (_.has(this._ventPromises, vent)) {
+    if (_.has(this._ventPromises, vent) && _.isFunction(this._ventPromises[vent].promise)) {
       return this._ventPromises[vent].promise()
     }
   },

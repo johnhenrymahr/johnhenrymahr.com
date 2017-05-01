@@ -37,16 +37,16 @@ describe('contact model spec', function () {
       model.set('company', 'another&', {validate: true})
       chai.expect(model.validationError.company).to.equal('Field contains unrecognized characters.')
     })
-    it('validates a in-valid phone number', function () {
-      model.set('phoneNumber', '612-134-9899', {validate: true})
-      chai.expect(model.validationError.phoneNumber).to.equal('Please enter a valid phone number.')
+    it('validates an in-valid phone number', function () {
+      model.set('phone', '612-134-9899', {validate: true})
+      chai.expect(model.validationError.phone).to.equal('Please enter a valid phone number.')
     })
-    it('validates a in-valid phone number', function () {
-      model.set('phoneNumber', '534-9899', {validate: true})
-      chai.expect(model.validationError.phoneNumber).to.equal('Please enter a valid phone number.')
+    it('validates an in-valid phone number', function () {
+      model.set('phone', '534-9899', {validate: true})
+      chai.expect(model.validationError.phone).to.equal('Please enter a valid phone number.')
     })
     it('validates a valid phone number', function () {
-      model.set('phoneNumber', '612-834-9899', {validate: true})
+      model.set('phone', '612-834-9899', {validate: true})
       chai.expect(model.validationError).to.equal(null)
     })
     it('validates a valid phone number', function () {

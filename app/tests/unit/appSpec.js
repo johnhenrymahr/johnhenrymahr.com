@@ -11,7 +11,7 @@ describe('app spec', function () {
       App.setState('foo', 'bar')
       chai.expect(App.getState('foo')).to.equal('bar')
     })
-    it('retun sundefined for unknown state var', function () {
+    it('retuns undefined for unknown state var', function () {
       App.setState('foo', 'bar')
       chai.expect(App.getState('unexpected')).to.equal(undefined)
     })

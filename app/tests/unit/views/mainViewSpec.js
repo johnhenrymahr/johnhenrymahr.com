@@ -44,8 +44,10 @@ describe('MainView spec', function () {
   var sandbox
   beforeEach(function () {
     sandbox = sinon.sandbox.create()
+    MainView.prototype.initialize = function () {} // prevent initialize from running
     view = new MainView()
     view._manifest = _.clone(manifest)
+    view._mixins = {}
     view._children = []
     view._views = views
   })
@@ -63,13 +65,8 @@ describe('MainView spec', function () {
     it('can render its base template', function () {
       chai.expect(view.render().$el.is(':empty')).to.be.false
     })
-    it('polulates _mixins array on instantiation', function () {
+    it('populates _mixins array on instantiation', function () {
       chai.expect(view._mixins).to.be.a('Object')
-    })
-    it('calls _getSections on init', function () {
-      var stub = sandbox.stub(view, '_getSections')
-      view.initialize({model: {}})
-      chai.expect(stub.calledOnce).to.be.true
     })
   })
 
@@ -179,6 +176,23 @@ describe('MainView spec', function () {
       }
       var instance = view._getViewInstance({id: 'test'})
       chai.expect(instance.foo).to.equal('baz')
+    })
+  })
+  context('onPostRender method', function () {
+    it('triggers app event', function () {
+      var stub = sandbox.stub(App.vent, 'trigger')
+      view.onPostRender()
+      chai.expect(stub.calledWith('mainView:postRender')).to.be.true
+    })
+    it('calls add class on onLoad elements', function () {
+      var b = {
+        addClass: sandbox.stub()
+      }
+      var a = sandbox.stub(view, '$')
+      a.returns(b)
+      view.onPostRender()
+      chai.expect(b.addClass.calledWith('hidden fadeOut')).to.be.true
+      chai.expect(a.calledWith('.onLoad')).to.be.true
     })
   })
 })

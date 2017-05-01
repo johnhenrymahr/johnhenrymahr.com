@@ -176,17 +176,6 @@ describe('baseView spec', function () {
       view._attach()
       chai.expect(stub.calledWith('view:attach')).to.be.true
     })
-    it('calls render on child views if defined', function () {
-      view._children = ['a', 'b', 'c']
-      var stub = sandbox.stub(view, '_renderChildViews')
-      view._attach()
-      chai.expect(stub.calledOnce).to.be.true
-    })
-    it('calls postrender method', function () {
-      var stub = sandbox.stub(view, '_postRender')
-      view._attach()
-      chai.expect(stub.calledOnce).to.be.true
-    })
   })
   context('_renderChildViews method', function () {
     var children = [
