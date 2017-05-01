@@ -12,6 +12,8 @@ class ContactHandler extends \PHPUnit\Framework\TestCase
 
     protected $request;
 
+    protected $storage;
+
     protected function setUp()
     {
         $this->mailer = \Mockery::mock('\JHM\MailerInterface');
@@ -19,7 +21,9 @@ class ContactHandler extends \PHPUnit\Framework\TestCase
         $this->fileLoader = \Mockery::mock('\JHM\FileLoaderInterface');
         $this->fileLoader->shouldReceive('load')->byDefault();
         $this->request = \Mockery::mock('\Symfony\Component\HttpFoundation\Request');
-        $this->obj = new \JHM\ContactHandler($this->mailer, $this->digest, $this->fileLoader);
+        $this->storage = \Mockery::mock('\JHM\ContactStorageInterface');
+        $this->storage->shouldReceive('isReady')->andReturn(false);
+        $this->obj = new \JHM\ContactHandler($this->mailer, $this->digest, $this->fileLoader, $this->storage);
     }
 
     protected function tearDown()

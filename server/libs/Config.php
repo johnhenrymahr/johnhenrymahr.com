@@ -23,6 +23,15 @@ class Config implements ConfigInterface
             "digest" => "{basepath}{storage_dir}digest/",
             "docs" => "{basepath}{storage_dir}docs/",
         ],
+        "mysql" => [
+            "enabled" => "{{mysql__enabled}}",
+            "host" => "{{mysql__host}}",
+            "port" => "{mysql__port}}",
+            "db" => "{{mysql__db}}",
+            "user" => "{{mysql__user}}",
+            "password" => "{{mysql__password}}",
+            "prefix" => "{{mysql__prefix}}",
+        ],
         "smtp" => [
             "enabled" => "{{smtp__enabled}}", // token replaced by deploy script
             "hostname" => "{{smtp__hostname}}", // token replaced by deploy script

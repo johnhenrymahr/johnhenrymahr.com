@@ -285,10 +285,20 @@ gulp.task('update:config', function (callback) {
     config = config.replace('{{webroot}}', server.get('webroot'))
     config = config.replace('{{mailToAddress}}', server.get('mailToAddress'))
     config = config.replace('{{mailToName}}', server.get('mailToName'))
+    // smtp settings
     config = config.replace('{{smtp__enabled}}', server.atts.smtp.enabled)
     config = config.replace('{{smtp__hostname}}', server.atts.smtp.hostname)
     config = config.replace('{{smtp__username}}', server.atts.smtp.username)
     config = config.replace('{{smtp__password}}', server.atts.smtp.password)
+    // mysql settings
+    config = config.replace('{{mysql__enabled}}', server.atts.mysql.enabled)
+    config = config.replace('{{mysql__host}}', server.atts.mysql.host)
+    config = config.replace('{{mysql__port}}', server.atts.mysql.port)
+    config = config.replace('{{mysql__db}}', server.atts.mysql.db)
+    config = config.replace('{{mysql__user}}', server.atts.mysql.user)
+    config = config.replace('{{mysql__password}}', server.atts.mysql.password)
+    config = config.replace('{{mysql__prefix}}', server.atts.mysql.prefix)
+    // remove comments
     config = replaceComments(config)
     fs.writeFileSync(cfgPath, config, 'utf8')
     callback()

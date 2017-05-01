@@ -13,13 +13,20 @@ class ContactHandler implements ApiHandlerInterface
 
     protected $fileLoader;
 
+    protected $storage;
+
     protected $_status;
 
-    public function __construct(MailerInterface $mailer, MailDigestInterface $digest, FileLoaderInterface $fileLoader)
-    {
+    public function __construct(
+        MailerInterface $mailer,
+        MailDigestInterface $digest,
+        FileLoaderInterface $fileLoader,
+        ContactStorageInterface $storage
+    ) {
         $this->mailer = $mailer;
         $this->digest = $digest;
         $this->fileLoader = $fileLoader;
+        $this->storage = $storage;
     }
 
     public function process(Request $request)
@@ -28,6 +35,8 @@ class ContactHandler implements ApiHandlerInterface
             $this->_status = 400;
             return false;
         }
+
+        $this->addToDb($request->request);
 
         $mailResult = $this->_sendSystemMail($request->request);
 
@@ -39,6 +48,27 @@ class ContactHandler implements ApiHandlerInterface
         }
 
         return $mailResult;
+    }
+
+    protected function addToDb(ParameterBag $request)
+    {
+        if ($this->storage->isReady()) {
+            $name = $request->get('name');
+            $email = $request->get('email');
+            $phone = $request->get('phoneNumber');
+            $company = $request->get('company');
+            $topic = $request->get('topic');
+            if ($request->has('custom-topic')) {
+                $topic = $request->get('custom-topic');
+            }
+            $message = $request->get('message');
+            if ($name && $email) {
+                $id = $this->storage->addContact($email, $name, $phone, $company);
+                if ($id) {
+                    $this->addMessage($id, $topic, $message);
+                }
+            }
+        }
     }
 
     protected function _sendSystemMail(ParameterBag $request)

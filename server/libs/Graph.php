@@ -16,6 +16,8 @@ class Graph
         'JHM\\ManifestInterface' => ['instance' => 'JHM\\Manifest'],
         'JHM\\RendererInterface' => ['instance' => 'JHM\\Renderer'],
         'JHM\\TemplateFactoryInterface' => ['instance' => 'JHM\\TemplateFactory'],
+        'JHM\\ContactStorageInterface' => ['instance' => 'JHM\\ContactStorageInterface'],
+        'JHM\\dbFactoryInterface' => ['instance' => 'JHM\\dbFactory'],
     ];
 
     protected $rules = [];

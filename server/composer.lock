@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "336180949e5dd7b7130ebbd3a3694ed8",
-    "content-hash": "5c9b285ceb1bd3f686f2445f8d1d4aa7",
+    "hash": "d6b749e77dcb59514ba7b55067bf5df6",
+    "content-hash": "d16a7b91bbb4acb35558e3e10e21fe18",
     "packages": [
         {
             "name": "dust-php/dust-php",
@@ -86,6 +86,51 @@
             ],
             "description": "Converts HTML to formatted plain text",
             "time": "2016-03-16 23:24:34"
+        },
+        {
+            "name": "joshcam/mysqli-database-class",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joshcam/PHP-MySQLi-Database-Class.git",
+                "reference": "240a4fd51da09d428da4b60904a3fa919445808b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joshcam/PHP-MySQLi-Database-Class/zipball/240a4fd51da09d428da4b60904a3fa919445808b",
+                "reference": "240a4fd51da09d428da4b60904a3fa919445808b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "MysqliDb.php",
+                    "dbObject.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Josh Campbell",
+                    "email": "josh.lee.campbell@gmail.com",
+                    "homepage": "https://github.com/joshcam",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Alexander V. Butenko",
+                    "email": "a.butenka@gmail.com",
+                    "homepage": "http://smarttechdo.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP MySQL Wrapper and object mapper which utilizes MySQLi and prepared statements",
+            "time": "2017-03-18 11:45:58"
         },
         {
             "name": "level-2/dice",
@@ -2184,6 +2229,7 @@
         "symfony/cache": 0,
         "symfony/http-foundation": 0,
         "level-2/dice": 0,
+        "joshcam/mysqli-database-class": 20,
         "mockery/mockery": 0
     },
     "prefer-stable": false,
