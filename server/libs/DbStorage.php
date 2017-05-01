@@ -19,11 +19,15 @@ abstract class DbStorage
         if (is_object($this->db)) {
             try {
                 $this->db->connect();
-                $this->ready = true;
+                $this->ready = $this->db->ping();
             } catch (Exception $e) {
                 $this->logger->log('ERROR', 'Could not connect to DB ', ['exception' => $e->getMessage()]);
             }
         }
+    }
+
+    public function close() {
+        $this->db->disconnect();
     }
 
     public function isReady()

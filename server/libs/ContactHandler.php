@@ -65,9 +65,10 @@ class ContactHandler implements ApiHandlerInterface
             if ($name && $email) {
                 $id = $this->storage->addContact($email, $name, $phone, $company);
                 if ($id) {
-                    $this->addMessage($id, $topic, $message);
+                    $this->storage->addMessage($id, $topic, $message);
                 }
             }
+            $this->storage->close();
         }
     }
 
