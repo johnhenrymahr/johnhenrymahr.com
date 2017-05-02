@@ -21,7 +21,7 @@ class Config implements ConfigInterface
             "filecache" => "{basepath}{storage_dir}cache/",
             "logs" => "{basepath}{storage_dir}logs/",
             "digest" => "{basepath}{storage_dir}digest/",
-            "docs" => "{basepath}{storage_dir}docs/",
+            "downloads" => "{basepath}{storage_dir}downloads/",
         ],
         "mysql" => [
             "enabled" => "{{mysql__enabled}}",

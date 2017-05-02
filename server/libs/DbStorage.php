@@ -13,8 +13,9 @@ abstract class DbStorage
 
     protected $ready = false;
 
-    public function __construct(dbFactoryInterface $db, LoggerInterface $logger)
+    public function __construct(dbFactoryInterface $db, ConfigInterface $config, LoggerInterface $logger)
     {
+        $this->config = $config;
         $this->db = $db->getDB();
         if (is_object($this->db)) {
             try {

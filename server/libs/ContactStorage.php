@@ -41,6 +41,37 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
         return false;
     }
 
+    public function addDownloadRecord($cid, $email, $fileId) {
+        $storagePath = $this->config->getStorage('downloads').$fileId;
+        if (is_readable($storagePath)) {
+            $this->db->where('cid', $cid);
+            $this->db->where('active', '1');
+            $result = $this->db->getOne('download');
+            if ($result['token']) {
+                return $result['token'];
+            } else {
+                $newToken = $this->generateToken($email);
+                $id = $this->db->insert('download', [
+                    'cid' => $cid,
+                    'token' => $newToken,
+                    'fileId' => $fileId
+                ]);
+                if ($id) {
+                    return $newToken;
+                } else {
+                    $this->logger->log('ERROR', 'Could not insert download', ['lasterror' => $this->db->getLastError()]);
+                    return false;
+                }   
+            }
+        }
+        return false;
+    }
+
+    protected function generateToken ($email) {
+        $salt = uniqid(mt_rand(), true);
+        return sha1($email.$salt);
+    }
+
     protected function isStringVar($var)
     {
         return (is_string($var) && !empty($var));
