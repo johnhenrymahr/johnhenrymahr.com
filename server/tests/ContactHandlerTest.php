@@ -1,5 +1,5 @@
 <?php
-class ContactHandler extends \PHPUnit\Framework\TestCase
+class ContactHandlerTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $obj;
@@ -14,6 +14,8 @@ class ContactHandler extends \PHPUnit\Framework\TestCase
 
     protected $storage;
 
+    protected $config;
+
     protected function setUp()
     {
         $this->mailer = \Mockery::mock('\JHM\MailerInterface');
@@ -23,7 +25,9 @@ class ContactHandler extends \PHPUnit\Framework\TestCase
         $this->request = \Mockery::mock('\Symfony\Component\HttpFoundation\Request');
         $this->storage = \Mockery::mock('\JHM\ContactStorageInterface');
         $this->storage->shouldReceive('isReady')->andReturn(false);
-        $this->obj = new \JHM\ContactHandler($this->mailer, $this->digest, $this->fileLoader, $this->storage);
+        $this->config = \Mockery::mock('\JHM\ConfigInterface');
+        $this->config->shouldReceive('get')->byDefault()->andReturn(false);
+        $this->obj = new \JHM\ContactHandler($this->mailer, $this->digest, $this->fileLoader, $this->storage, $this->config);
     }
 
     protected function tearDown()
@@ -46,7 +50,8 @@ class ContactHandler extends \PHPUnit\Framework\TestCase
             )
         );
         $this->mailer->shouldReceive('setupSystemMailer')->once();
-        $this->mailer->shouldReceive('reset')->twice();
+        $this->mailer->shouldReceive('reset')->once();
+        $this->mailer->shouldReceive('setupNoReply')->never();
         $this->mailer->shouldReceive('setRelpyTo')->once();
         $this->mailer->shouldReceive('setSubject')->once();
         $this->mailer->shouldReceive('setFrom')->once();
@@ -84,6 +89,7 @@ class ContactHandler extends \PHPUnit\Framework\TestCase
         $this->mailer->shouldReceive('send')->twice()->andReturn(true);
         $this->mailer->shouldReceive('setupNoReply');
         $this->digest->shouldReceive('writeMessage')->once();
+        $this->config->shouldReceive('get')->andReturn(true);
         $result = $this->obj->process($request);
         $this->assertEquals(200, $this->obj->status());
     }
@@ -121,6 +127,24 @@ class ContactHandler extends \PHPUnit\Framework\TestCase
             'POST',
             array(
                 'name' => 'Joe',
+            )
+        );
+        $result = $this->obj->process($request);
+        $this->assertEquals(400, $this->obj->status());
+    }
+
+    public function testHoneyPotFailure() // honey pot is populated then
+
+    {
+        $request = \Symfony\Component\HttpFoundation\Request::create(
+            '/hello-world',
+            'POST',
+            array(
+                'name' => 'Joe',
+                'email' => 'james@mail.com',
+                'topic' => 'test topic',
+                'message' => "a test message",
+                'screenName' => 'honey',
             )
         );
         $result = $this->obj->process($request);
