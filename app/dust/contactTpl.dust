@@ -47,10 +47,15 @@
           {?submitError}
             <div class="alert alert-danger row" role="alert">
               <div class="col-xs-2 col-sm-1"><span class="glyphicon glyphicon-alert"></span></div>
-              <div class="col-xs-10 col-sm-11     ">Something went wrong. Please try again or wait a little bit. Sorry about that.</div>
+              <div class="col-xs-10 col-sm-11">Something went wrong. Please try again or wait a little bit. Sorry about that.</div>
             </div>
           {/submitError}
           <form class="contact__form">
+                <div class="form-group">
+                    {! This is a fake 'honey pot' field to catch bots filling out form!}
+                    <label for="screenName">Screen Name (please don't fill in this field. It is to detect spam bots)</label>
+                    <input class="form-control" name="screenName" id="screen_name" value=""  autocomplete="off" />
+                </div>
                 <div class="form-group">
                     <label for="your_name">Your Name</label>
                     <input class="form-control required" name="name" id="your_name" value="{name}" />
