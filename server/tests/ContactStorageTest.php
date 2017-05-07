@@ -7,21 +7,26 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
 
     protected $loggerMock;
 
-    protected $dbMock;
+    protected $configMock;
 
     protected $db;
 
     protected $obj;
+
+    protected $root;
 
     protected function setUp()
     {
 
         $this->db = \Mockery::mock();
         $this->db->shouldReceive('connect');
+        $this->db->shouldReceive('ping')->once()->andReturn(true);
         $this->dbFactoryMock = \Mockery::mock('\JHM\dbFactoryInterface');
         $this->dbFactoryMock->shouldReceive('getDB')->andReturn($this->db);
         $this->loggerMock = \Mockery::mock('\JHM\LoggerInterface');
-        $this->obj = new \JHM\ContactStorage($this->dbFactoryMock, $this->loggerMock);
+        $this->configMock = \Mockery::mock('\JHM\ConfigInterface');
+        $this->root = \org\bovigo\vfs\vfsStream::setup('downloads');
+        $this->obj = new \JHM\ContactStorage($this->dbFactoryMock, $this->configMock, $this->loggerMock);
     }
 
     public function testContactStorage()
@@ -34,7 +39,7 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
         $this->db->shouldReceive('where');
         $this->db->shouldReceive('getOne')->once()->andReturn([]);
         $this->db->shouldReceive('insert')->once()->with('contact', $data)->andReturn('34');
-        $this->assertEquals('34', $this->obj->addContact('joe@mail.com', 'joe dude ', '232-434-2323'));
+        $this->assertEquals('34', $this->obj->addContact('joe@mail.com', 'joe dude ', null, '232-434-2323'));
     }
 
     public function testContactStorageUpdate()
@@ -47,16 +52,86 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
         $this->db->shouldReceive('where');
         $this->db->shouldReceive('getOne')->once()->andReturn(['id' => '54']);
         $this->db->shouldReceive('update')->once()->with('contact', $data);
-        $this->assertEquals('54', $this->obj->addContact('joe@mail.com', 'joe dude ', '232-434-2323'));
+        $this->db->shouldReceive('insert');
+        $this->assertEquals('54', $this->obj->addContact('joe@mail.com', 'joe dude ', null, '232-434-2323'));
+    }
+
+    public function testAddDownloadRecord()
+    {
+        \org\bovigo\vfs\vfsStream::newFile('testfile')->at($this->root);
+        $this->configMock->shouldReceive('getStorage')->with('downloads')->once()->andReturn($this->root->url() . '/');
+        $this->db->shouldReceive('where')->with('cid', '22');
+        $this->db->shouldReceive('where')->with('active', '1');
+        $this->db->shouldReceive('getOne')->with('download')->andReturn([]);
+        $this->db->shouldReceive('insert')->once()->andReturn('23');
+        $a = $this->obj->addDownloadRecord('22', 'joe@mail.com', 'testfile');
+        $this->assertTrue(is_string($a));
+        $this->assertEquals(strlen($a), 40);
+    }
+
+    public function testAddDownloadRecordFailure()
+    {
+        \org\bovigo\vfs\vfsStream::newFile('testfile2')->at($this->root);
+        $this->configMock->shouldReceive('getStorage')->with('downloads')->once()->andReturn($this->root->url() . '/');
+        $this->db->shouldReceive('where')->with('cid', '22');
+        $this->db->shouldReceive('where')->with('active', '1');
+        $this->db->shouldReceive('getOne')->with('download')->andReturn([]);
+        $this->db->shouldReceive('insert')->once()->andReturn(false);
+        $this->db->shouldReceive('getLastError')->andReturn('error string');
+        $this->loggerMock->shouldReceive('log')->once();
+        $a = $this->obj->addDownloadRecord('22', 'joe@mail.com', 'testfile2');
+        $this->assertFalse($a);
+    }
+
+    public function testRemoveDownloadToken()
+    {
+        $this->db->shouldReceive('where')->with('token', '2223');
+        $this->db->shouldReceive('delete')->with('download')->andReturn(true);
+        $this->assertTrue($this->obj->removeDownloadToken('2223'));
+    }
+
+    public function testValidateDownloadToken()
+    {
+        $record = [
+            'id' => '23',
+            'token' => '231d3',
+            'access' => 2,
+            'fileId' => 'testfile',
+        ];
+        $this->configMock->shouldReceive('get')->with('downloads.cvMax')->andReturn(7);
+        $this->db->shouldReceive('getOne')->with('download')->andReturn($record);
+        $this->db->shouldReceive('where');
+        $this->db->shouldReceive('update')->withArgs(array('download', array('access' => 3)));
+        $this->db->shouldReceive('update');
+        $this->assertEquals('testfile', $this->obj->validateDownloadToken('231d3'));
+    }
+
+    public function testValidateDownloadTokenExpired()
+    {
+        $record = [
+            'id' => '23',
+            'token' => '231d3',
+            'access' => 9,
+            'fileId' => 'testfile',
+        ];
+        $this->configMock->shouldReceive('get')->with('downloads.cvMax')->andReturn(7);
+        $this->db->shouldReceive('getOne')->with('download')->andReturn($record);
+        $this->db->shouldReceive('where');
+        $this->db->shouldReceive('update')->withArgs(array('download', array('active' => '0')));
+        $this->db->shouldReceive('update');
+        $this->assertFalse($this->obj->validateDownloadToken('231d3'));
+    }
+
+    public function testValidateDownloadTokenEmptySet()
+    {
+        $this->db->shouldReceive('getOne')->with('download')->andReturn([]);
+        $this->db->shouldReceive('where');
+        $this->db->shouldReceive('update');
+        $this->assertFalse($this->obj->validateDownloadToken('231d3'));
     }
 
     public function testContactStorageBadMail()
     {
-        $data = array(
-            'email' => 'joe@mail.com',
-            'name' => 'joe dude',
-            'phone' => '232-434-2323',
-        );
         $this->assertEquals(false, $this->obj->addContact('joe@mail', 'joe dude ', '232-434-2323'));
     }
 

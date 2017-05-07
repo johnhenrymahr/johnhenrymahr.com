@@ -3,7 +3,7 @@ namespace JHM;
 
 class ContactStorage extends DbStorage implements ContactStorageInterface
 {
-    public function addContact($email, $name, $phone = null, $company = null)
+    public function addContact($email, $name, $company = null, $phone = null)
     {
         if ($this->isEmail($email) && $this->isStringVar($name)) {
             $data = array(
@@ -16,17 +16,22 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
             if ($this->isStringVar($company)) {
                 $data['company'] = trim($company);
             }
-            $this->db->where('email', $email);
-            $result = $this->db->getOne('contact');
-            if ($result && $result['id']) {
-                $this->db->where('id', $result['id']);
-                $this->db->update('contact', $data);
-                return $result['id'];
-            } else {
-                return $this->db->insert('contact', $data);
-            }
+            return $this->_createUpdateContact($email, $data);
         }
         return false;
+    }
+
+    protected function _createUpdateContact($email, array $data = [])
+    {
+        $this->db->where('email', $email);
+        $result = $this->db->getOne('contact');
+        if ($result && is_array($result) && isset($result['id']) && $result['id']) {
+            $this->db->where('id', $result['id']);
+            $this->db->update('contact', $data);
+            return $result['id'];
+        } else {
+            return $this->db->insert('contact', $data);
+        }
     }
 
     public function addMessage($cid, $topic, $message)
@@ -41,35 +46,73 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
         return false;
     }
 
-    public function addDownloadRecord($cid, $email, $fileId) {
-        $storagePath = $this->config->getStorage('downloads').$fileId;
+    protected function _deactivateOldRecords()
+    {
+        $this->db->where('WHERE created < (NOW() - INTERVAL 3 DAY)');
+        return $this->db->update('download', array('active' => '0'));
+    }
+
+    public function validateDownloadToken($token)
+    {
+        $this->_deactivateOldRecords();
+        $this->db->where('token', $token);
+        $this->db->where('active', '1');
+        $record = $this->db->getOne('download');
+        if ($record && is_array($record) && isset($record['token']) && isset($record['fileId'])) {
+            $max = $this->config->get('downloads.cvMax');
+            if ($record['access'] > $max) {
+                $this->db->where('token', $token);
+                $record['active'] = '0';
+                $this->db->update('download', $record);
+                return false;
+            } else {
+                $this->db->where('token', $token);
+                $data = array('access' => $record['access']++);
+                $this->db->update('download', $record);
+                return $record['fileId'];
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function removeDownloadToken($token)
+    {
+        $this->db->where('token', $token);
+        return $this->db->delete('download');
+    }
+
+    public function addDownloadRecord($cid, $email, $fileId)
+    {
+        $storagePath = $this->config->getStorage('downloads') . $fileId;
         if (is_readable($storagePath)) {
             $this->db->where('cid', $cid);
             $this->db->where('active', '1');
             $result = $this->db->getOne('download');
-            if ($result['token']) {
+            if (isset($result['token']) && !empty($result['token'])) {
                 return $result['token'];
             } else {
                 $newToken = $this->generateToken($email);
                 $id = $this->db->insert('download', [
                     'cid' => $cid,
                     'token' => $newToken,
-                    'fileId' => $fileId
+                    'fileId' => $fileId,
                 ]);
                 if ($id) {
                     return $newToken;
                 } else {
                     $this->logger->log('ERROR', 'Could not insert download', ['lasterror' => $this->db->getLastError()]);
                     return false;
-                }   
+                }
             }
         }
         return false;
     }
 
-    protected function generateToken ($email) {
+    protected function generateToken($email)
+    {
         $salt = uniqid(mt_rand(), true);
-        return sha1($email.$salt);
+        return sha1($email . $salt);
     }
 
     protected function isStringVar($var)
