@@ -97,13 +97,15 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
             'token' => '231d3',
             'access' => 2,
             'fileId' => 'testfile',
+            'fileMimeType' => 'application/domain',
         ];
         $this->configMock->shouldReceive('get')->with('downloads.cvMax')->andReturn(7);
         $this->db->shouldReceive('getOne')->with('download')->andReturn($record);
         $this->db->shouldReceive('where');
         $this->db->shouldReceive('update')->withArgs(array('download', array('access' => 3)));
         $this->db->shouldReceive('update');
-        $this->assertEquals('testfile', $this->obj->validateDownloadToken('231d3'));
+        $record['access'] = 3;
+        $this->assertEquals($record, $this->obj->validateDownloadToken('231d3'));
     }
 
     public function testValidateDownloadTokenExpired()

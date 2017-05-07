@@ -89,9 +89,10 @@ class CvHandler extends PostValidator implements ApiHandlerInterface
             $company = $request->get('company', '', FILTER_SANITIZE_STRING);
             if ($email) {
                 $fileId = $this->config->get('downloads.cvFileName');
+                $fileMimeType = $this->config->get('downloads.cvMimeType');
                 $cid = $this->storage->addContact($email, $name, $company);
                 if ($cid && $fileId) {
-                    $token = $this->storage->addDownloadRecord($cid, $email, $fileId);
+                    $token = $this->storage->addDownloadRecord($cid, $email, $fileId, $fileMimeType);
                 }
             }
             $this->storage->close();

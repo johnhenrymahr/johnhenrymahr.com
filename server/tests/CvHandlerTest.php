@@ -51,8 +51,9 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
         $this->mailer->shouldReceive('setHTML')->once()->with(true);
         $this->mailer->shouldReceive('send')->once()->andReturn(true);
         $this->config->shouldReceive('get')->with('downloads.cvFileName')->andReturn('testFile.tst');
+        $this->config->shouldReceive('get')->with('downloads.cvMimeType')->andReturn('text/domain');
         $this->storage->shouldReceive('addContact')->once()->withArgs(array('joe@mail.com', 'Joe', 'RN Company'))->andReturn('32');
-        $this->storage->shouldReceive('addDownloadRecord')->once()->with('32', 'joe@mail.com', 'testFile.tst')->andReturn('213nkjn');
+        $this->storage->shouldReceive('addDownloadRecord')->once()->with('32', 'joe@mail.com', 'testFile.tst', 'text/domain')->andReturn('213nkjn');
         $this->mailer->shouldReceive('setBody')->times(1)->with('<div>a test string. A url /path/to?token=213nkjn</div>');
         $this->storage->shouldReceive('close');
         $result = $this->obj->process($request);
@@ -78,8 +79,9 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
         $this->mailer->shouldReceive('setHTML')->once()->with(true);
         $this->mailer->shouldReceive('send')->once()->andReturn(false);
         $this->config->shouldReceive('get')->with('downloads.cvFileName')->andReturn('testFile.tst');
+        $this->config->shouldReceive('get')->with('downloads.cvMimeType')->andReturn('text/domain');
         $this->storage->shouldReceive('addContact')->once()->withArgs(array('joe@mail.com', 'Joe', 'RN Company'))->andReturn('32');
-        $this->storage->shouldReceive('addDownloadRecord')->once()->with('32', 'joe@mail.com', 'testFile.tst')->andReturn('213nkjn');
+        $this->storage->shouldReceive('addDownloadRecord')->once()->with('32', 'joe@mail.com', 'testFile.tst', 'text/domain')->andReturn('213nkjn');
         $this->mailer->shouldReceive('setBody')->times(1)->with('<div>a test string. A url /path/to?token=213nkjn</div>');
         $this->storage->shouldReceive('removeDownloadToken')->once()->with('213nkjn');
         $this->storage->shouldReceive('close');

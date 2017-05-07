@@ -69,7 +69,7 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
                 $this->db->where('token', $token);
                 $data = array('access' => $record['access']++);
                 $this->db->update('download', $record);
-                return $record['fileId'];
+                return $record;
             }
         } else {
             return false;
@@ -82,7 +82,7 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
         return $this->db->delete('download');
     }
 
-    public function addDownloadRecord($cid, $email, $fileId)
+    public function addDownloadRecord($cid, $email, $fileId, $fileMimeType = null)
     {
         $storagePath = $this->config->getStorage('downloads') . $fileId;
         if (is_readable($storagePath)) {
@@ -93,11 +93,16 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
                 return $result['token'];
             } else {
                 $newToken = $this->generateToken($email);
-                $id = $this->db->insert('download', [
+                $data = [
                     'cid' => $cid,
                     'token' => $newToken,
                     'fileId' => $fileId,
-                ]);
+                    'md5_hash' => md5_file($storagePath),
+                ];
+                if ($fileMimeType) {
+                    $data['fileMimeType'] = $fileMimeType;
+                }
+                $id = $this->db->insert('download', $data);
                 if ($id) {
                     return $newToken;
                 } else {

@@ -26,6 +26,7 @@ class Config implements ConfigInterface
         "downloads" => [
             "cvMax" => 8,
             "cvFileName" => "jhm_resume.pdf",
+            "cvMimeType" => "application/pdf",
         ],
         "mysql" => [
             "enabled" => "{{mysql__enabled}}",
