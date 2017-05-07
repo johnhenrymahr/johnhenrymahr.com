@@ -13,5 +13,5 @@ try {
     $api->init();
     $api->respond(); // will respond with 404 if no component found
 } catch (Exception $e) {
-    http_response_code('503'); // internal server error.
+    http_response_code('502'); // bad gateway
 }
