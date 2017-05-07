@@ -23,6 +23,10 @@ class Config implements ConfigInterface
             "digest" => "{basepath}{storage_dir}digest/",
             "downloads" => "{basepath}{storage_dir}downloads/",
         ],
+        "downloads" => [
+            "cvMax" => 8,
+            "cvFileName" => "jhm_resume.pdf",
+        ],
         "mysql" => [
             "enabled" => "{{mysql__enabled}}",
             "host" => "{{mysql__host}}",
@@ -41,6 +45,7 @@ class Config implements ConfigInterface
         "flags" => [
             "loggingEnabled" => true,
             "sendMail" => false,
+            "sendContactThankyou" => true,
         ],
         "files" => [
             "dust" => "{basepath}dust/",
