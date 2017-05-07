@@ -3,8 +3,9 @@ namespace JHM;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class ContactHandler implements ApiHandlerInterface
+class ContactHandler extends PostValidator implements ApiHandlerInterface
 {
 
     protected $mailer;
@@ -15,24 +16,32 @@ class ContactHandler implements ApiHandlerInterface
 
     protected $storage;
 
+    protected $config;
+
     protected $_status;
+
+    protected $requiredFields = ['email', 'name', 'topic', 'message'];
+
+    protected $honeyPotField = 'screenName';
 
     public function __construct(
         MailerInterface $mailer,
         MailDigestInterface $digest,
         FileLoaderInterface $fileLoader,
-        ContactStorageInterface $storage
+        ContactStorageInterface $storage,
+        ConfigInterface $config
     ) {
         $this->mailer = $mailer;
         $this->digest = $digest;
         $this->fileLoader = $fileLoader;
         $this->storage = $storage;
+        $this->config = $config;
     }
 
     public function process(Request $request)
     {
-        if (!$this->_validate($request)) {
-            $this->_status = 400;
+        if (!$this->_validate($request->request)) {
+            $this->_status = Response::HTTP_BAD_REQUEST;
             return false;
         }
 
@@ -41,10 +50,12 @@ class ContactHandler implements ApiHandlerInterface
         $mailResult = $this->_sendSystemMail($request->request);
 
         if ($mailResult) {
-            $this->_status = 200;
-            $this->_sendThankYouMail($request->request);
+            $this->_status = Response::HTTP_OK;
+            if ($this->config->get('flags.sendContactThankyou')) {
+                $this->_sendThankYouMail($request->request);
+            }
         } else {
-            $this->_status = 500;
+            $this->_status = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 
         return $mailResult;
@@ -53,17 +64,17 @@ class ContactHandler implements ApiHandlerInterface
     protected function addToDb(ParameterBag $request)
     {
         if ($this->storage->isReady()) {
-            $name = $request->get('name');
-            $email = $request->get('email');
-            $phone = $request->get('phoneNumber');
-            $company = $request->get('company');
-            $topic = $request->get('topic');
+            $name = $request->filter('name', null, FILTER_SANITIZE_STRING);
+            $email = $request->filter('email', null, FILTER_SANITIZE_EMAIL);
+            $phone = $request->filter('phoneNumber', null, FILTER_SANITIZE_STRING);
+            $company = $request->filter('company', null, FILTER_SANITIZE_STRING);
+            $topic = $request->filter('topic', null, FILTER_SANITIZE_STRING);
             if ($request->has('custom-topic')) {
-                $topic = $request->get('custom-topic');
+                $topic = $request->filter('custom-topic', null, FILTER_SANITIZE_STRING);
             }
-            $message = $request->get('message');
+            $message = $request->filter('message', null, FILTER_SANITIZE_STRING);
             if ($name && $email) {
-                $id = $this->storage->addContact($email, $name, $phone, $company);
+                $id = $this->storage->addContact($email, $name, $company, $phone);
                 if ($id) {
                     $this->storage->addMessage($id, $topic, $message);
                 }
@@ -103,39 +114,15 @@ class ContactHandler implements ApiHandlerInterface
     protected function _sendThankYouMail(ParameterBag $request)
     {
         $this->mailer->reset();
-        $tpl = $this->fileLoader->load('thankYou.html');
-        if ($tpl) {
+        $template = $this->fileLoader->load('thankYou.html');
+        if ($template) {
             $this->mailer->setupNoReply();
             $this->mailer->setHTML(true);
             $this->mailer->setSubject('Thanks for Contacting John Henry Mahr');
-            $this->mailer->setBody(trim($tpl));
+            $this->mailer->setBody(trim($template));
             $this->mailer->setRecipient($request->get('email'), $request->get('name'));
             $this->mailer->send();
         }
-    }
-
-    protected function _validate(Request $request)
-    {
-        $keys = $request->request->keys();
-        if (empty($keys)) {
-            return false;
-        }
-        $required = ['email', 'name', 'topic', 'message'];
-        $diff = array_diff($required, $keys);
-
-        if (!empty($diff)) {
-            return false;
-        }
-
-        if (!filter_var($request->request->get('email'), FILTER_VALIDATE_EMAIL)) {
-            return false;
-        }
-
-        if (empty($request->request->get('name') || $request->request->get('top') || $request->request->get('message'))) {
-            return false;
-        }
-
-        return true;
     }
 
     public function status()
