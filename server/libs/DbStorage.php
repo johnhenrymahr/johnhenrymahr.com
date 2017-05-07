@@ -17,6 +17,7 @@ abstract class DbStorage
     {
         $this->config = $config;
         $this->db = $db->getDB();
+        $this->logger = $logger;
         if (is_object($this->db)) {
             try {
                 $this->db->connect();
@@ -27,7 +28,8 @@ abstract class DbStorage
         }
     }
 
-    public function close() {
+    public function close()
+    {
         $this->db->disconnect();
     }
 
