@@ -48,7 +48,7 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
 
     protected function _deactivateOldRecords()
     {
-        $this->db->where('WHERE created < (NOW() - INTERVAL 3 DAY)');
+        $this->db->where('WHERE created < (NOW() - INTERVAL 10 DAY)');
         return $this->db->update('download', array('active' => '0'));
     }
 
