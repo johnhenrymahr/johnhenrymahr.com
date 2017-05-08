@@ -43,18 +43,19 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
                 'company' => 'RN Company',
             )
         );
-        $this->fileLoader->shouldReceive('load')->once()->with('cv.html')->andReturn('  <div>a test string. A url /path/to?token={{token}}</div>');
+        $this->fileLoader->shouldReceive('load')->once()->with('cv.html')->andReturn('  <div>a test string. A url {{webroot}}path/to?token={{token}}</div>');
         $this->storage->shouldReceive('isReady')->andReturn(true);
         $this->mailer->shouldReceive('setupNoReply')->once();
         $this->mailer->shouldReceive('reset')->once();
         $this->mailer->shouldReceive('setSubject')->once();
         $this->mailer->shouldReceive('setHTML')->once()->with(true);
         $this->mailer->shouldReceive('send')->once()->andReturn(true);
+        $this->config->shouldReceive('get')->with('webroot')->andReturn('www.example.com/');
         $this->config->shouldReceive('get')->with('downloads.cvFileName')->andReturn('testFile.tst');
         $this->config->shouldReceive('get')->with('downloads.cvMimeType')->andReturn('text/domain');
         $this->storage->shouldReceive('addContact')->once()->withArgs(array('joe@mail.com', 'Joe', 'RN Company'))->andReturn('32');
         $this->storage->shouldReceive('addDownloadRecord')->once()->with('32', 'joe@mail.com', 'testFile.tst', 'text/domain')->andReturn('213nkjn');
-        $this->mailer->shouldReceive('setBody')->times(1)->with('<div>a test string. A url /path/to?token=213nkjn</div>');
+        $this->mailer->shouldReceive('setBody')->times(1)->with('<div>a test string. A url www.example.com/path/to?token=213nkjn</div>');
         $this->storage->shouldReceive('close');
         $result = $this->obj->process($request);
         $this->assertEquals(200, $this->obj->status());

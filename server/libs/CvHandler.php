@@ -71,7 +71,8 @@ class CvHandler extends PostValidator implements ApiHandlerInterface
 
     protected function _detokenize($template, $token)
     {
-        return str_replace('{{token}}', $token, $template);
+        $webroot = $this->config->get('webroot');
+        return str_replace(array('{{webroot}}', '{{token}}'), array($webroot, $token), $template);
     }
 
     protected function _removeToken($token = '')
