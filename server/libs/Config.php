@@ -13,6 +13,7 @@ class Config implements ConfigInterface
         "systemMailToName" => "{{mailToName}}", // token replaced by deploy script
         "assetroot" => "rsc/",
         "storage_dir" => "storage",
+        "ga_property_id" => "{{property-id}}", // google analytics property id
         "liveconfig" => "liveconfig",
         "pagestate" => [
             "homepage" => "up",

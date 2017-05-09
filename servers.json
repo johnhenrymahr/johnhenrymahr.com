@@ -22,6 +22,7 @@
              },
             "mailToAddress": "",
             "mailToName": "",
+            "ga_property_id": "",
             "shell": {
                  "enabled": false,
                  "hostname": "",

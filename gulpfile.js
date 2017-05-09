@@ -253,6 +253,7 @@ gulp.task('update:index', function (callback) {
     index = index.replace('{{serverApp}}', server.get('serverApp'))
     if (server.name === 'production') {
       analytics = fs.readFileSync('inc/analytics.html')
+      analytics = analytics.replace('{{property-id}}', server.get('ga_property_id'))
       index = index.replace("ini_set('display_errors', 1);\n", '')
     }
     index = index.replace('{{analytics}}', analytics)
@@ -312,6 +313,10 @@ gulp.task('update:config', function (callback) {
     config = config.replace('{{mysql__user}}', server.atts.mysql.user)
     config = config.replace('{{mysql__password}}', server.atts.mysql.password)
     config = config.replace('{{mysql__prefix}}', server.atts.mysql.prefix)
+
+    if (server.name === 'production') {
+      config = config.replace('{{property-id}}', server.get('ga_property_id'))
+    }  
     // remove comments
     config = replaceComments(config)
     fs.writeFileSync(cfgPath, config, 'utf8')
