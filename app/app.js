@@ -2,6 +2,7 @@ var $ = require('jquery')
 var _ = require('lodash')
 var Backbone = require('backbone')
 var Router = require('router')
+var Cookie = require('js-cookie')
 
 module.exports = {
   vent: _.clone(Backbone.Events),
@@ -114,6 +115,15 @@ module.exports = {
     $(document)
       .off('click', 'a, button, input[type=submit]', this.eventTracking)
       .on('click', 'a, button, input[type=submit]', this.eventTracking)
+      
+    if (_.isFunction(window, 'ga')) {
+      window.ga(function(tracker) {
+        var clientId = tracker.get('clientId');
+        if (clientId) {
+          Cookie.set('_jhm-cid', clientId)
+        }  
+      });  
+    }
   },
 
   setupMenuListener: function () {
