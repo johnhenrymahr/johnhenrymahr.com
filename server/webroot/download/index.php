@@ -7,6 +7,8 @@ try {
     $graph = new \JHM\Graph();
     $config = $graph->get('Config');
     $contactStorage = $graph->get('ContactStorage');
+    $ga = $graph->get('Ga');
+    $ga->init();   
     $token = filter_input(INPUT_GET, 't', FILTER_SANITIZE_STRING);
     if ($token) {
         $data = $contactStorage->validateDownloadToken($token);
@@ -18,6 +20,9 @@ try {
                     http_response_code('500');
                     exit;
                 }
+                //send analytics
+                $ga->trackPageHit ($token, 'JohnHenryMahr: Download a File');
+                //send file to user
                 header('Content-Description: File Transfer');
                 if (isset($data['fileMimeType']) && !empty($data['fileMimeType'])) {
                     header('Content-Type: ' . $data['fileMimeType']);

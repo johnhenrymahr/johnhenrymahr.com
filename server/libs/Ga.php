@@ -18,6 +18,8 @@ class Ga {
 
   protected $curl;
 
+  protected $ready = false;
+
 	public function __construct(ConfigInterface $config, LoggerInterface $logger, \Curl\Curl $curl) {
 		$this->config = $config;
     $this->logger = $logger;
@@ -30,11 +32,15 @@ class Ga {
       } else {
           $this->_init(Request::createFromGlobals());
       }
+
+      if ($this->request instanceof Request && 
+        !empty($this->request->server->count())) {
+        $this->ready = true;
+      }
   }
   public function trackPageHit ($uid = '', $pageTitle = '') {
-    if (!is_object($this->request)) {
-      $this->logger->log('WARNING', 'Ga::trackPageHit, request object not ready, exiting.');
-      return false;
+    if (!$this->ready) {
+     throw new JhmException('GA object not ready. Be sure to run init.');
     }
     $params = $this->_getParams($uid, $pageTitle);
     if ($params) {
