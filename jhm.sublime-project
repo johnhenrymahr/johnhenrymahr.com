@@ -3,6 +3,9 @@
 	[
 		{
 			"path": "."
+		},
+		{
+			"path": "/Users/johnmahr/jhm-vault"
 		}
 	]
 }

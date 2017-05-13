@@ -10,7 +10,8 @@
     "level-2/dice": "@stable",
     "phpmailer/phpmailer": "^5.2",
     "html2text/html2text": "^4.0",
-    "joshcam/mysqli-database-class": "dev-master"
+    "joshcam/mysqli-database-class": "dev-master",
+    "php-curl-class/php-curl-class": "^7.3"
   },
   "autoload": {
     "psr-4": {

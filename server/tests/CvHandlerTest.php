@@ -72,6 +72,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
                 'company' => 'RN Company',
             )
         );
+        $this->config->shouldReceive('get')->with('webroot')->andReturn('www.example.com/');
         $this->fileLoader->shouldReceive('load')->once()->with('cv.html')->andReturn('  <div>a test string. A url /path/to?token={{token}}</div>');
         $this->storage->shouldReceive('isReady')->andReturn(true);
         $this->mailer->shouldReceive('setupNoReply')->once();

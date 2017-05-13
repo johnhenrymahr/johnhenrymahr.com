@@ -8,7 +8,7 @@ try {
     $config = $graph->get('Config');
     $contactStorage = $graph->get('ContactStorage');
     $ga = $graph->get('Ga');
-    $ga->init();   
+    $ga->init();
     $token = filter_input(INPUT_GET, 't', FILTER_SANITIZE_STRING);
     if ($token) {
         $data = $contactStorage->validateDownloadToken($token);
@@ -21,7 +21,7 @@ try {
                     exit;
                 }
                 //send analytics
-                $ga->trackPageHit ($token, 'JohnHenryMahr: Download a File');
+                $ga->trackPageHit($token, 'JohnHenryMahr: Download a File');
                 //send file to user
                 header('Content-Description: File Transfer');
                 if (isset($data['fileMimeType']) && !empty($data['fileMimeType'])) {
