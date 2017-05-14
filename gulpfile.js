@@ -251,8 +251,9 @@ gulp.task('update:index', function (callback) {
     var index = fs.readFileSync(indexPath, 'utf8')
     var analytics = ''
     index = index.replace('{{serverApp}}', server.get('serverApp'))
+    index = index.replace('{{webroot}}', server.get('webroot'))
     if (server.name === 'production') {
-      analytics = fs.readFileSync('inc/analytics.html')
+      analytics = fs.readFileSync('./inc/analytics.html', 'utf8')
       analytics = analytics.replace('{{property-id}}', server.get('ga_property_id'))
       index = index.replace("ini_set('display_errors', 1);\n", '')
     }
@@ -291,7 +292,6 @@ gulp.task('update:download', function (callback) {
   }
 })
 
-
 gulp.task('update:config', function (callback) {
   try {
     var cfgPath = path.join(distFolder, path.basename(server.get('serverApp')), 'libs', 'Config.php')
@@ -316,7 +316,7 @@ gulp.task('update:config', function (callback) {
 
     if (server.name === 'production') {
       config = config.replace('{{property-id}}', server.get('ga_property_id'))
-    }  
+    }
     // remove comments
     config = replaceComments(config)
     fs.writeFileSync(cfgPath, config, 'utf8')
@@ -341,6 +341,7 @@ gulp.task('phplint', function (cb) {
 
 gulp.task('package', function (callback) {
   runSequence(
+    'server',
     'clean:dist',
     'lint',
     'test:app',
@@ -393,3 +394,15 @@ function throwError (taskName, msg) {
 function replaceComments (string) {
   return string.replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$/gm, '$1')
 }
+
+/**
+ * usage
+ * server=[stage|beta|production]
+ *
+ *  stage -- local network instance (if it is up)
+ *  beta -- beta.johnhenrymahr.com
+ *  production -- johnhenrymahr.com
+ *
+ * gulp package --server={server_key} -- package but do not push anywhere
+ * gulp deploy --server={server_key}
+ */
