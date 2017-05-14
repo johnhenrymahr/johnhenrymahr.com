@@ -1,7 +1,6 @@
 <?php
 namespace JHM;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,9 +17,12 @@ class Api implements ApiInterface
 
     protected $handlers = array();
 
-    public function __construct(JsonResponse $response, LoggerInterface $logger)
+    protected $callbacks = array();
+
+    protected $handler; // fall back to this handler if no component set
+
+    public function __construct(LoggerInterface $logger)
     {
-        $this->response = $response;
         $this->log = $logger;
     }
 
@@ -33,6 +35,11 @@ class Api implements ApiInterface
         }
     }
 
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
+    }
+
     public function handler($id, ApiHandlerInterface $handler)
     {
         if (is_string($id)) {
@@ -40,9 +47,26 @@ class Api implements ApiInterface
         }
     }
 
+    public function defaultHandler(ApiHandlerInterface $handler)
+    {
+        $this->handler = $handler;
+    }
+
     public function respond()
     {
-        $this->response->setData($this->responseBody);
+        if (!is_object($this->response)) {
+            throw new JhmException('Api not ready. No response object. Call setResponse.');
+        }
+        if (!empty($this->responseBody) && method_exists($this->response, 'setData')) {
+            $this->response->setData($this->responseBody);
+        }
+
+        $this->__callbacks();
+
+        if (method_exists($this->response, 'prepare')) {
+            $this->response->prepare($this->request);
+        }
+
         return $this->response->send();
     }
 
@@ -64,8 +88,36 @@ class Api implements ApiInterface
 
     protected function status($statusCode)
     {
+        if (!is_object($this->response)) {
+            throw new JhmException('Api not ready. No response object. Call setResponse.');
+        }
         $this->response->setStatusCode($statusCode);
         $this->responseBody['statusCode'] = $statusCode;
+    }
+
+    private function __callbacks()
+    {
+        if (!empty($this->callbacks)) {
+            foreach ($this->callbacks as $cb) {
+                if (is_callable($cb)) {
+                    $cb();
+                }
+            }
+        }
+    }
+
+    protected function _processHandler(ApiHandlerInterface $component)
+    {
+        if ($component->process($this->request)) {
+            $this->responseBody = $this->mergeBody($component->body());
+            if (isset($component->callbacks) && is_array($component->callbacks) && !empty($component->callbacks)) {
+                $this->callbacks = array_merge($this->callbacks, $component->callbacks);
+            }
+            if (isset($component->response) && is_object($component->response)) {
+                $this->setResponse($component->response);
+            }
+            return $component->status();
+        }
     }
 
     protected function _processHandlers()
@@ -74,13 +126,12 @@ class Api implements ApiInterface
             $key = $this->request->request->filter('component', '', FILTER_SANITIZE_STRING);
             if (array_key_exists($key, $this->handlers)) {
                 $component = $this->handlers[$key];
-                if ($component->process($this->request)) {
-                    $this->responseBody = $this->mergeBody($component->body());
-                    return $component->status();
-                }
+                return $this->_processHandler($component);
             } else {
                 return Response::HTTP_NOT_FOUND;
             }
+        } elseif (is_object($this->handler) && $this->handler instanceof ApiHandlerInterface) {
+            return $this->_processHandler($this->handler);
         }
         return Response::HTTP_BAD_REQUEST;
     }

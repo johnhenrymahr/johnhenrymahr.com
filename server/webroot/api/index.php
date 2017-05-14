@@ -7,6 +7,7 @@ $graph = new \JHM\Graph();
 $contactHandler = $graph->get('ContactHandler');
 $cvHandler = $graph->get('CvHandler');
 $api = $graph->get('Api');
+$api->setResponse(new JsonResponse());
 try {
     $api->handler('contact', $contactHandler); // bind handler to request parameter component. i.e. component=contact
     $api->handler('cv', $cvHandler); // bind handler to request parameter component. i.e. component=cv

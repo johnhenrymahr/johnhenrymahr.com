@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface ApiHandlerInterface
 {
+
     /**
      * process request object
      * @param  Request $request [description]
@@ -20,7 +21,7 @@ interface ApiHandlerInterface
 
     /**
      * get json response body
-     * @return Array
+     * @return mixed
      */
     public function body();
 }
