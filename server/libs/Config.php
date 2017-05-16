@@ -62,6 +62,7 @@ class Config implements ConfigInterface
 
     protected $hostMap = [
         'johnhenrymahr.com' => 'production',
+        'beta.johnhenrymahr.com' => 'beta',
         'faketestdomain.net' => 'test',
     ];
 
