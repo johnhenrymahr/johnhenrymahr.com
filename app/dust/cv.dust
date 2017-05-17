@@ -4,15 +4,17 @@
   </div>
   <div class="cv__inner">
     <h2 class="cv__title">Downloads and information</h2>
-    <div class="cv__reader row">
-      <div class="col-md-6 col-xs-12">All downloads are in <strong>PDF</strong> format</div>
-      <a class="col-md-6 col-xs-12" href="https://get.adobe.com/reader" target="_BLANK">
-        <img src="/rsc/img/get_reader.png" alt="Get Adobe Acrobat Reader" width="158" height="39" />
-      </a>
-    </div>
     <div class="row cv__content">
       <div class="cv__resume cv__item col-md-6 col-xs-12">
-          <a href="/download-resume" data-track="cv:download-tech_sheet"><span>Download Tech Sheet</span></a>
+        <p>
+         Know of an opportunity? Need more specifics about my background and experience? My resume packet is available by request. Provide your information and I will send you an email with a download link. Thanks for your interest!
+        </p>
+        <p>
+          <strong>Note:</strong> Resume is in PDF format and requires a PDF reader of some sort. Adobe Reader is a solid and free option.{~s}
+          <a class="col-md-6 col-xs-12" href="https://get.adobe.com/reader" target="_BLANK">
+            <img src="/rsc/img/get_reader.png" alt="Get Adobe Acrobat Reader" width="158" height="39" />
+          </a>
+        </p>
       </div>
       <div class="cv__ref cv__item col-md-6 col-xs-12">
          <a href="#" class="cv__ref--request" data-track="cv:expand-references"> <span>Request Resume</span></a>
@@ -51,6 +53,10 @@
                <div class="form-group">
                   <label for="email">E-Mail</label>
                   <input type="email" class="form-control required" name="email" id="email" />
+              </div>
+              <div class="form-group">
+                  <label for="phone" class="optional">Phone Number</label>
+                  <input type="tel" class="form-control" name="phone" id="phone" value="{phone}"/>
               </div>
               <div class="form-group cv__form--controls">
                   <input type="submit" name="submit" value="Request" class="btn btn-primary cv__form--control"  data-track="cv:attempt-form-submit" />
