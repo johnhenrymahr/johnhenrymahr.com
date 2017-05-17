@@ -42,7 +42,7 @@ FTS=$(($TS + 3600))
 
 printf "timestamp ${TS}, future ts = ${FTS}\n"
 
-printf "running gulp deploy --production \n"
+printf "running gulp deploy --server=production \n"
 
 gulp deploy --server=production || { echo "build failed exit without updating version or tags"; exit 1; }
 
