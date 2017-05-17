@@ -66,7 +66,7 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
         if ($this->storage->isReady()) {
             $name = $request->filter('name', null, FILTER_SANITIZE_STRING);
             $email = $request->filter('email', null, FILTER_SANITIZE_EMAIL);
-            $phone = $request->filter('phoneNumber', null, FILTER_SANITIZE_STRING);
+            $phone = $request->filter('phone', null, FILTER_SANITIZE_STRING);
             $company = $request->filter('company', null, FILTER_SANITIZE_STRING);
             $topic = $request->filter('topic', null, FILTER_SANITIZE_STRING);
             if ($request->has('custom-topic')) {
