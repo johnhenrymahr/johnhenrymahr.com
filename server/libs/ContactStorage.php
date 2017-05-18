@@ -52,6 +52,35 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
         return $this->db->update('download', array('active' => '0'));
     }
 
+    public function activateDownloadToken ($id) {
+        $this->db->where('id', $id);
+        if($this->db->update('download', array("active" => 1))) {
+            return true;
+        } else {
+            $this->logger->log('ERROR', 'Could not update token', ['lasterror' => $this->db->getLastError()]);
+            return false;
+        }
+    }
+    /*
+    * getInactiveToken
+    * @string $token
+    * return @object || false
+    * get download record joined to contact id 
+    */
+    public function getInactiveToken ($token) 
+    {
+        $this->db->where('token', $token);
+        $this->db->where('active', '0');
+        $this->db->join("contact c", "d.cid=c.id", "LEFT");
+        $record = $this->db->get('download d', null, 'c.name, c.email, d.*');
+        if ($record) {
+            return $record;
+        } else {
+            $this->logger->log('ERROR', 'Could not get download record' , ['lasterror' => $this->db->getLastError()]);
+            return false;
+        }
+    }
+
     public function validateDownloadToken($token)
     {
         $this->_deactivateOldRecords();
