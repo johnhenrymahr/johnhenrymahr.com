@@ -106,6 +106,18 @@ class Api implements ApiInterface
         }
     }
 
+    protected function _getComponentKey () 
+    {
+        if ($this->request->request->has('component')) {
+            return $this->request->request->filter('component', '', FILTER_SANITIZE_STRING);
+        }
+        if ($this->request->query->has('component')) {
+            return $this->request->query->filter('component', '', FILTER_SANITIZE_STRING);
+        }
+
+        return false;
+    }
+
     protected function _processHandler(ApiHandlerInterface $component)
     {
         if ($component->process($this->request)) {
@@ -121,9 +133,9 @@ class Api implements ApiInterface
     }
 
     protected function _processHandlers()
-    {
-        if ($this->request->request->has('component')) {
-            $key = $this->request->request->filter('component', '', FILTER_SANITIZE_STRING);
+    {        
+        $key = $this->_getComponentKey();
+        if ($key) {
             if (array_key_exists($key, $this->handlers)) {
                 $component = $this->handlers[$key];
                 return $this->_processHandler($component);
