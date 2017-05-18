@@ -13,22 +13,20 @@ class CvHandler extends PostValidator implements ApiHandlerInterface
 
     protected $mailer;
 
-    protected $fileLoader;
-
     protected $storage;
 
     protected $config;
 
     public function __construct(
         MailerInterface $mailer,
-        FileLoaderInterface $fileLoader,
         ContactStorageInterface $storage,
-        ConfigInterface $config
+        ConfigInterface $config,
+        MailDigestInterface $digest
     ) {
         $this->mailer = $mailer;
-        $this->fileLoader = $fileLoader;
         $this->storage = $storage;
         $this->config = $config;
+        $this->digest = $digest;
     }
 
     public function status()
@@ -57,7 +55,7 @@ class CvHandler extends PostValidator implements ApiHandlerInterface
             return false;
         }
 
-        $mailResult = $this->_sendMail($request->request, $token);
+        $mailResult = $this->_sendSystemMail($request->request, $token);
 
         if ($mailResult) {
             $this->_status = Response::HTTP_OK;
@@ -67,12 +65,6 @@ class CvHandler extends PostValidator implements ApiHandlerInterface
         }
 
         return $mailResult;
-    }
-
-    protected function _detokenize($template, $token)
-    {
-        $webroot = $this->config->get('webroot');
-        return str_replace(array('{{webroot}}', '{{token}}'), array($webroot, $token), $template);
     }
 
     protected function _removeToken($token = '')
@@ -105,19 +97,33 @@ class CvHandler extends PostValidator implements ApiHandlerInterface
         return false;
     }
 
-    protected function _sendMail(ParameterBag $request, $token = '')
-    {
-        $this->mailer->reset();
-        $this->mailer->setSubject('JHM System Mailer Download Link');
-        $this->mailer->setupNoReply();
-        $this->mailer->setHTML(true);
-        $template = $this->fileLoader->load('cv.html');
-        if ($template && !empty($token)) {
-            $template = $this->_detokenize($template, $token);
-            $this->mailer->setBody(trim($template));
-            $mailResult = $this->mailer->send();
-        }
-        return $mailResult;
+    protected function _getActivateUrl($token) {
+        return 'http://'.$this->config->get('webhost').'/api?component=activateDownload&t='.$token;
     }
 
+    protected function _sendSystemMail(ParameterBag $request, $token)
+    {
+        $this->mailer->reset();
+        $this->mailer->setupSystemMailer();
+        $this->mailer->setSubject('johnhenrymahr.com: Resume Request');
+        $this->mailer->setFrom($request->get('email'), $request->get('name'));
+        $this->mailer->setRelpyTo($request->get('email'), $request->get('name'));
+        $this->mailer->setBody("Website Resume Request\n");
+        $this->mailer->setBody('From: ' . $request->get('name') . ' (' . $request->get('email') . ')' . "\n");
+        if ($request->has('phoneNumber')) {
+            $this->mailer->setBody('Phone Number: ' . $request->get('phoneNumber') . "\n");
+        }
+        if ($request->has('company')) {
+            $this->mailer->setBody('Company: ' . $request->get('company') . "\n");
+        }
+        
+        $this->mailer->setBody('Click the link to approve this request.');
+        $this->mailer->setBody($this->_getActivateUrl($token));
+
+        $mailResult = $this->mailer->send(true);
+
+        $this->digest->writeMessage($this->mailer);
+
+        return $mailResult;
+    }
 }
