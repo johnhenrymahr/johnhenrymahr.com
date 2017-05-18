@@ -98,7 +98,7 @@ class CvHandler extends PostValidator implements ApiHandlerInterface
     }
 
     protected function _getActivateUrl($token) {
-        return 'http://'.$this->config->get('webhost').'/api?component=activateDownload&t='.$token;
+        return 'http://'.$this->config->get('webhost').'/api?component=activate&t='.$token;
     }
 
     protected function _sendSystemMail(ParameterBag $request, $token)
