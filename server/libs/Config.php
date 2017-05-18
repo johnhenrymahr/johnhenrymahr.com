@@ -114,6 +114,7 @@ class Config implements ConfigInterface
             $this->active_config['basepath'] = realpath($this->active_config['basepath']);
         }
 
+        $this->active_config['webhost'] = $hostname;
     }
 
     protected function _getMappedKey($hostname)
