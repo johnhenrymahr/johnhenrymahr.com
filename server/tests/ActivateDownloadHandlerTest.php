@@ -30,7 +30,7 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase {
         \Mockery::close();
     }
 
-     public function testProcess()
+    public function testProcess()
     {
         $token = '21354325';
         $request = \Symfony\Component\HttpFoundation\Request::create(
@@ -60,6 +60,48 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase {
         $this->storage->shouldReceive('close');
         $result = $this->obj->process($request);
         $this->assertEquals(200, $this->obj->status());
+    }
+
+    public function testActivationFailure()
+    {
+        $token = '21354325';
+        $request = \Symfony\Component\HttpFoundation\Request::create(
+            '/hello-world',
+            'GET',
+            array(
+                'component' => 'activate',
+                't' => $token
+            )
+        );
+        $this->storage->shouldReceive('isReady')->andReturn(true);
+        $this->storage->shouldReceive('getInactiveToken')->with($token)->andReturn(array(
+            "email" => 'joe@email.com',
+            "name" => 'joe',
+            "id" => '23'        
+            ));
+        $this->storage->shouldReceive('activateDownloadToken')->with('23')->andReturn(false);
+        $this->storage->shouldReceive('close');
+        $result = $this->obj->process($request);
+        $this->assertEquals(500, $this->obj->status());
+        $this->assertEquals(array('statusCode' => 500, 'statusMessage' => 'activation error'), $this->obj->body());
+    }
+
+    public function testRecordNotFound()
+    {
+        $token = '21354325';
+        $request = \Symfony\Component\HttpFoundation\Request::create(
+            '/hello-world',
+            'GET',
+            array(
+                'component' => 'activate',
+                't' => $token
+            )
+        );
+        $this->storage->shouldReceive('isReady')->andReturn(true);
+        $this->storage->shouldReceive('getInactiveToken')->with($token)->andReturn(false);
+        $result = $this->obj->process($request);
+        $this->assertEquals(404, $this->obj->status());
+        $this->assertEquals(array('statusCode' => 404, 'statusMessage' => 'record not found'), $this->obj->body());
     }
 
     public function testFailSend()
@@ -92,6 +134,7 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase {
         $this->storage->shouldReceive('close');
         $result = $this->obj->process($request);
         $this->assertEquals(500, $this->obj->status());
+        $this->assertEquals(array('statusCode' => 500, 'statusMessage' => 'send error'), $this->obj->body());
     }
 
     public function testBadRequest()
@@ -105,6 +148,7 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase {
         );
         $result = $this->obj->process($request);
         $this->assertEquals(400, $this->obj->status());
+        $this->assertEquals(array('statusCode' => 400, 'statusMessage' => 'malformed request'), $this->obj->body());
     }
 
 }

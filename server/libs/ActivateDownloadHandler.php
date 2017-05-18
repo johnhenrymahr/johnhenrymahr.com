@@ -37,18 +37,18 @@ class ActivateDownloadHandler implements ApiHandlerInterface
       $token = $request->query->filter('t', '', FILTER_SANITIZE_STRING);
       $record = $this->storage->getInactiveToken($token);
       if ($record) {
-        if ($this->_sendMail($token, $record['name'], $record['email'] )) {
-           if($this->storage->activateDownloadToken($record['id'])) {
+        if($this->storage->activateDownloadToken($record['id'])) {
+          if ($this->_sendMail($token, $record['name'], $record['email'] )) {
               $this->_status = Response::HTTP_OK;
               $this->_statusMessage = 'OK';
               return true;
            } else {
-              $this->_status = Response::HTTP_INTERNAL_SERVER_ERROR; 
-              $this->_statusMessage = 'activation error';       
+              $this->_status = Response::HTTP_INTERNAL_SERVER_ERROR;
+              $this->_statusMessage = 'send error';
            }
         } else {
           $this->_status = Response::HTTP_INTERNAL_SERVER_ERROR;
-          $this->_statusMessage = 'send error';
+          $this->_statusMessage = 'activation error';
         }
       } else {
            $this->_status = Response::HTTP_NOT_FOUND;
