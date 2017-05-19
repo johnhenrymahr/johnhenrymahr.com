@@ -49,7 +49,7 @@ CREATE TABLE `prod_download` (
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `fileId` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL DEFAULT '',
-  `active` tinyint(1) unsigned DEFAULT '1',
+  `active` tinyint(1) unsigned DEFAULT '0',
   `access` tinyint(1) unsigned DEFAULT '0',
   `fileMimeType` varchar(50) DEFAULT NULL,
   `md5_hash` varchar(32) NOT NULL DEFAULT '',
