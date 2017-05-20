@@ -106,7 +106,7 @@ class Api implements ApiInterface
         }
     }
 
-    protected function _getComponentKey () 
+    protected function _getComponentKey()
     {
         if ($this->request->request->has('component')) {
             return $this->request->request->filter('component', '', FILTER_SANITIZE_STRING);
@@ -133,7 +133,7 @@ class Api implements ApiInterface
     }
 
     protected function _processHandlers()
-    {        
+    {
         $key = $this->_getComponentKey();
         if ($key) {
             if (array_key_exists($key, $this->handlers)) {

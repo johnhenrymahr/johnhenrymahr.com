@@ -1,16 +1,17 @@
 <?php
 namespace JHM;
-interface CacheInterface {
 
-  public function get($key);
+interface CacheInterface
+{
 
-  public function set($key, $value);
+    public function get($key);
 
-  public function save();
+    public function set($key, $value);
 
-  public function clear();
+    public function save();
 
-  public function cacheReady();
+    public function clear();
+
+    public function cacheReady();
 
 }
-?>

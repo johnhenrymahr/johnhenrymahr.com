@@ -24,16 +24,16 @@ class FileCache extends FileStorage implements CacheInterface
         $this->config = $config;
         $this->logger = $logger;
         $dir = $this->setupStorage($this->config->getStorage('filecache'), null);
-        
+
         if (!$dir) {
-            $dir = sys_get_temp_dir().'/jhm-cache';
+            $dir = sys_get_temp_dir() . '/jhm-cache';
         }
 
         try {
             $this->cacheEngine = new FilesystemAdapter('', 86400, $dir);
         } catch (InvalidArgumentException $e) {
             $this->logger->log('WARNING', 'Could not start cache engine. ' . $e->getMessage());
-            $this->cacheEngine = false;    
+            $this->cacheEngine = false;
         } catch (CacheException $e) {
             $this->logger->log('WARNING', 'Could not start cache engine. ' . $e->getMessage());
             $this->cacheEngine = false;

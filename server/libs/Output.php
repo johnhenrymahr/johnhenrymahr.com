@@ -3,8 +3,8 @@ namespace JHM;
 
 class Output
 {
-    
-    protected $logger;    
+
+    protected $logger;
 
     protected $cacheInterface;
 
@@ -22,7 +22,7 @@ class Output
             $this->cacheReady = false;
             $this->cacheInterface->clear();
         }
-        if (array_key_exists('cache-control', $_GET)) {  
+        if (array_key_exists('cache-control', $_GET)) {
             $this->_cachecontrol(filter_var($_GET['cache-control'], FILTER_SANITIZE_STRING));
         }
     }
@@ -71,7 +71,8 @@ class Output
         return $output;
     }
 
-    private function _cachecontrol($cmd) {        
+    private function _cachecontrol($cmd)
+    {
         if (is_string($cmd) && !empty($cmd)) {
             $cmd = strtoupper($cmd);
             $this->logger->log('DEBUG', 'cache-control command: ' . $cmd);
@@ -79,8 +80,8 @@ class Output
                 case 'CLEAR':
                 case 'PURGE':
                     $this->cacheInterface->clear();
-                break;
+                    break;
             }
         }
-    } 
+    }
 }
