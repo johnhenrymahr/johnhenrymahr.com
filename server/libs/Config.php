@@ -47,7 +47,7 @@ class Config implements ConfigInterface
         "flags" => [
             "loggingEnabled" => true,
             "sendMail" => false,
-            "sendContactThankyou" => true,
+            "sendContactThankyou" => false,
         ],
         "files" => [
             "dust" => "{basepath}dust/",
@@ -84,6 +84,11 @@ class Config implements ConfigInterface
             ],
         ],
         "production" => [
+            "flags" => [
+                "sendMail" => true,
+            ],
+        ],
+        "beta" => [
             "flags" => [
                 "sendMail" => true,
             ],
