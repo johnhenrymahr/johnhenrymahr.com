@@ -90,7 +90,7 @@ gulp.task('server', function (cb) {
   gutil.log('server ID:', server.name)
   gutil.log('webroot: ', server.get('webroot'))
   gutil.log('server app: ', server.get('serverApp'))
-  gutil.log('private key path: ', server.get('privateKey'))
+  gutil.log('private key path: ', _.get(server.get('shell'), 'privateKey', ''))
   gutil.log(gutil.colors[server.get('color')]('Using Server ' + gutil.colors.bold(server.name) + ' definition.'))
   cb()
 })
@@ -124,10 +124,17 @@ gulp.task('build', shell.task([
 ]))
 
 gulp.task('composer', shell.task([
-  'composer install --no-dev'
+  'composer install --no-dev --optimize-autoloader'
 ], {
   cwd: path.join(home, distFolder, path.basename(server.get('serverApp')))
 }))
+
+// clean up problematic vendor directories
+gulp.task('composer:cleanup', function (callback) {
+  var basepath = path.join(home, distFolder, path.basename(server.get('serverApp')))
+  del.sync(basepath + '/**/examples')
+  callback()
+})
 
 // remove index,php on remote server so it switched to maintenance mode
 gulp.task('server:remove:index', shell.task('ssh -i ' + server.get('shell')['privateKey'] + ' -p ' + server.get('shell')['port'] + ' ' +
@@ -349,6 +356,7 @@ gulp.task('package', function (callback) {
     'build',
     ['copy:composer', 'copy:libs', 'copy:includes', 'copy:data', 'copy:dust', 'copy:mail'],
     'composer',
+    'composer:cleanup',
     'copy:webroot',
     'copy:app',
     'update:index',
