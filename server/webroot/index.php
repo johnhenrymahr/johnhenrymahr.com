@@ -43,6 +43,5 @@ try {
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
    <script src="https://use.typekit.net/zhf5ttk.js"></script>
    <script type="application/javascript" src="<?php echo $assets->get('js'); ?>"></script>
-  <script>try{Typekit.load({ async: true })}catch(e){}</script>
   </body>
 </html>
