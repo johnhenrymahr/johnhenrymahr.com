@@ -31,11 +31,11 @@ require INCLUDES . 'headers.php';
     </head>
    <body>
    <script type="application/javascript">
-     window.jhmData = <?php echo $output([$dataProvider, 'getBootstrapData'])->toJSON() . "\n"; ?>
+     window.jhmData = <?php echo $output(array($dataProvider, 'getBootstrapData'))->toJSON() . "\n"; ?>
    </script>
    <?php
 try {
-    echo $output([$assembler, 'assemble'], 'jhm-core');
+    echo $output(array($assembler, 'assemble'), 'jhm-core');
 } catch (Exception $e) {
     include INCLUDES . 'site-error.php';
 }

@@ -5,6 +5,8 @@ class ManifestTest extends \PHPUnit\Framework\TestCase
 
     protected $obj;
 
+    protected $fileLoader;
+
     protected function setUp()
     {
         $dataPath = realpath(__DIR__) . '/data/mockManifest.json';
@@ -12,14 +14,19 @@ class ManifestTest extends \PHPUnit\Framework\TestCase
         if (!is_array($json)) {
             throw new Exception('Manifest Test: data not ready. Data path: ' . $dataPath);
         }
-        $fileLoaderMock = \Mockery::mock('\JHM\FileLoaderInterface');
-        $fileLoaderMock->shouldReceive('load')->with('viewManifest.json', true)->once()->andReturn($json);
+        $this->fileLoader = \Mockery::mock('\JHM\FileLoaderInterface');
+        $this->fileLoader->shouldReceive('load')->with('viewManifest.json', true)->andReturn($json)->byDefault();
 
-        $this->obj = new \JHM\Manifest($fileLoaderMock);
+        $this->obj = new \JHM\Manifest($this->fileLoader);
     }
     protected function tearDown()
     {
         \Mockery::close();
+    }
+    public function testException () {
+        $this->fileLoader->shouldReceive('load')->with('viewManifest.json', true)->andReturn('{}');
+        $this->expectException('\JHM\JhmException');
+        $obj = new \JHM\Manifest($this->fileLoader);
     }
     public function testGetter()
     {

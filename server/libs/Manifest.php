@@ -9,6 +9,9 @@ class Manifest implements ManifestInterface
     public function __construct(FileLoaderInterface $fileLoader)
     {
         $this->json = $fileLoader->load('viewManifest.json', true);
+        if (!is_array($this->json) || empty($this->json)) {
+            throw new JhmException('Manifest is malformed or empty');
+        }
     }
 
     public function __get($key)
