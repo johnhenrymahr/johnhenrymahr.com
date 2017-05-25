@@ -57,11 +57,21 @@ const common = {
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
-        loader: 'file-loader?publicPath=rsc/img/&outputPath=/build/rsc/img/"'
+        loader: 'file-loader',
+        query: {
+          outputPath: 'img/',
+          publicPath: '/rsc/'
+        }
+
       },
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&name=fonts/[name].[ext]'
+        loader: 'file-loader',
+        query: {
+          name: '[name].[ext]',
+          outputPath: 'fonts/',
+          publicPath: '/rsc/'
+        }
       }
     ],
     noParse: [/sinon/]

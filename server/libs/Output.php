@@ -41,6 +41,10 @@ class Output
         }
         if (empty($output)) {
             $output = call_user_func($callable, $options);
+            if (empty($output)) {
+                $this->logger->log('WARNING', 'Output: no output produced from callable', 
+                    array('callable' => $callable, 'options' => $options));
+            }
             if (!empty($output) && !empty($cacheKey) && $this->cacheReady) {
                 $this->logger->log('DEBUG', 'writing cache for key: ' . $cacheKey);
                 $this->cacheInterface->set($cacheKey, $output);
