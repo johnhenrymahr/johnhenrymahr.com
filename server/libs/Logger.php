@@ -23,7 +23,7 @@ class Logger extends FileStorage implements LoggerInterface
     public function __construct(ConfigInterface $config)
     {
         $this->config = $config;
-        $this->enabled = $this->config->get('loggingEnabled');
+        $this->enabled = $this->config->get('flags.loggingEnabled');
         if ($this->enabled) {
             $this->loggerEngine = new \Monolog\Logger('jhm');
             $logdir = $this->config->getStorage('logs');
