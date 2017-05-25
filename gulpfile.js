@@ -133,6 +133,7 @@ gulp.task('composer', shell.task([
 gulp.task('composer:cleanup', function (callback) {
   var basepath = path.join(home, distFolder, path.basename(server.get('serverApp')))
   del.sync(basepath + '/**/examples')
+  del.sync(basepath + '/**/.git')
   callback()
 })
 
@@ -238,18 +239,29 @@ gulp.task('rsync', function () {
   if (rsyncOpts.enabled === false) {
     throwError('rsync', 'Rsync is not enabled for this server: ' + gutil.colors.bold(server.name))
   }
-  gutil.log('shell arg: ' + gutil.colors.bold(rsyncOpts.shell))
-  return gulp.src('./' + distFolder + '/**/*', {dot: true})
+  if (rsyncOpts.local) {
+    gutil.log('local copy mode')
+    return gulp.src(distFolder + '/**/*', {dot: true})
+      .pipe(gulp.dest(rsyncOpts.destination))
+  } else {
+    gutil.log('shell arg: ' + gutil.colors.bold(rsyncOpts.shell))
+    return gulp.src('./' + distFolder + '/**/*', {dot: true})
     .pipe(rsync(rsyncOpts))
+  }
 })
 
 gulp.task('send', function (callback) {
-  runSequence(
-    'confirm:push',
-    'server:remove:index',
-    'rsync',
-    'server:copy:index',
-    callback)
+  var isLocal = server.get('shell')['local'] || false
+  var args = ['confirm:push']
+  if (!isLocal) {
+    args.push('server:remove:index')
+  }
+  args.push('rsync')
+  if (!isLocal) {
+    args.push('server:copy:index')
+  }
+  args.push(callback)
+  runSequence.apply(global, args)
 })
 
 gulp.task('update:index', function (callback) {

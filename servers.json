@@ -25,6 +25,7 @@
             "ga_property_id": "",
             "shell": {
                  "enabled": false,
+                 "local": false,
                  "hostname": "",
                  "privateKey": "",
                  "port": 22,
