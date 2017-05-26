@@ -8,12 +8,21 @@ abstract class FileStorage
 
     public function setupStorage($path, $default = false)
     {
-        if (is_file($path) && is_writeable($path)) {
+        
+        $isFile = (Boolean) pathinfo($path, PATHINFO_EXTENSION); // get intention of path regardless of if it exists
+        $dirname = dirname($path);
+        if ($isFile && is_file($path) && is_writeable($path)) {
             return $path;
-        } elseif (is_dir($path) && is_writeable($path)) {
+        } elseif (!$isFile && is_dir($path) && is_writeable($path)) {
             return $path;
-        } elseif (is_dir(dirname($path))) {
-            if (mkdir($path, $this->mode)) {
+        } elseif (!$isFile && is_dir($dirname) && is_writeable($dirname)) {
+            if (@mkdir($path, $this->mode)) {
+                return $path;
+            } 
+        } elseif ($isFile && is_dir($dirname) && is_writable($dirname) && touch($path)) {
+            return $path;
+        } elseif ($isFile && !is_dir($dirname)) {
+            if (@mkdir($dirname, $this->mode) && touch($path)) {
                 return $path;
             }
         }
