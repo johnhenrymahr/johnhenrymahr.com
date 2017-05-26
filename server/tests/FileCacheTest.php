@@ -26,6 +26,11 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown()
     {
+       $this->_clearStorage();
+    }
+
+    protected function _clearStorage()
+    {
         $storagePath = dirname($this->cachePath);
         if (file_exists($storagePath)) {
             system('rm -rf ' . escapeshellarg($storagePath), $retval);
@@ -48,6 +53,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     public function testDirCreate()
     {
+        $this->_clearStorage();
         $cachePath = dirname($this->cachePath);
         if (!file_exists($cachePath)) {
             mkdir($cachePath, 0777);
@@ -57,7 +63,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         $obj = new \JHM\FileCache($this->configMock, $this->loggerMock);
         $obj->set('foo', 'bar');
         $obj->save();
-        $this->assertTrue(file_exists($cachePath));
+       $this->assertTrue(file_exists($cachePath));
     }
 
     public function testNullGet()
