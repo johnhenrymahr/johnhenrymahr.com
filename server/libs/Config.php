@@ -45,7 +45,7 @@ class Config implements ConfigInterface
             "password" => "{{smtp__password}}", // token replaced by deploy script
         ],
         "flags" => [
-            "loggingEnabled" => true,
+            "loggingEnabled" => false,
             "sendMail" => false,
             "sendContactThankyou" => false,
         ],
@@ -62,6 +62,7 @@ class Config implements ConfigInterface
 
     protected $hostMap = [
         'johnhenrymahr.com' => 'production',
+        'jhmdev.spherical-photo.net' => 'staging',
         'beta.johnhenrymahr.com' => 'beta',
         'faketestdomain.net' => 'test',
     ];
@@ -85,11 +86,19 @@ class Config implements ConfigInterface
         ],
         "production" => [
             "flags" => [
+                "loggingEnabled" => true,
                 "sendMail" => true,
+            ],
+        ],
+        "staging" => [
+            "flags" => [
+                "loggingEnabled" => true,
+                "sendMail" => false,
             ],
         ],
         "beta" => [
             "flags" => [
+                "loggingEnabled" => true,
                 "sendMail" => true,
             ],
         ],
