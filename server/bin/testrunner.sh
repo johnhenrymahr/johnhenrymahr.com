@@ -26,7 +26,7 @@ if [ ! -d "${TESTDIR}" ]; then
   echo "Test directory not found."
   exit -1
 fi
-echo "open up permissions directory on data drectory"
+echo "open up permissions directory on data directory"
 chmod 777 "${TESTDIR}/data"
 echo "Executing tests in ${TESTDIR}"
 ${PHPUNITPATH}/phpunit --bootstrap ${VENDOR}/autoload.php ${TESTDIR}
