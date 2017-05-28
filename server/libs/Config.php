@@ -63,6 +63,7 @@ class Config implements ConfigInterface
     protected $hostMap = [
         'johnhenrymahr.com' => 'production',
         'jhmdev.spherical-photo.net' => 'staging',
+        'Hexcore1.local' => 'staging',
         'beta.johnhenrymahr.com' => 'beta',
         'faketestdomain.net' => 'test',
     ];
@@ -107,7 +108,11 @@ class Config implements ConfigInterface
     public function __construct($hostname = '', $host_config = '', $expand = true)
     {
         if (empty($hostname)) {
-            $hostname = gethostname();
+            if (php_sapi_name() == "cli") {
+                $hostname = 'faketestdomain.net';
+            } else {
+                $hostname = gethostname();
+            }
         }
         if (is_array($host_config)) {
             $this->host_configs = array_merge($this->host_configs, $host_config);
