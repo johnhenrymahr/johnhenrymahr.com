@@ -22,7 +22,11 @@ app.view = new MainView(_.merge(
 ))
 
 app.onStart(function () {
-  $('body').prepend(this.view.render().el)
+  if ($('main').length) {
+    this.view.onPostRender()
+  } else {
+    $('body').prepend(this.view.render().el)
+  }
 })
 
 if (window.localDev) {
