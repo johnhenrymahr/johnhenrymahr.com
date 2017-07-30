@@ -417,11 +417,12 @@ function replaceComments (string) {
 
 /**
  * usage
- * server=[stage|beta|production]
+ * server=[stage|beta|hexcore|production]
  *
  *  stage -- local network instance (if it is up)
  *  beta -- beta.johnhenrymahr.com
  *  production -- johnhenrymahr.com
+ *  hexcore -- local mac pro instance
  *
  * gulp package --server={server_key} -- package but do not push anywhere
  * gulp deploy --server={server_key}
