@@ -17,10 +17,13 @@ class Output
         $this->cacheInterface = $cache;
         $this->logger = $logger;
         $this->cacheReady = $cache->cacheReady();
-        if (array_key_exists('jhm_disable_cache', $_COOKIE) || !$config->get('flags.cacheEnabled')) {
+        if (array_key_exists('jhm_disable_cache', $_COOKIE)) {
             $this->logger->log('DEBUG', 'jhm_disable_cache cookie detected; disabling cache engine.');
-            $this->cacheReady = false;
-            $this->cacheInterface->clear();
+            $this->_clearCache();
+        }
+        if ($config->get('flags.cacheEnabled') === false) {
+            $this->logger->log('DEBUG', 'disabling cache. Config flagged off.');
+            $this->_clearCache();
         }
         if (array_key_exists('cache-control', $_GET)) {
             $this->_cachecontrol(filter_var($_GET['cache-control'], FILTER_SANITIZE_STRING));
@@ -73,6 +76,12 @@ class Output
             $output = '';
         }
         return $output;
+    }
+
+    protected function _clearCache()
+    {
+        $this->cacheReady = false;
+        $this->cacheInterface->clear();
     }
 
     private function _cachecontrol($cmd)
