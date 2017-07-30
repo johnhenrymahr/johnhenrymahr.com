@@ -7,9 +7,9 @@ interface TemplateInterface
     /**
      * __construct
      * @param array  $data   manifest data
-     * @param \QueryPath\DOMQuery $content
+     * @param string $content
      */
-    public function __construct(array $data, \QueryPath\DOMQuery $content);
+    public function __construct(array $data, $content);
     /**
      * open
      * @return string opening tag with rendered attributes

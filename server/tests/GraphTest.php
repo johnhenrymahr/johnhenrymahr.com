@@ -77,10 +77,13 @@ class GraphTest extends \PHPUnit\Framework\TestCase
     {
         $cacheMock = \Mockery::mock('JHM\\CacheInterface');
         $cacheMock->shouldReceive('cacheReady')->andReturn(true);
+        $configMock = \Mockery::mock('\JHM\ConfigInterface');
+        $configMock->shouldReceive('get')->with('flags.cacheEnabled')->andReturn(true)->byDefault();
         $this->mockDeps('Output', 'JHM\\CacheInterface', 'substitutions', $cacheMock);
+        $this->mockDeps('Output', 'JHM\\ConfigInterface', 'substitutions', $configMock);
         $output = $this->obj->get('Output');
         $this->assertInstanceOf(\JHM\Output::class, $output);
-        $clone = (array) $output;        
+        $clone = (array) $output;
         $this->assertInstanceOf(\JHM\CacheInterface::class, $clone["\0*\0cacheInterface"]);
     }
 }

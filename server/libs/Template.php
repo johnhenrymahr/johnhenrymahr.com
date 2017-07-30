@@ -12,14 +12,16 @@ class Template implements TemplateInterface
 
     protected $tagName = 'div';
 
-    protected $content = '';
+    protected $content;
 
     protected $_open = false;
 
-    public function __construct(array $data, \QueryPath\DOMQuery $content)
+    protected $body = '';
+
+    public function __construct(array $data, $bodyContent)
     {
 
-        $this->content = $content;
+        $this->body = $bodyContent;
 
         $this->data = $data;
 
@@ -40,6 +42,8 @@ class Template implements TemplateInterface
             $this->id = $data['id'];
         }
 
+        $this->content = $this->_getQueryObj();
+
     }
 
     public function open()
@@ -48,20 +52,20 @@ class Template implements TemplateInterface
         return $this->_buildTag();
     }
 
-    public function body()
-    {
-        return $this->content->find('body')->innerHTML5();
-    }
-
     public function close()
     {
         $this->_open = false;
         return '</' . $this->tagName . '>';
     }
 
+    public function body()
+    {
+        return $this->body;
+    }
+
     public function markup()
     {
-        return $this->open() . $this->body() . $this->close();
+        return $this->content->find('body')->innerHTML5();
     }
 
     public function isOpen()
@@ -73,10 +77,17 @@ class Template implements TemplateInterface
     {
         $ref = $this->_getChildViewContainer();
         if ($ref) {
-            $ref->append($template->markup());
+            $template->getQueryObj()->each(function ($idx, $item) use (&$ref) {
+                $ref->append($item);
+            });
             return $ref;
         }
         return false;
+    }
+
+    public function getQueryObj()
+    {
+        return $this->content->find('body')->contents();
     }
 
     protected function _getChildViewContainer()
@@ -109,6 +120,26 @@ class Template implements TemplateInterface
         }
         $tag .= '>';
         return $tag;
+    }
+
+    protected function _getQueryObj()
+    {
+        $wrapper = $this->_wrapFragment($this->open() . $this->body() . $this->close());
+        return \QueryPath::withHTML5($wrapper);
+    }
+
+    protected function _wrapFragment($fragment)
+    {
+        return "
+        <!DOCTYPE html>
+            <html>
+            <head>
+            <title>Untitled</title>
+            </head>
+            <body>
+            {$fragment}
+            </body>
+        </html>";
     }
 
 }

@@ -27,7 +27,7 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
           },
           "selector": ".splash"
         }', true);
-        $this->q = $this->_getQueryObj('<div>This be the rendered content<div class="container"></div></div>');
+        $this->q = '<div>This be the rendered content<div class="container"></div></div>';
         $this->obj = new \JHM\Template($this->atts, $this->q);
     }
     protected function tearDown()
@@ -45,9 +45,6 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
 
     public function testAppendNoContainer()
     {
-        $q = $this->_getQueryObj('');
-        $obj = new \JHM\Template($this->atts, $q);
-        $qc = \QueryPath::with('<p>child content</p>');
         $atts = json_decode('{
           "id": "childItem",
           "tagName": "div",
@@ -55,32 +52,18 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
             "className": "childitem"
           }
         }', true);
-        $expected = '<div class="childitem"><p>child content</p></div>';
+        $obj = new \JHM\Template($this->atts, '');
+        $qc = '<p>child content</p>';
+        $expected = '<section class="splash" data-foo="bar"><div class="childitem"><p>child content</p></div></section>';
         $child = new \JHM\Template($atts, $qc);
         $obj->appendChild($child);
-        $this->assertEquals($expected, $obj->body());
-    }
-
-    public function testAppendNoChildSelector()
-    {
-        $q = \QueryPath::with('<p>child content</p>');
-        $atts = json_decode('{
-          "id": "childItem",
-          "tagName": "div",
-          "attributes": {
-            "className": "childitem"
-          }
-        }', true);
-        $expected = '<div>This be the rendered content<div class="container"></div><div class="childitem"><p>child content</p></div></div>';
-        $child = new \JHM\Template($atts, $q);
-        $this->obj->appendChild($child);
-        $this->assertEquals($expected, $this->obj->body());
+        $this->assertEquals(preg_replace('/\s+/', '', $expected), preg_replace('/\s+/', '', $obj->markup()));
     }
 
     public function testAppendWithChildSelector()
     {
 
-        $q = \QueryPath::with('<p>child content</p>');
+        $q = '<p>child content</p>';
         $this->atts['childViewContainer'] = ".container";
         $this->obj = new \JHM\Template($this->atts, $this->q);
         $atts = json_decode('{
@@ -90,10 +73,10 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
             "className": "childitem"
           }
         }', true);
-        $expected = '<div>This be the rendered content<div class="container"><div class="childitem"><p>child content</p></div></div></div>';
+        $expected = '<sectionclass="splash"data-foo="bar"><div>This be the rendered content<div class="container"><div class="childitem"><p>child content</p></div></div></div></section>';
         $child = new \JHM\Template($atts, $q);
         $this->obj->appendChild($child);
-        $this->assertEquals($expected, $this->obj->body());
+        $this->assertEquals(preg_replace('/\s+/', '', $expected), preg_replace('/\s+/', '', $this->obj->markup()));
     }
 
     public function testOpenMethod()
@@ -113,7 +96,7 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
 
     public function testMarkupMethod()
     {
-        $this->assertEquals('<section class="splash" data-foo="bar"><div>This be the rendered content<div class="container"></div></div></section>', $this->obj->markup());
+        $this->assertEquals(preg_replace('/\s+/', '', '<section class="splash" data-foo="bar"><div>This be the rendered content<div class="container"></div></div></section>'), preg_replace('/\s+/', '', $this->obj->markup()));
     }
 
 }
