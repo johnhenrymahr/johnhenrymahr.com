@@ -48,6 +48,7 @@ class Config implements ConfigInterface
             "loggingEnabled" => false,
             "sendMail" => false,
             "sendContactThankyou" => false,
+            "cacheEnabled" => false,
         ],
         "files" => [
             "dust" => "{basepath}dust/",

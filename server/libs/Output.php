@@ -12,12 +12,12 @@ class Output
 
     protected $buffer = '';
 
-    public function __construct(CacheInterface $cache, LoggerInterface $logger)
+    public function __construct(CacheInterface $cache, LoggerInterface $logger, ConfigInterface $config)
     {
         $this->cacheInterface = $cache;
         $this->logger = $logger;
         $this->cacheReady = $cache->cacheReady();
-        if (array_key_exists('jhm_disable_cache', $_COOKIE)) {
+        if (array_key_exists('jhm_disable_cache', $_COOKIE) || !$config->get('flags.cacheEnabled')) {
             $this->logger->log('DEBUG', 'jhm_disable_cache cookie detected; disabling cache engine.');
             $this->cacheReady = false;
             $this->cacheInterface->clear();
@@ -42,7 +42,7 @@ class Output
         if (empty($output)) {
             $output = call_user_func($callable, $options);
             if (empty($output)) {
-                $this->logger->log('WARNING', 'Output: no output produced from callable', 
+                $this->logger->log('WARNING', 'Output: no output produced from callable',
                     array('callable' => $callable, 'options' => $options));
             }
             if (!empty($output) && !empty($cacheKey) && $this->cacheReady) {
