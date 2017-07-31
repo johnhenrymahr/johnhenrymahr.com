@@ -4,6 +4,17 @@
  * base view, contains render functionality
  *
  * @Backbone View
+ * 
+ * note to self: LifeCycle methods/events
+ *  
+ *  onRender() | view:render  -- called after dust rendering completes, before attached to DOM
+ *  onAttach() | view:atatch -- called  immeditaly after element attached to DOM
+ *  onPostRender() | view:postRender -- deferred execution until current DOM manipulation has finished
+ * 
+ * NOTE: onRender and onAttach are ONLY called when a view is actually rendered, so NOT in server rendered context
+ *       onPostRender is ALWAYS called, for rendering, server rendered or even if a view has no template
+ *       if render() is called onPostRender() will be called.
+ *       all methods/events will be passed view options
  */
 var _ = require('lodash')
 var app = require('../app')
@@ -69,9 +80,11 @@ module.exports = Backbone.View.extend({
     if (_.has(options, 'el')) {
       var $el = options.el instanceof Backbone.$ ? options.el : Backbone.$(options.el)
       if (this._isServerRendered($el) && $el.children().length) { // if the el is not in the DOM already remove the option
-        this._serverRendered = true
+        this._serverRendered = true // will eb set to false after first render
+        this.preRendered = true // will always remain true
       } else {
         options = _.omit(options, 'el')
+        this.preRendered = false
       }
     }
     if (_.isFunction(this.onAppReady)) {
@@ -93,7 +106,7 @@ module.exports = Backbone.View.extend({
   },
   /**
    *  has view been rendered on server
-   *  returns true ONLY FIrst time it is called
+   *  returns true ONLY the first time it is called
    *
    * @private
    * @return {Boolean}
@@ -218,11 +231,13 @@ module.exports = Backbone.View.extend({
       throw new Error('The destroyed view: ' + this.cid + ' cannot be rendered.')
     }
     if (!_.isFunction(this.template)) {
-      this._postRender()
+      this._postRender(options)
       return this
     }
     if (this.serverRendered() === false) {
       this.template(this._getData(options), _.wrap(options, _.bind(this._templateCallback, this)))
+    } else {
+      this._postRender(options)
     }
     return this
   },
@@ -281,7 +296,7 @@ module.exports = Backbone.View.extend({
       })
     }
     this.undelegateEvents()
-    this.$el.removeData().unbind()
+    this.$el.0().unbind()
     this._destroyed = true
     if (_.isFunction(this.onDestroy)) {
       this.onDestroy()

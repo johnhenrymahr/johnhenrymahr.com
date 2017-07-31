@@ -22,10 +22,9 @@ app.view = new MainView(_.merge(
 ))
 
 app.onStart(function () {
-  if ($('main').length) {
-    this.view.onPostRender()
-  } else {
-    $('body').prepend(this.view.render().el)
+  var view = this.view.render()
+  if (!view.preRendered) {
+    $('body').prepend(view.el)
   }
 })
 
