@@ -4,13 +4,13 @@
  * base view, contains render functionality
  *
  * @Backbone View
- * 
+ *
  * note to self: LifeCycle methods/events
- *  
+ *
  *  onRender() | view:render  -- called after dust rendering completes, before attached to DOM
  *  onAttach() | view:atatch -- called  immeditaly after element attached to DOM
  *  onPostRender() | view:postRender -- deferred execution until current DOM manipulation has finished
- * 
+ *
  * NOTE: onRender and onAttach are ONLY called when a view is actually rendered, so NOT in server rendered context
  *       onPostRender is ALWAYS called, for rendering, server rendered or even if a view has no template
  *       if render() is called onPostRender() will be called.
@@ -296,7 +296,7 @@ module.exports = Backbone.View.extend({
       })
     }
     this.undelegateEvents()
-    this.$el.0().unbind()
+    this.$el.removeData().unbind()
     this._destroyed = true
     if (_.isFunction(this.onDestroy)) {
       this.onDestroy()
