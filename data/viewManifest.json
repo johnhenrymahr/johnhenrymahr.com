@@ -4,7 +4,7 @@
   "selector": "main.mainView",
   "childViewContainer": ".contentContainer",
   "attributes": {
-    "className": "main container-fluid",
+    "className": "mainView container-fluid",
     "tagName": "main"
   },
   "sections": [
@@ -61,6 +61,7 @@
       "id": "cv",
       "selector": ".cv",
       "template": "cv.dust",
+      "renderOnServer": false,
       "attributes": {
         "id": "cv",
         "className": "cv onLoad",
@@ -70,6 +71,7 @@
     {
       "id": "contact",
       "selector": ".contact",
+      "renderOnServer": false,
       "template": "contactTpl.dust",
       "attributes": {
         "id": "contact",
