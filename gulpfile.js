@@ -212,7 +212,7 @@ gulp.task('copy:app', function () {
 })
 
 gulp.task('copy:data', function () {
-  return gulp.src(['data/viewManifest.json', 'data/webpack-assets.json'])
+  return gulp.src('data/*.json')
     .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('serverApp')), 'data')))
 })
 
