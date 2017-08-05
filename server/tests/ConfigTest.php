@@ -26,7 +26,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
 
     public function testResolveDustPath()
     {
-        $this->assertEquals('dust/file1.dust', $this->obj->resolvePath('file1.dust'));
+        $this->assertEquals('app/dust/file1.dust', $this->obj->resolvePath('file1.dust'));
     }
 
     public function testResolveDataPath()

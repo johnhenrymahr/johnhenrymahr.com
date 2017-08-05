@@ -7,11 +7,15 @@ class RendererTest extends \PHPUnit\Framework\TestCase
 
     protected $loggerMock;
 
+    protected $configMock;
+
     protected function setUp()
     {
         $this->dustMock = \Mockery::mock('\Dust\Dust');
+        $this->configMock = \Mockery::mock('\JHM\ConfigInterface');
+        $this->configMock->shouldReceive('get')->with('basepath')->andReturn('/basepath/')->byDefault();
         $this->loggerMock = \Mockery::mock('\JHM\LoggerInterface');
-        $this->obj = new \JHM\Renderer($this->dustMock, $this->loggerMock);
+        $this->obj = new \JHM\Renderer($this->dustMock, $this->loggerMock, $this->configMock);
     }
     protected function tearDown()
     {
