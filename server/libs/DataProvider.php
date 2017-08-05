@@ -13,9 +13,16 @@ class DataProvider implements DataProviderInterface
         $this->fileLoader = $fileLoader;
         $this->logger = $logger;
     }
+
     public function getTemplateModel($templateId)
     {
-        return [];
+        $data = [];
+        switch ($templateId) {
+            case 'tech':
+                $data['tech'] = $this->fileLoader->load('techlist.json', false, []);
+                break;
+        }
+        return $data;
     }
 
     public function getBootstrapData()
