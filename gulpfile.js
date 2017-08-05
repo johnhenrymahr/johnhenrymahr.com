@@ -218,7 +218,7 @@ gulp.task('copy:data', function () {
 
 gulp.task('copy:dust', function () {
   return gulp.src('app/dust/**/*')
-    .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('serverApp')), 'dust')))
+    .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('serverApp')), 'app/dust')))
 })
 
 gulp.task('copy:mail', function () {

@@ -51,7 +51,7 @@ class Config implements ConfigInterface
             "cacheEnabled" => false,
         ],
         "files" => [
-            "dust" => "{basepath}dust/",
+            "dust" => "{basepath}app/dust/",
             "json" => "{basepath}data/",
             "ini" => "{basepath}cfg/",
             "yaml" => "{basepath}cfg/",
