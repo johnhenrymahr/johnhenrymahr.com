@@ -277,6 +277,11 @@ gulp.task('update:index', function (callback) {
       index = index.replace("ini_set('display_errors', 1);\n", '')
     }
     index = index.replace('{{analytics}}', analytics)
+    var auth = ''
+    if (server.get('auth')) {
+      auth = fs.readFileSync('./inc/auth.php', 'utf8')
+    }
+    index = index.replace('{{auth}}', auth)
     index = replaceComments(index)
     fs.writeFileSync(indexPath, index, 'utf8')
     callback()

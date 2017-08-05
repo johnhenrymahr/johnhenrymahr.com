@@ -30,6 +30,7 @@ require INCLUDES . 'headers.php';
         <link rel="stylesheet" href="<?php echo $assets->get('css'); ?>">
     </head>
    <body>
+   {{auth}}
    <script type="application/javascript">
      window.jhmData = <?php echo $output(array($dataProvider, 'getBootstrapData'))->toJSON() . "\n"; ?>
    </script>
