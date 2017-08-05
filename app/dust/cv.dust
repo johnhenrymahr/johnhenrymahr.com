@@ -5,18 +5,12 @@
   <div class="cv__inner">
     <h2 class="cv__title">Downloads and information</h2>
     <div class="row cv__content">
-      <div class="cv__resume cv__item col-md-6 col-xs-12">
+      <div class="cv__resume cv__item col-xs-12">
         <p>
          Know of an opportunity? Need more specifics about my background and experience? My resume packet is available by request. Provide your information and I will send you an email with a download link. Thanks for your interest!
         </p>
-        <p>
-          <strong>Note:</strong> Resume is in PDF format and requires a PDF reader of some sort. Adobe Reader is a solid and free option.{~s}
-          <a class="col-md-6 col-xs-12" href="https://get.adobe.com/reader" target="_BLANK">
-            <img src="/rsc/img/get_reader.png" alt="Get Adobe Acrobat Reader" width="158" height="39" />
-          </a>
-        </p>
       </div>
-      <div class="cv__ref cv__item col-md-6 col-xs-12">
+      <div class="cv__ref cv__item col-xs-12">
          <a href="#" class="cv__ref--request" data-track="cv:expand-references"> <span>Request Resume</span></a>
       </div>
     </div>
@@ -63,6 +57,16 @@
                   <a href="#" class="cv__form--cancel cv__form--control">cancel</a>
               </div>
             </form>
+        </div>
+    </div>
+    <div class="row cv__content">
+        <div class="col-md-6 col-xs-12 cv__note">
+           <strong>Note:</strong> Resume is in PDF format and requires a PDF reader of some sort. Adobe Reader is a solid and free option.{~s}
+        </div>
+        <div class="col-md-6 col-xs-12 cv__note">
+             <a class="col-md-6 col-xs-12 cv__note--link"  href="https://get.adobe.com/reader" target="_BLANK" title="Get Adobe Reader">
+              <img src="/rsc/img/get_reader.png" alt="Get Adobe Acrobat Reader" width="158" height="39" />
+            </a>
         </div>
     </div>
     <div class="cv__arrow">
