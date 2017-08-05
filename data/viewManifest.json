@@ -87,6 +87,14 @@
         "className": "footer",
         "tagName": "footer"
       }
+    },
+    {
+      "id": "github",
+      "selector": ".github",
+      "template": "githubTpl.dust",
+      "attributes": {
+        "className": "github"
+      }
     }
   ]
 }
