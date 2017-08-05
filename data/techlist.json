@@ -46,7 +46,7 @@
   {
     "id": "less",
     "name":"Less",
-    "img": "rsc/logos/less.png",
+    "img": "rsc/logos/LESS.png",
     "url": "http://lesscss.org",
     "title": "Less CSS Preprocessor",
     "desc": "What can I say? A css pre-processor is really useful. It gives you mix-ins, variables, reference imports and more. There are other options out there that accomplish the same goals sure. But I like Less. And it is written in JavaScript so compiling on a js build system is easy."
