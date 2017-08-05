@@ -8,10 +8,11 @@ class Renderer implements RendererInterface
 
     protected $logger;
 
-    public function __construct(\Dust\Dust $dust, LoggerInterface $logger)
+    public function __construct(\Dust\Dust $dust, LoggerInterface $logger, ConfigInterface $config)
     {
         $this->dustEngine = $dust;
         $this->logger = $logger;
+        $this->dustEngine->includedDirectories[] = $config->get('basepath');
     }
 
     public function compileFile($path)
@@ -29,7 +30,7 @@ class Renderer implements RendererInterface
         try {
             return $this->dustEngine->renderTemplate($template, $data);
         } catch (\Dust\DustException $e) {
-            $this->logger->log('ERROR', 'Could Not render dust template', ["template" => $template, "exception" => $e->getMessage()]);
+            $this->logger->log('ERROR', 'Could Not render dust template', ["template" => $template, "data" => $data, "exception" => $e->getMessage()]);
             return '';
         }
     }
