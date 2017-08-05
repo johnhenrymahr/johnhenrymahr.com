@@ -1,6 +1,6 @@
 <div class="cv__outer">
   <div class="cv__logo">
-     {> "app/dust/svg/jhmlogo" /}
+     {>"app/dust/svg/jhmlogo" /}
   </div>
   <div class="cv__inner">
     <h2 class="cv__title">Downloads and information</h2>

@@ -56,10 +56,11 @@
         </div>
       </div>
     </div>
+    <div class="col-lg-2  col-md-0 col-xs-0"></div>
   </div>
   <div class="details__content row">
     <div class="col-lg-2  col-md-0 col-xs-0"></div>
-      <div class="col-lg-8 col-md-12 details__body">
+    <div class="col-lg-8 col-md-12 details__body">
       <h3 class="details__model-heading">Getting Serious</h3>
       <p>
        Those of you that read the previous section may be thinking at this point that this puts a lot of responsibility on the front end and that it opens up a lot of potential issues, security and otherwise.  You are, of course, absolutely correct.  Doing something like persisting a users payment information in local storage could be a security disaster. And that is the whole point I am making. These sorts of applications are not on the way, they are here.    That is why it is time to get serious about UI development and to give it the attention it needs.  UI development needs proper code review, real oversight, security auditing, performance testing and true care when it comes to architectural decisions. If we can do that I think the opportunities for advancing the web experience are tremendous.
@@ -67,8 +68,6 @@
       </div>
       <div class="col-lg-2  col-md-0 col-xs-0"></div>
   </div>
-  <div class="col-lg-2 col-md-0 col-xs-0"></div>
-</div>
 <div class="details__arrow">
    <a class="arrow fa fa-arrow-down fa-2x bounce" href="#tech">
     <span class="arrow-meta">Next: <strong>Tech Toolbox</strong></span>

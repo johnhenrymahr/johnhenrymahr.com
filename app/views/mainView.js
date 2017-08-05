@@ -124,8 +124,7 @@ module.exports = View.extend(_.merge({
 
   onPostRender: function () {
     App.vent.trigger('mainView:postRender')
-    var $onLoad = this.$('.onLoad')
-    $onLoad.addClass('hidden fadeOut')
+    this.$('.onLoad').addClass('hidden fadeOut')
   }
 
 }, manifest.json.attributes))

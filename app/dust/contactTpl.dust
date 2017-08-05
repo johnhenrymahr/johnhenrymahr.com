@@ -3,7 +3,7 @@
 <div class="contact__content row">
     <h2>Contact Me</h2>
     <div class="contact__logo">
-    {> "app/dust/svg/jhmlogo" /}
+    {>"app/dust/svg/jhmlogo" /}
   </div>
   <div class="col-md-4 col-xs-12 row contact__headshot">
     <div class="col-xs-7 col-md-12">

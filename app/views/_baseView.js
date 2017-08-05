@@ -80,7 +80,7 @@ module.exports = Backbone.View.extend({
     if (_.has(options, 'el')) {
       var $el = options.el instanceof Backbone.$ ? options.el : Backbone.$(options.el)
       if (this._isServerRendered($el) && $el.children().length) { // if the el is not in the DOM already remove the option
-        this._serverRendered = true // will eb set to false after first render
+        this._serverRendered = true // will be set to false after first render
         this.preRendered = true // will always remain true
       } else {
         options = _.omit(options, 'el')
