@@ -14,7 +14,7 @@ $output = $graph->get('Output');
 $assets = $graph->get('Assets');
 require INCLUDES . 'headers.php';
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
