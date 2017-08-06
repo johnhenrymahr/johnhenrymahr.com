@@ -3,7 +3,7 @@
      {>"app/dust/svg/jhmlogo" /}
   </div>
   <div class="cv__inner">
-    <h2 class="cv__title">Downloads and information</h2>
+    <h2 class="cv__title">My Resume (CV)</h2>
     <div class="row cv__content">
       <div class="cv__resume cv__item col-xs-12">
         <p>
