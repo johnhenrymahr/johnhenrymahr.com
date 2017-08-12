@@ -280,6 +280,9 @@ gulp.task('update:index', function (callback) {
     var auth = ''
     if (server.get('auth')) {
       auth = fs.readFileSync('./inc/auth.php', 'utf8')
+      if (_.isString(auth) && auth.length) {
+        auth += '?>'
+      }
     }
     index = index.replace('{{auth}}', auth)
     index = replaceComments(index)
