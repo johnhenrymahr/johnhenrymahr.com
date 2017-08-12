@@ -211,6 +211,22 @@ gulp.task('copy:app', function () {
     .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('webroot')), 'rsc')))
 })
 
+gulp.task('copy:setup', function () {
+  try {
+    var setupPath = 'server/bin/setup.sh'
+    var setup = fs.readFileSync(setupPath, 'utf8')
+    if (setup) {
+      setup = setup.replace(/{{logfile}}/g, server.get('logfile'))
+      if (server.get('cacheEnabled')) {
+        var cacheChunk = fs.readFileSync('server/bin/__setup__cache.sh', 'utf8')
+        setup += '\n' + cacheChunk
+      }
+      fs.writeFileSync(path.join(distFolder, path.basename(server.get('serverApp')), 'setup.sh'), setup, 'utf8')
+    }
+  } catch (e) {
+    throwError('update:index', e)
+  }
+})
 gulp.task('copy:data', function () {
   return gulp.src('data/*.json')
     .pipe(gulp.dest(path.join(distFolder, path.basename(server.get('serverApp')), 'data')))
@@ -327,6 +343,8 @@ gulp.task('update:config', function (callback) {
     config = config.replace('{{webroot}}', server.get('webroot'))
     config = config.replace('{{mailToAddress}}', server.get('mailToAddress'))
     config = config.replace('{{mailToName}}', server.get('mailToName'))
+    config = config.replace('{{logfile}}', server.get('logfile'))
+    config = config.replace('"{{cacheEnabled}}"', server.get('cacheEnabled'))
     // smtp settings
     config = config.replace('{{smtp__enabled}}', server.atts.smtp.enabled)
     config = config.replace('{{smtp__hostname}}', server.atts.smtp.hostname)
@@ -379,6 +397,7 @@ gulp.task('package', function (callback) {
     'composer:cleanup',
     'copy:webroot',
     'copy:app',
+    'copy:setup',
     'update:index',
     'update:api',
     'update:download',

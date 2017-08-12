@@ -5,7 +5,9 @@
                 "recursive": true,
                 "clean": true
             },
-             "smtp": {
+            "logfile":"jhm-system.log",
+            "cacheEnabled": false,
+            "smtp": {
               "enabled": false,
               "hostname": "",
               "username": "",
