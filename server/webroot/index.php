@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('expose_php', 0);
 date_default_timezone_set('America/Chicago');
-define('APP_PATH', '{{serverApp}}');
+define('APP_PATH', realpath('{{serverApp}}') . '/');
 define('WEB_ROOT', '{{webroot}}');
 define('INCLUDES', APP_PATH . 'includes/');
 require APP_PATH . 'vendor/autoload.php';
