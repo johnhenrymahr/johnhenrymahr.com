@@ -2,14 +2,17 @@ var _ = require('lodash')
 var App = require('app/app')
 var decorator = require('app/utils/decorator')
 module.exports = _.extend({}, decorator, {
-  events: {
-    'blur .form-group .form-control:visible': 'onInputBlur',
-    'change .form-group select.form-control': 'onInputChange',
-    'focus .form-group .form-control:visible': 'onInputFocus',
-    'submit form': 'onFormSubmit'
+  events: function () {
+    return {
+      'blur .contact__form .form-group .form-control:visible': 'onInputBlur',
+      'change .contact__form .form-group select.form-control': 'onInputChange',
+      'focus .contact__form .form-group .form-control:visible': 'onInputFocus',
+      'submit .contact__form': 'onFormSubmit'
+    }
   },
   initialize: function (options) {
     if (_.has(options, 'model')) {
+      window.contactModel = options.model
       this.listenTo(options.model, 'invalid', _.bind(this.onValidationError, this))
       this.listenTo(options.model, 'sync', _.bind(function () {
         App.vent.trigger('app:track', 'contact-form', 'contact:submit:success', 'form-submit')

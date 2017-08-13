@@ -35,12 +35,14 @@ module.exports = _.extend({}, decorator, {
       }, this))
     }
   },
-  events: {
-    'click .cv__ref--request': 'onRequestClick',
-    'submit .cv__form': 'onFormSubmit',
-    'click .cv__form--cancel': 'onFormCancel',
-    'blur .form-group .form-control:visible': 'onInputBlur',
-    'focus .form-group .form-control:visible': 'onInputFocus'
+  events: function () {
+    return {
+      'click .cv__ref--request': 'onRequestClick',
+      'submit .cv__form': 'onFormSubmit',
+      'click .cv__form .cv__form--cancel': 'onFormCancel',
+      'blur .cv__form .form-group .form-control:visible': 'onInputBlur',
+      'focus .cv__form .form-group .form-control:visible': 'onInputFocus'
+    }
   },
   onInputFocus: function (e) {
     var $el = this.$(e.currentTarget).parent()
