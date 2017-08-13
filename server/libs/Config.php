@@ -32,7 +32,7 @@ class Config implements ConfigInterface
         "mysql" => [
             "enabled" => "{{mysql__enabled}}",
             "host" => "{{mysql__host}}",
-            "port" => "{mysql__port}}",
+            "port" => "{{mysql__port}}",
             "db" => "{{mysql__db}}",
             "user" => "{{mysql__user}}",
             "password" => "{{mysql__password}}",
@@ -45,9 +45,9 @@ class Config implements ConfigInterface
             "password" => "{{smtp__password}}", // token replaced by deploy script
         ],
         "flags" => [
-            "loggingEnabled" => false,
-            "sendMail" => false,
-            "sendContactThankyou" => false,
+            "loggingEnabled" => true,
+            "sendMail" => "{{sendMail}}",
+            "sendContactThankyou" => "{{sendThankYou}}",
             "cacheEnabled" => "{{cacheEnabled}}",
         ],
         "files" => [
@@ -61,69 +61,30 @@ class Config implements ConfigInterface
         ],
     ];
 
-    protected $hostMap = [
-        'johnhenrymahr.com' => 'production',
-        'jhmdev.spherical-photo.net' => 'staging',
-        'Hexcore1.local' => 'staging',
-        'beta.johnhenrymahr.com' => 'beta',
-        'faketestdomain.net' => 'test',
-    ];
-
-    protected $host_configs = [
-        "test" => [
-            "basepath" => "",
-            "webroot" => "",
-            "testbase" => __DIR__ . "/../../",
-            "liveconfig" => "testLiveConfig",
-            "testroot" => 'tester/',
-            "cachekey" => [
-                "testkey2" => 290,
-            ],
-            "smtp" => [
-                "enabled" => false,
-            ],
-            "files" => [
-                "foo" => "bar",
-            ],
+    protected $test_config = [
+        "basepath" => "",
+        "webroot" => "",
+        "testbase" => __DIR__ . "/../../",
+        "liveconfig" => "testLiveConfig",
+        "testroot" => 'tester/',
+        "cachekey" => [
+            "testkey2" => 290,
         ],
-        "production" => [
-            "flags" => [
-                "loggingEnabled" => true,
-                "sendMail" => true,
-            ],
+        "smtp" => [
+            "enabled" => false,
         ],
-        "staging" => [
-            "flags" => [
-                "loggingEnabled" => true,
-                "sendMail" => false,
-            ],
-        ],
-        "beta" => [
-            "flags" => [
-                "loggingEnabled" => true,
-                "sendMail" => true,
-            ],
+        "files" => [
+            "foo" => "bar",
         ],
     ];
 
     public function __construct($hostname = '', $host_config = '', $expand = true)
     {
-        if (empty($hostname)) {
-            if (php_sapi_name() == "cli") {
-                $hostname = 'faketestdomain.net';
-            } else {
-                $hostname = gethostname();
-            }
+        if (php_sapi_name() == "cli") {
+            $this->active_config['flags']['loggingEnabled'] = false;
+            $this->active_config = array_replace_recursive($this->active_config, $this->test_config);
         }
-        if (is_array($host_config)) {
-            $this->host_configs = array_merge($this->host_configs, $host_config);
-        }
-        $key = $this->_getMappedKey($hostname);
-        if ($key && (array_key_exists($key, $this->host_configs))) {
-            $this->active_config = array_replace_recursive($this->active_config, $this->host_configs[$key]);
-        } elseif (array_key_exists($hostname, $this->host_configs)) {
-            $this->active_config = array_replace_recursive($this->active_config, $this->host_configs[$hostname]);
-        }
+
         $liveconfig = $this->_getLiveConfig();
         if ($liveconfig && is_array($liveconfig) && !empty($liveconfig)) {
             $this->active_config = array_replace_recursive($this->active_config, $liveconfig);
@@ -135,14 +96,6 @@ class Config implements ConfigInterface
         }
 
         $this->active_config['webhost'] = $hostname;
-    }
-
-    protected function _getMappedKey($hostname)
-    {
-        if (array_key_exists($hostname, $this->hostMap)) {
-            return $this->hostMap[$hostname];
-        }
-        return false;
     }
 
     protected function _getLiveConfig()

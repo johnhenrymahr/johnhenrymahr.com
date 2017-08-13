@@ -34,12 +34,6 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('data/file1.json', $this->obj->resolvePath('file1.json'));
     }
 
-    public function testCustomHostConfig()
-    {
-        $o = new \JHM\Config('arg1', ['arg1' => ["files" => ["dust" => 'tester/one/', "foo4" => "bar5"]]]);
-        $this->assertEquals('tester/one/file1.dust', $o->resolvePath('file1.dust'));
-        $this->assertEquals('bar5', $o->get('files.foo4'));
-    }
     public function testSetMethod()
     {
         $this->obj->set('foo1', 'bar2');
