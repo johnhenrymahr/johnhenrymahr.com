@@ -16,18 +16,22 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
 
     protected $config;
 
+    protected $logger;
+
     protected function setUp()
     {
         $this->mailer = \Mockery::mock('\JHM\MailerInterface');
         $this->digest = \Mockery::mock('\JHM\MailDigestInterface');
         $this->fileLoader = \Mockery::mock('\JHM\FileLoaderInterface');
         $this->fileLoader->shouldReceive('load')->byDefault();
+        $this->logger = \Mockery::mock('\JHM\LoggerInterface');
+        $this->logger->shouldReceive('log');
         $this->request = \Mockery::mock('\Symfony\Component\HttpFoundation\Request');
         $this->storage = \Mockery::mock('\JHM\ContactStorageInterface');
         $this->storage->shouldReceive('isReady')->andReturn(false);
         $this->config = \Mockery::mock('\JHM\ConfigInterface');
         $this->config->shouldReceive('get')->byDefault()->andReturn(false);
-        $this->obj = new \JHM\ContactHandler($this->mailer, $this->digest, $this->fileLoader, $this->storage, $this->config);
+        $this->obj = new \JHM\ContactHandler($this->mailer, $this->digest, $this->fileLoader, $this->storage, $this->config, $this->logger);
     }
 
     protected function tearDown()

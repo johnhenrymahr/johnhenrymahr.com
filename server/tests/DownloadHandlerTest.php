@@ -139,6 +139,7 @@ class DownloadHandlerTest extends \PHPUnit\Framework\TestCase
         $this->hash->shouldReceive('md5File')->andReturn('123');
         $this->ga->shouldReceive('trackPageHit')->with('fsdfse32', 'JohnHenryMahr: Download a File');
         $logger = Mockery::mock('\JHM\Logger');
+        $logger->shouldReceive('log');
         $api = new \JHM\Api($logger);
         $api->defaultHandler($this->obj);
         $api->init($request);

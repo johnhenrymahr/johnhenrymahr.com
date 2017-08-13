@@ -20,6 +20,8 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
 
     protected $_status;
 
+    protected $logger;
+
     protected $requiredFields = ['email', 'name', 'topic', 'message'];
 
     protected $honeyPotField = 'screenName';
@@ -29,19 +31,22 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
         MailDigestInterface $digest,
         FileLoaderInterface $fileLoader,
         ContactStorageInterface $storage,
-        ConfigInterface $config
+        ConfigInterface $config,
+        LoggerInterface $logger
     ) {
         $this->mailer = $mailer;
         $this->digest = $digest;
         $this->fileLoader = $fileLoader;
         $this->storage = $storage;
         $this->config = $config;
+        $this->logger = $logger;
     }
 
     public function process(Request $request)
     {
         if (!$this->_validate($request->request)) {
             $this->_status = Response::HTTP_BAD_REQUEST;
+            $this->logger->log('INFO', 'post validation failure');
             return false;
         }
 
@@ -55,6 +60,7 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
                 $this->_sendThankYouMail($request->request);
             }
         } else {
+            $this->logger->log('INFO', 'send mail failure');
             $this->_status = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 

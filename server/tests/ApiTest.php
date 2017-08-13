@@ -13,6 +13,7 @@ class ApiTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         $this->loggerMock = \Mockery::mock('\JHM\LoggerInterface');
+        $this->loggerMock->shouldReceive('log');
         $this->responseMock = \Mockery::mock('\Symfony\Component\HttpFoundation\JsonResponse');
         $this->responseMock->shouldReceive('prepare');
         $this->obj = new \JHM\Api($this->loggerMock);

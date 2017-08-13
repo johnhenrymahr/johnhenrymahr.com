@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 class Api implements ApiInterface
 {
 
-    protected $log;
+    protected $logger;
 
     protected $request;
 
@@ -23,10 +23,10 @@ class Api implements ApiInterface
 
     public function __construct(LoggerInterface $logger)
     {
-        $this->log = $logger;
+        $this->logger = $logger;
     }
 
-    public function init($request)
+    public function init($request = '')
     {
         if (is_object($request) && $request instanceof Request) {
             $this->_init($request);
@@ -37,6 +37,7 @@ class Api implements ApiInterface
 
     public function setResponse(Response $response)
     {
+        $this->logger->log('INFO', 'set response', ['request object' => $response]);
         $this->response = $response;
     }
 
@@ -109,12 +110,16 @@ class Api implements ApiInterface
     protected function _getComponentKey()
     {
         if ($this->request->request->has('component')) {
-            return $this->request->request->filter('component', '', FILTER_SANITIZE_STRING);
+            $requestKey = $this->request->request->filter('component', '', FILTER_SANITIZE_STRING);
+            $this->logger->log('INFO', 'post request key', ['key' => $requestKey]);
+            return $requestKey;
         }
         if ($this->request->query->has('component')) {
-            return $this->request->query->filter('component', '', FILTER_SANITIZE_STRING);
+            $requestKey = $this->request->query->filter('component', '', FILTER_SANITIZE_STRING);
+            $this->logger->log('INFO', 'query param request key', ['key' => $requestKey]);
+            return $requestKey;
         }
-
+        $this->logger->log('INFO', 'no key found in request.', ['post' => $_POST, 'get' => $_GET]);
         return false;
     }
 
@@ -135,9 +140,11 @@ class Api implements ApiInterface
     protected function _processHandlers()
     {
         $key = $this->_getComponentKey();
+        $this->logger->log('INFO', 'Parsing handlers', ['handlers' => $this->handlers, 'key' => $key]);
         if ($key) {
             if (array_key_exists($key, $this->handlers)) {
                 $component = $this->handlers[$key];
+                $this->logger->log('INFO', 'Processing handlers ' . $key);
                 return $this->_processHandler($component);
             } else {
                 return Response::HTTP_NOT_FOUND;

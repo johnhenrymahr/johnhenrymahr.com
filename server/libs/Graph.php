@@ -16,8 +16,10 @@ class Graph
         'JHM\\ManifestInterface' => ['instance' => 'JHM\\Manifest'],
         'JHM\\RendererInterface' => ['instance' => 'JHM\\Renderer'],
         'JHM\\TemplateFactoryInterface' => ['instance' => 'JHM\\TemplateFactory'],
-        'JHM\\ContactStorageInterface' => ['instance' => 'JHM\\ContactStorageInterface'],
         'JHM\\dbFactoryInterface' => ['instance' => 'JHM\\dbFactory'],
+        'JHM\\MailerInterface' => ['instance' => 'JHM\\Mailer'],
+        'JHM\\MailDigestInterface' => ['instance' => 'JHM\\MailDigest'],
+        'JHM\\ContactStorageInterface' => ['instance' => 'JHM\\ContactStorage'],
     ];
 
     protected $rules = [];

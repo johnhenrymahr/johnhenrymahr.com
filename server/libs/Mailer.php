@@ -35,7 +35,7 @@ class Mailer implements MailerInterface
 
     protected $html = false;
 
-    public function __construct(\PhpMailer $mailer, ConfigInterface $config, LoggerInterface $logger)
+    public function __construct(\PHPMailer $mailer, ConfigInterface $config, LoggerInterface $logger)
     {
         $this->config = $config;
         $this->logger = $logger;

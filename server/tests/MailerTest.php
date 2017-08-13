@@ -15,7 +15,8 @@ class MailerTest extends \PHPUnit\Framework\TestCase
     {
 
         $this->logger = \Mockery::mock('\JHM\LoggerInterface');
-        $this->mailer = \Mockery::mock('\PhpMailer');
+        $this->mailer = \Mockery::mock('\PHPMailer');
+        $this->mailer->shouldReceive('smtpClose');
         $this->config = \Mockery::mock('\JHM\ConfigInterface');
         $this->config->shouldReceive('get')->with('systemMailTo')->andReturn('testmail@mail.com')->byDefault();
         $this->config->shouldReceive('get')->with('systemMailToName')->andReturn('John Mahr')->byDefault();
