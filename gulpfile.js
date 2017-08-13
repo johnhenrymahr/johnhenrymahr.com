@@ -47,7 +47,7 @@ function Server (serverKey) {
   var server
   if (_.has(servers, serverKey)) {
     server = servers[serverKey]
-    _.defaults(server, servers._defaults)
+    server = _.defaultsDeep(server, servers._defaults)
   } else {
     if (serverKey === 'production') {
       throwError('server ', 'production definition not available.')
@@ -216,7 +216,6 @@ gulp.task('copy:setup', function () {
     var setupPath = 'server/bin/setup.sh'
     var setup = fs.readFileSync(setupPath, 'utf8')
     if (setup) {
-      setup = setup.replace(/{{logfile}}/g, server.get('logfile'))
       if (server.get('cacheEnabled')) {
         var cacheChunk = fs.readFileSync('server/bin/__setup__cache.sh', 'utf8')
         setup += '\n' + cacheChunk
@@ -313,7 +312,8 @@ gulp.task('update:api', function (callback) {
   try {
     var indexPath = path.join(distFolder, path.basename(server.get('webroot')), 'api', 'index.php')
     var index = fs.readFileSync(indexPath, 'utf8')
-    index = index.replace('{{serverApp}}', server.get('serverApp'))
+    var app = server.get('serverApiApp') || server.get('serverApp')
+    index = index.replace('{{serverApp}}', app)
     index = replaceComments(index)
     fs.writeFileSync(indexPath, index, 'utf8')
     callback()
@@ -344,16 +344,18 @@ gulp.task('update:config', function (callback) {
     config = config.replace('{{mailToAddress}}', server.get('mailToAddress'))
     config = config.replace('{{mailToName}}', server.get('mailToName'))
     config = config.replace('{{logfile}}', server.get('logfile'))
-    config = config.replace('"{{cacheEnabled}}"', server.get('cacheEnabled'))
+    config = config.replace('"{{cacheEnabled}}"', server.get('cacheEnabled') || false)
+    config = config.replace('"{{sendMail}}"', server.get('sendMail') || false)
+    config = config.replace('"{{sendThankYou}}"', server.get('sendThankYou') || false)
     // smtp settings
-    config = config.replace('{{smtp__enabled}}', server.atts.smtp.enabled)
+    config = config.replace('"{{smtp__enabled}}"', server.atts.smtp.enabled)
     config = config.replace('{{smtp__hostname}}', server.atts.smtp.hostname)
     config = config.replace('{{smtp__username}}', server.atts.smtp.username)
     config = config.replace('{{smtp__password}}', server.atts.smtp.password)
     // mysql settings
-    config = config.replace('{{mysql__enabled}}', server.atts.mysql.enabled)
+    config = config.replace('"{{mysql__enabled}}"', server.atts.mysql.enabled)
     config = config.replace('{{mysql__host}}', server.atts.mysql.host)
-    config = config.replace('{{mysql__port}}', server.atts.mysql.port)
+    config = config.replace('"{{mysql__port}}"', server.atts.mysql.port)
     config = config.replace('{{mysql__db}}', server.atts.mysql.db)
     config = config.replace('{{mysql__user}}', server.atts.mysql.user)
     config = config.replace('{{mysql__password}}', server.atts.mysql.password)
