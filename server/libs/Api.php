@@ -126,6 +126,7 @@ class Api implements ApiInterface
     protected function _processHandler(ApiHandlerInterface $component)
     {
         if ($component->process($this->request)) {
+            $this->logger->log('INFO', 'Processing handler OK');
             $this->responseBody = $this->mergeBody($component->body());
             if (isset($component->callbacks) && is_array($component->callbacks) && !empty($component->callbacks)) {
                 $this->callbacks = array_merge($this->callbacks, $component->callbacks);
@@ -135,6 +136,7 @@ class Api implements ApiInterface
             }
             return $component->status();
         }
+        return Response::HTTP_INTERNAL_SERVER_ERROR;
     }
 
     protected function _processHandlers()

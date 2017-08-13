@@ -70,6 +70,7 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
     protected function addToDb(ParameterBag $request)
     {
         if ($this->storage->isReady()) {
+            $this->logger->log('INFO', 'attempting to add to DB');
             $name = $request->filter('name', null, FILTER_SANITIZE_STRING);
             $email = $request->filter('email', null, FILTER_SANITIZE_EMAIL);
             $phone = $request->filter('phone', null, FILTER_SANITIZE_STRING);
@@ -91,30 +92,37 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
 
     protected function _sendSystemMail(ParameterBag $request)
     {
-        $this->mailer->reset();
-        $this->mailer->setupSystemMailer();
-        $this->mailer->setSubject('johnhenrymahr.com: Web Form Contact: ' . $request->get('topic'));
-        $this->mailer->setFrom($request->get('email'), $request->get('name'));
-        $this->mailer->setRelpyTo($request->get('email'), $request->get('name'));
-        $this->mailer->setBody("Website Contact\n");
-        $this->mailer->setBody('From: ' . $request->get('name') . ' (' . $request->get('email') . ')' . "\n");
-        if ($request->has('phoneNumber')) {
-            $this->mailer->setBody('Phone Number: ' . $request->get('phoneNumber') . "\n");
-        }
-        if ($request->has('company')) {
-            $this->mailer->setBody('Company: ' . $request->get('company') . "\n");
-        }
-        $this->mailer->setBody('Topic: ' . $request->get('topic') . "\n");
-        if ($request->has('custom-topic')) {
-            $this->mailer->setBody($request->get('custom-topic') . "\n");
-        }
-        $this->mailer->setBody($request->get('message') . "\n");
+        try {
+            $this->mailer->reset();
+            $this->mailer->setupSystemMailer();
+            $this->mailer->setSubject('johnhenrymahr.com: Web Form Contact: ' . $request->get('topic'));
+            $this->mailer->setFrom($request->get('email'), $request->get('name'));
+            $this->mailer->setRelpyTo($request->get('email'), $request->get('name'));
+            $this->mailer->setBody("Website Contact\n");
+            $this->mailer->setBody('From: ' . $request->get('name') . ' (' . $request->get('email') . ')' . "\n");
+            if ($request->has('phoneNumber')) {
+                $this->mailer->setBody('Phone Number: ' . $request->get('phoneNumber') . "\n");
+            }
+            if ($request->has('company')) {
+                $this->mailer->setBody('Company: ' . $request->get('company') . "\n");
+            }
+            $this->mailer->setBody('Topic: ' . $request->get('topic') . "\n");
+            if ($request->has('custom-topic')) {
+                $this->mailer->setBody($request->get('custom-topic') . "\n");
+            }
+            $this->mailer->setBody($request->get('message') . "\n");
 
-        $mailResult = $this->mailer->send(true);
+            $mailResult = $this->mailer->send(true);
 
-        $this->digest->writeMessage($this->mailer);
+            $this->digest->writeMessage($this->mailer);
 
-        return $mailResult;
+            return $mailResult;
+
+        } catch (\phpmailerException $e) {
+            $this->logger->log('ERROR', 'Could not send mail ', ['exception' => $e->errorMessage()]);
+        } catch (Exception $e) {
+            $this->logger->log('ERROR', 'Could not send mail ', ['exception' => $e->getMessage()]);
+        }
     }
 
     protected function _sendThankYouMail(ParameterBag $request)
@@ -122,12 +130,18 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
         $this->mailer->reset();
         $template = $this->fileLoader->load('thankYou.html');
         if ($template) {
-            $this->mailer->setupNoReply();
-            $this->mailer->setHTML(true);
-            $this->mailer->setSubject('Thanks for Contacting John Henry Mahr');
-            $this->mailer->setBody(trim($template));
-            $this->mailer->setRecipient($request->get('email'), $request->get('name'));
-            $this->mailer->send();
+            try {
+                $this->mailer->setupNoReply();
+                $this->mailer->setHTML(true);
+                $this->mailer->setSubject('Thanks for Contacting John Henry Mahr');
+                $this->mailer->setBody(trim($template));
+                $this->mailer->setRecipient($request->get('email'), $request->get('name'));
+                $this->mailer->send();
+            } catch (\phpmailerException $e) {
+                $this->logger->log('ERROR', 'Could not send mail ', ['exception' => $e->errorMessage()]);
+            } catch (Exception $e) {
+                $this->logger->log('ERROR', 'Could not send mail ', ['exception' => $e->getMessage()]);
+            }
         }
     }
 
