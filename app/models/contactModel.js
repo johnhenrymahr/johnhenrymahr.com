@@ -1,7 +1,12 @@
 var _ = require('lodash')
 var Backbone = require('backbone')
 module.exports = Backbone.Model.extend({
-  url: '/api',
+  url: '/api/',
+  log: function () {
+    if (console && _.isFunction(console.log) && window.appLogging) {
+      console.log.apply(this, arguments)
+    }
+  },
   validate: function (atts, options) {
     var errors = {}
     _.forEach(atts, _.bind(function (value, key) {
@@ -17,6 +22,21 @@ module.exports = Backbone.Model.extend({
     return {
       component: 'contact'
     }
+  },
+  save: function (options) {
+    this.trigger('request')
+    return Backbone.$.ajax({
+      url: this.url,
+      data: this.toJSON(),
+      method: 'POST',
+      type: 'POST'
+    })
+    .done(_.bind(function (resp) {
+      this.trigger('sync', this, resp, options)
+    }, this))
+    .fail(_.bind(function (resp) {
+      this.trigger('error', this, resp, options)
+    }, this))
   },
   validations: [
     {
