@@ -25,6 +25,7 @@ class Logger extends FileStorage implements LoggerInterface
         $this->config = $config;
         $this->enabled = $this->config->get('flags.loggingEnabled');
         if ($this->enabled) {
+            $this->logFileName = date("Y.M.d") . '--' . $this->logFileName;
             $this->loggerEngine = new \Monolog\Logger('jhm');
             $logdir = $this->config->getStorage('logs');
             $this->logfile = $logdir . $this->logFileName;

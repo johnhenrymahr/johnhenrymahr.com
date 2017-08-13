@@ -14,7 +14,7 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $datadir = \org\bovigo\vfs\vfsStream::newDirectory('data')->at($root);
         $storagedir = \org\bovigo\vfs\vfsStream::newDirectory('data')->at($datadir);
         $logdir = \org\bovigo\vfs\vfsStream::newDirectory('logs')->at($storagedir);
-        $this->logfile = \org\bovigo\vfs\vfsStream::newFile('jhm-system.log')->at($logdir);
+        $this->logfile = \org\bovigo\vfs\vfsStream::newFile(date("Y.M.d") . '--' . 'jhm-system.log')->at($logdir);
         $this->configMock->shouldReceive('getStorage')->with('logs')->once()->andReturn($logdir->url() . '/')->byDefault();
         $this->configMock->shouldReceive('get')->with('flags.loggingEnabled')->andReturn(true)->byDefault();
         $this->obj = new \JHM\Logger($this->configMock);

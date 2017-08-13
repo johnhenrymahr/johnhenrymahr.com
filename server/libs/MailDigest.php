@@ -50,6 +50,6 @@ class MailDigest extends FileStorage implements MailDigestInterface
 
     protected function _getDigestName()
     {
-        return date("Y_W") . '__digest';
+        return date("Y.M.d") . '__digest.txt';
     }
 }
