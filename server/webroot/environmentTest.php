@@ -40,18 +40,39 @@ if ($contactStorage->isReady()) {
 		if ($token) {
 			echo '<p><strong>OK</strong></p>';
 			var_dump($token);
-			echo '<h3>Validate Token</h3>';
-			$validateToken = $contactStorage->validateDownloadToken($token['token']);
-			if ($validateToken) {
+			echo '<h3>Get inactive token</h3>';
+			$inactiveRecord = $contactStorage->getInactiveToken($token);
+			if ($inactiveRecord) {
 				echo '<p><strong>OK</strong></p>';
-				var_dump($validateToken);
-			}
+				var_dump($inactiveRecord);
+				echo '<h3>Activate token</h3>';
+				$activateToken = $contactStorage->activateDownloadToken($inactiveRecord['id']);
+				if ($activateToken) {
+					echo '<p><strong>OK</strong></p>';
+					echo '<h3>Validate Token</h3>';
+					$validateToken = $contactStorage->validateDownloadToken($token);
+					if ($validateToken) {
+						echo '<p><strong>OK</strong></p>';
+						var_dump($validateToken);
+					} else {
+						echo '<p>Could not validate token</p>';
+					}
+				} else {
+					echo '<p>Could not activate token';
+				}
+			}	else {
+				echo '<p>Could not get inactive token</p>';
+			} 		
+			
 			echo '<h3>Delete Token</h3>';
-			$deleteToken = $contactStorage->removeDownloadToken($token['token']);
+			$deleteToken = $contactStorage->removeDownloadToken($token);
 			if ($deleteToken) {
 				echo '<p><strong>OK</strong></p>';
 				var_dump($deleteToken);
+			} else {
+				echo '<p>Delete token failed</p>';
 			}
+
 		} else {
 			echo '<p>add download token failed</p>';
 		}
@@ -63,6 +84,3 @@ if ($contactStorage->isReady()) {
 } else {
 	echo '<p>Storage not ready on this server</p>';
 }
-
-
-
