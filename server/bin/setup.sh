@@ -18,3 +18,12 @@ if [ -d ./storage/cache ]; then
   printf "Removing old cache directory\n"
   rm -Rf ./storage/cache
 fi
+if [ -d ./storage/downloads ]; then
+  printf "adding downloads dir"
+  chmod 775 ./storage/downloads
+fi
+if [ ! -f ./storage/downloads/testfile.txt ]; then
+    printf "add test download file stub"
+    touch ./storage/downloads/testfile.txt
+    chmod 775 ./storage/downloads/testfile.txt
+fi

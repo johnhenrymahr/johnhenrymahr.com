@@ -27,7 +27,7 @@ if ($contactStorage->isReady()) {
     $cid = $contactStorage->addContact($email, $name, $company, $phone);
 
     if ($cid) {
-        echo "<p><strong>OK</strong> ID: {$result}</p>";
+        echo "<p><strong>OK</strong> ID: {$cid}</p>";
         echo '<h3>Adding a messge</h3>';
         $mid = $contactStorage->addMessage($cid, 'Environment Test', 'Adding a message to see if it works');
         if ($mid) {
@@ -36,7 +36,7 @@ if ($contactStorage->isReady()) {
             echo '<p>Add message failed</p>';
         }
         echo '<h2>Create download token</h2>';
-        $token = $contactStorage->addDownloadRecord($cid, $email, 'testfile1', 'image/jpeg');
+        $token = $contactStorage->addDownloadRecord($cid, $email, 'testfile.txt');
         if ($token) {
             echo '<p><strong>OK</strong></p>';
             var_dump($token);
