@@ -322,6 +322,23 @@ gulp.task('update:api', function (callback) {
   }
 })
 
+gulp.task('update:env', function (callback) {
+  try {
+    var envPath = path.join(distFolder, path.basename(server.get('webroot')), 'environmentTest.php')
+    if (argv.envtest) {
+      var index = fs.readFileSync(envPath, 'utf8')
+      var app = server.get('serverApiApp') || server.get('serverApp')
+      index = index.replace('{{serverApp}}', app)
+      fs.writeFileSync(envPath, index, 'utf8')
+      callback()
+    } else {
+      fs.unlinkSync(envPath)
+    }
+  } catch (e) {
+    throwError('update:env', e)
+  }
+})
+
 gulp.task('update:download', function (callback) {
   try {
     var indexPath = path.join(distFolder, path.basename(server.get('webroot')), 'download', 'index.php')
@@ -402,6 +419,7 @@ gulp.task('package', function (callback) {
     'copy:setup',
     'update:index',
     'update:api',
+    'update:env',
     'update:download',
     'update:config',
     'phplint',
