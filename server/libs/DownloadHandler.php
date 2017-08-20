@@ -18,7 +18,7 @@ class DownloadHandler implements ApiHandlerInterface
 
     protected $_status;
 
-    public function __construct(ContactStorageInterface $storage, ConfigInterface $config, GA $ga, Hash $hash)
+    public function __construct(ContactStorageInterface $storage, ConfigInterface $config, Ga $ga, Hash $hash)
     {
         $this->hash = $hash;
         $this->config = $config;
