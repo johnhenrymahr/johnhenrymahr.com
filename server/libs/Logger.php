@@ -32,6 +32,9 @@ class Logger extends FileStorage implements LoggerInterface
             if (!$this->setupStorage($this->logfile)) {
                 throw new JhmException('Log file not writeable. Path: ' . $this->logfile);
             }
+            if (!is_writeable($this->logfile)) {
+                throw new JhmException('Generated log file not writeable. Check file mode. Path: ' . $this->logfile);
+            }
 
             try {
                 if (array_key_exists('jhm-debug', $_COOKIE)) {
