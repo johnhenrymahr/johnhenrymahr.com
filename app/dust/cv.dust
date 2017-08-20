@@ -22,7 +22,7 @@
               <div class="col-xs-2 col-sm-1"><span class="glyphicon glyphicon-ok"></span></div>
               <div class="col-xs-10 col-sm-11">Thanks. Check your email.</div>
             </div>
-            <p>Please provide contact details.</p>
+            <p class="cv__popover--subtitle">Please provide contact details.</p>
             <div class='cv__popover--spinner hidden'>
              {>"app/dust/spinner" verb="Sending" sr="Submitting form data. Please wait." /}
             </div>

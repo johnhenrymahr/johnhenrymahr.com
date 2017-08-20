@@ -7,16 +7,16 @@ module.exports = _.extend({}, decorator, {
       this.listenTo(options.model, 'invalid', _.bind(this.onValidationError, this))
       this.listenTo(options.model, 'sync', function () {
         App.vent.trigger('app:track', 'cv-request-refs', 'cv:submit:success', 'form-submit')
-        this.$('form, .cv__popover--spinner').addClass('hidden')
+        this.$('form, .cv__popover--subtitle, .cv__popover--spinner, .alert-danger').addClass('hidden')
         this.$('.alert-success').removeClass('hidden')
       })
       this.listenTo(options.model, 'error', _.bind(function () {
         this.$('.cv__popover--spinner').addClass('hidden')
-        this.$('form').removeClass('hidden')
+        this.$('form, .cv__popover--subtitle').removeClass('hidden')
         this.$('.alert-danger').removeClass('hidden')
       }, this))
       this.listenTo(options.model, 'request', _.bind(function () {
-        this.$('form').addClass('hidden')
+        this.$('form, .cv__popover--subtitle').addClass('hidden')
         this.$('.cv__popover--spinner').removeClass('hidden')
       }, this))
     }
