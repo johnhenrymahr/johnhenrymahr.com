@@ -23,9 +23,7 @@ class Mailer implements MailerInterface
 
     public $toName = '';
 
-    public $noReplyAddress = 'noreply@johnhenrymahr.com';
-
-    public $noReplyName = 'JHM Auto Mailer';
+    public $systemMailerName = 'JHM System Mailer';
 
     protected $mailerEngine;
 
@@ -76,7 +74,7 @@ class Mailer implements MailerInterface
     {
         $this->toAddress = $toAddress = filter_var($this->config->get('systemMailTo'), FILTER_SANITIZE_EMAIL);
         $this->toName = $toName = $this->config->get('systemMailToName');
-        $this->setFrom($this->config->get('smtp.username'), 'JHM System Mailer');
+        $this->setFrom($this->config->get('smtp.username'), $this->systemMailerName);
         if (filter_var($toAddress, FILTER_VALIDATE_EMAIL)) {
             return $this->mailerEngine->addAddress($toAddress, $toName);
         } else {
@@ -87,7 +85,7 @@ class Mailer implements MailerInterface
 
     public function setupNoReply()
     {
-        return $this->setFrom($this->noReplyAddress, $this->noReplyName);
+        return $this->setFrom($this->config->get('smtp.username'), $this->systemMailerName);
     }
 
     public function setRecipient($address, $name)

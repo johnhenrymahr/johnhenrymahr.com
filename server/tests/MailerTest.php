@@ -100,12 +100,10 @@ class MailerTest extends \PHPUnit\Framework\TestCase
     }
     public function testSetUpNoReply()
     {
-        $this->mailer->shouldReceive('setFrom')->with('test@mail.com', 'testmailer');
-        $this->obj->noReplyAddress = 'test@mail.com';
-        $this->obj->noReplyName = 'testmailer';
+        $this->mailer->shouldReceive('setFrom')->with('test@user.com', 'JHM System Mailer');
         $this->obj->setupNoReply();
-        $this->assertEquals($this->obj->fromAddress, 'test@mail.com');
-        $this->assertEquals($this->obj->fromName, 'testmailer');
+        $this->assertEquals($this->obj->fromAddress, 'test@user.com');
+        $this->assertEquals($this->obj->fromName, 'JHM System Mailer');
     }
     public function testSetFromBadAddress()
     {
