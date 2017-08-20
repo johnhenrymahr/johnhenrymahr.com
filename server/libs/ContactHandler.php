@@ -46,7 +46,7 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
     {
         if (!$this->_validate($request->request)) {
             $this->_status = Response::HTTP_BAD_REQUEST;
-            $this->logger->log('INFO', 'post validation failure');
+            $this->logger->log('ERROR', 'post validation failure');
             return false;
         }
 
@@ -60,7 +60,7 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
                 $this->_sendThankYouMail($request->request);
             }
         } else {
-            $this->logger->log('INFO', 'send mail failure');
+            $this->logger->log('ERROR', 'send mail failure');
             $this->_status = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 
@@ -96,8 +96,7 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
             $this->mailer->reset();
             $this->mailer->setupSystemMailer();
             $this->mailer->setSubject('johnhenrymahr.com: Web Form Contact: ' . $request->get('topic'));
-            $this->mailer->setFrom($request->get('email'), $request->get('name'));
-            $this->mailer->setRelpyTo($request->get('email'), $request->get('name'));
+            $this->mailer->setReplyTo($request->get('email'), $request->get('name'));
             $this->mailer->setBody("Website Contact\n");
             $this->mailer->setBody('From: ' . $request->get('name') . ' (' . $request->get('email') . ')' . "\n");
             if ($request->has('phoneNumber')) {
@@ -120,7 +119,7 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
 
         } catch (\phpmailerException $e) {
             $this->logger->log('ERROR', 'Could not send mail ', ['exception' => $e->errorMessage()]);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->log('ERROR', 'Could not send mail ', ['exception' => $e->getMessage()]);
         }
     }
@@ -139,7 +138,7 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
                 $this->mailer->send();
             } catch (\phpmailerException $e) {
                 $this->logger->log('ERROR', 'Could not send mail ', ['exception' => $e->errorMessage()]);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->logger->log('ERROR', 'Could not send mail ', ['exception' => $e->getMessage()]);
             }
         }

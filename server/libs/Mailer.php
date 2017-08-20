@@ -76,6 +76,7 @@ class Mailer implements MailerInterface
     {
         $this->toAddress = $toAddress = filter_var($this->config->get('systemMailTo'), FILTER_SANITIZE_EMAIL);
         $this->toName = $toName = $this->config->get('systemMailToName');
+        $this->setFrom($this->config->get('smtp.username'), 'JHM System Mailer');
         if (filter_var($toAddress, FILTER_VALIDATE_EMAIL)) {
             return $this->mailerEngine->addAddress($toAddress, $toName);
         } else {

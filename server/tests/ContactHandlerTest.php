@@ -56,9 +56,8 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
         $this->mailer->shouldReceive('setupSystemMailer')->once();
         $this->mailer->shouldReceive('reset')->once();
         $this->mailer->shouldReceive('setupNoReply')->never();
-        $this->mailer->shouldReceive('setRelpyTo')->once();
+        $this->mailer->shouldReceive('setReplyTo')->once();
         $this->mailer->shouldReceive('setSubject')->once();
-        $this->mailer->shouldReceive('setFrom')->once();
         $this->mailer->shouldReceive('setBody')->times(6);
         $this->mailer->shouldReceive('send')->once()->andReturn(true);
         $this->mailer->shouldReceive('setupNoReply');
@@ -85,10 +84,9 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
         $this->mailer->shouldReceive('setupSystemMailer')->once();
         $this->mailer->shouldReceive('reset')->twice();
         $this->mailer->shouldReceive('setHTML')->once()->with(true);
-        $this->mailer->shouldReceive('setRelpyTo')->once();
+        $this->mailer->shouldReceive('setReplyTo')->once();
         $this->mailer->shouldReceive('setSubject')->twice();
         $this->mailer->shouldReceive('setRecipient')->with('joe@mail.com', 'Joe')->once();
-        $this->mailer->shouldReceive('setFrom')->once();
         $this->mailer->shouldReceive('setBody')->times(7);
         $this->mailer->shouldReceive('send')->twice()->andReturn(true);
         $this->mailer->shouldReceive('setupNoReply');
@@ -114,9 +112,8 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
         );
         $this->mailer->shouldReceive('setupSystemMailer')->once();
         $this->mailer->shouldReceive('reset')->once();
-        $this->mailer->shouldReceive('setRelpyTo')->once();
+        $this->mailer->shouldReceive('setReplyTo')->once();
         $this->mailer->shouldReceive('setSubject')->once();
-        $this->mailer->shouldReceive('setFrom')->once();
         $this->mailer->shouldReceive('setBody')->times(6);
         $this->mailer->shouldReceive('send')->once()->andReturn(false);
         $this->digest->shouldReceive('writeMessage')->once();

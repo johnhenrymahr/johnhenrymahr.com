@@ -21,6 +21,7 @@ class MailerTest extends \PHPUnit\Framework\TestCase
         $this->config->shouldReceive('get')->with('systemMailTo')->andReturn('testmail@mail.com')->byDefault();
         $this->config->shouldReceive('get')->with('systemMailToName')->andReturn('John Mahr')->byDefault();
         $this->config->shouldReceive('get')->with('smtp.enabled')->andReturn(false)->byDefault();
+        $this->config->shouldReceive('get')->with('smtp.username')->andReturn('test@user.com')->byDefault();
         $this->obj = new \JHM\Mailer($this->mailer, $this->config, $this->logger);
     }
 
@@ -35,6 +36,7 @@ class MailerTest extends \PHPUnit\Framework\TestCase
     public function testSetupSystemMailer()
     {
         $this->mailer->shouldReceive('addAddress')->with('testmail@mail.com', 'John Mahr');
+        $this->mailer->shouldReceive('setFrom')->with('test@user.com', 'JHM System Mailer');
         $this->obj->setupSystemMailer();
         $this->assertTrue(true);
     }
