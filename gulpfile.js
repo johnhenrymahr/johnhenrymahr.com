@@ -41,7 +41,9 @@ function Server (serverKey) {
     gutil.log(gutil.colors.red('Could not load server config path: ' + gutil.colors.bold(serverConfPath)))
     privateServers = {}
   }
-
+  if (argv.envtest) {
+    gutil.log(gutil.colors.red('Sending environment test file. Remember to delete after running.'))
+  }
   servers = _.merge(servers, privateServers)
   serverKey = serverKey || ''
   var server
@@ -260,6 +262,7 @@ gulp.task('rsync', function () {
       .pipe(gulp.dest(rsyncOpts.destination))
   } else {
     gutil.log('shell arg: ' + gutil.colors.bold(rsyncOpts.shell))
+    gutil.log('rsync options ', rsyncOpts)
     return gulp.src('./' + distFolder + '/**/*', {dot: true})
     .pipe(rsync(rsyncOpts))
   }
@@ -473,4 +476,7 @@ function replaceComments (string) {
  *
  * gulp package --server={server_key} -- package but do not push anywhere
  * gulp deploy --server={server_key}
+ *
+ * extra args
+ * --envtest=true | send the environmentTest.php file to server
  */
