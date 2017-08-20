@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('America/Chicago');
-define('APP_PATH', '{{serverApp}}');
+define('APP_PATH', realpath('{{serverApp}}') . '/');
 define('INCLUDES', APP_PATH . 'includes/');
 require APP_PATH . 'vendor/autoload.php';
 $graph = new \JHM\Graph();
