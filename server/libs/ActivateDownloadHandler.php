@@ -15,6 +15,8 @@ class ActivateDownloadHandler implements ApiHandlerInterface
 
     protected $config;
 
+    protected $logger;
+
     protected $_statusMessage;
 
     protected $_status;
@@ -23,12 +25,14 @@ class ActivateDownloadHandler implements ApiHandlerInterface
         MailerInterface $mailer,
         FileLoaderInterface $fileLoader,
         ContactStorageInterface $storage,
-        ConfigInterface $config
+        ConfigInterface $config,
+        LoggerInterface $logger
     ) {
         $this->mailer = $mailer;
         $this->fileLoader = $fileLoader;
         $this->storage = $storage;
         $this->config = $config;
+        $this->logger = $logger;
     }
 
     public function process(Request $request)
@@ -43,14 +47,17 @@ class ActivateDownloadHandler implements ApiHandlerInterface
                         $this->_statusMessage = 'OK';
                         return true;
                     } else {
+                        $this->logger->log('ERROR', 'activate sendmail failed');
                         $this->_status = Response::HTTP_INTERNAL_SERVER_ERROR;
                         $this->_statusMessage = 'send error';
                     }
                 } else {
+                    $this->logger->log('ERROR', 'could not active token', array('record' => $record));
                     $this->_status = Response::HTTP_INTERNAL_SERVER_ERROR;
                     $this->_statusMessage = 'activation error';
                 }
             } else {
+                $this->logger->log('ERROR', 'query parameter not found', array('_GET' => $_GET));
                 $this->_status = Response::HTTP_NOT_FOUND;
                 $this->_statusMessage = 'record not found';
             }
@@ -85,17 +92,28 @@ class ActivateDownloadHandler implements ApiHandlerInterface
         if (empty($token) || empty($name) || empty($emailAddress)) {
             return false;
         }
-        $this->mailer->reset();
-        $this->mailer->setRecipient($emailAddress, $name);
-        $this->mailer->setSubject('JHM System Mailer: Download Link');
-        $this->mailer->setupNoReply();
-        $this->mailer->setHTML(true);
-        $template = $this->fileLoader->load('cv.html');
-        if ($template && !empty($token)) {
-            $template = $this->_detokenize($template, $token);
-            $this->mailer->setBody(trim($template));
-            $mailResult = $this->mailer->send();
+        try {
+            $this->mailer->reset();
+            $this->mailer->setRecipient($emailAddress, $name);
+            $this->mailer->setSubject('JHM System Mailer: Download Link');
+            $this->mailer->setupNoReply();
+            $this->mailer->setHTML(true);
+            $template = $this->fileLoader->load('cv.html');
+            if ($template && !empty($token)) {
+                $template = $this->_detokenize($template, $token);
+                $this->mailer->setBody(trim($template));
+                $mailResult = $this->mailer->send();
+            } else {
+                $this->logger->log('ERROR', 'Could not load download mail template');
+                return false;
+            }
+            return $mailResult;
+        } catch (\phpmailerException $e) {
+            $this->logger->log('ERROR', 'Could not send download mail ', ['exception' => $e->errorMessage()]);
+            return false;
+        } catch (\Exception $e) {
+            $this->logger->log('ERROR', 'Could not send download mail ', ['exception' => $e->getMessage()]);
+            return false;
         }
-        return $mailResult;
     }
 }
