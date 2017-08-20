@@ -92,7 +92,7 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
         if ($record && is_array($record) && !empty($record)) {
             return $record[0];
         } else {
-            $this->logger->logError('Could not get inactive download record');
+            $this->logError('Could not get inactive download record');
             return false;
         }
     }
