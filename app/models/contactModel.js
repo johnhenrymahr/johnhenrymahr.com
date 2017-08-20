@@ -11,7 +11,7 @@ module.exports = Backbone.Model.extend({
     var errors = {}
     _.forEach(atts, _.bind(function (value, key) {
       _.forEach(_.filter(this.validations, {attribute: key}), _.bind(function (validation) {
-        if (validation.validate(value) === false) {
+        if (validation.validate.call(this, value) === false) {
           errors[key] = validation.message
         }
       }, this))
@@ -95,6 +95,7 @@ module.exports = Backbone.Model.extend({
     {
       attribute: 'custom-topic',
       validate: function (topic) {
+        console.log('context', this)
         return (this.get('topic') === 'other') ? Boolean(topic.length) : true
       },
       message: 'Please enter a custom topic.'
