@@ -10,6 +10,7 @@ define('INCLUDES', APP_PATH . 'includes/');
 require APP_PATH . 'vendor/autoload.php';
 $graph = new \JHM\Graph();
 $contactStorage = $graph->get('ContactStorage');
+$mailer = $graph->get('Mailer');
 
 $email = 'testemail@mail.com';
 $name = 'Joe Testman';
@@ -83,4 +84,21 @@ if ($contactStorage->isReady()) {
 
 } else {
     echo '<p>Storage not ready on this server</p>';
+}
+
+echo '<h2>Mailer tests</h2>';
+echo '<h3>Send system mail</h3>';
+
+$mailer->reset();
+$mailer->setupSystemMailer();
+$mailer->setSubject('johnhenrymahr.com: Web Form Contact:  Test ');
+$mailer->setReplyTo('test@mail.com', 'Test Dude');
+$mailer->setBody("Website Contact\n");
+$mailer->setBody('From:  A Test user' . "\n");
+$mailer->setBody('This is the message' . "\n");
+$a = $mailer->send(true);
+if ($a) {
+    echo 'OK';
+} else {
+    echo 'failed';
 }
