@@ -36,6 +36,7 @@
             },
             "color": "yellow",
             "webroot": "webroot",
+            "webhost": "localhost",
             "serverApp": "server"
 	}
 

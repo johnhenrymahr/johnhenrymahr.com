@@ -361,6 +361,7 @@ gulp.task('update:config', function (callback) {
     var config = fs.readFileSync(cfgPath, 'utf8')
     config = config.replace('{{serverApp}}', server.get('serverApp'))
     config = config.replace('{{webroot}}', server.get('webroot'))
+    config = config.replace('{{webhost}}', server.get('webhost'))
     config = config.replace('{{mailToAddress}}', server.get('mailToAddress'))
     config = config.replace('{{mailToName}}', server.get('mailToName'))
     config = config.replace('{{logfile}}', server.get('logfile'))

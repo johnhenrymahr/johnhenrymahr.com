@@ -7,6 +7,7 @@ class Config implements ConfigInterface
     public $usingLiveConfig = false;
 
     protected $active_config = [
+        "webhost" => "{{webhost}}", // token replaced host name
         "webroot" => "{{webroot}}", // token replaced by deploy script
         "basepath" => "{{serverApp}}", // token replaced by deploy script
         "systemMailTo" => "{{mailToAddress}}", // send contact emails here, token replaced by deploy script
@@ -95,7 +96,6 @@ class Config implements ConfigInterface
             $this->active_config['basepath'] = realpath($this->active_config['basepath']);
         }
 
-        $this->active_config['webhost'] = $hostname;
     }
 
     protected function _getLiveConfig()
