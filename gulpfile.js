@@ -333,10 +333,10 @@ gulp.task('update:env', function (callback) {
       var app = server.get('serverApiApp') || server.get('serverApp')
       index = index.replace('{{serverApp}}', app)
       fs.writeFileSync(envPath, index, 'utf8')
-      callback()
     } else {
       fs.unlinkSync(envPath)
     }
+    callback()
   } catch (e) {
     throwError('update:env', e)
   }
