@@ -4,7 +4,7 @@ define('APP_PATH', realpath('{{serverApp}}') . '/');
 define('INCLUDES', APP_PATH . 'includes/');
 require APP_PATH . 'vendor/autoload.php';
 $graph = new \JHM\Graph();
-$logger $graph->get('Logger');
+$logger = $graph->get('Logger');
 $contactHandler = $graph->get('ContactHandler');
 $cvHandler = $graph->get('CvHandler');
 $downloadActivationHandler = $graph->get('ActivateDownloadHandler');
@@ -17,9 +17,9 @@ try {
     $api->init();
     $api->respond(); // will respond with 404 if no component found
 } catch (\JHM\JhmException $e) {
-		$logger->log('ERROR', 'API threw a fatal JHM Exception', ['exception' => $e->getMessage()])
-    http_response_code('502');    
+    $logger->log('ERROR', 'API threw a fatal JHM Exception', ['exception' => $e->getMessage()]);
+    http_response_code('502');
 } catch (Exception $e) {
-		$logger->log('ERROR', 'API threw a fatal Generic Exception', ['exception' => $e->getMessage()])
+    $logger->log('ERROR', 'API threw a fatal Generic Exception', ['exception' => $e->getMessage()]);
     http_response_code('502'); // bad gateway
 }
