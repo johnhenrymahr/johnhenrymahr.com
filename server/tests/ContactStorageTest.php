@@ -51,8 +51,9 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
         );
         $this->db->shouldReceive('where');
         $this->db->shouldReceive('getOne')->once()->andReturn(['id' => '54']);
-        $this->db->shouldReceive('update')->once()->with('contact', $data);
+        $this->db->shouldReceive('update')->once()->with('contact', $data)->andReturn(true);
         $this->db->shouldReceive('insert');
+        $this->db->count = 1;
         $this->assertEquals('54', $this->obj->addContact('joe@mail.com', 'joe dude ', null, '232-434-2323'));
     }
 
@@ -78,6 +79,7 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
         $this->db->shouldReceive('getOne')->with('download')->andReturn([]);
         $this->db->shouldReceive('insert')->once()->andReturn(false);
         $this->db->shouldReceive('getLastError')->andReturn('error string');
+        $this->db->shouldReceive('getLastQuery')->andReturn('sql query');
         $this->loggerMock->shouldReceive('log')->once();
         $a = $this->obj->addDownloadRecord('22', 'joe@mail.com', 'testfile2');
         $this->assertFalse($a);
@@ -100,10 +102,11 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
             'fileMimeType' => 'application/domain',
         ];
         $this->configMock->shouldReceive('get')->with('downloads.cvMax')->andReturn(7);
-        $this->db->shouldReceive('getOne')->with('download')->andReturn($record);
+        $this->db->shouldReceive('get')->with('download')->andReturn([$record]);
         $this->db->shouldReceive('where');
-        $this->db->shouldReceive('update')->withArgs(array('download', array('access' => 3)));
-        $this->db->shouldReceive('update');
+        $this->db->shouldReceive('update')->withArgs(array('download', array('access' => 3)))->andReturn(true);
+        $this->db->shouldReceive('update')->andReturn(true);
+        $this->db->count = 1;
         $record['access'] = 3;
         $this->assertEquals($record, $this->obj->validateDownloadToken('231d3'));
     }
@@ -117,7 +120,10 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
             'fileId' => 'testfile',
         ];
         $this->configMock->shouldReceive('get')->with('downloads.cvMax')->andReturn(7);
-        $this->db->shouldReceive('getOne')->with('download')->andReturn($record);
+        $this->db->shouldReceive('get')->with('download')->andReturn([$record]);
+        $this->db->shouldReceive('getLastError')->andReturn('error string');
+        $this->db->shouldReceive('getLastQuery')->andReturn('sql query');
+        $this->loggerMock->shouldReceive('log')->once();
         $this->db->shouldReceive('where');
         $this->db->shouldReceive('update')->withArgs(array('download', array('active' => '0')));
         $this->db->shouldReceive('update');
@@ -126,7 +132,7 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
 
     public function testValidateDownloadTokenEmptySet()
     {
-        $this->db->shouldReceive('getOne')->with('download')->andReturn([]);
+        $this->db->shouldReceive('get')->with('download')->andReturn([]);
         $this->db->shouldReceive('where');
         $this->db->shouldReceive('update');
         $this->assertFalse($this->obj->validateDownloadToken('231d3'));

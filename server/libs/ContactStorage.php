@@ -27,38 +27,53 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
         $result = $this->db->getOne('contact');
         if ($result && is_array($result) && isset($result['id']) && $result['id']) {
             $this->db->where('id', $result['id']);
-            $this->db->update('contact', $data);
+            $updateResult = $this->db->update('contact', $data);
+            if (!$updateResult) {
+                $this->logError('Could not update contact record');
+            }
             return $result['id'];
         } else {
-            return $this->db->insert('contact', $data);
+            $insertId = $this->db->insert('contact', $data);
+            if (!$insertId) {
+                $this->logError('Could not insert new contact record.');
+                return false;
+            }
+            return $insertId;
         }
     }
 
     public function addMessage($cid, $topic, $message)
     {
         if ($cid && $this->isStringVar($topic) && $this->isStringVar($message)) {
-            return $this->db->insert('message', array(
+            $result = $this->db->insert('message', array(
                 'cid' => $cid,
                 'topic' => $topic,
                 'message' => $message,
             ));
+            if (!$result) {
+                $this->logError('Could not insert message');
+                return false;
+            }
+            return $result;
         }
         return false;
     }
 
     protected function _deactivateOldRecords()
     {
-        $this->db->where('WHERE created < (NOW() - INTERVAL 10 DAY)');
-        return $this->db->update('download', array('active' => '0'));
+        $this->db->where('created < (NOW() - INTERVAL 10 DAY)');
+        $result = $this->db->update('download', array('active' => '0'));
+        return $result;
     }
 
     public function activateDownloadToken($id)
     {
         $this->db->where('id', $id);
-        if ($this->db->update('download', array("active" => 1))) {
+        $result = $this->db->update('download', array("active" => 1));
+        if ($result && $this->db->count) {
             return true;
         } else {
-            $this->logger->log('ERROR', 'Could not update token', ['lasterror' => $this->db->getLastError()]);
+            $this->logError('Could not update token');
             return false;
         }
     }
@@ -74,10 +89,10 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
         $this->db->where('active', '0');
         $this->db->join("contact c", "d.cid=c.id", "LEFT");
         $record = $this->db->get('download d', null, 'c.name, c.email, d.*');
-        if ($record) {
-            return $record;
+        if ($record && is_array($record) && !empty($record)) {
+            return $record[0];
         } else {
-            $this->logger->log('ERROR', 'Could not get download record', ['lasterror' => $this->db->getLastError()]);
+            $this->logger->logError('Could not get inactive download record');
             return false;
         }
     }
@@ -87,18 +102,29 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
         $this->_deactivateOldRecords();
         $this->db->where('token', $token);
         $this->db->where('active', '1');
-        $record = $this->db->getOne('download');
-        if ($record && is_array($record) && isset($record['token']) && isset($record['fileId'])) {
+        $record = $this->db->get('download');
+
+        if ($record && is_array($record) && !empty($record)) {
             $max = $this->config->get('downloads.cvMax');
-            if ($record['access'] > $max) {
+            $record = $record[0];
+            if (isset($record['access']) && $record['access'] > $max) {
                 $this->db->where('token', $token);
                 $record['active'] = '0';
-                $this->db->update('download', $record);
+                $result = $this->db->update('download', $record);
+                if (!$result || !$this->db->count) {
+                    $this->logError('Could not update download record.');
+                }
                 return false;
             } else {
                 $this->db->where('token', $token);
+                if (!isset($record['access'])) {
+                    $record['access'] = 0;
+                }
                 $data = array('access' => $record['access']++);
-                $this->db->update('download', $record);
+                $result = $this->db->update('download', $record);
+                if (!$result || !$this->db->count) {
+                    $this->logError('Could not update download record.');
+                }
                 return $record;
             }
         } else {
@@ -109,7 +135,11 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
     public function removeDownloadToken($token)
     {
         $this->db->where('token', $token);
-        return $this->db->delete('download');
+        $result = $this->db->delete('download');
+        if (!$result) {
+            $this->logError('Could not delete download record.');
+        }
+        return $result;
     }
 
     public function addDownloadRecord($cid, $email, $fileId, $fileMimeType = null)
@@ -136,12 +166,17 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
                 if ($id) {
                     return $newToken;
                 } else {
-                    $this->logger->log('ERROR', 'Could not insert download', ['lasterror' => $this->db->getLastError()]);
+                    $this->logError('Could not insert download');
                     return false;
                 }
             }
         }
         return false;
+    }
+
+    protected function logError($message)
+    {
+        $this->logger->log('ERROR', $message, ['lastError' => $this->db->getLastError(), 'lastQuery' => $this->db->getLastQuery()]);
     }
 
     protected function generateToken($email)
