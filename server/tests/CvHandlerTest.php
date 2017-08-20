@@ -12,6 +12,8 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
 
     protected $config;
 
+    protected $logger;
+
     protected $digest;
 
     protected function setUp()
@@ -24,7 +26,9 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
         $this->digest->shouldReceive('writeMessage');
         $this->config = \Mockery::mock('\JHM\ConfigInterface');
         $this->config->shouldReceive('get')->byDefault()->andReturn(false);
-        $this->obj = new \JHM\CvHandler($this->mailer, $this->storage, $this->config, $this->digest);
+        $this->logger = \Mockery::mock('\JHM\LoggerInterface');
+        $this->logger->shouldReceive('log');
+        $this->obj = new \JHM\CvHandler($this->mailer, $this->storage, $this->config, $this->digest, $this->logger);
     }
 
     protected function tearDown()
@@ -41,7 +45,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
                 'name' => 'Joe',
                 'email' => 'joe@mail.com',
                 'company' => 'RN Company',
-                'phone' => '6127572323'
+                'phone' => '6127572323',
             )
         );
         $this->storage->shouldReceive('isReady')->andReturn(true);
@@ -52,7 +56,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
         $this->mailer->shouldReceive('reset')->once();
         $this->mailer->shouldReceive('setSubject')->once();
         $this->mailer->shouldReceive('setFrom')->once()->with('joe@mail.com', 'Joe');
-        $this->mailer->shouldReceive('setRelpyTo')->once()->with('joe@mail.com', 'Joe');
+        $this->mailer->shouldReceive('setReplyTo')->once()->with('joe@mail.com', 'Joe');
         $this->mailer->shouldReceive('send')->once()->andReturn(true);
         $this->storage->shouldReceive('addContact')->once()->withArgs(array('joe@mail.com', 'Joe', 'RN Company', '6127572323'))->andReturn('32');
         $this->storage->shouldReceive('addDownloadRecord')->once()->with('32', 'joe@mail.com', 'testFile.tst', 'text/domain')->andReturn('213nkjn');
@@ -72,7 +76,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
                 'name' => 'Joe',
                 'email' => 'joe@mail.com',
                 'company' => 'RN Company',
-                'phone' => '6127572323'
+                'phone' => '6127572323',
             )
         );
         $this->storage->shouldReceive('isReady')->andReturn(true);
@@ -84,7 +88,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
         $this->mailer->shouldReceive('reset')->once();
         $this->mailer->shouldReceive('setSubject')->once();
         $this->mailer->shouldReceive('setFrom')->once()->with('joe@mail.com', 'Joe');
-        $this->mailer->shouldReceive('setRelpyTo')->once()->with('joe@mail.com', 'Joe');
+        $this->mailer->shouldReceive('setReplyTo')->once()->with('joe@mail.com', 'Joe');
         $this->mailer->shouldReceive('send')->once()->andReturn(false);
         $this->storage->shouldReceive('addContact')->once()->withArgs(array('joe@mail.com', 'Joe', 'RN Company', '6127572323'))->andReturn('32');
         $this->storage->shouldReceive('addDownloadRecord')->once()->with('32', 'joe@mail.com', 'testFile.tst', 'text/domain')->andReturn('213nkjn');
