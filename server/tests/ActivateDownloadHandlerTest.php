@@ -48,8 +48,9 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase
         );
         $this->fileLoader->shouldReceive('load')->once()->with('cv.html')->andReturn('  <div>a test string. A url {{webhost}}/path/to?token={{token}}</div>');
         $this->storage->shouldReceive('isReady')->andReturn(true);
-        $this->storage->shouldReceive('getInactiveToken')->with($token)->andReturn(array(
+        $this->storage->shouldReceive('getToken')->with($token)->andReturn(array(
             "email" => 'joe@email.com',
+            "active" => 0,
             "name" => 'joe',
             "id" => '23',
         ));
@@ -67,6 +68,28 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(200, $this->obj->status());
     }
 
+    public function testAlreadyActivated()
+    {
+        $token = '21354325';
+        $request = \Symfony\Component\HttpFoundation\Request::create(
+            '/hello-world',
+            'GET',
+            array(
+                'component' => 'activate',
+                't' => $token,
+            )
+        );
+        $this->storage->shouldReceive('isReady')->andReturn(true);
+        $this->storage->shouldReceive('getToken')->with($token)->andReturn(array(
+            "email" => 'joe@email.com',
+            "active" => 1,
+            "name" => 'joe',
+            "id" => '23',
+        ));
+        $result = $this->obj->process($request);
+        $this->assertEquals(204, $this->obj->status());
+    }
+
     public function testActivationFailure()
     {
         $token = '21354325';
@@ -79,9 +102,10 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase
             )
         );
         $this->storage->shouldReceive('isReady')->andReturn(true);
-        $this->storage->shouldReceive('getInactiveToken')->with($token)->andReturn(array(
+        $this->storage->shouldReceive('getToken')->with($token)->andReturn(array(
             "email" => 'joe@email.com',
             "name" => 'joe',
+            "active" => 0,
             "id" => '23',
         ));
         $this->storage->shouldReceive('activateDownloadToken')->with('23')->andReturn(false);
@@ -103,7 +127,7 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase
             )
         );
         $this->storage->shouldReceive('isReady')->andReturn(true);
-        $this->storage->shouldReceive('getInactiveToken')->with($token)->andReturn(false);
+        $this->storage->shouldReceive('getToken')->with($token)->andReturn(false);
         $result = $this->obj->process($request);
         $this->assertEquals(404, $this->obj->status());
         $this->assertEquals(array('statusCode' => 404, 'statusMessage' => 'record not found'), $this->obj->body());
@@ -122,8 +146,9 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase
         );
         $this->fileLoader->shouldReceive('load')->once()->with('cv.html')->andReturn('  <div>a test string. A url {{webhost}}/path/to?token={{token}}</div>');
         $this->storage->shouldReceive('isReady')->andReturn(true);
-        $this->storage->shouldReceive('getInactiveToken')->with($token)->andReturn(array(
+        $this->storage->shouldReceive('getToken')->with($token)->andReturn(array(
             "email" => 'joe@email.com',
+            "active" => 0,
             "name" => 'joe',
             "id" => '23',
         ));

@@ -39,8 +39,13 @@ class ActivateDownloadHandler implements ApiHandlerInterface
     {
         if ($request->query->has('t')) {
             $token = $request->query->filter('t', '', FILTER_SANITIZE_STRING);
-            $record = $this->storage->getInactiveToken($token);
+            $record = $this->storage->getToken($token);
             if ($record) {
+                if ($record['active']) {
+                    $this->_status = Response::HTTP_NO_CONTENT;
+                    $this->_statusMessage = 'Token already activated';
+                    return true;
+                }
                 if ($this->storage->activateDownloadToken($record['id'])) {
                     if ($this->_sendMail($token, $record['name'], $record['email'])) {
                         $this->_status = Response::HTTP_OK;
