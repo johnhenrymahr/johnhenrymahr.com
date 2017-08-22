@@ -63,6 +63,9 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
         $this->configMock->shouldReceive('getStorage')->with('downloads')->once()->andReturn($this->root->url() . '/');
         $this->db->shouldReceive('where')->with('cid', '22');
         $this->db->shouldReceive('where')->with('active', '1');
+        $this->db->shouldReceive('where');
+        $this->db->shouldReceive('get')->with('download');
+        $this->db->count = 0;
         $this->db->shouldReceive('getOne')->with('download')->andReturn([]);
         $this->db->shouldReceive('insert')->once()->andReturn('23');
         $a = $this->obj->addDownloadRecord('22', 'joe@mail.com', 'testfile');
@@ -76,6 +79,9 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
         $this->configMock->shouldReceive('getStorage')->with('downloads')->once()->andReturn($this->root->url() . '/');
         $this->db->shouldReceive('where')->with('cid', '22');
         $this->db->shouldReceive('where')->with('active', '1');
+        $this->db->shouldReceive('where');
+        $this->db->shouldReceive('get')->with('download');
+        $this->db->count = 0;
         $this->db->shouldReceive('getOne')->with('download')->andReturn([]);
         $this->db->shouldReceive('insert')->once()->andReturn(false);
         $this->db->shouldReceive('getLastError')->andReturn('error string');

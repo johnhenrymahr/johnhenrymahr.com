@@ -78,15 +78,14 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
         }
     }
     /*
-     * getInactiveToken
+     * getToken
      * @string $token
      * return @object || false
      * get download record joined to contact id
      */
-    public function getInactiveToken($token)
+    public function getToken($token)
     {
         $this->db->where('token', $token);
-        $this->db->where('active', '0');
         $this->db->join("contact c", "d.cid=c.id", "LEFT");
         $record = $this->db->get('download d', null, 'c.name, c.email, d.*');
         if ($record && is_array($record) && !empty($record)) {
@@ -181,8 +180,13 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
 
     protected function generateToken($email)
     {
-        $salt = uniqid(mt_rand(), true);
-        return sha1($email . $salt);
+        do {
+          $salt = uniqid(mt_rand(), true);
+          $token =  sha1($email . $salt);
+          $this->db->where('token', $token);
+          $this->db->get('download');
+       } while ($this->db->count > 0);
+       return $token;     
     }
 
     protected function isStringVar($var)
