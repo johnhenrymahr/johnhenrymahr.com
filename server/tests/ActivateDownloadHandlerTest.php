@@ -87,7 +87,7 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase
             "id" => '23',
         ));
         $result = $this->obj->process($request);
-        $this->assertEquals(204, $this->obj->status());
+        $this->assertEquals(200, $this->obj->status());
     }
 
     public function testActivationFailure()
