@@ -1,8 +1,8 @@
 <div class="row tech__header">
-<div class="col-md-6 col-xs-12">
+<div class="col-md-5 col-xs-12">
   <h2 class="tech__title">UI Toolset</h2>
 </div>
-<div class="col-md-6 col-xs-12">
+<div class="col-md-7 col-xs-12">
   <p>
   This is my preferred tool set for development at this moment if all other factors are equal. I have only been using this tool set for about 8 months so it is relatively new. But it has proven to be a real advancement over what I have used in the past.  The combination of React and Jest has made front-end code with high unit test coverage a reality in my work-flow because of the way it abstracts DOM manipulation. I believe that the integration of these tools has allowed my development effects to rise to level I could haves only dreamed of even a year ago.
   </p>
@@ -70,11 +70,11 @@
 </ul>
 
 <div class="row tech__header">
-<div class="col-md-6 col-xs-12">
+<div class="col-md-5 col-xs-12">
   <h2 class="tech__title tech__title--lesser">Learning: <span>Reactive Extensions for JavaScript (RxJS)</span></h2>
     <div class="tech__title--image_wrapper"><img width="150" src="rsc/logos/rx.png" class="tech__title--image" alt="reactive extensions logo" /></div>
 </div>
-<div class="col-md-6 col-xs-12">
+<div class="col-md-7 col-xs-12">
   <p>
    A way to deal with asynchronous operations that are stream like and do not resolve to a single value, but a stream of value. Why? The request/response system fit very nice with promises: question resolves to answer or failure. But if instead of request/response we think in terms of subscribing to an event stream it does not work as well. The reactive approach is all about responding to changes in a stream that is using a push like technology: web-sockets or server sent events. There seem to be hints that this is the future, or a future, of the communications infrastructure of the web. So it would not seem to be a bad technology to learn more about.
   </p>
@@ -85,11 +85,11 @@
 </div>
 <hr />
 <div class="row tech__header">
-<div class="col-md-6 col-xs-12">
+<div class="col-md-5 col-xs-12">
   <h2 class="tech__title tech__title--lesser">Investigating: <span>Vue.js framework</span></h2>
     <div class="tech__title--image_wrapper"><img width="150" src="rsc/logos/vue.png" class="tech__title--image" alt="reactive extensions logo" /></div>
 </div>
-<div class="col-md-6 col-xs-12">
+<div class="col-md-7 col-xs-12">
   <p>
    I just cannot help but to be curious about this one. It shares many of the philosophies of React and Redux but has taken a different path of implementation. I am not giving up React or anything but I believe this may be a really useful tool. It brings back client side templates as a thing you can use (even if I have accepted JSX) and may in fact be more performant than a React app without the need for componentWillUpdate optimizations.
   </p>
@@ -100,12 +100,12 @@
 </div>
 <hr />
 <div class="row tech__header">
-  <div class="col-md-6 col-xs-12">
+  <div class="col-md-5 col-xs-12">
     <h2 class="tech__title tech__title--smaller">Other Stuff</h2>
   </div>
-  <div class="col-md-6 col-xs-12">
+  <div class="col-md-7 col-xs-12">
     <p>Some other technologies have had used in the past, or currently still use when I need what they provide.</p>
-    <ul>
+    <ul class="tech__secondary-list">
       <li>Backbone, Backbone.Marionette, jQuery</li>
       <li>Require.js (AMD modules)</li>
       <li>Karma, Chai, Mocha, PhantomJS, Istanbul</li>

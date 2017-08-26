@@ -16,6 +16,11 @@
       height: 125px;
     }
   }
+  &__social {
+    a {
+      font-size: 20px;
+    }
+  }
   &__about {
     margin: 0px 30px;
 
@@ -81,6 +86,11 @@
       color: darken(@tan-dark, 20%);
       text-shadow: 2px 1px 0px @tan-dark;
       font-size: 3em;
+
+      @media(max-width:@screen-sm-min) {
+        font-size: 2.25em;
+        margin: 70px 10px 35px;
+      }
     }
     background-color: @tan;
     position: relative;
@@ -97,6 +107,9 @@
     border: 2px solid darken(@tan, 2%);
     border-radius: 10px;
 
+    @media(max-width:@screen-sm-min) {
+      margin: 20px 0px 40px;
+    }
     .alert {
       margin: 15px 0px;
     }

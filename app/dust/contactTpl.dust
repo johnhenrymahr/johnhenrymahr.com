@@ -16,7 +16,7 @@
       </div>
       <div class="contact__about">
         <h3>Networks</h3>
-        <ul>
+        <ul class="contact__social">
             <li><a href="https://www.linkedin.com/in/johnhenrymahr">Linked In</a></li>
             <li><a href="https://github.com/johnhenrymahr">GitHub</a></li>
         </ul>
