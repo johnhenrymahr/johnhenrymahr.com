@@ -10,11 +10,13 @@ module.exports = _.extend({}, decorator, {
         App.vent.trigger('app:track', 'cv-request-refs', 'cv:submit:success', 'form-submit')
         this.$('form, .cv__popover--subtitle, .cv__popover--spinner, .alert-danger').addClass('hidden')
         this.$('.alert-success').removeClass('hidden')
+        this.slideToPop()
       })
       this.listenTo(options.model, 'error', _.bind(function () {
         this.$('.cv__popover--spinner').addClass('hidden')
         this.$('form, .cv__popover--subtitle').removeClass('hidden')
         this.$('.alert-danger').removeClass('hidden')
+        this.slideToPop()
       }, this))
       this.listenTo(options.model, 'request', _.bind(function () {
         this.$('form, .cv__popover--subtitle').addClass('hidden')
@@ -59,10 +61,13 @@ module.exports = _.extend({}, decorator, {
       $ref.addClass('hidden')
     } else {
       $ref.removeClass('hidden')
-      $('html, body').animate({
-        scrollTop: this.$('.cv__ref').offset().top
-      })
+      this.slideToPop()
     }
+  },
+  slideToPop: function () {
+    $('html, body').animate({
+      scrollTop: this.$('.cv__ref').offset().top
+    })
   },
   onRequestClick: function (e) {
     e.preventDefault()
