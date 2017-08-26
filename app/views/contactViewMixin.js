@@ -46,9 +46,9 @@ module.exports = _.extend({}, decorator, {
     state: '',
     submitError: false
   },
-  slideToFormTop () {
+  slideToFormTop: function () {
     $('html, body').animate({
-      scrollTop: (this.$('.contact__formContainer').offset().top || 30) - 30
+      scrollTop: ((this.$('.contact__formContainer').offset().top || 30) - 30)
     })
   },
   onInputChange: function (e) {
