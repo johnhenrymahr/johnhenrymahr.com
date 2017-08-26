@@ -1,6 +1,6 @@
 <?php
 session_start();
-$pass = 'thesmoketest99';
+$pass = 'thesmoketest' . date('d');
 $message = '';
 if (isset($_POST['thesecret'])) {
     $secret = filter_input(INPUT_POST, 'thesecret', FILTER_SANITIZE_STRING);
