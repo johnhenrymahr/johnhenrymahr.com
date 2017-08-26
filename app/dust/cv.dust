@@ -54,7 +54,7 @@
               </div>
               <div class="form-group cv__form--controls">
                   <input type="submit" name="submit" value="Request" class="btn btn-primary cv__form--control"  data-track="cv:attempt-form-submit" />
-                  <a href="#" class="cv__form--cancel cv__form--control">cancel</a>
+                  <a href="#" class="cv__form--cancel cv__form--control">Cancel</a>
               </div>
             </form>
         </div>

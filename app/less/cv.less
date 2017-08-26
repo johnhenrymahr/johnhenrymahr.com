@@ -119,8 +119,12 @@
   }
   &__form {
     &--cancel {
-      padding-left: 15px;
-      font-size: 15px;
+      padding-left: 20px;
+
+      @media (max-width:@screen-sm-min) {
+        padding-left: 0px;
+        padding-top: 10px;
+      }
     }
     &--controls {
       margin-top: 30px;
@@ -129,6 +133,8 @@
       display: none;
     }
     &--control {
+      font-size: 18px;
+
       @media (max-width:@screen-sm-min) {
         display: block;
         width: 100%;
