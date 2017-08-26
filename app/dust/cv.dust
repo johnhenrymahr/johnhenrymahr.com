@@ -14,7 +14,7 @@
          <a href="#" class="cv__ref--request" data-track="cv:expand-references"> <span>Request Resume</span></a>
       </div>
     </div>
-    <div class="cv__popover">
+    <div class="cv__popover hidden">
         <div class="cv__popover--arrow"></div>
         <h3 class="cv__popover--title">Request Resume Packet</h3>
         <div class="cv__popover--body">

@@ -1,6 +1,7 @@
 var _ = require('lodash')
 var decorator = require('../utils/decorator')
 var App = require('app/app')
+var $ = require('jquery')
 module.exports = _.extend({}, decorator, {
   initialize: function (options) {
     if (_.has(options, 'model')) {
@@ -55,12 +56,11 @@ module.exports = _.extend({}, decorator, {
   togglePopover: function () {
     var $ref = this.$('.cv__popover')
     if ($ref.is(':visible')) {
-      $ref.slideUp('slow', function () {
-        $ref.get(0).focus()
-      })
+      $ref.addClass('hidden')
     } else {
-      $ref.slideDown('slow', function () {
-        $ref.find('input:first').get(0).focus()
+      $ref.removeClass('hidden')
+      $('html, body').animate({
+        scrollTop: this.$('.cv__ref').offset().top
       })
     }
   },
