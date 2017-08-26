@@ -19,8 +19,9 @@ module.exports = _.extend({}, decorator, {
         this.slideToPop()
       }, this))
       this.listenTo(options.model, 'request', _.bind(function () {
-        this.$('form, .cv__popover--subtitle').addClass('hidden')
+        this.$('form, .cv__popover--subtitle, .alert-danger').addClass('hidden')
         this.$('.cv__popover--spinner').removeClass('hidden')
+        this.slideToPop()
       }, this))
     }
   },

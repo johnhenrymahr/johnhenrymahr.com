@@ -99,6 +99,9 @@
     border-radius: 0px 0px 15px 15px;
     box-shadow: 0px 3px 6px 0px rgba(50, 50, 50, 0.6);
   }
+  &__spinner {
+    text-align: center;
+  }
   &__formContainer {
     margin: 20px 15px 40px;
     padding: 0px 30px;
@@ -107,6 +110,20 @@
     border: 2px solid darken(@tan, 2%);
     border-radius: 10px;
 
+    .spinner {
+      display: inline-block;
+
+      @media (max-width:@screen-sm-min) {
+        transform: scale(.7);
+      }
+      >span {
+        left: 0px;
+
+        @media (max-width:@screen-sm-min) {
+          display: inline-block;
+        }
+      }
+    }
     @media(max-width:@screen-sm-min) {
       margin: 20px 0px 40px;
     }

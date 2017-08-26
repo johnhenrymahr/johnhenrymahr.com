@@ -17,15 +17,18 @@ module.exports = _.extend({}, decorator, {
       this.listenTo(options.model, 'sync', _.bind(function () {
         App.vent.trigger('app:track', 'contact-form', 'contact:submit:success', 'form-submit')
         this.render({_data: { state: 'success' }})
+        this.slideToFormTop()
       }, this))
       this.listenTo(options.model, 'error', _.bind(function () {
         this.render({_data: {submitError: true}})
+        this.slideToFormTop()
       }, this))
       this.listenTo(options.model, 'change:phone', _.bind(function (model, value, options) {
         this.$('input[name=phone]').val(this.formatPhoneNumber(value))
       }, this))
       this.listenTo(options.model, 'request', _.bind(function () {
         this.render({_data: {state: 'submitting'}})
+        this.slideToFormTop()
       }, this))
     }
   },
@@ -42,6 +45,11 @@ module.exports = _.extend({}, decorator, {
   templateHelpers: {
     state: '',
     submitError: false
+  },
+  slideToFormTop () {
+    $('html, body').animate({
+      scrollTop: (this.$('.contact__formContainer').offset().top || 30) - 30
+    })
   },
   onInputChange: function (e) {
     var $el = this.$(e.currentTarget)

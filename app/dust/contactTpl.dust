@@ -35,7 +35,9 @@
       <div class="contact__formContainer--alerts js-alerts"></div>
       {@select key=state}
         {@eq value="submitting"}
-          {>"app/dust/spinner" verb="Sending" sr="Submitting form data. Please wait." /}
+          <div class="contact__spinner">
+            {>"app/dust/spinner" verb="Sending" sr="Submitting form data. Please wait." /}
+          </div>
         {/eq}
         {@eq value="success"}
             <div class="alert alert-success row" role="alert">
