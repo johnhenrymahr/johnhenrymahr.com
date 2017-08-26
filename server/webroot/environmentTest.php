@@ -42,7 +42,7 @@ if ($contactStorage->isReady()) {
             echo '<p><strong>OK</strong></p>';
             var_dump($token);
             echo '<h3>Get inactive token</h3>';
-            $inactiveRecord = $contactStorage->getInactiveToken($token);
+            $inactiveRecord = $contactStorage->getToken($token);
             if ($inactiveRecord) {
                 echo '<p><strong>OK</strong></p>';
                 var_dump($inactiveRecord);
