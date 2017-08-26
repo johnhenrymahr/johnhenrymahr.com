@@ -63,6 +63,8 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
     {
         $this->db->where('created < (NOW() - INTERVAL 10 DAY)');
         $result = $this->db->update('download', array('active' => '0'));
+        $this->db->where('created < (NOW() - INTERVAL 75 DAY)');
+        $result = $this->db->delete('download');
         return $result;
     }
 
@@ -145,29 +147,22 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
     {
         $storagePath = $this->config->getStorage('downloads') . $fileId;
         if (is_readable($storagePath)) {
-            $this->db->where('cid', $cid);
-            $this->db->where('active', '1');
-            $result = $this->db->getOne('download');
-            if (isset($result['token']) && !empty($result['token'])) {
-                return $result['token'];
+            $newToken = $this->generateToken($email);
+            $data = [
+                'cid' => $cid,
+                'token' => $newToken,
+                'fileId' => $fileId,
+                'md5_hash' => md5_file($storagePath),
+            ];
+            if ($fileMimeType) {
+                $data['fileMimeType'] = $fileMimeType;
+            }
+            $id = $this->db->insert('download', $data);
+            if ($id) {
+                return $newToken;
             } else {
-                $newToken = $this->generateToken($email);
-                $data = [
-                    'cid' => $cid,
-                    'token' => $newToken,
-                    'fileId' => $fileId,
-                    'md5_hash' => md5_file($storagePath),
-                ];
-                if ($fileMimeType) {
-                    $data['fileMimeType'] = $fileMimeType;
-                }
-                $id = $this->db->insert('download', $data);
-                if ($id) {
-                    return $newToken;
-                } else {
-                    $this->logError('Could not insert download');
-                    return false;
-                }
+                $this->logError('Could not insert download');
+                return false;
             }
         }
         return false;
@@ -181,12 +176,12 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
     protected function generateToken($email)
     {
         do {
-          $salt = uniqid(mt_rand(), true);
-          $token =  sha1($email . $salt);
-          $this->db->where('token', $token);
-          $this->db->get('download');
-       } while ($this->db->count > 0);
-       return $token;     
+            $salt = uniqid(mt_rand(), true);
+            $token = sha1($email . $salt);
+            $this->db->where('token', $token);
+            $this->db->get('download');
+        } while ($this->db->count > 0);
+        return $token;
     }
 
     protected function isStringVar($var)

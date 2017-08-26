@@ -27,7 +27,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
         $this->config = \Mockery::mock('\JHM\ConfigInterface');
         $this->config->shouldReceive('get')->byDefault()->andReturn(false);
         $this->logger = \Mockery::mock('\JHM\LoggerInterface');
-        $this->logger->shouldReceive('log');
+        $this->logger->shouldReceive('log')->byDefault();
         $this->obj = new \JHM\CvHandler($this->mailer, $this->storage, $this->config, $this->digest, $this->logger);
     }
 

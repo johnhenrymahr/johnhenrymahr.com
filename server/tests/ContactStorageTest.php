@@ -109,6 +109,7 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
         ];
         $this->configMock->shouldReceive('get')->with('downloads.cvMax')->andReturn(7);
         $this->db->shouldReceive('get')->with('download')->andReturn([$record]);
+        $this->db->shouldReceive('delete');
         $this->db->shouldReceive('where');
         $this->db->shouldReceive('update')->withArgs(array('download', array('access' => 3)))->andReturn(true);
         $this->db->shouldReceive('update')->andReturn(true);
@@ -126,6 +127,7 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
             'fileId' => 'testfile',
         ];
         $this->configMock->shouldReceive('get')->with('downloads.cvMax')->andReturn(7);
+        $this->db->shouldReceive('delete');
         $this->db->shouldReceive('get')->with('download')->andReturn([$record]);
         $this->db->shouldReceive('getLastError')->andReturn('error string');
         $this->db->shouldReceive('getLastQuery')->andReturn('sql query');
@@ -141,6 +143,7 @@ class ContactStorageTest extends \PHPUnit\Framework\TestCase
         $this->db->shouldReceive('get')->with('download')->andReturn([]);
         $this->db->shouldReceive('where');
         $this->db->shouldReceive('update');
+        $this->db->shouldReceive('delete');
         $this->assertFalse($this->obj->validateDownloadToken('231d3'));
     }
 
