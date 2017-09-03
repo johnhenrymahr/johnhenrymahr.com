@@ -8,7 +8,7 @@ if (isset($_POST['thesecret'])) {
         $_SESSION['auth'] = true;
         $message = '';
     } else {
-        $message = '<div style="color: red">Incorrect pass phrase/div>';
+        $message = '<div style="color: red">Incorrect pass phrase</div>';
     }
 }
 if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
