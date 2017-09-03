@@ -1,17 +1,20 @@
 @import '_common.less';
-@darkColor: darken(@warmBrown, 25%);
+@darkColor: @darkerBrown;
 
 .details {
   width: 100%;
   padding: 15px;
   background: radial-gradient(transparent, rgba(0, 0, 0, 0.5));
-  background-color: @warmBrown;
+  background-color: @darkColor;
   background-size: cover;
   color: #fff;
   font-size: 20px;
 
   a {
-    color: @gray10;
+    color: #b3ddf4;
+  }
+  &__application-stack {
+    display: none;
   }
   &__heading {
     .bodini;
@@ -82,6 +85,23 @@
     background-color: @white;
     border: 3px solid @darkColor;
     margin: 50px 0px;
+  }
+  figure {
+    margin-top: 40px;
+    margin-bottom: 60px;
+    display: block;
+
+    figcaption {
+      padding: 4px 5px;
+      font-size: .95em;
+      color: @gray10;
+      .italic;
+    }
+    > div {
+      display: block;
+      background-color: @white;
+      border: 3px solid @darkColor;
+    }
   }
   &__col {
     margin: 0px 15px;

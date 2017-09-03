@@ -31,9 +31,9 @@
                   <div class="col-lg-4 col-md-12">
                   </div>
                   <div class="col-lg-8 col-md-12">
-                    <h4 class="tech__modal--title" id="tech__modal--label_{id}">
+                    <h3 class="tech__modal--title" id="tech__modal--label_{id}">
                       {title}
-                    </h4>
+                    </h3>
                   </div>
                 </div>
               <div class="row tech__modal--row">
