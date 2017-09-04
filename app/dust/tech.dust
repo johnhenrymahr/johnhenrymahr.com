@@ -11,7 +11,7 @@
 
 <ul class="tech__list row">
 {#tech}
-  <li aria-labelledby="tech__tem--label_{id}" id="tech__item_{id}" class="tech__item col-md-2 col-sm-4 col-xs-6">
+  <li aria-labelledby="tech__item--label_{id}" id="tech__item_{id}" class="tech__item col-md-2 col-sm-4 col-xs-6">
     <div class="tech__item--wrapper">
       <a href="#" data-toggle="modal" data-target="#tech__modal_{id}" class="tech__item--link" aria-hidden="true">
         <img class="tech__item--image" src="{img}" alt="{name} logo" />
@@ -87,7 +87,7 @@
 <div class="row tech__header">
 <div class="col-md-5 col-xs-12">
   <h2 class="tech__title tech__title--lesser">Investigating: <span>Vue.js framework</span></h2>
-    <div class="tech__title--image_wrapper"><img width="150" src="rsc/logos/vue.png" class="tech__title--image" alt="reactive extensions logo" /></div>
+    <div class="tech__title--image_wrapper"><img width="150" src="rsc/logos/vue.png" class="tech__title--image" alt="Vue.js Framework" /></div>
 </div>
 <div class="col-md-7 col-xs-12">
   <p>

@@ -1,5 +1,5 @@
 <svg class="jhmblocks" xmlns="http://www.w3.org/2000/svg" width="100%"  viewBox="0 0 800 879" role="img" aria-labelledby="block-title">
-  <title id="blocks-title">John Henry Mahr, JHM Consulting. Splash Page logo.</title>
+  <title id="block-title">John Henry Mahr, JHM Consulting. Splash Page logo.</title>
   <radialGradient id="{prefix}a" cx="459.091" cy="362" r="295.978" gradientUnits="userSpaceOnUse">
     <stop offset=".005" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
   </radialGradient><path fill="url(#{prefix}a)" d="M184.591 46h549v632h-549z"/>
