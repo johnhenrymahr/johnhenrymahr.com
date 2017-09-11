@@ -3,6 +3,23 @@
 @import (reference) "_vars.less";
 @import (reference) "_mixins.less";
 
+.canvas-svg-container {
+  display: block;
+  position: relative;
+
+  >canvas {
+    width: 100%;
+    display: block;
+    visibility: hidden;
+  }
+  >svg {
+    display: block;
+    position: absolute;
+    z-index: 2000;
+    top: 0px;
+    left: 0px;
+  }
+}
 .normal {
   font-family: "struktur_proregular", sans-serif;
 }
