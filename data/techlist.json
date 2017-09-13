@@ -3,12 +3,16 @@
     "id": "webpack",
     "img": "rsc/logos/webpack.svg",
     "url": "https://webpack.js.org",
+    "width": "256",
+    "height": "296",
     "name": "WebPack",
     "title": "WebPack Module Bundler",
     "desc": ["Webpack is the foundation of  the UI workflow for me right now.  Given a JavaScript bootstrap or entry point file, it traverses the dependency graph for that file and builds a single file (bundle) containing all of those dependencies . It does so much on top of that basic function it is hard to iterate all of its benefits.  It supports npm modules, amd, umd, commonJS and ES2015 (import)  module syntaxes, has a large ecosystem of loaders (for images, css, less, json, etc ) and plugins. It comes with a development server that uses a hot module replacement system that  makes real time live updates a reality.  It can support multiple code bundles with asynchronous code loading.  And much, much more.", "It is built around a configuration file that can be a bit of a beast until your learns its finer points. But once you learn to use it you will find that it is just so useful."]
   },
   {
     "id": "react",
+    "width": "256",
+    "height": "230",
     "img": "rsc/logos/react.svg",
     "url": "https://facebook.github.io/react/",
     "name": "React",
@@ -18,6 +22,8 @@
   },
   {
     "id": "redux",
+    "width": "256",
+    "height": "244",
     "img": "rsc/logos/redux.svg",
     "name": "Redux",
     "url": "http://redux.js.org",
@@ -27,6 +33,8 @@
   },
   {
     "id": "jest",
+    "width": "181",
+    "height": "200",
     "name": "Jest",
     "img": "rsc/logos/jest.png",
     "url": "https://facebook.github.io/jest/",
@@ -36,6 +44,8 @@
   },
   {
     "id": "babel",
+    "width": "512",
+    "height": "200",
     "name":"Babel",
     "img": "rsc/logos/babel.svg",
     "url": "https://babeljs.io",
@@ -46,6 +56,8 @@
   {
     "id": "less",
     "name":"Less",
+    "width": "1280",
+    "height": "571",
     "img": "rsc/logos/LESS.png",
     "url": "http://lesscss.org",
     "title": "Less CSS Preprocessor",
@@ -53,6 +65,8 @@
   },
   {
     "id": "node",
+    "width": "444",
+    "height": "274",
     "name":"node",
     "img": "rsc/logos/node.svg",
     "url": "https://nodejs.org",
@@ -63,6 +77,8 @@
   {
     "id": "npm",
     "name":"npm",
+    "width": "540",
+    "height": "210",
     "img": "rsc/logos/npm.svg",
     "url": "https://www.npmjs.com",
     "title": "NPM JavaScript package manager",
@@ -72,6 +88,8 @@
   {
     "id": "git",
     "name": "Git",
+    "width": "300",
+    "height": "300",
     "img": "rsc/logos/git-logo.png",
     "url": "https://git-scm.com",
     "title": "Git Version Control System",
@@ -81,6 +99,8 @@
   {
     "id": "gulp",
     "name": "Gulp",
+    "width": "175",
+    "height": "387",
     "img": "rsc/logos/gulp.svg",
     "url": "http://gulpjs.com",
     "title": "Gulp Automation",
@@ -88,6 +108,8 @@
   },
   {
     "id": "bootstrap",
+    "width": "612",
+    "height": "612",
     "name": "Bootstrap",
     "img": "rsc/logos/bootstrap.svg",
     "url": "http://getbootstrap.com",
@@ -98,6 +120,8 @@
   {
     "id": "elsint",
     "name": "ESLint",
+    "width": "300",
+    "height": "300",
     "img": "rsc/logos/eslint-logo.png",
     "url": "http://eslint.org",
     "title": "ES Lint",
@@ -107,6 +131,8 @@
   {
     "id": "js-standard",
     "name": "Standard JS",
+    "width": "755",
+    "height": "871",
     "img": "rsc/logos/standardJS.svg",
     "url": "https://github.com/feross/standard",
     "title": "JavaScript Standard Style",
@@ -116,6 +142,8 @@
   {
     "id": "lodash",
     "name": "Lodash",
+    "width": "300",
+    "height": "300",
     "img": "rsc/logos/loDash.png",
     "url": "https://lodash.com",
     "title": "Lodash Javascript Utility",
@@ -124,6 +152,8 @@
   {
     "id": "sinon",
     "name": "Sinon.js",
+    "width": "254",
+    "height": "252",
     "img": "rsc/logos/sinonlogo.png",
     "url": "http://sinonjs.org",
     "title": "Sinon Mocks, Spys, and Stubs",
