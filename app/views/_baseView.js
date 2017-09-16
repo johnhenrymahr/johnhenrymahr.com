@@ -306,7 +306,10 @@ module.exports = Backbone.View.extend({
   },
   log: function () {
     if (console && _.isFunction(console.log) && window.appLogging) {
-      console.log.apply(this, arguments)
+      if (!this._log) {
+        this._log = _.bind(console.log, console) // ie does not treat log as a true function,
+      }
+      this._log.apply(this, arguments)
     }
   }
 })
