@@ -5,6 +5,7 @@ date_default_timezone_set('America/Chicago');
 define('APP_PATH', realpath('{{serverApp}}') . '/');
 define('WEB_ROOT', '{{webroot}}');
 define('INCLUDES', APP_PATH . 'includes/');
+define('IS_PROD', '{{isProd}}');
 require APP_PATH . 'vendor/autoload.php';
 $graph = new \JHM\Graph();
 $config = $graph->get('Config');

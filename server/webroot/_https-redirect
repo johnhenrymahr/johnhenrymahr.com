@@ -1,0 +1,7 @@
+# file included by gulp when target is production
+# rewrite http to https for requests not caught by HSTS policy
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+ </IfModule>

@@ -293,6 +293,10 @@ gulp.task('update:index', function (callback) {
       analytics = fs.readFileSync('./inc/analytics.html', 'utf8')
       analytics = analytics.replace('{{property-id}}', server.get('ga_property_id'))
       index = index.replace("ini_set('display_errors', 1);\n", '')
+      index = index.replace("'{{isProd}}'", true)
+    } else {
+      // not production
+      index = index.replace("'{{isProd}}'", false)
     }
     index = index.replace('{{analytics}}', analytics)
     var auth = ''
@@ -394,6 +398,21 @@ gulp.task('update:config', function (callback) {
   }
 })
 
+gulp.task('update:htaccess', function (cb) {
+  if (server.name === 'production') {
+    try {
+      var acPath = path.join(distFolder, path.basename(server.get('webroot')), '.htaccess')
+      var rdPath = path.join('server', 'webroot', '_https-redirect')
+      var access = fs.readFileSync(acPath, 'utf8')
+      var redirect = fs.readFileSync(rdPath, 'utf8')
+      fs.writeFileSync(acPath, access + '\n' + redirect, 'utf8')
+    } catch (e) {
+      throwError('update:config', e)
+    }
+  }
+  cb()
+})
+
 gulp.task('phplint', function (cb) {
   phplint([
     path.join(distFolder, server.get('serverApp'), 'libs', '*.php'),
@@ -426,6 +445,7 @@ gulp.task('package', function (callback) {
     'update:env',
     'update:download',
     'update:config',
+    'update:htaccess',
     'phplint',
     callback
   )

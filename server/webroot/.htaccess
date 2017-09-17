@@ -16,3 +16,12 @@ DirectoryIndex index.php maint.php index.html
     RewriteRule ^ %{ENV:PROTO}://%1%{REQUEST_URI} [R=301,L]
 </IfModule>
 
+# Block access to directories without a default document.
+#
+# You should leave the following uncommented, as you shouldn't allow
+# anyone to surf through every directory on your server (which may
+# includes rather private places such as the CMS's directories).
+
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
