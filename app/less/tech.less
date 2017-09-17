@@ -45,12 +45,14 @@
       font-size: 45px;
     }
     &--image {
-      padding-right: 20px;
-      padding-top: 10px;
+      margin: 15px;
+      float: right;
       text-align: right;
+      display: inline-block;
       max-width: 150px;
+
       >img {
-        display: inline-block;
+        display: block;
         width: 100%;
         height: auto;
       }
@@ -85,6 +87,9 @@
     }
   }
   &__modal {
+    // bootstrap adds padding-left: 15px for some reason, lets even it out. Good for small view anyways
+    padding:0px 15px;
+
     &--wrapper {
       display: table;
       height: 100%;
@@ -142,9 +147,10 @@
       display: block;
       position: relative;
       top: -25px;
-      width: 95%;
+      width: 200px;
       max-height: 210px;
       margin: 10px auto;
+
       >img {
         display: block;
         width: 100%;
@@ -168,8 +174,8 @@
     &--image {
       display: block;
       width: 75%;
-      max-height: 210px;
       margin: 10px auto;
+
       >img {
         display: block;
         width: 100%;
@@ -212,6 +218,7 @@
         top: 0px;
         max-width: 65%;
         display: block;
+
         >img {
           display: block;
           width: 100%;
@@ -233,15 +240,17 @@
       text-align: center;
 
       &--image {
-        padding: 20px 0px;
+        margin: 20px auto;
+        float: none;
         text-align: center;
         max-width: 65%;
+
         >img {
           display: inline-block;
           width: 100%;
           height: auto;
         }
-      }    
+      }
     }
   }
 }

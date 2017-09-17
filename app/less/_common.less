@@ -3,6 +3,11 @@
 @import (reference) "_vars.less";
 @import (reference) "_mixins.less";
 
+.modal-open {
+  // fix for some weird bootstrap thing
+  overflow: hidden;
+  padding-right: 0 !important;
+}
 .canvas-svg-container {
   display: block;
   position: relative;
