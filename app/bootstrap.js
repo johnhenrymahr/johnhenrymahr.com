@@ -28,6 +28,8 @@ app.onStart(function () {
   }
 })
 
+app.oldIE = navigator.userAgent.indexOf('MSIE') >= 0
+
 if (window.localDev) {
   window.app = app
 }

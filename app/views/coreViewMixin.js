@@ -6,6 +6,12 @@ module.exports = {
   },
   onAppReady: function () {
     this.coreAnimation()
+    if (App.oldIE) {
+      this.oldIE()
+    }
+  },
+  oldIE: function () {
+    this.$el.addClass('oldIE')
   },
   stepsAnimation: function () {
     var $ele = this.$('.core__steps')
