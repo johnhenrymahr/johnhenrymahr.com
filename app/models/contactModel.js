@@ -95,7 +95,6 @@ module.exports = Backbone.Model.extend({
     {
       attribute: 'custom-topic',
       validate: function (topic) {
-        console.log('context', this)
         return (this.get('topic') === 'other') ? Boolean(topic.length) : true
       },
       message: 'Please enter a custom topic.'
