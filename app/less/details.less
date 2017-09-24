@@ -9,7 +9,27 @@
   background-size: cover;
   color: #fff;
   font-size: 20px;
+  line-height: 2.1em;
 
+  @media(max-width:@screen-sm-min) {
+    font-size: 16px;
+  }
+  aside {
+    margin: 60px 40px;
+    padding: 20px;
+    border-top: 1px solid @white;
+    border-bottom: 1px solid @white;
+    font-size: 1em;
+    text-align: left;
+
+    strong {
+      font-size: 1.1em;
+    }
+    @media(max-width:@screen-sm-min) {
+      margin: 50px 5px;
+      padding: 20px 5px;
+    }
+  }
   .blockquote {
     font-size: 1.2em;
     margin: 60px 0px;
@@ -123,9 +143,6 @@
       border: 3px solid @darkColor;
     }
   }
-  &__col {
-    margin: 0px 15px;
-  }
   &__rule {
     width: 300px;
     border-color: @white;
@@ -158,9 +175,6 @@
     }
   }
   @media(max-width:@screen-sm-min) {
-    &__content {
-      margin-top: 50px;
-    }
     &__rule {
       width: 80%;
     }
