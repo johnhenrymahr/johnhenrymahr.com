@@ -14,30 +14,37 @@
       color: @complimentBlue;
       text-decoration: underline;
     }
+
   }
+
   hr {
     max-width: 700px;
     margin: 60px auto;
   }
+
   &__header {
     margin: 0px 0px 100px;
 
     &:first-child {
       margin-bottom: 20px;
+      position: relative;
+      background-color: @tan;
+      z-index: 1020;
     }
+
   }
+
   p {
     max-width: 500px;
     font-size: 20px;
     text-align: left;
     padding: 5px;
-    position: relative;
-    background-color: @tan;
-    z-index: 2000;
   }
+
   ul {
     text-align: left;
   }
+
   &__title {
     .heavy;
     text-align: right;
@@ -47,6 +54,7 @@
     &--lesser {
       font-size: 45px;
     }
+
     &--image {
       margin: 15px;
       float: right;
@@ -59,25 +67,32 @@
         width: 100%;
         height: auto;
       }
+
     }
+
     &--smaller {
       font-size: 30px;
       padding-top: 15px;
     }
+
     >span {
       font-size: 25px;
       line-height: 45px;
       display: block;
       .bold;
     }
+
   }
+
   &__secondary-list {
     font-size: 16px;
 
     >li {
       margin-bottom: 4px;
     }
+
   }
+
   &__list {
     padding: 0px;
     max-width: 1200px;
@@ -88,7 +103,9 @@
     @media (max-width:@screen-md-min) {
       margin: 0px auto 50px;
     }
+
   }
+
   &__modal {
     // bootstrap adds padding-left: 15px for some reason, lets even it out. Good for small view anyways
     padding:0px 15px;
@@ -99,6 +116,7 @@
       width: 100%;
       pointer-events: none;
     }
+
     &--center {
 
       /* To center vertically */
@@ -106,6 +124,7 @@
       vertical-align: middle;
       pointer-events: none;
     }
+
     &--content {
 
       /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
@@ -115,6 +134,7 @@
       pointer-events: all;
       padding: 0px;
     }
+
     &--title {
       .bold;
       font-size: 24px;
@@ -122,9 +142,11 @@
       margin: 10px 0px;
       text-align: left;
     }
+
     &--link {
       margin: 15px 0px 25px;
     }
+
     &--row {
       margin: 0px;
 
@@ -133,19 +155,24 @@
         max-width: 450px;
         text-align: justify;
       }
+
     }
+
     &--header {
       padding-left: 20px;
       color: @gray60;
     }
+
     &--body {
       #gradient.vertical(@white, @gray15, 80%, 100%);
       border-bottom: 1px solid @gray25;
     }
+
     &--footer {
       background-color: @gray10;
       border-radius: 0px 0px 5px 5px;
     }
+
     &--image {
       display: block;
       position: relative;
@@ -159,8 +186,11 @@
         width: 100%;
         height: auto;
       }
+
     }
+
   }
+
   &__item {
     list-style: none;
     display: table;
@@ -174,6 +204,7 @@
       display: table-cell;
       vertical-align: middle;
     }
+
     &--image {
       display: block;
       width: 75%;
@@ -184,7 +215,9 @@
         width: 100%;
         height: auto;
       }
+
     }
+
     &--label {
       display: block;
       position: absolute;
@@ -193,7 +226,9 @@
       width: 100%;
       .bold;
     }
+
   }
+
   &__arrow {
     text-align: center;
     width: 100%;
@@ -207,8 +242,11 @@
       font-size: 40px;
       padding: 1px;
     }
+
   }
+
 }
+
 @media (max-width:@screen-md-min) {
   .tech {
     padding: 50px 0 0 0;
@@ -216,6 +254,7 @@
     &__item {
       margin: 10px 0px;
     }
+
     &__modal {
       &--image {
         top: 0px;
@@ -227,18 +266,24 @@
           width: 100%;
           height: auto;
         }
+
       }
+
       &--title {
         text-align: center;
       }
+
       &--content {
         width: 100%;
       }
+
     }
+
     &__list {
       border-top: none;
       border-bottom: none;
     }
+
     &__title, &__header {
       text-align: center;
 
@@ -253,7 +298,11 @@
           width: 100%;
           height: auto;
         }
+
       }
+
     }
+
   }
+
 }
