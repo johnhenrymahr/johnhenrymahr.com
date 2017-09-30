@@ -17,6 +17,7 @@ require INCLUDES . 'headers.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+    <!-- {{__version__}} -->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">

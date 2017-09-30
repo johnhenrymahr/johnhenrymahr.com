@@ -30,6 +30,8 @@ var distFolder = 'dist'
 
 var inlineCss = require('gulp-inline-css')
 
+var git = require('git-rev-sync')
+
 function Server (serverKey) {
   var servers = require('./servers.json')
   var serverConfPath = argv.serverconf || path.normalize(path.join(process.env.HOME, '/jhm-vault/serverconf.json'))
@@ -285,8 +287,11 @@ gulp.task('send', function (callback) {
 gulp.task('update:index', function (callback) {
   try {
     var indexPath = path.join(distFolder, path.basename(server.get('webroot')), 'index.php')
+    var pkg = JSON.parse(fs.readFileSync('./package.json'))
     var index = fs.readFileSync(indexPath, 'utf8')
     var analytics = ''
+    var versionString = 'revision: ' + pkg.version + ' ;branch: ' + git.branch() + ' ;commit: ' + git.short()
+    index = index.replace('{{__version__}}', versionString)
     index = index.replace('{{serverApp}}', server.get('serverApp'))
     index = index.replace('{{webroot}}', server.get('webroot'))
     if (server.name === 'production') {
