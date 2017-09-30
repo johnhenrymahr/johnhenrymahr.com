@@ -7,7 +7,7 @@
     "height": "296",
     "name": "WebPack",
     "title": "WebPack Module Bundler",
-    "desc": ["Webpack is the foundation of  the UI workflow for me right now.  Given a JavaScript bootstrap or entry point file, it traverses the dependency graph for that file and builds a single file (bundle) containing all of those dependencies . It does so much on top of that basic function it is hard to iterate all of its benefits.  It supports npm modules, amd, umd, commonJS and ES2015 (import)  module syntaxes, has a large ecosystem of loaders (for images, css, less, json, etc ) and plugins. It comes with a development server that uses a hot module replacement system that  makes real time live updates a reality.  It can support multiple code bundles with asynchronous code loading.  And much, much more.", "It is built around a configuration file that can be a bit of a beast until your learns its finer points. But once you learn to use it you will find that it is just so useful."]
+    "desc": ["Webpack is the foundation of  the UI workflow for me right now.  Given a JavaScript bootstrap or entry point file, it traverses the dependency graph for that file and builds a single file (bundle) containing all of those dependencies . It does so much on top of that basic function it is hard to iterate all of its benefits.  It supports npm modules, amd, umd, commonJS and ES2015 (import) module syntaxes, has a large ecosystem of loaders (for images, css, less, json, etc ) and plugins. It comes with a development server that uses a hot module replacement system that  makes real time live updates a reality.  It can support multiple code bundles with asynchronous code loading.  And much, much more.", "It is built around a configuration file that can be a bit of a beast until your learns its finer points. But once you learn to use it you will find that it is just so useful."]
   },
   {
     "id": "react",
@@ -28,7 +28,7 @@
     "name": "Redux",
     "url": "http://redux.js.org",
     "title": "Redux State Container",
-    "desc": ["When your React app gets to a point where it is using a lot of state and the built in mechanisms for state management are not robust enough Redux is the solution (for me). It implements the flux pattern and has become the defacto leader in flux implementations for good reason.  It is well thought out, well documented, and has a nice ecosystem of enhancements and testing tools. It is the natural partner to React and really helps to get a complex application under control. Not to mention the really nice Chrome development plug-in. "]
+    "desc": ["When your React app gets to a point where it is using a lot of state and the built in mechanisms for state management are not robust enough Redux is the solution (for me). It implements the flux pattern and has become the de facto leader in flux implementations for good reason.  It is well thought out, well documented, and has a nice ecosystem of enhancements and testing tools. It is the natural partner to React and really helps to get a complex application under control. Not to mention the really nice Chrome development plug-in. "]
 
   },
   {
@@ -50,7 +50,7 @@
     "img": "rsc/logos/babel.svg",
     "url": "https://babeljs.io",
     "title": "Babel Javascript Compiler",
-    "desc": ["We all know about ES2015 right? Well if not, it is the next version of JavasScript with all kinds of new features. Many of these language features are supported in the newest browsers, but certainly not all. Regardless of browser support you can start using those new features now by using Babel. It lets you work in the new format and then transpile the code back to the (current) standard, ES5. It sounds complex, and it is, but the good news is that for the end user (the developer) it [mostly] just works. And the new language features are so addictive you just will not want to go back to the old way. ", "When using React with JSX, babel is basically a requirement anyways. So not much of a choice really. I avoided transpiled languages like CoffeScript for a long time, but I have accepted it now as the way of thing. And honestly, Babel has made it really painless. And if you setup a source map, debugging is not even that bad either."]
+    "desc": ["We all know about ES2015 and  ES2016 right? Well if not, it is the next version of JavasScript with all kinds of new features. Many of these language features are supported in the newest browsers, but certainly not all. Regardless of browser support you can start using those new features now by using Babel. It lets you work in the new format and then transpile the code back to the (current well supported ) standard, ES5. It sounds complex, and it is, but the good news is that for the end user (the developer) it [mostly] just works. And the new language features are so addictive you just will not want to go back to the old way. ", "When using React with JSX, babel is basically a requirement anyways. So not much of a choice really. I avoided transpiled languages like CoffeScript for a long time, but I have accepted it now as the way of things. And honestly, Babel has made it really painless. And if you setup a source map, debugging is not even that bad either."]
 
   },
   {
@@ -61,7 +61,7 @@
     "img": "rsc/logos/LESS.png",
     "url": "http://lesscss.org",
     "title": "Less CSS Preprocessor",
-    "desc": "What can I say? A css pre-processor is really useful. It gives you mix-ins, variables, reference imports and more. There are other options out there that accomplish the same goals sure. But I like Less. And it is written in JavaScript so compiling on a js build system is easy."
+    "desc": "What can I say? A css pre-processor is really useful. It gives you mix-ins, variables, reference imports and more. There are other options out there that accomplish the same goals. But I like Less. And it is written in JavaScript so compiling on a js build system is easy."
   },
   {
     "id": "node",
@@ -71,7 +71,7 @@
     "img": "rsc/logos/node.svg",
     "url": "https://nodejs.org",
     "title": "Node JS JavaScript Runtime",
-    "desc": ["Node is just so cool. At least I think so. Sure, there are advanced usages like middle ware servers and proxies and so on. But the every day, every project, benefit it brings is the ability to set up a front end build system and tooling  written in JavaScript. It forms a foundation that so many great tools are built on these days it has become an essential component of the UI developer environment. "]
+    "desc": ["Node is just so cool. At least I think so. Sure, there are advanced usages like middle ware servers and proxies and so on. But the every day, every project, benefit it brings is the ability to set up a front end build system using tooling written in JavaScript. It forms a foundation that so many great tools are built on these days it has become an essential component of the UI developer environment. "]
 
   },
   {
@@ -104,7 +104,7 @@
     "img": "rsc/logos/gulp.svg",
     "url": "http://gulpjs.com",
     "title": "Gulp Automation",
-    "desc": "Gulp is a task runner that uses streams. I am not sure if it is the best option out there but it works, and works well. And it lets you write your tasks in basic JavaScript without complex configuration files ( like some other alternatives).  With Webpack it may have less purpose than in the past but it is still really useful. "
+    "desc": "Gulp is an automation tool that uses streams. I am not sure if it is the best option out there but it works, and works well. And it lets you write your tasks in basic JavaScript without complex configuration files.  With Webpack it may have less purpose than in the past, but it is still really useful. "
   },
   {
     "id": "bootstrap",
@@ -136,7 +136,7 @@
     "img": "rsc/logos/standardJS.svg",
     "url": "https://github.com/feross/standard",
     "title": "JavaScript Standard Style",
-    "desc": ["Using a linter is one thing, but coming up with a set of linting standards is another. Standard was built around the concept that develops will argue about style until the end of time.  And that argument is essentially a great waste of brain resource. Standard sets a reasonable set of code style rules (even if they do tend to anger many people) and says stop arguing, just use this. I did not like some of their choices at first either. But now I am fine with it. I do not want to spend any more of my life thinking about code style, use a standard plugin or tool of some sort (there is an ESLint shareable config of course) to lint and format you code and move on with you life."]
+    "desc": ["Using a linter is one thing, but coming up with a set of linting standards is another. Standard was built around the concept that developers will argue about style until the end of time.  And that such an argument is essentially a great waste of brain resource. Standard sets a reasonable set of code style rules (even if they do tend to anger many people) and says “stop arguing, just use this.” I did not like some of their choices at first either. But now I am fine with it. I do not want to spend any more of my life thinking about code style. Use a standard plug-in or tool of some sort (there is an ESLint shareable config of course) to lint and format you code and move on with your life."]
 
   },
   {
@@ -147,7 +147,7 @@
     "img": "rsc/logos/loDash.png",
     "url": "https://lodash.com",
     "title": "Lodash Javascript Utility",
-    "desc": ["A useful set of utilities for JavaScript that solve many common problems.  Some may say it is not as important in this age of ES2015 and beyond. And it is true,  some of it’s methods like map and filter may be redundant. But it still has it’s uses.  And you do not need to import the entire library, it is modularized. Its implementation of debounce and throttle are some of it’s high points."]
+    "desc": ["A useful set of utilities for JavaScript that solve many common problems.  Some may say it is not as important in this age of ES2015 and beyond. And it is true,  some of it’s methods like map and filter may be redundant. But it still has it’s uses.  Its solutions are highly performant and well tested. And you do not need to import the entire library as it is modularized. Its implementation of debounce and throttle are some of it’s high points."]
   },
   {
     "id": "sinon",
