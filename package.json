@@ -1,6 +1,6 @@
 {
   "name": "johnhenrymahr.com",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "BSD-3-Clause",
   "description": "John Henry Mahr personal website",
   "main": "index.js",
