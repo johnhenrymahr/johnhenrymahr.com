@@ -13,6 +13,16 @@ $assembler = $graph->get('Assembler');
 $dataProvider = $graph->get('DataProvider');
 $output = $graph->get('Output');
 $assets = $graph->get('Assets');
+try {
+    $pageCSS = $assets->get('css');
+    $pageData = $output(array($dataProvider, 'getBootstrapData'))->toJSON() . "\n";
+    $pageContent = $output(array($assembler, 'assemble'), 'jhm-core');
+} catch (Exception $e) {
+    $protocol = filter_input(INPUT_SERVER, 'SERVER_PROTOCOL', FILTER_SANITIZE_STRING);
+    header("$protocol 307 Temporary Redirect", true, 307);
+    header('Location: error.php');
+    die();
+}
 require INCLUDES . 'headers.php';
 ?>
 <!DOCTYPE html>
@@ -29,19 +39,15 @@ require INCLUDES . 'headers.php';
          {{analytics}}
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="<?php echo $assets->get('css'); ?>">
+        <link rel="stylesheet" href="<?php echo $pageCSS; ?>">
     </head>
    <body>
    {{auth}}
    <script type="application/javascript">
-     window.jhmData = <?php echo $output(array($dataProvider, 'getBootstrapData'))->toJSON() . "\n"; ?>
+     window.jhmData = <?php echo $pageData; ?>; // eslint-disable-line
    </script>
    <?php
-try {
-    echo $output(array($assembler, 'assemble'), 'jhm-core');
-} catch (Exception $e) {
-    include INCLUDES . 'site-error.php';
-}
+echo $pageContent;
 ?>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
    <script src="https://use.typekit.net/zhf5ttk.js"></script>

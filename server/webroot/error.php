@@ -1,7 +1,6 @@
 <?php
 $protocol = filter_input(INPUT_SERVER, 'SERVER_PROTOCOL', FILTER_SANITIZE_STRING);
-header("$protocol 500 Service Unavailable", true, 503);
-header("Retry-After: 3600");
+header("$protocol 500 Internal Server Error", true, 500);
 ?>
 <!doctype html>
 <html lang="en">
@@ -70,8 +69,8 @@ header("Retry-After: 3600");
         </div>
     </div>
     <div class="body">
-      <h1>We will be back soon!</h1>
-      <p>This page is currently down for maintenance. Please try back soon.</p>
+      <h1>Something went wrong.</h1>
+      <p>This page has encountered an error. Sorry about that. Try back later.</p>
     </div>
 </body>
 </html>
