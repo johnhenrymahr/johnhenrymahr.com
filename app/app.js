@@ -160,7 +160,7 @@ module.exports = {
    * @param {string} selector jQuery selector of element to track (after render)
    * @param {object} tracker  tracker object,
    */
-  addScrollTracker (selector, tracker) {
+  addScrollTracker: function (selector, tracker) {
     tracker = tracker || {}
     if (_.isString(selector) && tracker.eventCategory && tracker.eventLabel) {
       this._scrollTrackers.push(_.merge(
@@ -172,7 +172,7 @@ module.exports = {
     }
   },
 
-  _setupScrollTrackers () {
+  _setupScrollTrackers: function () {
     this._scrollTrackers = _.filter(_.map(this._scrollTrackers, function (tracker) {
       var $ele = $(tracker.selector)
       if ($ele.length) {

@@ -11,7 +11,7 @@ module.exports = {
       eventLabel: 'Investigating Vue.js',
       eventAction: 'scroll'
     })
-     App.addScrollTracker('#tech_other-stuff', {
+    App.addScrollTracker('#tech_other-stuff', {
       eventCategory: 'tech page',
       eventLabel: 'Other tech stuff',
       eventAction: 'scroll'
