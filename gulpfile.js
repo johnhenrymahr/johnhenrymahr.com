@@ -95,6 +95,9 @@ gulp.task('server', function (cb) {
   gutil.log('webroot: ', server.get('webroot'))
   gutil.log('server app: ', server.get('serverApp'))
   gutil.log('private key path: ', _.get(server.get('shell'), 'privateKey', ''))
+  if (argv.canary) {
+    gutil.log(gutil.colors.yellow('setting up for canary testing'))
+  }
   gutil.log(gutil.colors[server.get('color')]('Using Server ' + gutil.colors.bold(server.name) + ' definition.'))
   cb()
 })
@@ -305,13 +308,23 @@ gulp.task('update:index', function (callback) {
     }
     index = index.replace('{{analytics}}', analytics)
     var auth = ''
-    if (server.get('auth')) {
+    var preheader = ''
+    var canary = argv.canary
+    if (server.get('auth') && !canary) {
       auth = fs.readFileSync('./inc/auth.php', 'utf8')
       if (_.isString(auth) && auth.length) {
         auth += '?>'
       }
     }
+    // pre-header replacements
+    if (canary) {
+      preheader = fs.readFileSync('./inc/canary.php', 'utf8')
+      if (_.isString(preheader) && preheader.length) {
+        preheader = preheader.replace('<?php', '')
+      }
+    }
     index = index.replace('{{auth}}', auth)
+    index = index.replace('/*{{preheader}}*/', preheader)
     index = replaceComments(index)
     fs.writeFileSync(indexPath, index, 'utf8')
     callback()

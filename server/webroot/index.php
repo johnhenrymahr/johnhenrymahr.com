@@ -5,7 +5,9 @@ date_default_timezone_set('America/Chicago');
 define('APP_PATH', realpath('{{serverApp}}') . '/');
 define('WEB_ROOT', '{{webroot}}');
 define('INCLUDES', APP_PATH . 'includes/');
+define('DOC_PATH', realpath(dirname(__FILE__)) . '/');
 define('IS_PROD', '{{isProd}}');
+/*{{preheader}}*/
 require APP_PATH . 'vendor/autoload.php';
 $graph = new \JHM\Graph();
 $config = $graph->get('Config');
@@ -18,9 +20,7 @@ try {
     $pageData = $output(array($dataProvider, 'getBootstrapData'))->toJSON() . "\n";
     $pageContent = $output(array($assembler, 'assemble'), 'jhm-core');
 } catch (Exception $e) {
-    $protocol = filter_input(INPUT_SERVER, 'SERVER_PROTOCOL', FILTER_SANITIZE_STRING);
-    header("$protocol 307 Temporary Redirect", true, 307);
-    header('Location: error.php');
+    include DOC_PATH . 'error.php';
     die();
 }
 require INCLUDES . 'headers.php';
