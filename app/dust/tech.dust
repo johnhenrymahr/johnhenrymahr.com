@@ -13,7 +13,7 @@
 {#tech}
   <li aria-labelledby="tech__item--label_{id}" id="tech__item_{id}" class="tech__item col-md-2 col-sm-4 col-xs-6">
     <div class="tech__item--wrapper">
-      <a href="#" data-toggle="modal" data-target="#tech__modal_{id}" class="tech__item--link" aria-hidden="true">
+      <a href="#" data-toggle="modal" data-track="tech-modal:{id}" data-target="#tech__modal_{id}" class="tech__item--link" aria-hidden="true">
          <span class="tech__item--image">
             <img width={width} height={height}  src="{img}" alt="{name} logo" />
          </span>
@@ -75,7 +75,7 @@
 
 <div class="row tech__header">
 <div class="col-md-5 col-xs-12">
-  <h2 class="tech__title tech__title--lesser">Learning: <span>Reactive Extensions for JavaScript (RxJS)</span></h2>
+  <h2 class="tech__title tech__title--lesser" id="tech_learning">Learning: <span>Reactive Extensions for JavaScript (RxJS)</span></h2>
     <div class="tech__title--image"><img width="200" height="200" src="rsc/logos/rx.png" alt="reactive extensions logo" /></div>
 </div>
 <div class="col-md-7 col-xs-12">
@@ -90,7 +90,7 @@
 <hr />
 <div class="row tech__header">
 <div class="col-md-5 col-xs-12">
-  <h2 class="tech__title tech__title--lesser">Investigating: <span>Vue.js framework</span></h2>
+  <h2 class="tech__title tech__title--lesser" id="tech_investigating">Investigating: <span>Vue.js framework</span></h2>
    <div class="tech__title--image">
       <img width="400" height="400" src="rsc/logos/vue.png" alt="Vue.js Framework" />
    </div>
@@ -107,7 +107,7 @@
 <hr />
 <div class="row tech__header">
   <div class="col-md-5 col-xs-12">
-    <h2 class="tech__title tech__title--smaller">Other Stuff</h2>
+    <h2 class="tech__title tech__title--smaller" id="tech_other-stuff">Other Tech Stuff</h2>
   </div>
   <div class="col-md-7 col-xs-12">
     <p>Some other technologies have had used in the past, or currently still use when I need what they provide.</p>

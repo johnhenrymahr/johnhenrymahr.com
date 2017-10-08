@@ -27,7 +27,7 @@
           The role of the UI Developer within the continuum from humanistic concerns to technological concerns. With credit and much thanks given to <a href="https://asinthecity.com/2011/11/10/the-difference-between-a-ux-designer-and-ui-developer/" target="_BLANK"> this blog article.</a>
           </figcaption>
       </figure>
-      <h3 class="details__model-heading">The role of the UI Developer</h3>
+      <h3 class="details__model-heading" id="details__role-heading">The role of the UI Developer</h3>
       <p>
           The UI Developer role sits in an unique position on the development team.  In a sense, the UI Developer must be the bridge between two very different worlds and ways of thinking. On the one side are the user focused, “soft” (in a sense of be less definable by nature) concerns of UX: usability, interaction design and visual impact. And on the other, the technological focused, “hard” concerns of the application developer: api efficiency, security, versioning, separation of concerns, and performance.  A good UI Developer must at least have an “eye” for design and what looks good, a sense of when a user experience is or is not working on the one hand, and on the other hand also have strong coding skills, an ability to troubleshoot and debug across environments, and manage a build infrastructure.  And on top of this the UI Developer often ends up being one of the primary advocates and implementors of accessibility on the team.  So it requires a developer who is at least somewhat comfortable in UX/Design application such as Photoshop, Sketch or Illustrator as well as the primary skill set of writing JavaScript, CSS [or Less, Sass, Stylus…] or HTML in an editor or IDE, or logging  into a Linux server and modifying an Apache or NGINX configuration file with vi (as an example). A good UI Developer needs to embrace these various aspects with a strong curiosity about how things work, how they can be improved and most importantly must posses a fearlessness to jump in and work with technologies, comprehend standards or tackle problems that they may have never encountered before.  They need to be, at a minimum, aware of nearly every aspect of the web page, and whenever possible, understand the technical considerations, specifications and general best practices that underly and define those aspects.
         <p>
@@ -52,7 +52,7 @@
   <div class="details__content row">
     <div class="col-lg-2  col-md-0 col-xs-0"></div>
     <div class="col-lg-8 col-md-12 details__body">
-      <h3 class="details__model-heading"><em>In Depth:</em> The Client Application Stack</h3>
+      <h3 class="details__model-heading" id="details__client-stack"><em>In Depth:</em> The Client Application Stack</h3>
         <div class="details__col">
 
           <blockquote class="blockquote text-center">
@@ -95,6 +95,7 @@
           <p>
             So in summary the server bootstraps the application and maintains the session (if applicable) and passes primary control over to the client which enforces validations, business logic, and UI state. The client leverages such technologies as client side routing, local storage, fetch and web sockets to keep communications with the server (or other web apis) as streamlined and efficient as possible to insulate the user from the negative effects poor connectivity. It is true that limitations of networking will always have a major impact on any distributed system such as a web application. No amount of client side JavaScript can defeat the realities of network latency and the laws of nature. But with cleaver and well thought out User Interface design and implementation the users can be given an experience that is able to more gracefully deal with these limitations.  This ability to better deal with network link shortcomings along with proving a speedier, more robust UI in general makes the <em>client application stack</em> approach a strong choice for complex pages that require the capabilities of a web application.
           </p>
+          <span id="details__end" />
     </div>
     <div class="col-lg-2  col-md-0 col-xs-0"></div>
   </div>

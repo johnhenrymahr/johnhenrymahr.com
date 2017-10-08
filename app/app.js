@@ -130,8 +130,65 @@ module.exports = {
     this.vent.on('app:navigate', this._menuListener, this)
   },
 
+  scrollHandler: function () {
+    var windowOffset = $(window).scrollTop() + $(window).height()
+    this._scrollTrackers = _.filter(_.map(this._scrollTrackers, _.bind(function (tracker) {
+      if (tracker.$ele.is(':hidden')) {
+        return tracker
+      }
+      if (!tracker.offset) {
+        tracker.offset = Math.round(tracker.$ele.offset().top + tracker.$ele.outerHeight(true)) + 50
+      }
+      if (windowOffset > tracker.offset) {
+        this._track(tracker.eventCategory, tracker.eventLabel, tracker.eventAction, tracker.eventValue)
+      } else {
+        return tracker
+      }
+    }, this)))
+    if (!this._scrollTrackers.length) {
+      $(window).unbind('scroll', this.scrollHandler)
+    }
+  },
+
+  _scrollTrackers: [],
+
+  /**
+   * addScrollTracker
+   *
+   *   add a  tracker that will trigger a track event the first time [only] a tracked
+   *   selector enters the view port
+   * @param {string} selector jQuery selector of element to track (after render)
+   * @param {object} tracker  tracker object,
+   */
+  addScrollTracker (selector, tracker) {
+    tracker = tracker || {}
+    if (_.isString(selector) && tracker.eventCategory && tracker.eventLabel) {
+      this._scrollTrackers.push(_.merge(
+        {
+          selector: selector
+        },
+      tracker
+      ))
+    }
+  },
+
+  _setupScrollTrackers () {
+    this._scrollTrackers = _.filter(_.map(this._scrollTrackers, function (tracker) {
+      var $ele = $(tracker.selector)
+      if ($ele.length) {
+        tracker.$ele = $ele
+        return tracker
+      }
+    }))
+  },
+
   ready: function () {
     this.setupTracking()
+    this._setupScrollTrackers()
+    if (this._scrollTrackers.length) {
+      this.scrollHandler = _.debounce(_.bind(this.scrollHandler, this), 100)
+      $(window).scroll(this.scrollHandler)
+    }
     this.vent.trigger('app:ready')
     return this
   },
