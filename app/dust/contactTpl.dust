@@ -59,17 +59,17 @@
                     <input class="form-control" name="screenName" id="screen_name" value=""  autocomplete="off" />
                 </div>
                 <div class="form-group">
-                    <label for="your_name">Your Name</label>
-                    <input class="form-control required" name="name" id="your_name" value="{name}" />
+                    <label for="your_name">Your Name<span class="required">(required)</span></label>
+                    <input class="form-control required"  aria-required="true" name="name" id="your_name" value="{name}" />
                 </div>
                  <div class="form-group">
-                    <label for="email">E-Mail</label>
-                    <input type="email" class="form-control" name="email" id="email"  value="{email}" />
+                    <label for="email">E-Mail<span class="required">(required)</span></label>
+                    <input type="email"  aria-required="true" class="form-control" name="email" id="email"  value="{email}" />
                 </div>
                 <div class="form-group">
-                  <label for="topic">Please select a topic of inquiry.</label>
-                  <select class="form-control" name="topic" id="topic">
-                      <option value="">Choose a topic</option>
+                  <label for="topic">Please select a topic of inquiry.<span class="required">(required)</span></label>
+                  <select class="form-control" name="topic" id="topic" aria-required="true">
+                      <option value="">Choose a topic </option>
                       <option value="twincities" {@eq key=topic value="twincities"}selected{/eq}>Opportunity in Twin Cities</option>
                       <option value="minneapolis" {@eq key=topic value="minneapolis"}selected{/eq}>Opportunity in Minneapolis</option>
                       <option value="remote" {@eq key=topic value="remote"}selected{/eq}>Remote Opportunity</option>
@@ -82,8 +82,8 @@
                   <input class="form-control" value="{custom-topic}" name="custom-topic" id="custom-topic" />
                 </div>
                 <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea class="form-control" name="message" id="message">{message}</textarea>
+                    <label for="message">Message<span class="required">(required)</span></label>
+                    <textarea class="form-control" name="message" id="message" aria-required="true">{message}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="company" class="optional">Company</label>

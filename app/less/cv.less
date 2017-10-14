@@ -5,10 +5,12 @@
   padding: 30px 1px 35px;
   margin: 0px;
   background-color: @warmBrown;
+  font-size: 18px;
 
   &__logo {
     background-color: none;
     width: 150px;
+    height: 150px;
     position: absolute;
     top: -30px;
     left: 70px;
@@ -96,9 +98,10 @@
     }
   }
   &__item {
+    .normal;
     font-size: 22px;
     line-height: 38px;
-    font-weight: bold;
+    font-weight: normal;
     text-align: left;
     padding: 20px 30px;
 
@@ -159,6 +162,9 @@
       top: -3px;
       padding: 15px;
       margin: 0px -12px;
+    }
+    &--subtitle {
+      margin-bottom: 20px;
     }
     .alert-danger {
       margin: 15px 0px;
