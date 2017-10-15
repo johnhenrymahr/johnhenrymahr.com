@@ -518,4 +518,10 @@ function replaceComments (string) {
  *
  * extra args
  * --envtest=true | send the environmentTest.php file to server
+ *
+ * --canary :  enable canary mode
+ * when active will send all visitors not white listed to the maintenance page
+ * white list determined by (client) ip listed in site_root/.whitelist file (i.e. johnhenrymahr.com/.whitelist)
+ * white list 1 ip address per line, uses file() to read in
+ *
  */
