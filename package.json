@@ -42,6 +42,7 @@
     "dustjs-helpers": "^1.7.3",
     "dustjs-linkedin": "^2.7.2",
     "font-awesome": "^4.7.0",
+    "jquery-touchswipe": "^1.6.15",
     "lodash": "^4.6.1",
     "moment": "~2.11.2",
     "webfontloader": "^1.6.27"
