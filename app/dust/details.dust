@@ -64,7 +64,7 @@
           </blockquote>
 
           <p>
-            How does this new, more robust UI layer fit into the greater web application technology stack? It is not a question that can really be answered in a generic way.  Every business need, architecture and technology stack has its own set of requirements and special challenges. But lets try anyways — because its fun! The following is one concept of how it might work.  There are so many technologies involved that creating a visualization can easily get unwieldy and become pretty useless. I have done my best to simplify a basic idea about a architecture were the UI layer is more independent of the server. These are broad strokes for the sake of argument and discussion that leave out the many details a real implementation would involve.
+            How does this new, more robust UI layer fit into the greater web application technology stack? It is not a question that can really be answered in a generic way.  Every business need, architecture and technology stack has its own set of requirements and special challenges. But lets try anyways — because its fun! The following is one concept of how it might work.  There are so many technologies involved that creating a visualization can easily get unwieldy and become pretty useless. I have done my best to simplify a basic idea about an architecture were the UI layer is more independent of the server. These are broad strokes for the sake of argument and discussion that leave out the many details a real implementation would involve.
           </p>
           <figure>
             <div>
