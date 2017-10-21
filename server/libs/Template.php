@@ -63,6 +63,12 @@ class Template implements TemplateInterface
         return $this->body;
     }
 
+    public function purgeImgTags()
+    {
+        $this->content->find('img')->remove();
+        return $this;
+    }
+
     public function markup()
     {
         return $this->content->find('body')->innerHTML5();

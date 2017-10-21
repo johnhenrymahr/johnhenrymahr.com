@@ -60,7 +60,7 @@ class Assembler
                 $mainTemplate->appendChild($sectionTemplate);
             }
         }
-        return $mainTemplate->markup();
+        return $mainTemplate->purgeImgTags()->markup();
     }
 
     protected function _shouldRender(array $node)

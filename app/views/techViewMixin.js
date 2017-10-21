@@ -1,8 +1,15 @@
 var App = require('app/app')
 var $ = require('jquery')
+var _ = require('lodash')
 require('jquery-touchswipe')
 module.exports = {
+  clientRendered: false,
   initialize: function () {
+    this.listenToOnce(App.router, 'route:tech', _.bind(function () {
+      if (!this.clientRendered) {
+        this.render()
+      }
+    }, this))
     App.addScrollTracker('#tech_learning', {
       eventCategory: 'tech page',
       eventLabel: 'Learning RxJS',
@@ -18,6 +25,9 @@ module.exports = {
       eventLabel: 'Other tech stuff',
       eventAction: 'scroll'
     })
+  },
+  onRender: function () {
+    this.clientRendered = true
   },
   onAttach: function () {
     this.$('.modal').on('shown.bs.modal', function (e) {

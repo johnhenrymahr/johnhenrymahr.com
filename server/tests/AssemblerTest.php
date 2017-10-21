@@ -33,6 +33,7 @@ class AssemblerTest extends \PHPUnit\Framework\TestCase
 
         $templateMock->shouldReceive('markup')->once()->andReturn($this->markup);
         $templateMock->shouldReceive('appendChild')->atLeast()->times(4);
+        $templateMock->shouldReceive('purgeImgTags')->andReturn($templateMock);
         $this->manifest->shouldReceive('getTopLevelData')->once()->andReturn([]);
         $this->manifest->shouldReceive('getSections')->once()->andReturn([["children" => array()], [], ["renderOnServer" => false]]);
         $this->manifest->shouldReceive('getChildren')->once()->andReturn([['child1'], ['child2']]);
