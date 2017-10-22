@@ -18,9 +18,14 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
 
     protected $logger;
 
+    protected $csrfMock;
+
     protected function setUp()
     {
         $this->mailer = \Mockery::mock('\JHM\MailerInterface');
+        $this->csrfMock = \Mockery::mock('\JHM\CsrfTokenInterface');
+        $this->csrfMock->shouldReceive('checkToken')->with('token', 'contact')->andReturn(true)->byDefault();
+        $this->csrfMock->shouldReceive('getField')->andReturn('pr_id');
         $this->digest = \Mockery::mock('\JHM\MailDigestInterface');
         $this->fileLoader = \Mockery::mock('\JHM\FileLoaderInterface');
         $this->fileLoader->shouldReceive('load')->byDefault();
@@ -31,7 +36,7 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
         $this->storage->shouldReceive('isReady')->andReturn(false);
         $this->config = \Mockery::mock('\JHM\ConfigInterface');
         $this->config->shouldReceive('get')->byDefault()->andReturn(false);
-        $this->obj = new \JHM\ContactHandler($this->mailer, $this->digest, $this->fileLoader, $this->storage, $this->config, $this->logger);
+        $this->obj = new \JHM\ContactHandler($this->mailer, $this->digest, $this->fileLoader, $this->storage, $this->config, $this->logger, $this->csrfMock);
     }
 
     protected function tearDown()
@@ -45,6 +50,7 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'name' => 'Joe',
                 'email' => 'joe@mail.com',
                 'phoneNumber' => '212-323-2232',
@@ -73,6 +79,7 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'name' => 'Joe',
                 'email' => 'joe@mail.com',
                 'phoneNumber' => '212-323-2232',
@@ -102,6 +109,7 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'name' => 'Joe',
                 'email' => 'joe@mail.com',
                 'phoneNumber' => '212-323-2232',
@@ -123,11 +131,33 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
 
     public function testBadRequest()
     {
+
+        $this->csrfMock->shouldReceive('checkToken')->with(null, 'contact')->andReturn(true);
         $request = \Symfony\Component\HttpFoundation\Request::create(
             '/hello-world',
             'POST',
             array(
                 'name' => 'Joe',
+            )
+        );
+        $result = $this->obj->process($request);
+        $this->assertEquals(400, $this->obj->status());
+    }
+
+    public function testInvalidCsrfToken()
+    {
+
+        $this->csrfMock->shouldReceive('checkToken')->with('badtoken', 'contact')->andReturn(false);
+        $request = \Symfony\Component\HttpFoundation\Request::create(
+            '/hello-world',
+            'POST',
+            array(
+                'pr_id' => 'badtoken',
+                'name' => 'Joe',
+                'email' => 'james@mail.com',
+                'topic' => 'test topic',
+                'message' => "a test message",
+                'screenName' => 'honey',
             )
         );
         $result = $this->obj->process($request);
@@ -141,6 +171,7 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'name' => 'Joe',
                 'email' => 'james@mail.com',
                 'topic' => 'test topic',
@@ -158,6 +189,7 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'name' => 'Joe',
                 'email' => 'joe@mail',
                 'phoneNumber' => '212-323-2232',
@@ -177,6 +209,7 @@ class ContactHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'name' => 'Joe',
                 'email' => 'joe@mail',
                 'phoneNumber' => '212-323-2232',

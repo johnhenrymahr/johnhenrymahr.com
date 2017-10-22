@@ -11,8 +11,17 @@ abstract class PostValidator
 
     protected $honeyPotField = '';
 
-    protected function _validate(ParameterBag $request)
+    protected $csrfField = 'pr_id';
+
+    protected function _validate(ParameterBag $request, $formId = '')
     {
+
+        $csrfField = $this->csrfToken->getField();
+
+        if (!$this->csrfToken->checkToken($request->get($csrfField), $formId)) {
+            return false;
+        }
+
         $keys = $request->keys();
         if (empty($keys)) {
             return false;

@@ -50,7 +50,12 @@ class GraphTest extends \PHPUnit\Framework\TestCase
             ->andReturn($json)
             ->getMock();
 
+        $csrfMock = \Mockery::mock('JHM\\CsrfTokenInterface')
+            ->shouldReceive('init')
+            ->getMock();
+
         $this->mockDeps('Manifest', 'JHM\\FileLoaderInterface', 'substitutions', $fileLoaderMock);
+        $this->mockDeps('DataProvider', 'JHM\\CsrfTokenInterface', 'substitutions', $csrfMock);
         $this->obj->addRule('Logger', [], ['constructParams' => ['testconfig', $config]]);
         $assembler = $this->obj->get('Assembler');
         $this->AssertInstanceOf(\JHM\Assembler::class, $assembler);
@@ -63,9 +68,13 @@ class GraphTest extends \PHPUnit\Framework\TestCase
     public function testDataProviderGet()
     {
         $fileLoaderMock = \Mockery::mock('JHM\\FileLoaderInterface');
+        $csrfMock = \Mockery::mock('JHM\\CsrfTokenInterface')
+            ->shouldReceive('init')
+            ->getMock();
         $loggerMock = \Mockery::mock('JHM\\LoggerInterface');
         $this->mockDeps('Config', 'JHM\\FileLoaderInterface', 'substitutions', $fileLoaderMock);
         $this->mockDeps('Config', 'JHM\\LoggerInterface', 'substitutions', $loggerMock);
+        $this->mockDeps('DataProvider', 'JHM\\CsrfTokenInterface', 'substitutions', $csrfMock);
         $dataProvider = $this->obj->get('DataProvider');
         $this->assertInstanceOf(\JHM\DataProvider::class, $dataProvider);
         $clone = (array) $dataProvider;

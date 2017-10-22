@@ -19,18 +19,22 @@ class CvHandler extends PostValidator implements ApiHandlerInterface
 
     protected $logger;
 
+    protected $csrfToken;
+
     public function __construct(
         MailerInterface $mailer,
         ContactStorageInterface $storage,
         ConfigInterface $config,
         MailDigestInterface $digest,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        CsrfTokenInterface $csrfToken
     ) {
         $this->mailer = $mailer;
         $this->storage = $storage;
         $this->config = $config;
         $this->digest = $digest;
         $this->logger = $logger;
+        $this->csrfToken = $csrfToken;
     }
 
     public function status()
@@ -47,7 +51,7 @@ class CvHandler extends PostValidator implements ApiHandlerInterface
 
     public function process(Request $request)
     {
-        if (!$this->_validate($request->request)) {
+        if (!$this->_validate($request->request, 'cv')) {
             $this->_status = Response::HTTP_BAD_REQUEST;
             $this->logger->log('ERROR', 'validation error', ['request' => $_REQUEST]);
             return false;

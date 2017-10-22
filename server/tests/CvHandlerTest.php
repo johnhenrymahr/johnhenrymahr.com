@@ -16,9 +16,14 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
 
     protected $digest;
 
+    protected $csrfMock;
+
     protected function setUp()
     {
         $this->mailer = \Mockery::mock('\JHM\MailerInterface');
+        $this->csrfMock = \Mockery::mock('\JHM\CsrfTokenInterface');
+        $this->csrfMock->shouldReceive('checkToken')->with('token', 'cv')->andReturn(true)->byDefault();
+        $this->csrfMock->shouldReceive('getField')->andReturn('pr_id');
         $this->request = \Mockery::mock('\Symfony\Component\HttpFoundation\Request');
         $this->storage = \Mockery::mock('\JHM\ContactStorageInterface');
         $this->storage->shouldReceive('isReady')->andReturn(false)->byDefault();
@@ -28,7 +33,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
         $this->config->shouldReceive('get')->byDefault()->andReturn(false);
         $this->logger = \Mockery::mock('\JHM\LoggerInterface');
         $this->logger->shouldReceive('log')->byDefault();
-        $this->obj = new \JHM\CvHandler($this->mailer, $this->storage, $this->config, $this->digest, $this->logger);
+        $this->obj = new \JHM\CvHandler($this->mailer, $this->storage, $this->config, $this->digest, $this->logger, $this->csrfMock);
     }
 
     protected function tearDown()
@@ -42,6 +47,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'name' => 'Joe',
                 'email' => 'joe@mail.com',
                 'company' => 'RN Company',
@@ -73,6 +79,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'name' => 'Joe',
                 'email' => 'joe@mail.com',
                 'company' => 'RN Company',
@@ -105,6 +112,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'name' => 'Joe',
             )
         );
@@ -119,6 +127,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'name' => 'Joe',
                 'email' => 'james@mail.com',
                 'screenName' => 'honey',
@@ -134,8 +143,26 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'name' => 'Joe',
                 'email' => 'joe@mail',
+            )
+        );
+
+        $result = $this->obj->process($request);
+        $this->assertEquals(400, $this->obj->status());
+    }
+
+    public function testInvalidCsrfToken()
+    {
+        $this->csrfMock->shouldReceive('checkToken')->with('badtoken', 'cv')->andReturn(false);
+        $request = \Symfony\Component\HttpFoundation\Request::create(
+            '/hello-world',
+            'POST',
+            array(
+                'pr_id' => 'badtoken',
+                'name' => 'Joe',
+                'email' => 'joe@mail.com',
             )
         );
 
@@ -149,6 +176,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
             '/hello-world',
             'POST',
             array(
+                'pr_id' => 'token',
                 'email' => '',
             )
         );

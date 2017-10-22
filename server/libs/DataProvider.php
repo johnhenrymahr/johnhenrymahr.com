@@ -4,14 +4,17 @@ namespace JHM;
 class DataProvider implements DataProviderInterface
 {
 
+    protected $csrfToken;
+
     protected $fileLoader;
 
     protected $logger;
 
-    public function __construct(FileLoaderInterface $fileLoader, LoggerInterface $logger)
+    public function __construct(FileLoaderInterface $fileLoader, LoggerInterface $logger, CsrfTokenInterface $csrfToken)
     {
         $this->fileLoader = $fileLoader;
         $this->logger = $logger;
+        $this->csrfToken = $csrfToken;
     }
 
     public function getTemplateModel($templateId)
@@ -27,6 +30,16 @@ class DataProvider implements DataProviderInterface
 
     public function getBootstrapData()
     {
-        return [];
+        $tokenField = $this->csrfToken->getField();
+        return array(
+            '_moduleData' => array(
+                'contact' => array(
+                    $tokenField => $this->csrfToken->generateToken('contact'),
+                ),
+                'cv' => array(
+                    $tokenField => $this->csrfToken->generateToken('cv'),
+                ),
+            ),
+        );
     }
 }

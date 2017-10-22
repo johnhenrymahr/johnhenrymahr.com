@@ -22,6 +22,8 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
 
     protected $logger;
 
+    protected $csrfToken;
+
     protected $requiredFields = ['email', 'name', 'topic', 'message'];
 
     protected $honeyPotField = 'screenName';
@@ -32,7 +34,8 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
         FileLoaderInterface $fileLoader,
         ContactStorageInterface $storage,
         ConfigInterface $config,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        CsrfTokenInterface $csrfToken
     ) {
         $this->mailer = $mailer;
         $this->digest = $digest;
@@ -40,11 +43,12 @@ class ContactHandler extends PostValidator implements ApiHandlerInterface
         $this->storage = $storage;
         $this->config = $config;
         $this->logger = $logger;
+        $this->csrfToken = $csrfToken;
     }
 
     public function process(Request $request)
     {
-        if (!$this->_validate($request->request)) {
+        if (!$this->_validate($request->request, 'contact')) {
             $this->_status = Response::HTTP_BAD_REQUEST;
             $this->logger->log('ERROR', 'post validation failure');
             return false;

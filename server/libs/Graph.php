@@ -20,6 +20,8 @@ class Graph
         'JHM\\MailerInterface' => ['instance' => 'JHM\\Mailer'],
         'JHM\\MailDigestInterface' => ['instance' => 'JHM\\MailDigest'],
         'JHM\\ContactStorageInterface' => ['instance' => 'JHM\\ContactStorage'],
+        'JHM\\CsrfTokenInterface' => ['instance' => 'JHM\\CsrfToken'],
+        'JHM\\SessionInterface' => ['instance' => 'JHM\\Session'],
     ];
 
     protected $rules = [];
