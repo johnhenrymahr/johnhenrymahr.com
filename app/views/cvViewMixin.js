@@ -1,6 +1,7 @@
 var _ = require('lodash')
 var decorator = require('../utils/decorator')
 var App = require('app/app')
+var formatPhoneNumber = require('app/utils/formatPhoneNumber')
 var $ = require('jquery')
 module.exports = _.extend({}, decorator, {
   initialize: function (options) {
@@ -12,6 +13,9 @@ module.exports = _.extend({}, decorator, {
         this.$('.alert-success').removeClass('hidden')
         this.slideToPop()
       })
+      this.listenTo(options.model, 'change:phone', _.bind(function (model, value, options) {
+        this.$('input[name=phone]').val(formatPhoneNumber(value))
+      }, this))
       this.listenTo(options.model, 'error', _.bind(function () {
         this.$('.cv__popover--spinner').addClass('hidden')
         this.$('form, .cv__popover--subtitle').removeClass('hidden')

@@ -1,6 +1,7 @@
 var _ = require('lodash')
 var App = require('app/app')
 var decorator = require('app/utils/decorator')
+var formatPhoneNumber = require('app/utils/formatPhoneNumber')
 module.exports = _.extend({}, decorator, {
   events: function () {
     return {
@@ -24,7 +25,7 @@ module.exports = _.extend({}, decorator, {
         this.slideToFormTop()
       }, this))
       this.listenTo(options.model, 'change:phone', _.bind(function (model, value, options) {
-        this.$('input[name=phone]').val(this.formatPhoneNumber(value))
+        this.$('input[name=phone]').val(formatPhoneNumber(value))
       }, this))
       this.listenTo(options.model, 'request', _.bind(function () {
         this.render({_data: {state: 'submitting'}})
@@ -69,11 +70,6 @@ module.exports = _.extend({}, decorator, {
   onInputBlur: function (e) {
     var $el = this.$(e.currentTarget)
     this.model.set($el.attr('name'), $el.val(), {validate: true})
-  },
-  formatPhoneNumber: function (s) {
-    var s2 = ('' + s).replace(/\D/g, '')
-    var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/)
-    return (!m) ? null : '(' + m[1] + ') ' + m[2] + '-' + m[3]
   },
   onFormSubmit: function (e) {
     e.preventDefault()
