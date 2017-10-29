@@ -82,6 +82,7 @@ module.exports = _.extend({}, decorator, {
         $ele.find('option[value=""]').removeAttr('disabled')
       }
     }, this))
+    this.$('input:visible:first', this.$('.contact__form')).get(0).focus()
   },
   onFormSubmit: function (e) {
     e.preventDefault()

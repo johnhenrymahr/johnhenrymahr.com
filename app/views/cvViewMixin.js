@@ -45,11 +45,17 @@ module.exports = _.extend({}, decorator, {
   },
   events: function () {
     return {
+      'keyup': 'keyUpHandler',
       'click .cv__ref--request': 'onRequestClick',
       'submit .cv__form': 'onFormSubmit',
       'click .cv__form .cv__form--cancel': 'onFormCancel',
       'blur .cv__form .form-group .form-control:visible': 'onInputBlur',
       'focus .cv__form .form-group .form-control:visible': 'onInputFocus'
+    }
+  },
+  keyUpHandler: function (e) {
+    if (e.keyCode === 27) {
+      this.togglePopover()
     }
   },
   onInputFocus: function (e) {
@@ -72,16 +78,20 @@ module.exports = _.extend({}, decorator, {
   },
   slideBack: function () {
     if (this.scrollTop && _.isNumber(this.scrollTop)) {
-      $('html, body').animate({
+      $.when($('html, body').animate({
         scrollTop: this.scrollTop
-      })
+      })).done(_.bind(function () {
+        this.$('a.cv__ref--request').get(0).focus()
+      }, this))
     }
   },
   slideToPop: function () {
     this.scrollTop = $('html, body').scrollTop()
-    $('html, body').animate({
+    $.when($('html, body').animate({
       scrollTop: this.$('.cv__ref').offset().top
-    })
+    })).done(_.bind(function () {
+      this.$('input:visible:first', this.$('.cv__form')).get(0).focus()
+    }, this))
   },
   onRequestClick: function (e) {
     e.preventDefault()
