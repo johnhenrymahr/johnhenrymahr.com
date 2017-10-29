@@ -89,7 +89,8 @@ class ActivateDownloadHandler implements ApiHandlerInterface
     protected function _detokenize($template, $token)
     {
         $webhost = $this->config->get('webhost');
-        return str_replace(array('{{webhost}}', '{{token}}'), array($webhost, $token), $template);
+        $protocol = ($this->config->get('tlsEnabled')) ? 'https' : 'http';
+        return str_replace(array('{{webhost}}', '{{token}}', '{{protocol}}'), array($webhost, $token, $protocol), $template);
     }
 
     protected function _sendMail($token = '', $name = '', $emailAddress = '')

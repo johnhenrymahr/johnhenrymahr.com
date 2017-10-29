@@ -10,6 +10,7 @@ class Config implements ConfigInterface
         "webhost" => "{{webhost}}", // token replaced host name
         "webroot" => "{{webroot}}", // token replaced by deploy script
         "basepath" => "{{serverApp}}", // token replaced by deploy script
+        "tlsEnabled" => "{{tlsEnabled}}", // tls (https) enabled
         "systemMailTo" => "{{mailToAddress}}", // send contact emails here, token replaced by deploy script
         "systemMailToName" => "{{mailToName}}", // token replaced by deploy script
         "assetroot" => "rsc/",

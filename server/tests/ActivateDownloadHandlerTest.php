@@ -46,7 +46,7 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase
                 't' => $token,
             )
         );
-        $this->fileLoader->shouldReceive('load')->once()->with('cv.html')->andReturn('  <div>a test string. A url {{webhost}}/path/to?token={{token}}</div>');
+        $this->fileLoader->shouldReceive('load')->once()->with('cv.html')->andReturn('  <div>a test string. A url {{protocol}}://{{webhost}}/path/to?token={{token}}</div>');
         $this->storage->shouldReceive('isReady')->andReturn(true);
         $this->storage->shouldReceive('getToken')->with($token)->andReturn(array(
             "email" => 'joe@email.com',
@@ -62,7 +62,8 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase
         $this->mailer->shouldReceive('setHTML')->once()->with(true);
         $this->mailer->shouldReceive('send')->once()->andReturn(true);
         $this->config->shouldReceive('get')->with('webhost')->andReturn('www.example.com');
-        $this->mailer->shouldReceive('setBody')->times(1)->with('<div>a test string. A url www.example.com/path/to?token=' . $token . '</div>');
+        $this->config->shouldReceive('get')->with('tlsEnabled')->andReturn(true);
+        $this->mailer->shouldReceive('setBody')->times(1)->with('<div>a test string. A url https://www.example.com/path/to?token=' . $token . '</div>');
         $this->storage->shouldReceive('close');
         $result = $this->obj->process($request);
         $this->assertEquals(200, $this->obj->status());
@@ -144,7 +145,7 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase
                 't' => $token,
             )
         );
-        $this->fileLoader->shouldReceive('load')->once()->with('cv.html')->andReturn('  <div>a test string. A url {{webhost}}/path/to?token={{token}}</div>');
+        $this->fileLoader->shouldReceive('load')->once()->with('cv.html')->andReturn('  <div>a test string. A url {{protocol}}://{{webhost}}/path/to?token={{token}}</div>');
         $this->storage->shouldReceive('isReady')->andReturn(true);
         $this->storage->shouldReceive('getToken')->with($token)->andReturn(array(
             "email" => 'joe@email.com',
@@ -160,7 +161,8 @@ class ActivateDownloadHandlerTest extends \PHPUnit\Framework\TestCase
         $this->mailer->shouldReceive('setHTML')->once()->with(true);
         $this->mailer->shouldReceive('send')->once()->andReturn(false);
         $this->config->shouldReceive('get')->with('webhost')->andReturn('www.example.com');
-        $this->mailer->shouldReceive('setBody')->times(1)->with('<div>a test string. A url www.example.com/path/to?token=' . $token . '</div>');
+        $this->config->shouldReceive('get')->with('tlsEnabled')->andReturn(false);
+        $this->mailer->shouldReceive('setBody')->times(1)->with('<div>a test string. A url http://www.example.com/path/to?token=' . $token . '</div>');
         $this->storage->shouldReceive('close');
         $result = $this->obj->process($request);
         $this->assertEquals(500, $this->obj->status());

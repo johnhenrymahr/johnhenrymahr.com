@@ -384,6 +384,7 @@ gulp.task('update:config', function (callback) {
     config = config.replace('{{serverApp}}', server.get('serverApp'))
     config = config.replace('{{webroot}}', server.get('webroot'))
     config = config.replace('{{webhost}}', server.get('webhost'))
+    config = config.replace('"{{tlsEnabled}}"', server.get('tlsEnabled'))
     config = config.replace('{{mailToAddress}}', server.get('mailToAddress'))
     config = config.replace('{{mailToName}}', server.get('mailToName'))
     config = config.replace('{{logfile}}', server.get('logfile'))
@@ -420,9 +421,8 @@ gulp.task('update:htaccess', function (cb) {
   if (server.name === 'production') {
     try {
       var acPath = path.join(distFolder, path.basename(server.get('webroot')), '.htaccess')
-      var rdPath = path.join('server', 'webroot', '_https-redirect')
       var access = fs.readFileSync(acPath, 'utf8')
-      var redirect = fs.readFileSync(rdPath, 'utf8')
+      var redirect = fs.readFileSync('./inc/https-redirect.htaccess', 'utf8')
       fs.writeFileSync(acPath, access + '\n' + redirect, 'utf8')
     } catch (e) {
       throwError('update:config', e)

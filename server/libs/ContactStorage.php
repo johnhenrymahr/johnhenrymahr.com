@@ -165,6 +165,7 @@ class ContactStorage extends DbStorage implements ContactStorageInterface
                 return false;
             }
         }
+        $this->logger->log('ERROR', 'downloads path not readable ', array('storagePath' => $storagePath, 'fileID' => $fileId));
         return false;
     }
 

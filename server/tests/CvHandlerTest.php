@@ -56,6 +56,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
         );
         $this->storage->shouldReceive('isReady')->andReturn(true);
         $this->config->shouldReceive('get')->with('webhost')->andReturn('www.example.com');
+        $this->config->shouldReceive('get')->with('tlsEnabled')->andReturn(false);
         $this->config->shouldReceive('get')->with('downloads.cvFileName')->andReturn('testFile.tst');
         $this->config->shouldReceive('get')->with('downloads.cvMimeType')->andReturn('text/domain');
         $this->mailer->shouldReceive('setupSystemMailer')->once();
@@ -89,6 +90,7 @@ class CvHandlerTest extends \PHPUnit\Framework\TestCase
         $this->storage->shouldReceive('isReady')->andReturn(true);
         $this->storage->shouldReceive('removeDownloadToken')->with('213nkjn');
         $this->config->shouldReceive('get')->with('webhost')->andReturn('www.example.com');
+        $this->config->shouldReceive('get')->with('tlsEnabled')->andReturn(false);
         $this->config->shouldReceive('get')->with('downloads.cvFileName')->andReturn('testFile.tst');
         $this->config->shouldReceive('get')->with('downloads.cvMimeType')->andReturn('text/domain');
         $this->mailer->shouldReceive('setupSystemMailer')->once();
