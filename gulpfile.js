@@ -518,6 +518,12 @@ function replaceComments (string) {
  *
  * extra args
  * --envtest=true | send the environmentTest.php file to server
+ * NOTE:
+ * setup.sh will be copied as well. Change to executable and run to create storage directory with env test file
+ * after done with environment test:
+ * 1) delete environmentTest.php and setup.sh
+ * 2) delete storage/downloads folder
+ * 3) recreate storage/downloads folder with restricted permissions.
  *
  * --canary :  enable canary mode
  * when active will send all visitors not white listed to the maintenance page
