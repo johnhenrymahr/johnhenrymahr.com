@@ -64,12 +64,21 @@ module.exports = _.extend({}, decorator, {
     var $ref = this.$('.cv__popover')
     if ($ref.is(':visible')) {
       $ref.addClass('hidden')
+      this.slideBack()
     } else {
       $ref.removeClass('hidden')
       this.slideToPop()
     }
   },
+  slideBack: function () {
+    if (this.scrollTop && _.isNumber(this.scrollTop)) {
+      $('html, body').animate({
+        scrollTop: this.scrollTop
+      })
+    }
+  },
   slideToPop: function () {
+    this.scrollTop = $('html, body').scrollTop()
     $('html, body').animate({
       scrollTop: this.$('.cv__ref').offset().top
     })
@@ -81,7 +90,7 @@ module.exports = _.extend({}, decorator, {
   onFormSubmit: function (e) {
     e.preventDefault()
     var fields = {}
-    this.$('.form-control:visible').each(_.bind(function (idx, ele) {
+    this.$('.form-control:visible', this.$('.cv__form')).each(_.bind(function (idx, ele) {
       var $ele = $(ele)
       fields[$ele.attr('name')] = $ele.val()
     }, this))
@@ -92,10 +101,10 @@ module.exports = _.extend({}, decorator, {
   },
   onFormCancel: function (e) {
     e.preventDefault()
-    this.model.clear()
-    this.$('.form-control:visible').each(_.bind(function (idx, ele) {
+    this.$('.form-control:visible', this.$('.cv__form')).each(_.bind(function (idx, ele) {
       var $ele = $(ele)
       $ele.val('')
+      this.model.unset($ele.attr('name'))
       this.undecorate($ele.parent())
     }, this))
     this.togglePopover()

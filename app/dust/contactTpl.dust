@@ -95,6 +95,7 @@
                 </div>
                  <div class="form-group contact__form--controls">
                   <input class="btn btn-primary contact__form--submit" type="submit" name="submit" value="Send" data-track="contact:submit-attempt" />
+                  <a class="contact__form__clear" href="#" aria-role="button">Clear</a>
                 </div>
             </form>
           {/none}

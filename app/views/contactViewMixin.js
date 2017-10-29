@@ -8,6 +8,7 @@ module.exports = _.extend({}, decorator, {
       'blur .contact__form .form-group .form-control:visible': 'onInputBlur',
       'change .contact__form .form-group select.form-control': 'onInputChange',
       'focus .contact__form .form-group .form-control:visible': 'onInputFocus',
+      'click .contact__form__clear': 'onFormClear',
       'submit .contact__form': 'onFormSubmit'
     }
   },
@@ -71,10 +72,21 @@ module.exports = _.extend({}, decorator, {
     var $el = this.$(e.currentTarget)
     this.model.set($el.attr('name'), $el.val(), {validate: true})
   },
+  onFormClear: function (e) {
+    e.preventDefault()
+    this.$('input:visible, textarea, select', this.$('.contact__form')).not('[type=submit]').each(_.bind(function (idx, ele) {
+      var $ele = $(ele)
+      $ele.val('')
+      this.model.unset($ele.attr('name'))
+      if ($ele.prop('tagName') === 'SELECT') {
+        $ele.find('option[value=""]').removeAttr('disabled')
+      }
+    }, this))
+  },
   onFormSubmit: function (e) {
     e.preventDefault()
     var fields = {}
-    this.$('.form-control:visible').each(_.bind(function (idx, ele) {
+    this.$('.form-control:visible', this.$('.contact__form')).each(_.bind(function (idx, ele) {
       var $ele = $(ele)
       fields[$ele.attr('name')] = $ele.val()
     }, this))
