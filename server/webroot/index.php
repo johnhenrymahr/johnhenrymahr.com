@@ -37,6 +37,7 @@ require INCLUDES . 'headers.php';
         <meta name="keywords" content="html5, JavaScript, CSS3, Responsive Design, Semantic Markup, Backbone, Marionette, React, Angular">
         <meta name="viewport" content="width=device-width, initial-scale=1">
          {{analytics}}
+        <link rel="manifest" href="/manifest.json">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="<?php echo $pageCSS; ?>">
