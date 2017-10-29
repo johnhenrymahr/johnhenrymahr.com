@@ -64,7 +64,7 @@
            <strong>Note:</strong> Resume is in PDF format and requires a PDF reader of some sort. Adobe Reader is a solid and free option.{~s}
         </div>
         <div class="col-md-6 col-xs-12 cv__note">
-             <a class="col-md-6 col-xs-12 cv__note--link"  href="https://get.adobe.com/reader" target="_BLANK" title="Get Adobe Reader">
+             <a class="col-md-6 col-xs-12 cv__note--link"  href="https://get.adobe.com/reader" target="_BLANK" rel="noopener" title="Get Adobe Reader">
               <img src="/rsc/img/get_reader.png" alt="Get Adobe Acrobat Reader" width="158" height="39" />
             </a>
         </div>

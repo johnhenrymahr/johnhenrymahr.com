@@ -1,6 +1,6 @@
 <!--[if lt IE 9]>
     <div class="old-browser-warning">
-        It looks like you are using a very old browser. I cannot deliver the experience I want to deliver on this browser. Consider upgrading if you can. <a href="http://outdatedbrowser.com" target="_BLANK">Check this page out for help upgrading.</a>
+        It looks like you are using a very old browser. I cannot deliver the experience I want to deliver on this browser. Consider upgrading if you can. <a href="http://outdatedbrowser.com" target="_BLANK" rel="noopener">Check this page out for help upgrading.</a>
     </div>
 <![endif]-->
 <nav class="nav">

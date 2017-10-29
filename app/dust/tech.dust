@@ -50,7 +50,7 @@
                     {/desc}
                     {?url}
                       <p class="tech__modal--link">
-                        <a href="{url}" title="Open {name} project page in a new window." target="_BLANK">
+                        <a href="{url}" title="Open {name} project page in a new window." target="_BLANK" rel="noopener">
                           Visit Project Home.
                           <span class="sr-only">Opens {name} project page in a new window.</span>
                         </a>
@@ -83,7 +83,7 @@
    A way to deal with asynchronous operations that are stream like and do not resolve to a single value, but a stream of value. Why? The request/response system fit very nice with promises: question resolves to answer or failure. But if instead of request/response we think in terms of subscribing to an event stream it does not work as well. The reactive approach is all about responding to changes in a stream that is using a push like technology: web-sockets or server sent events. There seem to be hints that this is the future, or a future, of the communications infrastructure of the web. So it would not seem to be a bad technology to learn more about.
   </p>
   <p>
-  <a target="_BLANK" href="https://github.com/Reactive-Extensions/RxJS">Visit Project Home</a>
+  <a target="_BLANK" href="https://github.com/Reactive-Extensions/RxJS" rel="noopener">Visit Project Home</a>
   </p>
 </div>
 </div>
@@ -100,7 +100,7 @@
    I just cannot help but to be curious about this one. It shares many of the philosophies of React and Redux but has taken a different path of implementation. I am not giving up React or anything but I believe this may be a really useful tool. It brings back client side templates as a thing you can use (even if I have accepted JSX) and may in fact be more performant than a React app without the need for componentWillUpdate optimizations.
   </p>
   <p>
-  <a target="_BLANK" href="https://vuejs.org/">Visit Project Home</a>
+  <a target="_BLANK" href="https://vuejs.org/" rel="noopener">Visit Project Home</a>
   </p>
 </div>
 </div>
