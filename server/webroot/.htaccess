@@ -8,14 +8,6 @@ Options -MultiViews
 #fall back to index.html when there is no index.php
 DirectoryIndex index.php maint.php index.html
 
-#rewrite www.example.com → example.com
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{HTTPS} !=on
-    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-    RewriteRule ^ %{ENV:PROTO}://%1%{REQUEST_URI} [R=301,L]
-</IfModule>
-
 # Block access to directories without a default document.
 #
 # You should leave the following uncommented, as you shouldn't allow
