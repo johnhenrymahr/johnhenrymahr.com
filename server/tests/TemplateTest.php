@@ -79,6 +79,27 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(preg_replace('/\s+/', '', $expected), preg_replace('/\s+/', '', $this->obj->markup()));
     }
 
+    public function removeXMLNamepaceRemoval()
+    {
+
+        $q = '<p>child content</p>';
+        $this->atts['childViewContainer'] = ".container";
+        $this->atts['xmlns:xlink'] = "http://www.w3.org/1999/xlink";
+        $this->obj = new \JHM\Template($this->atts, $this->q);
+        $atts = json_decode('{
+          "id": "childItem",
+          "tagName": "div",
+          "attributes": {
+            "className": "childitem",
+            "xmlns:xlink": "http://www.w3.org/1999/xlink"
+          }
+        }', true);
+        $expected = '<sectionclass="splash"data-foo="bar"><div>This be the rendered content<div class="container"><div class="childitem"><p>child content</p></div></div></div></section>';
+        $child = new \JHM\Template($atts, $q);
+        $this->obj->appendChild($child);
+        $this->assertEquals(preg_replace('/\s+/', '', $expected), preg_replace('/\s+/', '', $this->obj->markup()));
+    }
+
     public function testOpenMethod()
     {
         $this->assertEquals('<section class="splash" data-foo="bar">', $this->obj->open());

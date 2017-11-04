@@ -69,9 +69,15 @@ class Template implements TemplateInterface
         return $this;
     }
 
+    protected function _postFilter($text)
+    {
+        $pattern = '/xmlns:xlink=["\']([a-zA-Z0-9_.:\'\/"]+)["\']/';
+        return preg_replace($pattern, '', $text);
+    }
+
     public function markup()
     {
-        return $this->content->find('body')->innerHTML5();
+        return $this->_postFilter($this->content->find('body')->innerHTML5());
     }
 
     public function isOpen()
