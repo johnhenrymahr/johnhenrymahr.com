@@ -8,8 +8,11 @@ class Session implements SessionInterface
 
     private $lifespan = 1440;
 
-    public function __construct()
+    protected $logger;
+
+    public function __construct(LoggerInterface $logger)
     {
+        $this->logger = $logger;
         $this->started = session_status() === PHP_SESSION_ACTIVE;
         $system_timeout = @ini_get('session.gc_maxlifetime');
         if ($system_timeout && is_int($system_timeout)) {
@@ -22,6 +25,9 @@ class Session implements SessionInterface
     {
         if (!$this->started) {
             $this->started = session_start();
+            if ($this->started) {
+                $this->_logSession();
+            }
         }
         return $this->started;
     }
@@ -45,6 +51,17 @@ class Session implements SessionInterface
         if ($this->started) {
             $_SESSION[$key] = $val;
         }
+    }
+
+    protected function _logSession()
+    {
+        $this->logger->log('New Session', array(
+            'User Agent' => filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING),
+            'Request URI' => filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING),
+            'Remote IP' => filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_SANITIZE_STRING),
+            'HTTP Method' => filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_STRING),
+            'Time' => date("F j, Y, g:i a"),
+        ));
     }
 
     protected function _validate()

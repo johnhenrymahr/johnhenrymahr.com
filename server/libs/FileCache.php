@@ -38,8 +38,6 @@ class FileCache extends FileStorage implements CacheInterface
             $this->logger->log('WARNING', 'Could not start cache engine. ' . $e->getMessage());
             $this->cacheEngine = false;
         }
-
-        $this->logger->log('DEBUG', 'file cache engine enabled, storage directory: ' . $dir);
     }
 
     public function cacheReady()

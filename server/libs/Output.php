@@ -39,7 +39,6 @@ class Output
     {
         $output = '';
         if (!empty($cacheKey) && $this->cacheReady) {
-            $this->logger->log('DEBUG', 'retrieving cache for key: ' . $cacheKey);
             $output = $this->cacheInterface->get($cacheKey);
         }
         if (empty($output)) {
@@ -49,7 +48,6 @@ class Output
                     array('callable' => $callable, 'options' => $options));
             }
             if (!empty($output) && !empty($cacheKey) && $this->cacheReady) {
-                $this->logger->log('DEBUG', 'writing cache for key: ' . $cacheKey);
                 $this->cacheInterface->set($cacheKey, $output);
                 $this->cacheInterface->save();
             }
