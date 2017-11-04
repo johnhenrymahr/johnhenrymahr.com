@@ -1,7 +1,7 @@
 <div class="svg ">
   <div class="canvas-svg-container" >
-    <canvas width="475.817" height="547.753"></canvas>
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 475.817 547.753" role="img" aria-labelledby="yingYang-title">
+    <canvas width="476" height="548"></canvas>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 476 548" role="img" aria-labelledby="yingYang-title">
             <title id="yingYang-title">JHM Consulting (Yin/Yang) style logo</title>
             <circle fill="#F38425" cx="237.908" cy="273.876" r="157.492"/>
             <radialGradient id="yy-b" cx="237.909" cy="273.877" r="256.524" gradientUnits="userSpaceOnUse">

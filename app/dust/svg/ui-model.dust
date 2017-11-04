@@ -2,7 +2,7 @@
   <div class="canvas-svg-container" >
         <canvas width="475" height="515"></canvas>
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 475 515" aria-labelledby="data-flow-title data-flow-desc" role="img">
-            <title id="data-flow-title">Flow diagram of for a Thick Client Front End App</title>
+            <title id="data-flow-title">Flow diagram for a Thick Client Front End App</title>
             <desc id="data-flow-desc">Describes a possible architecture and data flow for an application where the client has more responsibility</desc>
             <path fill="#A5A5A5" d="M323.171 294.343l9.933-4.344 11.067 4.344v-193h-21z"/>
             <path fill="#E8E8E8" d="M.171 271.343h474v243h-474z"/>

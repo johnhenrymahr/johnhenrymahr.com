@@ -1,7 +1,7 @@
 <div class="jhmlogo svg" >
   <div class="canvas-svg-container" >
-  <canvas width="173.719" height="162.387" />
-  <svg  xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 173.719 162.387" role="img" aria-labelledby="logo-title">
+  <canvas width="174" height="162" />
+  <svg  xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 174 162" role="img" aria-labelledby="logo-title">
   <title id="logo-title">John Henry Mahr is JHM Consulting. JHM Consulting Logo.</title>
     <path fill="#FFF" stroke="#231F20" d="M87.223 78.834l.019 12.912-32.501 3.983-55.022-8.041 72.189-11.974z"/>
     <path fill="#FFF" stroke="#231F20" d="M87.223 78.834l-.039-21.865 38.376-.166V20.229L72.301.032.854 21.376v66.408l71.054-12.07z"/>

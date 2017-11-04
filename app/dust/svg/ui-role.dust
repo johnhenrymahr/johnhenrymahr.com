@@ -1,7 +1,7 @@
 <div class="svg ">
   <div class="canvas-svg-container" >
-            <canvas width="577" height="389.5"></canvas>
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 577 389.5" role="img" aria-labelledby="ui-role-title ui-role-desc">
+            <canvas width="577" height="390"></canvas>
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 577 390" role="img" aria-labelledby="ui-role-title ui-role-desc">
             <title id="ui-role-title">Position of UI Developer in relation to other roles.</title>
             <desc id="ui-role-desc">
                 A diagram that visually represents this concept as a continuum from user centered, humanistic concerns of UX  (an ultimately business as well) on one end to the technological concerns of the server application on the other with the UI developer placed squarely in the middle of the spectrum. It shows the concerns of the UI Developer overlapping onto both the visual design and application design domains.
