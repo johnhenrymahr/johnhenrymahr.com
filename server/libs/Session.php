@@ -8,12 +8,17 @@ class Session implements SessionInterface
 
     private $lifespan = 1440;
 
+    private $id;
+
     protected $logger;
 
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
         $this->started = session_status() === PHP_SESSION_ACTIVE;
+        if ($this->started) {
+            $this->id = session_id();
+        }
         $system_timeout = @ini_get('session.gc_maxlifetime');
         if ($system_timeout && is_int($system_timeout)) {
             $this->lifespan = $system_timeout;
@@ -26,6 +31,7 @@ class Session implements SessionInterface
         if (!$this->started) {
             $this->started = session_start();
             if ($this->started) {
+                $this->id = session_id();
                 $this->_logSession();
             }
         }
@@ -35,7 +41,7 @@ class Session implements SessionInterface
     public function id()
     {
         if ($this->started) {
-            return session_id();
+            return $this->id;
         }
     }
 
@@ -60,6 +66,7 @@ class Session implements SessionInterface
             'Request URI' => filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING),
             'Remote IP' => filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_SANITIZE_STRING),
             'HTTP Method' => filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_STRING),
+            'Session Id' => $this->id,
             'Time' => date("F j, Y, g:i a"),
         ));
     }
@@ -72,6 +79,7 @@ class Session implements SessionInterface
                 $_SESSION = array();
                 session_destroy(); // destroy session data in storage
                 $this->started = false;
+                unset($this->id);
             } else {
                 $_SESSION['LAST_ACTIVITY'] = time();
             }
