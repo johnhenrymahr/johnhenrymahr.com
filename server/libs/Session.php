@@ -61,13 +61,13 @@ class Session implements SessionInterface
 
     protected function _logSession()
     {
-        $this->logger->log('New Session', array(
+        $this->logger->log('INFO', 'New Session ' . date("F j, Y, g:i a"), array(
             'User Agent' => filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING),
             'Request URI' => filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING),
             'Remote IP' => filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_SANITIZE_STRING),
             'HTTP Method' => filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_STRING),
             'Session Id' => $this->id,
-            'Time' => date("F j, Y, g:i a"),
+            'Request Time' => time(),
         ));
     }
 
