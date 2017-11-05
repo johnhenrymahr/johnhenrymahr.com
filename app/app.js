@@ -92,7 +92,7 @@ module.exports = {
     if (eventValue) {
       track.eventValue = eventValue
     }
-    if (_.isFunction(window, 'ga')) {
+    if (window.ga && _.isFunction(window.ga)) {
       window.ga('send', track)
     }
     if (window.localDev) {
@@ -116,7 +116,7 @@ module.exports = {
       .off('click', 'a, button, input[type=submit]', this.eventTracking)
       .on('click', 'a, button, input[type=submit]', this.eventTracking)
 
-    if (_.isFunction(window, 'ga')) {
+    if (window.ga && _.isFunction(window.ga)) {
       window.ga(function (tracker) {
         var clientId = tracker.get('clientId')
         if (clientId) {
