@@ -130,6 +130,14 @@ gulp.task('build', shell.task([
   'npm run build'
 ]))
 
+gulp.task('version:patch', function () {
+  if (server.name === 'production') {
+    shell.task([
+      'npm version patch'
+    ])
+  }
+})
+
 gulp.task('composer', shell.task([
   'composer install --no-dev --optimize-autoloader'
 ], {
@@ -458,6 +466,7 @@ gulp.task('package', function (callback) {
     'copy:webroot',
     'copy:app',
     'copy:setup',
+    'version:patch',
     'update:index',
     'update:api',
     'update:env',
