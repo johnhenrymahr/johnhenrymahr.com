@@ -16,6 +16,8 @@ var phpunit = require('gulp-phpunit')
 
 var shell = require('gulp-shell')
 
+var exec = require('child_process').exec
+
 var standard = require('gulp-standard')
 
 var confirm = require('confirm-simple')
@@ -130,12 +132,22 @@ gulp.task('build', shell.task([
   'npm run build'
 ]))
 
-gulp.task('version:patch', function () {
+gulp.task('version:patch', function (cb) {
   if (server.name === 'production') {
-    shell.task([
-      'npm version patch'
-    ])
+    exec('npm version patch', function (err, stdout, stderr) {
+      cb(err)
+    })
+  } else {
+    cb()
   }
+})
+
+gulp.task('task', function (cb) {
+  exec('ping localhost', function (err, stdout, stderr) {
+    console.log(stdout)
+    console.log(stderr)
+    cb(err)
+  })
 })
 
 gulp.task('composer', shell.task([
